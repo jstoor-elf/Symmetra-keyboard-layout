@@ -9,3 +9,7 @@ I have deliberately chosen not to use the top row of the voyager, partially in o
 ## Keywords
 
 qwerty, nordic, swedish, symmetrical, 40-keys, 2-row numpad, mouse, win-mac, OS-toggle
+
+## Layers
+
+TBC
