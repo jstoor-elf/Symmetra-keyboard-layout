@@ -8,7 +8,7 @@ I have deliberately chosen not to use the top row of the voyager, partially in o
 
 ## Keywords
 
-qwerty, nordic, swedish, symmetrical, 40-keys, 2-row numpad, mouse, win-mac, OS-toggle
+_qwerty_, _nordic_, _swedish_, _symmetrical_, _40-keys_, _2-row numpad_, _mouse_, _win-mac_, _OS-toggle_
 
 ## Layers
 
