@@ -11,6 +11,12 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
+#define LEFT_OPTION_KEY_INDEX 10
+#define RIGHT_OPTION_KEY_INDEX 11
+#define LEFT_CTRL_KEY_INDEX 12
+#define RIGHT_CTRL_KEY_INDEX 13
+#define CAPS_LOCK_KEY_INDEX 18
+
 /* ######### ENUMS ######### */
 
 enum layers {
@@ -37,7 +43,6 @@ enum custom_keycodes {
   U_MARK_ALL,
   U_MARK_LINE,
   U_MARK_WORD,
-  U_MARK_SMART,
   U_DOC_LEFT,
   U_DOC_DOWN,
   U_DOC_UP,
@@ -58,21 +63,10 @@ typedef enum {
   OS_MAC,
 } os_t;
 
-typedef enum {
-  ENC_NONE,
-  ENC_PAREN,        // ()
-  ENC_BRACKET,      // []
-  ENC_CURLY,        // {}
-  ENC_ANGLE,        // <>
-  ENC_DOUBLE_QUOTE, // ""
-  ENC_SINGLE_QUOTE  // ''
-} enclosure_t;
-
 /* ######### GLOBAL VARIABLES ######### */
 
 os_t current_os; // Used for storing info about the os
-bool capslock_active = false; // Used for setting color for caps key led
-bool waiting_for_enclosure = false; // Used to mark text within encolusre: (), {}, [], <>, "". ''
+bool capslock_active = false; // Used for setting color for caps key lede
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
 
 /* ######### KEYMAPS ######### */
@@ -96,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          U_FIND_PREV,    U_FIND_NEXT,     U_SEARCH,     U_REPLACE,     U_REPLACE_ALL,                                    KC_NO,          U_DOC_LEFT,     U_DOC_DOWN,     U_DOC_UP,       U_DOC_RIGHT,    KC_NO,          
     KC_NO,          U_UNDO,         U_REDO,          U_COPY,       U_PASTE,       U_SAVE,                                           KC_NO,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_NO,          
-    KC_NO,          U_MARK_ALL,     U_MARK_LINE,     U_MARK_WORD,  U_MARK,        U_MARK_SMART,                                     KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
+    KC_NO,          U_MARK_ALL,     U_MARK_LINE,     U_MARK_WORD,  MOD_LSFT,      KC_NO,                                            KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
                                                                    MO(5),         KC_TRANSPARENT,                                   KC_TRANSPARENT, MO(5)
   ),
   [SYSTEM] = LAYOUT_voyager(
@@ -227,6 +221,12 @@ void keyboard_post_init_user(void) {
   // Example: set OS based on EEPROM value
   uint8_t saved_os = ee_read_byte(EECONFIG_OS_MODE); // Example: set OS based on EEPROM value
   
+  // If EEPROM is uninitialized, set default to Windows (0), it is 255 if un
+  if (saved_os > 1) {
+      saved_os = 0;
+      ee_write_byte(EECONFIG_OS_MODE, saved_os);
+  }
+
   if (saved_os == 1) {
       current_os = OS_MAC;
   } else {
@@ -250,6 +250,7 @@ RGB hsv_to_rgb_with_value(HSV hsv) {
 }
 
 void set_layer_color(int layer) {
+  // Set the layer color from ledmap
   for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) { 
     HSV hsv = {
       .h = pgm_read_byte(&ledmap[layer][i][0]),
@@ -258,10 +259,12 @@ void set_layer_color(int layer) {
     };
     
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
+      // Endarken the layer
+      rgb_matrix_set_color( i, 0, 0, 0 );
     } else {
-        RGB rgb = hsv_to_rgb_with_value(hsv);
-        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+      // Value from ledmap
+      RGB rgb = hsv_to_rgb_with_value(hsv);
+      rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
   }
 }
@@ -269,91 +272,50 @@ void set_layer_color(int layer) {
 bool rgb_matrix_indicators_user(void) {
   // Called each RGB frame to set custom per-layer or per-key LED colors
   
-  if (rawhid_state.rgb_control) {
+  // Do we have a valid rgb control object? If, not we do nothing.
+  if (rawhid_state.rgb_control.mode != RGB_MATRIX_NONE) {
     return false;
   }
 
   uint8_t layer = biton32(layer_state);
 
-  if (!keyboard_config.disable_layer_led && layer <= MOUSE) {
-    
-    // Set color for layer
+  if (layer <= MOUSE && !keyboard_config.disable_layer_led) {
+    // Set the base layer color from
     set_layer_color(layer);
 
-    // TODO
-    // Write logic for win/mac visualzation
+    if (layer == ALPHA) {
+      
+      if (capslock_active) {
+        // Set specific red color for capslock key, only on alpha
+        RGB rgb = hsv_to_rgb_with_value((HSV){255, 0, 0});
+        rgb_matrix_set_color(CAPS_LOCK_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+      }
 
-    // Set spedific color for capslock key
-    if (capslock_active && layer == ALPHA) {
-      RGB rgb = hsv_to_rgb_with_value((HSV){255, 0, 0});
-      rgb_matrix_set_color(18, rgb.r, rgb.g, rgb.b);
+      if (current_os == OS_MAC) {
+        // Set Option keys yellow for Mac on alpha
+        RGB rgb = hsv_to_rgb_with_value((HSV){255, 255, 0});
+        rgb_matrix_set_color(LEFT_OPTION_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(RIGHT_OPTION_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+      } else {
+        // Set Ctrl keys blue for Windows on alpha
+        RGB rgb = hsv_to_rgb_with_value((HSV){0, 0, 255});
+        rgb_matrix_set_color(LEFT_CTRL_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(RIGHT_CTRL_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+      }
     }
-
   } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-    rgb_matrix_set_color_all(0, 0, 0);
+    // Endarken the layer
+    rgb_matrix_set_color_all( 0, 0, 0 );
   }
 
   return true;
 }
 
-/* ######### KEY MAPPING HELPERS ######### */
-
-enclosure_t map_key_to_enclosure(uint16_t keycode) {
-  switch (keycode) {
-    case KC_LPRN: 
-    case SE_LPRN: 
-      return ENC_PAREN;
-    case KC_LBRC: 
-    case SE_LBRC: 
-      return ENC_BRACKET;
-    case KC_LCBR: 
-    case SE_LCBR: 
-      return ENC_CURLY;
-    case KC_LABK:             
-      return ENC_ANGLE;
-    case KC_DQUO:             
-      return ENC_DOUBLE_QUOTE;
-    case KC_QUOTE:            
-      return ENC_SINGLE_QUOTE;
-    default:                 
-      return ENC_NONE;
-  }
-}
-
 /* ######### OS-SPECIFIC KEYCODES ######### */
 
+// Handles custom keycodes and shortcuts for Windows OS.
+// Kept separate from macOS for clarity and modularity.
 bool process_keycode_win(uint16_t keycode) {
-  
-  if (waiting_for_enclosure) {
-
-    waiting_for_enclosure = false; 
-    enclosure_t enc = map_key_to_enclosure(keycode);
-
-    switch (enc) {
-      case ENC_PAREN: // Cmd+Shift+M → select inside ()        
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_M)))); 
-        break;
-      case ENC_BRACKET: // Cmd+Shift+B → select inside []      
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_B)))); 
-        break;
-      case ENC_CURLY: // Cmd+Shift+C → select inside {}       
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_C)))); 
-        break;
-      case ENC_ANGLE: // Cmd+Shift+A → select inside <>        
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_A)))); 
-        break;
-      case ENC_DOUBLE_QUOTE: // Cmd+Shift+Q → select inside "" 
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_Q)))); 
-        break;
-      case ENC_SINGLE_QUOTE: // Cmd+Shift+S → select inside ''
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_S)))); 
-        break;
-      default: 
-        break;
-    }
-  
-    return false;
-  }
   
   switch (keycode) {
     case RGB_SLD:          // Set RGB to static mode
@@ -393,13 +355,18 @@ bool process_keycode_win(uint16_t keycode) {
       tap_code16(C(KC_A)); 
       break;
     case U_MARK_LINE:      // Shift + Home -> Shift + End (Select line)
-      SEND_STRING(SS_TAP(X_HOME) SS_DELAY(100) SS_LSFT(SS_TAP(X_END))); 
+      tap_code(KC_HOME);
+      register_code(KC_LSFT);
+      tap_code(KC_END);
+      unregister_code(KC_LSFT);
       break;
     case U_MARK_WORD:      // Ctrl + Shift + Left/Right (Select word)
-      SEND_STRING(SS_LCTL(SS_TAP(X_LEFT)) SS_DELAY(100) SS_LCTL(SS_LSFT(SS_TAP(X_RIGHT)))); 
-      break;
-    case U_MARK_SMART:     // Smart mark (custom logic)
-      waiting_for_enclosure = true; 
+      tap_code16(C(KC_LEFT));
+      register_code(KC_LCTL);
+      register_code(KC_LSFT);
+      tap_code(KC_RIGHT);
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LCTL);
       break;
     case U_DOC_LEFT:       // Home (Go to start of document)
       tap_code(KC_HOME); 
@@ -446,48 +413,16 @@ bool process_keycode_win(uint16_t keycode) {
   return true; // Let QMK handle other keycodes
 }
 
-bool process_enclosure_keycode_mac(uint16_t keycode) {
-  
-}
-
+// Handles custom keycodes and shortcuts for Mac.
+// Kept separate from Windows OS for clarity and modularity.
 bool process_keycode_mac(uint16_t keycode) {
-  
-  if (waiting_for_enclosure) {
-
-    waiting_for_enclosure = false; 
-    enclosure_t enc = map_key_to_enclosure(keycode);
-
-    switch (enc) {
-      case ENC_PAREN: // Cmd+Shift+M → select inside ()        
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_M)))); 
-        break;
-      case ENC_BRACKET: // Cmd+Shift+B → select inside []      
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_B)))); 
-        break;
-      case ENC_CURLY: // Cmd+Shift+C → select inside {}       
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_C)))); 
-        break;
-      case ENC_ANGLE: // Cmd+Shift+A → select inside <>        
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_A)))); 
-        break;
-      case ENC_DOUBLE_QUOTE: // Cmd+Shift+Q → select inside "" 
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_Q)))); 
-        break;
-      case ENC_SINGLE_QUOTE: // Cmd+Shift+S → select inside ''
-        SEND_STRING(SS_LGUI(SS_LSFT(SS_TAP(X_S)))); 
-        break;
-      default: break;
-    }
-
-    return false;
-  }
 
   switch (keycode) {
     case RGB_SLD:          // Set RGB to static mode
       rgblight_mode(1); 
       break;
-    case U_FIND_PREV:      // Shift + F3 (Find previous)
-      tap_code16(S(KC_F3));
+    case U_FIND_PREV:      // Cmd + Shift + G (Find previous)
+    tap_code16(G(S(KC_G)));
       break;
     case U_FIND_NEXT:      // Cmd + G (Find next)
       tap_code16(G(KC_G));
@@ -495,11 +430,11 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_SEARCH:         // Cmd + F (Search)
       tap_code16(G(KC_F));
       break;
-    case U_REPLACE:        // Cmd + H (Replace)
-      tap_code16(G(KC_H));
+    case U_REPLACE:        // Cmd + Option + F (Replace)
+      tap_code16(A(G(KC_F)));
       break;
-    case U_REPLACE_ALL:    // Cmd + Shift + H (Replace all)
-      tap_code16(G(S(KC_H)));
+    case U_REPLACE_ALL:    // Cmd + Option + Shift + F (Replace all)
+      tap_code16(A(G(S(KC_F))));
       break;
     case U_UNDO:           // Cmd + Z (Undo)
       tap_code16(G(KC_Z));
@@ -520,13 +455,20 @@ bool process_keycode_mac(uint16_t keycode) {
       tap_code16(G(KC_A));
       break;
     case U_MARK_LINE:      // Select the current line (Cmd + Left, then Cmd + Shift + Right)
-      SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)) SS_DELAY(100) SS_LGUI(SS_LSFT(SS_TAP(X_RIGHT)))); 
+      tap_code16(G(KC_LEFT));
+      register_code(KC_LGUI);
+      register_code(KC_LSFT);
+      tap_code(KC_RIGHT);
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LGUI);
       break;
     case U_MARK_WORD:      // Select the current word (Alt + Left, then Alt + Shift + Right)
-      SEND_STRING(SS_LALT(SS_TAP(X_LEFT)) SS_DELAY(100) SS_LALT(SS_LSFT(SS_TAP(X_RIGHT)))); 
-      break;
-    case U_MARK_SMART:     // Enable smart marking logic (custom feature)
-      waiting_for_enclosure = true; 
+      tap_code16(A(KC_LEFT));
+      register_code(KC_LALT);
+      register_code(KC_LSFT);
+      tap_code(KC_RIGHT);
+      unregister_code(KC_LSFT);
+      unregister_code(KC_LALT);
       break;
     case U_DOC_LEFT:       // Cmd + Left Arrow (Start of line)
       tap_code16(G(KC_LEFT)); 
