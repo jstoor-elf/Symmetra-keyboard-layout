@@ -1,6 +1,7 @@
 import json
 import yaml
 import re
+import sys
 
 # Mapping from QMK layer indices to readable names
 layer_names = {
@@ -10,25 +11,7 @@ layer_names = {
     3: "SYS",
     4: "NUM",
     5: "MOUSE"
-}
-
-# Load standard QMK JSON
-with open("keymap.json") as f:
-    keymap_json = json.load(f)
-
-# Mapping for mod abbreviations
-mod_map = {
-    "CTL": "Ctrl",
-    "SFT": "Shift",
-    "ALT": "Alt",
-    "GUI": "Gui",
-    "LSFT": "Shift",
-    "RSFT": "Shift",
-    "LCTL": "Ctrl",
-    "RCTL": "Ctrl",
-    "LALT": "Alt",
-    "RALT": "Alt",
-}
+}   
 
 def map_key(key):
     
@@ -215,6 +198,14 @@ def map_keys(keys):
     """
     return [map_key(k) for k in keys]   
 
+# Read JSON from stdin if no filename is passed
+if len(sys.argv) != 2:
+    print("Usage: python qmkjson2yaml.py <keymap.json>")
+    sys.exit(1)
+
+with open(sys.argv[1]) as f:
+    keymap_json = json.load(f)
+
 # Prepare YAML structure
 keymap_yaml = {"keyboard": "ZSA Voyager", "layers": {}}
 
@@ -232,5 +223,4 @@ for i, layer in enumerate(keymap_json["layers"]):
     keymap_yaml["layers"][layer_names.get(i, f"LAYER{i}")] = rows
 
 # Save YAML
-with open("keymap.yaml", "w") as f:
-    yaml.dump(keymap_yaml, f, sort_keys=False, default_flow_style=False)
+yaml.dump(keymap_yaml, sys.stdout, sort_keys=False, default_flow_style=False)
