@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Keymap name
+KEYMAP_NAME="default"
+
+# Generate JSON
+qmk c2json \
+    -kb zsa/voyager \
+    -km "$KEYMAP_NAME" \
+    ~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"/keymap.c \
+    -o keymap.json
