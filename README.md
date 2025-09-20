@@ -1,6 +1,6 @@
 # Symmetra-keyboard-layout
 
-Qmk layout for my zsa voyager.
+QMK layout for my ZSA Voyager.
 
 ## Reasons Behind the Design
  
