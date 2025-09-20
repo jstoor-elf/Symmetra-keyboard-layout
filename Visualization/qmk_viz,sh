@@ -1,7 +1,11 @@
 #!/bin/bash
 
 # Keymap name
-KEYMAP_NAME="my_keymap"
+KEYMAP_NAME="sym_keymap"
+
+# Create symlink
+ln -s ~/Source/Symmetra-keyboard-layout/src/ \
+    ~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
 
 # Generate JSON
 qmk c2json \
@@ -10,3 +14,7 @@ qmk c2json \
     ~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"/keymap.c \
     -o keymap.json \
     --no-cpp
+
+# Destroy symlink
+rm ~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
+
