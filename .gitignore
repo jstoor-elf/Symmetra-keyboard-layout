@@ -1,0 +1,23 @@
+# Ignore everything in Results
+Visualization/Results/*
+
+# But keep SVGs
+!Visualization/Results/*.svg
+
+# QMK build artifacts
+.qmk_build/
+.build/
+*.elf
+*.bin
+*.hex
+
+# macOS system files
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Backup / temp files
+*~
+*.swp
