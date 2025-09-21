@@ -23,7 +23,7 @@ Legend for symbols and special keys used in the SVG:
 
 ## Layers
 
-![Keymap](Visualization/Results/keymap.svg)
+![Keymap](visualization/results/keymap.svg)
 
 ## Visualization Pipeline
 

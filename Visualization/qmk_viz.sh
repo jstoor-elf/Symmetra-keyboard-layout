@@ -7,13 +7,13 @@ SRC_DIR=~/Source/Symmetra-keyboard-layout/src
 LINK_DIR=~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
 
 # Results
-RESULTS_DIR=~/Source/Symmetra-keyboard-layout/Visualization/Results
+RESULTS_DIR=~/Source/Symmetra-keyboard-layout/visualization/results
 JSON_FILE="$RESULTS_DIR/keymap.json"
 YAML_FILE="$RESULTS_DIR/keymap.yaml"
 SVG_FILE="$RESULTS_DIR/keymap.svg"
 
 # Absolute path to Python conversion script
-PYTHON_CONVERTER=~/Source/Symmetra-keyboard-layout/Visualization/qmkjson2yaml.py
+PYTHON_CONVERTER=~/Source/Symmetra-keyboard-layout/visualization/qmkjson2yaml.py
 
 # Always clean up symlink when script exits
 trap 'rm -f "$LINK_DIR"' EXIT
