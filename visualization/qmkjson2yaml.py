@@ -13,214 +13,186 @@ layer_names = {
     5: "MOUSE"
 }   
 
-def map_key(key):
-    
-    # Mod-Tap (MT)
+# Modifier keys
+modifier_map = {
+    "MOD_LCTL": "Ctrl",
+    "MOD_RCTL": "Ctrl",    
+    "MOD_LSFT": "Shift",
+    "MOD_RSFT": "Shift",
+    "MOD_LALT": "Alt",
+    "MOD_RALT": "Alt",
+    "MOD_LGUI": "GUI",
+    "MOD_RGUI": "GUI",
+}
+
+# Special / one-shot keys
+special_keys = {
+    "KC_NO": "∅",
+    "KC_TRANSPARENT": "↓",
+    "KC_BSPC": "Backspace",
+    "OSM(MOD_LSFT)": "Caps Letter",
+    "CW_TOGG": "Caps Word",
+    "QK_LLCK": "Lock Layer",
+}
+
+# Swedish letter keys
+swedish_letters = {
+    "SE_ADIA": "Ä",
+    "SE_OSLH": "Ö",
+    "SE_AA": "Å",
+}
+
+# Symbol keys
+symbol_keys = {
+    "SE_QUES": "?",
+    "SE_LESS": "<",
+    "SE_GRTR": ">",
+    "SE_MINS": "-",
+    "SE_PIPE": "|",
+    "SE_CIRC": "^",
+    "SE_LCBR": "{",
+    "SE_RCBR": "}",
+    "SE_DLR": "$",
+    "SE_ACUT": "´",
+    "SE_GRV": "`",
+    "SE_ASTR": "*",
+    "SE_SLSH": "/",
+    "SE_EQL": "=",
+    "SE_AMPR": "&",
+    "SE_LPRN": "(",
+    "SE_RPRN": ")",
+    "SE_SCLN": ";",
+    "SE_DQUO": '"',
+    "SE_BSLS": "\\",
+    "SE_TILD": "~",
+    "SE_PLUS": "+",
+    "SE_LBRC": "[",
+    "SE_RBRC": "]",
+    "SE_AT": "@",
+    "SE_UNDS": "_",
+    "SE_COLN": ":",
+    "SE_APOS": "'",
+    "KC_PERC": "%",
+    "KC_EXLM": "!",
+    "KC_HASH": "#",
+    "KC_COMMA": ",",
+    "KC_DOT": ".",
+}
+
+# RGB keys
+rgb_map = {
+    "TOGGLE_LAYER_COLOR": "RGB Dance",
+    "RGB_VAD": "RGB Down",
+    "RGB_VAI": "RGB Up",
+    "RGB_TOG": "RGB Mute",
+}
+
+# Audio keys
+audio_map = {
+    "KC_AUDIO_VOL_DOWN": "Volume Down",
+    "KC_AUDIO_VOL_UP": "Volume Up",
+    "KC_AUDIO_MUTE": "Mute"
+}
+
+# Mouse keys
+mouse_map = {
+    "KC_MS_BTN1": "Left Click",
+    "KC_MS_BTN2": "Right Click",
+    "KC_MS_BTN3": "Middle Click",
+    "KC_MS_UP": "Mouse Up",
+    "KC_MS_DOWN": "Mouse Down",
+    "KC_MS_LEFT": "Mouse Left",
+    "KC_MS_RIGHT": "Mouse Right",    
+    "KC_MS_WH_UP": "Mouse Wheel Up",
+    "KC_MS_WH_DOWN": "Mouse Wheel Down",
+    "KC_MS_WH_LEFT": "Mouse Wheel Left",
+    "KC_MS_WH_RIGHT": "Mouse Wheel Right",
+}
+
+# Merge all lookup dictionaries
+lookup_map = {
+    **modifier_map, 
+    **special_keys,
+    **swedish_letters,
+    **symbol_keys, 
+    **rgb_map, 
+    **audio_map, 
+    **mouse_map
+}
+
+def map_special_tap(key: str) -> str | None:
+    """
+    Handles Mod-Tap (MT), Layer-Tap (LT), and Momentary layer (MO) keys.
+    Returns None if the key is not one of these types.
+    """
+
+    # Mod-Tap: MT(mod, key)
     mt_match = re.match(r"MT\(([^,]+),\s*([^)]+)\)", key)
     if mt_match:
-        mod, tap_key = mt_match.groups()
-        tap_text = map_key(tap_key).split("\n")[0]
-        mod_text = map_key(mod).split("\n")[0]
-        return f"{tap_text}\n▷{mod_text}"
-    
-    # Layer Tap (LT)
+        mod, tap = mt_match.groups()
+        return f"{map_key(tap).splitlines()[0]}\n▷{map_key(mod).splitlines()[0]}"
+
+    # Layer-Tap: LT(layer_index, key)
     lt_match = re.match(r"LT\((\d+),\s*([^)]+)\)", key)
     if lt_match:
-        layer_index, tap_key = lt_match.groups()
-        layer_index = int(layer_index)
-        tap_text = map_key(tap_key).split("\n")[0]  # main key text
-        layer_text = layer_names.get(layer_index, f"LAYER{layer_index}").upper()
-        return f"{tap_text}\n▷{layer_text}"
+        layer_index, tap = lt_match.groups()
+        return f"{map_key(tap).splitlines()[0]}\n▷{layer_names.get(int(layer_index), f'LAYER{layer_index}').upper()}"
 
-
-    # Layer toggle / momentary
+    # Momentary layer: MO(layer_index)
     mo_match = re.match(r"MO\((\d+)\)", key)
     if mo_match:
         layer_index = int(mo_match.group(1))
-        return f"▷{layer_names.get(layer_index, f"LAYER{layer_index}")}"       
-
-    if key.startswith("MOD_"):
-        mod_name = key[5:]
-        match mod_name:
-            case "CTL":
-                return "Ctrl"
-            case "SFT":
-                return "Shift"
-            case _:
-                return mod_name.title()
-
-    # No keys and transparent keys
-    if key == "KC_NO":
-        return "∅"
-    if key == "KC_TRANSPARENT":
-        return "↓"     
-
-    # Caps
-    if key == "OSM(MOD_LSFT)":
-        return "Caps Letter"    
-    if key == "CW_TOGG":
-        return "Caps Word"  
+        return f"▷{layer_names.get(layer_index, f'LAYER{layer_index}')}"
     
-    # Lock layer
-    if key == "QK_LLCK":
-        return "Lock Layer"  
+    return None
 
-    # Swedish letters
-    if key == "SE_ADIA":
-       return "Ä"  
-    if key == "SE_OSLH": 
-       return "Ö"  
-    if key == "SE_AA":
-       return "Å" 
-          
-    # Symbols
-    if key == "SE_QUES":
-        return "?"
-    if key == "SE_LESS":
-        return "<"
-    if key == "SE_GRTR":
-        return ">"
-    if key == "SE_MINS":
-        return "-"
-    if key == "SE_PIPE":
-        return "|"
-    if key == "SE_CIRC":
-        return "^"
-    if key == "SE_LCBR":
-        return "{"
-    if key == "SE_RCBR":
-        return "}"
-    if key == "SE_DLR":
-        return "$"
-    if key == "SE_ACUT":
-        return "´"
-    if key == "SE_GRV":
-        return "`"
-    if key == "SE_ASTR":
-        return "*"
-    if key == "SE_SLSH":
-        return "/"
-    if key == "SE_EQL":
-        return "="
-    if key == "SE_AMPR":
-        return "&"
-    if key == "SE_LPRN":
-        return "("
-    if key == "SE_RPRN":
-        return ")"
-    if key == "SE_SCLN":
-        return ";"
-    if key == "SE_DQUO":
-        return '"'
-    if key == "SE_BSLS":
-        return "\\"
-    if key == "SE_TILD":
-        return "~"
-    if key == "SE_PLUS":
-        return "+"
-    if key == "SE_LBRC":
-        return "["
-    if key == "SE_RBRC":
-        return "]"
-    if key == "SE_AT":
-        return "@"
-    if key == "SE_UNDS":
-        return "_"
-    if key == "SE_COLN":
-        return ":"
-    if key == "SE_APOS":
-        return "'"
-    if key == "KC_PERC":
-        return "%"
-    if key == "KC_EXLM":
-        return "!"
-    if key == "KC_HASH":
-        return "#"
-    if key == "KC_COMMA":
-        return ","
-    if key == "KC_DOT":
-        return "."   
+def map_key(key: str) -> str:
+    """Map a QMK keycode to a human-readable string."""
     
-    # Media symbols
-    if key.startswith("KC_MEDIA_"):
-        return key[9:].replace("_", " ").title()  
-     # Media keys
-    if key.startswith("KC_AUDIO_"):
-        return key[9:].replace("_", " ").title()         
-    if key.startswith("KC_BSPC"):
-        return "Backspace"
+    # Check special MT / LT / MO keys
+    if (special_tap := map_special_tap(key)):
+        return special_tap    
+
+    # Lookup in merged dictionary
+    if key in lookup_map:
+        return lookup_map[key] 
  
-    # RGB
-    if key == "TOGGLE_LAYER_COLOR":
-        return "RGB Dance"
-    if key.startswith("RGB_"):
-        btn_name = key[4:]
-        match btn_name:
-            case "VAD":
-                return "RGB Down"
-            case "VAI":
-                return "RGB Up"
-            case "TOG":
-                return "RGB Mute"                                
-            case _:
-                return f"{btn_name.title()}"
-
-    # Mouse
-    if key.startswith("KC_MS_"):
-        if "WH" in key:
-            return f"Mouse Wheel {key[9:].title()}"
-        btn_name = key[6:]
-        match btn_name:
-            case "BTN1":
-                return "Left Click"
-            case "BTN2":
-                return "Right Click"
-            case "BTN3":
-                return "Middle Click"                                
-            case _:
-                return f"Mouse {btn_name.title()}"
-   
-    # Qmk defined keys
-    if key.startswith("KC_"):
-       return key[3:].capitalize()
-
-    # My defined keys       
-    if key.startswith("U_"):
-       return key[2:].replace("_", " ").title()    
+    # Prefix-based keys
+    for prefix in ("KC_", "U_"):
+        if key.startswith(prefix):
+            return key.removeprefix(prefix).replace("_", " ").title()
 
     return key
 
-# Map a list of keys
-def map_keys(keys):
-    """
-    Takes a list of keys and applies map_key to each element.
-    Returns a new list with mapped keys.
-    """
-    return [map_key(k) for k in keys]   
+def map_keys(keys: list[str]) -> list[str]:
+    """Map a list of keys using map_key."""
 
-# Read JSON from stdin if no filename is passed
-if len(sys.argv) != 2:
-    print("Usage: python qmkjson2yaml.py <keymap.json>")
-    sys.exit(1)
+    return [map_key(k) for k in keys]
 
-with open(sys.argv[1]) as f:
-    keymap_json = json.load(f)
+def map_layer(layer: list[str]) -> list[list[str]]:
+    """Convert flat layer list to 5 rows (4 main + 1 thumb)."""
 
-# Prepare YAML structure
-keymap_yaml = {"keyboard": "ZSA Voyager", "layers": {}}
+    rows = [map_keys(layer[r*12:(r+1)*12]) for r in range(4)]
+    rows.append(map_keys(layer[48:51] + layer[51:54]))
+    return rows
 
-# Reshape each layer
-for i, layer in enumerate(keymap_json["layers"]):
-    rows = []
-    # Main 4 rows of 12 keys each
-    for r in range(4):
-        rows.append(map_keys(layer[r*12:(r+1)*12]))
-       
-    # Fifth row: thumb keys, 3 on left and 3 on right
-    thumb_row = layer[48:51] + layer[51:54]  # left 3 + right 3
-    rows.append(map_keys(thumb_row))
+def main():
+    """Load JSON keymap, convert to readable YAML, and write YAML to stdout."""
 
-    keymap_yaml["layers"][layer_names.get(i, f"LAYER{i}")] = rows
+    if len(sys.argv) != 2:
+        print("Usage: python qmkjson2yaml.py <keymap.json>")
+        sys.exit(1)
 
-# Save YAML
-yaml.dump(keymap_yaml, sys.stdout, sort_keys=False, default_flow_style=False)
+    with open(sys.argv[1]) as f:
+        keymap_json = json.load(f)
+
+    keymap_yaml = {"keyboard": "ZSA Voyager", "layers": {}}
+
+    for i, layer in enumerate(keymap_json["layers"]):
+        keymap_yaml["layers"][layer_names.get(i, f"LAYER{i}")] = map_layer(layer)
+
+    yaml.dump(keymap_yaml, sys.stdout, sort_keys=False, default_flow_style=False)
+
+
+if __name__ == "__main__":
+    main()
