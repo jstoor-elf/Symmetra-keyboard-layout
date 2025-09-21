@@ -178,23 +178,23 @@ layers:
     - "\u2193"
     - Mute
     - "\u2205"
-    - "\u2205"
+    - Os Search
     - "\u2205"
     - "\u2193"
     - "\u2205"
     - "\u2205"
-    - "\u2205"
+    - Lock Screen
   - - "\u2205"
     - RGB Down
     - RGB Up
-    - RGB Mute
     - RGB Dance
+    - RGB Mute
     - "\u2205"
-    - "\u2205"
-    - Os Search
     - Screenshot
-    - Lock Screen
-    - Toggle Os
+    - "\u2205"
+    - "\u2205"
+    - "\u2205"
+    - "\u2205"
     - "\u2205"
   - - "\u2205"
     - Prev Track
@@ -202,12 +202,12 @@ layers:
     - Play Pause
     - Stop
     - "\u2205"
-    - "\u2205"
     - Emojis
     - "\u2205"
     - "\u2205"
     - "\u2205"
     - "\u2205"
+    - Toggle Os
   - - "\u2205"
     - "\u2205"
     - "\u2205"

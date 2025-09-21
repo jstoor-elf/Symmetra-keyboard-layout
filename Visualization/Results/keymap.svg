@@ -908,7 +908,9 @@ path.combo {
 </g>
 <g transform="translate(560, 112)" class="key keypos-18">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">∅</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Os</tspan><tspan x="0" dy="1.2em">Search</tspan>
+</text>
 </g>
 <g transform="translate(616, 101)" class="key keypos-19">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -928,7 +930,9 @@ path.combo {
 </g>
 <g transform="translate(840, 106)" class="key keypos-23">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">∅</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Lock</tspan><tspan x="0" dy="1.2em">Screen</tspan>
+</text>
 </g>
 <g transform="translate(28, 162)" class="key keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -949,13 +953,13 @@ path.combo {
 <g transform="translate(196, 140)" class="key keypos-27">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">Mute</tspan>
+<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">Dance</tspan>
 </text>
 </g>
 <g transform="translate(252, 157)" class="key keypos-28">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">Dance</tspan>
+<tspan x="0" dy="-0.6em">RGB</tspan><tspan x="0" dy="1.2em">Mute</tspan>
 </text>
 </g>
 <g transform="translate(308, 168)" class="key keypos-29">
@@ -964,29 +968,23 @@ path.combo {
 </g>
 <g transform="translate(560, 168)" class="key keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">∅</text>
+<text x="0" y="0" class="key tap"><tspan style="font-size: 70%">Screenshot</tspan></text>
 </g>
 <g transform="translate(616, 157)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Os</tspan><tspan x="0" dy="1.2em">Search</tspan>
-</text>
+<text x="0" y="0" class="key tap">∅</text>
 </g>
 <g transform="translate(672, 140)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap"><tspan style="font-size: 70%">Screenshot</tspan></text>
+<text x="0" y="0" class="key tap">∅</text>
 </g>
 <g transform="translate(728, 151)" class="key keypos-33">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Lock</tspan><tspan x="0" dy="1.2em">Screen</tspan>
-</text>
+<text x="0" y="0" class="key tap">∅</text>
 </g>
 <g transform="translate(784, 162)" class="key keypos-34">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Toggle</tspan><tspan x="0" dy="1.2em">Os</tspan>
-</text>
+<text x="0" y="0" class="key tap">∅</text>
 </g>
 <g transform="translate(840, 162)" class="key keypos-35">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1024,11 +1022,11 @@ path.combo {
 </g>
 <g transform="translate(560, 224)" class="key keypos-42">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">∅</text>
+<text x="0" y="0" class="key tap">Emojis</text>
 </g>
 <g transform="translate(616, 213)" class="key keypos-43">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">Emojis</text>
+<text x="0" y="0" class="key tap">∅</text>
 </g>
 <g transform="translate(672, 196)" class="key keypos-44">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -1044,7 +1042,9 @@ path.combo {
 </g>
 <g transform="translate(840, 218)" class="key keypos-47">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">∅</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Toggle</tspan><tspan x="0" dy="1.2em">Os</tspan>
+</text>
 </g>
 <g transform="translate(309, 290) rotate(30.0)" class="key keypos-48">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>

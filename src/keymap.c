@@ -97,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [SYSTEM] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_TRANSPARENT,KC_AUDIO_MUTE,KC_NO,                                           KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          RGB_VAD,        RGB_VAI,        RGB_TOG,        TOGGLE_LAYER_COLOR,KC_NO,                                       KC_NO,          U_OS_SEARCH,    U_SCREENSHOT,   U_LOCK_SCREEN,  U_TOGGLE_OS,    KC_NO,          
-    KC_NO,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,  KC_NO,                              KC_NO,          U_EMOJIS,       KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_TRANSPARENT,KC_AUDIO_MUTE,KC_NO,                                           U_OS_SEARCH,    KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          U_LOCK_SCREEN,          
+    KC_NO,          RGB_VAD,        RGB_VAI,        TOGGLE_LAYER_COLOR, RGB_TOG, KC_NO,                                             U_SCREENSHOT,   KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,  KC_NO,                              U_EMOJIS,       KC_NO,          KC_NO,          KC_NO,          KC_NO,          U_TOGGLE_OS,          
                                                                    KC_NO,         KC_NO,                                            KC_NO,          KC_NO
   ),
   [NUMBER] = LAYOUT_voyager(
@@ -187,9 +187,9 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {0,0,0},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {270,112,158}, {270,112,158}, {50,225,167}, {50,225,167}, {0,0,0},
-    {0,0,0}, {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
+    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
     {0,0,0}, {0,0,0}
   },
 
