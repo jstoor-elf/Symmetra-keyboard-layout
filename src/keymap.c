@@ -23,11 +23,11 @@
 
 enum layers {
   ALPHA,
-  SYMBOL,
-  NAVIGATION,  
-  SYSTEM,
-  NUMBER,
-  MOUSE
+  SYM,
+  NAV,  
+  NUM,
+  MOUSE,
+  SYS  
 };
 
 enum custom_keycodes {
@@ -57,6 +57,7 @@ enum custom_keycodes {
   U_OS_SEARCH,
   U_LOCK_SCREEN,
   U_EMOJIS,
+  U_THUMBS_UP_EMOJI,
   U_TOGGLE_OS,
 };
 
@@ -76,33 +77,26 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    OSM(MOD_LSFT),  KC_Q,           LT(4, KC_W),    LT(3, KC_E),    KC_R,           KC_T,                                           KC_Y,           KC_U,           LT(3, KC_I),    LT(4, KC_O),    KC_P,           KC_ESCAPE,      
+    OSM(MOD_LSFT),  KC_Q,           LT(3, KC_W),    LT(5, KC_E),    KC_R,           KC_T,                                           KC_Y,           KC_U,           LT(5, KC_I),    LT(3, KC_O),    KC_P,           KC_ESCAPE,      
     CW_TOGG,        MT(MOD_LALT, KC_A),MT(MOD_LGUI, KC_S),MT(MOD_LCTL, KC_D),MT(MOD_LSFT, KC_F),KC_G,                               KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_RCTL, KC_K),MT(MOD_RGUI, KC_L),MT(MOD_RALT, SE_OSLH),SE_ADIA,        
     KC_CAPS,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         SE_AA,          KC_DELETE,      
                                                                     LT(1, KC_TAB),  LT(2, KC_ENTER),                                LT(2, KC_SPACE), LT(1, KC_BSPC)
   ),
-  [SYMBOL] = LAYOUT_voyager(
+  [SYM] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          SE_QUES,        SE_LESS,        SE_GRTR,        SE_MINS,        SE_PIPE,                                        SE_CIRC,        SE_LCBR,        SE_RCBR,        SE_DLR,         SE_ACUT,        SE_GRV,         
     KC_PERC,        KC_EXLM,        SE_ASTR,        SE_SLSH,        SE_EQL,         SE_AMPR,                                        KC_HASH,        SE_LPRN,        SE_RPRN,        SE_SCLN,        SE_DQUO,        SE_BSLS,        
     KC_NO,          SE_TILD,        SE_PLUS,        SE_LBRC,        SE_RBRC,        SE_AT,                                          SE_UNDS,        SE_COLN,        KC_COMMA,       KC_DOT,         SE_APOS,        KC_NO,          
                                                                     KC_TRANSPARENT, KC_NO,                                          KC_NO, KC_TRANSPARENT
   ),
-  [NAVIGATION] = LAYOUT_voyager(
+  [NAV] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          U_FIND_PREV,    U_FIND_NEXT,     U_SEARCH,     U_REPLACE,     U_REPLACE_ALL,                                    KC_NO,          U_DOC_LEFT,     U_DOC_DOWN,     U_DOC_UP,       U_DOC_RIGHT,    KC_NO,          
     KC_NO,          U_UNDO,         U_REDO,          U_COPY,       U_PASTE,       U_SAVE,                                           KC_NO,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_NO,          
     KC_NO,          U_MARK_ALL,     U_MARK_LINE,     U_MARK_WORD,  MOD_LSFT,      KC_NO,                                            KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
-                                                                   MO(5),         KC_TRANSPARENT,                                   KC_TRANSPARENT, MO(5)
+                                                                   MO(4),         KC_TRANSPARENT,                                   KC_TRANSPARENT, MO(4)
   ),
-  [SYSTEM] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_TRANSPARENT,KC_AUDIO_MUTE,KC_NO,                                           U_OS_SEARCH,    KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          U_LOCK_SCREEN,          
-    KC_NO,          RGB_VAD,        RGB_VAI,        TOGGLE_LAYER_COLOR, RGB_TOG, KC_NO,                                             U_SCREENSHOT,   KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,  KC_NO,                              U_EMOJIS,       KC_NO,          KC_NO,          KC_NO,          KC_NO,          U_TOGGLE_OS,          
-                                                                   KC_NO,         KC_NO,                                            KC_NO,          KC_NO
-  ),
-  [NUMBER] = LAYOUT_voyager(
+  [NUM] = LAYOUT_voyager(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          
     KC_F5,          KC_F4,          KC_F3,          KC_F2,          KC_F1,          KC_NO,                                          KC_NO,          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           
@@ -116,6 +110,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_MS_WH_RIGHT, KC_NO,          
                                                                     KC_TRANSPARENT, KC_NO,                                          KC_NO,          KC_TRANSPARENT
   ),
+  [SYS] = LAYOUT_voyager(
+    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_NO,          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_TRANSPARENT,KC_AUDIO_MUTE,KC_NO,                                           U_THUMBS_UP_EMOJI, KC_NO,       KC_TRANSPARENT, KC_NO,          KC_NO,          U_LOCK_SCREEN,          
+    KC_NO,          RGB_VAD,        RGB_VAI,        TOGGLE_LAYER_COLOR, RGB_TOG, KC_NO,                                             KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,  KC_NO,                              U_EMOJIS,       KC_NO,          KC_NO,          KC_NO,          KC_NO,          U_TOGGLE_OS,          
+                                                                   KC_NO,         KC_NO,                                            U_OS_SEARCH,    U_SCREENSHOT
+  ),  
 };
 
 /* ######### LED MAPS ######### */
@@ -151,7 +152,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {160, 200, 171}, {160, 200, 171}
   },
 
-  [SYMBOL] = {
+  [SYM] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
     {0,0,0}, {270,150,167}, {95,100,153}, {95,100,153}, {100,110,160}, {270,150,167},
     {270,150,167}, {95,100,153}, {100,110,160}, {100,110,160}, {95,100,153}, {270,150,167},
@@ -165,7 +166,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {0,0,0}
   },
 
-  [NAVIGATION] = {
+  [NAV] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
     {0,0,0}, {180,250,241}, {180,250,241}, {180,250,241}, {180,250,241}, {180,250,241},
     {0,0,0}, {120,200,216}, {120,200,216}, {120,200,216}, {120,200,216}, {120,200,216},
@@ -179,21 +180,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {160,200,171}
   },
 
-  [SYSTEM] = {
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {100,230,158}, {100,230,158}, {0,0,0}, {100,230,158}, {0,0,0},
-    {0,0,0}, {180,230,216}, {180,230,216}, {180,230,216}, {180,230,216}, {0,0,0},
-    {0,0,0}, {170,255,255}, {170,255,255}, {170,255,255}, {170,255,255}, {0,0,0},
-    {0,0,0}, {0,0,0},
-    // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
-    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
-    {0,0,0}, {0,0,0}
-  },
-
-  [NUMBER] = {
+  [NUM] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
@@ -221,6 +208,20 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {100,220,162}, {100,220,162}, {100,220,162}, {100,220,162}, {0,0,0},
     {0,0,0}, {140,230,207}, {140,230,207}, {140,230,207}, {140,230,207}, {0,0,0},
     {0,0,0}, {0,0,0}
+  },
+
+  [SYS] = {
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {100,230,158}, {100,230,158}, {0,0,0}, {100,230,158}, {0,0,0},
+    {0,0,0}, {180,230,216}, {180,230,216}, {180,230,216}, {180,230,216}, {0,0,0},
+    {0,0,0}, {170,255,255}, {170,255,255}, {170,255,255}, {170,255,255}, {0,0,0},
+    {0,0,0}, {0,0,0},
+    // Right side
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
+    {270,112,158}, {270,112,158}
   },
 
 };
@@ -417,6 +418,9 @@ bool process_keycode_win(uint16_t keycode) {
     case U_EMOJIS:         // GUI + . (Open emoji picker)
       tap_code16(G(KC_DOT)); 
       break;
+    case U_THUMBS_UP_EMOJI:
+      SEND_STRING("👍");
+      break;          
     case U_TOGGLE_OS:
       current_os = OS_MAC;
       ee_write_byte(EECONFIG_OS_MODE, 1);
@@ -519,6 +523,9 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_EMOJIS:         // Ctrl + Cmd + Space (Emoji picker)
       tap_code16(C(G(KC_SPACE))); 
       break;
+    case U_THUMBS_UP_EMOJI:
+      SEND_STRING("👍");
+      break;      
     case U_TOGGLE_OS:
       current_os = OS_WINDOWS;
       ee_write_byte(EECONFIG_OS_MODE, 0);     

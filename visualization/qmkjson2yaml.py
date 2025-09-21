@@ -8,9 +8,9 @@ layer_names = {
     0: "ALPHA",
     1: "SYM",
     2: "NAV",
-    3: "SYS",
-    4: "NUM",
-    5: "MOUSE"
+    3: "NUM",
+    4: "MOUSE",
+    5: "SYS",    
 }   
 
 # Modifier keys
@@ -189,10 +189,9 @@ def main():
     keymap_yaml = {"keyboard": "ZSA Voyager", "layers": {}}
 
     for i, layer in enumerate(keymap_json["layers"]):
-        keymap_yaml["layers"][layer_names.get(i, f"LAYER{i}")] = map_layer(layer)
+        keymap_yaml["layers"][layer_names.get(i)] = map_layer(layer)
 
     yaml.dump(keymap_yaml, sys.stdout, sort_keys=False, default_flow_style=False)
-
 
 if __name__ == "__main__":
     main()
