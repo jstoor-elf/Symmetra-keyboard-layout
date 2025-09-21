@@ -187,15 +187,11 @@ path.combo {
 </g>
 <g transform="translate(140, 95)" class="key keypos-14">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">W</tspan><tspan x="0" dy="1.2em">▷NUM</tspan>
-</text>
+<text x="0" y="0" class="key tap">W</text>
 </g>
 <g transform="translate(196, 84)" class="key keypos-15">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">E</tspan><tspan x="0" dy="1.2em">▷SYS</tspan>
-</text>
+<text x="0" y="0" class="key tap">E</text>
 </g>
 <g transform="translate(252, 101)" class="key keypos-16">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -215,15 +211,11 @@ path.combo {
 </g>
 <g transform="translate(672, 84)" class="key keypos-20">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">I</tspan><tspan x="0" dy="1.2em">▷SYS</tspan>
-</text>
+<text x="0" y="0" class="key tap">C_I</text>
 </g>
 <g transform="translate(728, 95)" class="key keypos-21">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">O</tspan><tspan x="0" dy="1.2em">▷NUM</tspan>
-</text>
+<text x="0" y="0" class="key tap">O</text>
 </g>
 <g transform="translate(784, 106)" class="key keypos-22">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -254,7 +246,7 @@ path.combo {
 <g transform="translate(196, 140)" class="key keypos-27">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">D</tspan><tspan x="0" dy="1.2em">▷Ctrl</tspan>
+<tspan x="0" dy="-0.6em">D</tspan><tspan x="0" dy="1.2em">▷NUM</tspan>
 </text>
 </g>
 <g transform="translate(252, 157)" class="key keypos-28">
@@ -280,13 +272,13 @@ path.combo {
 <g transform="translate(672, 140)" class="key keypos-32">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">K</tspan><tspan x="0" dy="1.2em">▷Ctrl</tspan>
+<tspan x="0" dy="-0.6em">K</tspan><tspan x="0" dy="1.2em">▷NUM</tspan>
 </text>
 </g>
 <g transform="translate(728, 151)" class="key keypos-33">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">L</tspan><tspan x="0" dy="1.2em">▷GUI</tspan>
+<tspan x="0" dy="-0.6em">C_L</tspan><tspan x="0" dy="1.2em">▷GUI</tspan>
 </text>
 </g>
 <g transform="translate(784, 162)" class="key keypos-34">
@@ -309,11 +301,15 @@ path.combo {
 </g>
 <g transform="translate(140, 207)" class="key keypos-38">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">X</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">X</tspan><tspan x="0" dy="1.2em">▷SYS</tspan>
+</text>
 </g>
 <g transform="translate(196, 196)" class="key keypos-39">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">C</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">C</tspan><tspan x="0" dy="1.2em">▷Ctrl</tspan>
+</text>
 </g>
 <g transform="translate(252, 213)" class="key keypos-40">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -333,11 +329,15 @@ path.combo {
 </g>
 <g transform="translate(672, 196)" class="key keypos-44">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">,</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">,</tspan><tspan x="0" dy="1.2em">▷Ctrl</tspan>
+</text>
 </g>
 <g transform="translate(728, 207)" class="key keypos-45">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">.</text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">.</tspan><tspan x="0" dy="1.2em">▷SYS</tspan>
+</text>
 </g>
 <g transform="translate(784, 218)" class="key keypos-46">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>

@@ -77,9 +77,9 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    OSM(MOD_LSFT),  KC_Q,           LT(3, KC_W),    LT(5, KC_E),    KC_R,           KC_T,                                           KC_Y,           KC_U,           LT(5, KC_I),    LT(3, KC_O),    KC_P,           KC_ESCAPE,      
-    CW_TOGG,        MT(MOD_LALT, KC_A),MT(MOD_LGUI, KC_S),MT(MOD_LCTL, KC_D),MT(MOD_LSFT, KC_F),KC_G,                               KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_RCTL, KC_K),MT(MOD_RGUI, KC_L),MT(MOD_RALT, SE_OSLH),SE_ADIA,        
-    KC_CAPS,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         SE_AA,          KC_DELETE,      
+    OSM(MOD_LSFT),  KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           C_I,            KC_O,    KC_P,                  KC_ESCAPE,      
+    CW_TOGG,        MT(MOD_LALT, KC_A),MT(MOD_LGUI, KC_S),LT(3, KC_D),MT(MOD_LSFT, KC_F),KC_G,                                      KC_H,        MT(MOD_RSFT, KC_J),LT(3, KC_K),  MT(MOD_RGUI, C_L),MT(MOD_RALT, SE_OSLH),SE_ADIA,        
+    KC_CAPS,        KC_Z,           LT(5, KC_X),    MT(MOD_LCTL, KC_C),      KC_V,           KC_B,                                  KC_N,           KC_M,   MT(MOD_RCTL, KC_COMMA), LT(5, KC_DOT),  SE_AA,KC_DELETE,      
                                                                     LT(1, KC_TAB),  LT(2, KC_ENTER),                                LT(2, KC_SPACE), LT(1, KC_BSPC)
   ),
   [SYM] = LAYOUT_voyager(
