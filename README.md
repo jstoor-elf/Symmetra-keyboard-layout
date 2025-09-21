@@ -27,7 +27,7 @@ Legend for symbols and special keys used in the SVG:
 
 ## Visualization Pipeline
 
-This pipeline turns your QMK keymap.c into a visual representation of all layers. qmk c2json generates a JSON file, a custom Python script (qmkjson2yaml.py) converts it to YAML with readable layer names and symbolic keys, and keymap-drawer produces the SVG.
+The QMK keymap.c is converted into a visual representation of all layers. qmk c2json generates a JSON file, a custom Python script (qmkjson2yaml.py) converts it to YAML with readable layer names and symbolic keys, and keymap-drawer produces the SVG.
 
 The shell script qmk_viz.sh automates all steps: creating a temporary symlink, generating JSON and YAML, and producing the SVG.
 
