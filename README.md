@@ -4,7 +4,7 @@ QMK layout for my ZSA Voyager.
 
 ## Keywords
 
-_qwerty_, _nordic_, _swedish_, _symmetrical_, _40-keys_, _homerow mods_,  _2-row numpad_, _mouse_, _win-mac_, _OS-toggle_
+`qwerty`, `nordic`, `swedish`, `symmetrical`, `40-keys`, `homerow mods`, `2-row numpad`, `mouse`, `win-mac`, `OS-toggle`
 
 ## Design choices
  
@@ -12,14 +12,14 @@ I have deliberately chosen not to use the top row of the Voyager, partly to _sta
 
 ## Key Translations
 
-The following table explains the meaning of symbols and keys in the SVG that might not be immediately obvious:
+Legend for symbols and special keys used in the SVG:
 
 | Symbol       | Meaning                      |
 |--------------|------------------------------|
 | ∅            | No key                       |
 | ↓            | Transparent / Inheritance    |
 | ▷            | Layer toggle or modifier     |
-| Caps Letter  | One-Shot Modifiers           |
+| Caps Letter  | One-Shot shift modifier      |
 
 ## Layers
 
@@ -27,10 +27,12 @@ The following table explains the meaning of symbols and keys in the SVG that mig
 
 ## Visualization Pipeline
 
-The pipeline converts your QMK `keymap.c` into a visual representation of all layers. First, the official QMK CLI tool `qmk c2json` generates a JSON file from the keymap. A custom Python script (`qmkjson2yaml.py`) then converts this JSON into YAML, adding readable layer names and symbolic representations for special keys. Finally, the external tool `keymap-drawer` reads the YAML and produces an SVG diagram of the keyboard. All generated files are saved in the `Results` folder.  
+This pipeline turns your QMK keymap.c into a visual representation of all layers. qmk c2json generates a JSON file, a custom Python script (qmkjson2yaml.py) converts it to YAML with readable layer names and symbolic keys, and keymap-drawer produces the SVG.
+
+The shell script qmk_viz.sh automates all steps: creating a temporary symlink, generating JSON and YAML, and producing the SVG.
 
 **Dependencies:**  
 - QMK CLI (`qmk c2json`)  
-- Python 3  
 - `keymap-drawer` Python module  
 - Custom Python script: `qmkjson2yaml.py`  
+- Shell script: `qmk_viz.sh`
