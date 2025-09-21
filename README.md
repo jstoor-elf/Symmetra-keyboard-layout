@@ -12,4 +12,4 @@ _qwerty_, _nordic_, _swedish_, _symmetrical_, _40-keys_, _homerow mods_,  _2-row
 
 ## Layers
 
-TBC
+![Keymap](Visualization/Results/keymap.svg)
