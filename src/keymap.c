@@ -25,8 +25,8 @@ enum layers {
   ALPHA,
   SYM,
   NAV,  
-  NUM,
   MOUSE,
+  NUM,
   SYS  
 };
 
@@ -44,7 +44,8 @@ enum custom_keycodes {
   U_SAVE,
   U_MARK_ALL,
   U_MARK_LINE,
-  U_MARK_WORD,
+  U_MARK_WORD_PREV,
+  U_MARK_WORD_NEXT,  
   U_DOC_LEFT,
   U_DOC_DOWN,
   U_DOC_UP,
@@ -55,10 +56,19 @@ enum custom_keycodes {
   U_WORD_RIGHT, 
   U_SCREENSHOT,
   U_OS_SEARCH,
-  U_LOCK_SCREEN,
   U_EMOJIS,
   U_THUMBS_UP_EMOJI,
   U_TOGGLE_OS,
+  U_TERMINAL,
+  U_BROWSER,
+  U_TOGGLE_OS,
+  U_LOCK_SCREEN,
+  U_PREV_WINDOW,
+  U_NEXT_WINDOW,
+  U_WINDOW_SWITCHER,
+  U_PREV_TAB,
+  U_NEXT_TAB,  
+  U_NEW_TAB    
 };
 
 typedef enum {
@@ -76,47 +86,47 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    OSM(MOD_LSFT),  KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,                                           KC_Y,           KC_U,           C_I,            KC_O,    KC_P,                  KC_ESCAPE,      
-    CW_TOGG,        MT(MOD_LALT, KC_A),MT(MOD_LGUI, KC_S),LT(3, KC_D),MT(MOD_LSFT, KC_F),KC_G,                                      KC_H,           MT(MOD_RSFT, KC_J),LT(3, KC_K),  MT(MOD_RGUI, C_L),MT(MOD_RALT, SE_OSLH),SE_ADIA,        
-    KC_CAPS,        KC_Z,           KC_X,    MT(MOD_LCTL, KC_C),    LT(5, KC_V),    KC_B,                                           KC_N,           LT(5, KC_M),   MT(MOD_RCTL, KC_COMMA), KC_DOT,  SE_AA,KC_DELETE,      
-                                                                    LT(1, KC_TAB),  LT(2, KC_ENTER),                                LT(2, KC_SPACE),LT(1, KC_BSPC)
+    KC_NO,          KC_NO,              KC_NO,              KC_NO,              KC_NO,              KC_NO,                         KC_NO,           KC_NO,              KC_NO,               KC_NO,                 KC_NO,                 KC_NO,          
+    OSM(MOD_LSFT),  KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,                          KC_Y,            KC_U,               KC_I,                KC_O,                  KC_P,                  KC_ESCAPE,      
+    CW_TOGG,        MT(MOD_LALT, KC_A), LT(4, KC_S),        MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,                          KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K),  LT(4, KC_L),           MT(MOD_RALT, SE_OSLH), SE_ADIA,        
+    KC_CAPS,        LT(5, KC_Z),        MT(MOD_LGUI, KC_X), KC_C,               KC_V,               KC_B,                          KC_N,            KC_M,               KC_COMMA,            MT(MOD_RGUI,  KC_DOT), LT(5, SE_AA),          KC_DELETE,      
+                                                                                LT(1, KC_TAB),      LT(2, KC_ENTER),               LT(2, KC_SPACE), LT(1, KC_BSPC)
   ),
   [SYM] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          SE_QUES,        SE_LESS,        SE_GRTR,        SE_MINS,        SE_PIPE,                                        SE_CIRC,        SE_LCBR,        SE_RCBR,        SE_DLR,         SE_ACUT,        SE_GRV,         
-    KC_PERC,        KC_EXLM,        SE_ASTR,        SE_SLSH,        SE_EQL,         SE_AMPR,                                        KC_HASH,        SE_LPRN,        SE_RPRN,        SE_SCLN,        SE_DQUO,        SE_BSLS,        
-    KC_NO,          SE_TILD,        SE_PLUS,        SE_LBRC,        SE_RBRC,        SE_AT,                                          SE_UNDS,        SE_COLN,        KC_COMMA,       KC_DOT,         SE_APOS,        KC_NO,          
-                                                                    KC_TRANSPARENT, KC_NO,                                          KC_NO, KC_TRANSPARENT
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,           KC_NO,         KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    KC_NO,          SE_QUES,        SE_LESS,        SE_GRTR,        SE_MINS,        SE_PIPE,                                       SE_CIRC,        SE_LCBR,        SE_RCBR,        SE_DLR,         SE_ACUT,        SE_GRV,         
+    KC_PERC,        KC_EXLM,        SE_ASTR,        SE_SLSH,        SE_EQL,         SE_AMPR,                                       KC_HASH,        SE_LPRN,        SE_RPRN,        SE_SCLN,        SE_DQUO,        SE_BSLS,        
+    KC_NO,          SE_TILD,        SE_PLUS,        SE_LBRC,        SE_RBRC,        SE_AT,                                         SE_UNDS,        SE_COLN,        KC_COMMA,       KC_DOT,         SE_APOS,        KC_NO,          
+                                                                    KC_NO,          KC_NO,                                         KC_NO,          KC_NO
   ),
   [NAV] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          U_FIND_PREV,    U_FIND_NEXT,     U_SEARCH,     U_REPLACE,     U_REPLACE_ALL,                                    KC_NO,          U_DOC_LEFT,     U_DOC_DOWN,     U_DOC_UP,       U_DOC_RIGHT,    KC_NO,          
-    KC_NO,          U_UNDO,         U_REDO,          U_COPY,       U_PASTE,       U_SAVE,                                           KC_NO,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_NO,          
-    KC_NO,          U_MARK_ALL,     U_MARK_LINE,     U_MARK_WORD,  MOD_LSFT,      KC_NO,                                            KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
-                                                                   MO(4),         KC_TRANSPARENT,                                   KC_TRANSPARENT, MO(4)
-  ),
-  [NUM] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_TRANSPARENT, KC_NO,          KC_NO,          
-    KC_F5,          KC_F4,          KC_F3,          KC_F2,          KC_F1,          KC_NO,                                          KC_NO,          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           
-    KC_F10,         KC_F9,          KC_F8,          KC_F7,          KC_F6,          KC_NO,                                          KC_NO,          KC_6,           KC_7,           KC_8,           KC_9,           KC_NO,          
-                                                                    KC_F11,         KC_F12,                                         KC_NO,          KC_0
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,            KC_NO,            KC_NO,                                     KC_NO,          KC_NO,         KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    KC_NO,          U_FIND_PREV,    U_FIND_NEXT,    U_SEARCH,         U_REPLACE,        U_REPLACE_ALL,                             KC_NO,          U_DOC_LEFT,     U_DOC_DOWN,     U_DOC_UP,       U_DOC_RIGHT,    KC_NO,          
+    KC_NO,          U_UNDO,         U_REDO,         U_COPY,           U_PASTE,          U_SAVE,                                    KC_NO,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_NO,          
+    KC_NO,          U_MARK_ALL,     U_MARK_LINE,    U_MARK_WORD_PREV, U_MARK_WORD_NEXT, MOD_LSFT,                                  KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
+                                                                      MO(3),            KC_NO,                                     KC_NO,          MO(3)
   ),
   [MOUSE] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          QK_LLCK,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     KC_NO,                                          KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_MS_WH_RIGHT, KC_NO,          
-                                                                    KC_TRANSPARENT, KC_NO,                                          KC_NO,          KC_TRANSPARENT
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_MS_WH_LEFT,  KC_MS_UP,       KC_MS_WH_RIGHT, KC_NO,          KC_NO,          
+    KC_NO,          QK_LLCK,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     KC_NO,                                         KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_MS_WH_DOWN,  KC_NO,          KC_MS_WH_UP,    KC_NO,          KC_NO,          
+                                                                    KC_NO,          KC_NO,                                         KC_NO,          KC_NO
+  ),  
+  [NUM] = LAYOUT_voyager(
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_F5,          KC_F4,          KC_F3,          KC_F2,          KC_F1,          KC_NO,                                         KC_NO,          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           
+    KC_F10,         KC_F9,          KC_F8,          KC_F7,          KC_F6,          KC_NO,                                         KC_NO,          KC_6,           KC_7,           KC_8,           KC_9,           KC_NO,          
+                                                                    KC_F11,         KC_F12                                         KC_NO,          KC_0
   ),
   [SYS] = LAYOUT_voyager(
-    KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_NO,          KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_TRANSPARENT,KC_AUDIO_MUTE,KC_NO,                                           U_THUMBS_UP_EMOJI, KC_NO,       KC_TRANSPARENT, KC_NO,          KC_NO,          U_LOCK_SCREEN,          
-    KC_NO,          RGB_VAD,        RGB_VAI,        TOGGLE_LAYER_COLOR, RGB_TOG, KC_NO,                                             KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_STOP,  KC_NO,                              U_EMOJIS,       KC_NO,          KC_NO,          KC_NO,          KC_NO,          U_TOGGLE_OS,          
-                                                                   KC_NO,         KC_NO,                                            U_OS_SEARCH,    U_SCREENSHOT
-  ),  
+    KC_NO,          KC_NO,               KC_NO,               KC_NO,               KC_NO,          KC_NO,                          KC_NO,          KC_NO,          KC_NO,          KC_NO,             KC_NO,          KC_NO,
+    KC_NO,          KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_NO,               KC_AUDIO_MUTE,  KC_NO,                          KC_NO,          U_OS_SEARCH,    U_TERMINAL,     U_BROWSER,         U_EMOJIS,       U_LOCK_SCREEN,          
+    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,        KC_NO,                          KC_NO,          U_PREV_WINDOW,  U_NEXT_WINDOW,  U_WINDOW_SWITCHER, KC_NO,          KC_NO,          
+    KC_NO,          KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_STOP,  KC_NO,                          KC_NO,          U_PREV_TAB,     U_NEXT_TAB,     U_NEW_TAB,         KC_NO,          U_TOGGLE_OS,          
+                                                                                   KC_NO,          KC_NO,                          U_SCREENSHOT,   U_THUMBS_UP_EMOJI
+  )
 };
 
 /* ######### LED MAPS ######### */
@@ -180,21 +190,6 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {160,200,171}
   },
 
-  [NUM] = {
-    // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {0,0,0},
-    {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {0,0,0},
-    {35, 220, 253}, {35, 220, 253},
-    // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {150,220,209}, {150,220,209}, {150,220,209}, {150,220,209}, {150,220,209},
-    {0,0,0}, {150,220,209}, {150,220,209}, {150,220,209}, {150,220,209}, {0,0,0},
-    {0,0,0}, {150,220,209}
-  },
-
   [MOUSE] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
@@ -210,6 +205,21 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {0,0,0}
   },
 
+  [NUM] = {
+    // Left side
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {0,0,0},
+    {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {35, 220, 253}, {0,0,0},
+    {35, 220, 253}, {35, 220, 253},
+    // Right side
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {150,220,209}, {150,220,209}, {150,220,209}, {150,220,209}, {150,220,209},
+    {0,0,0}, {150,220,209}, {150,220,209}, {150,220,209}, {150,220,209}, {0,0,0},
+    {0,0,0}, {150,220,209}
+  }, 
+
   [SYS] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
     {0,0,0}, {100,230,158}, {100,230,158}, {0,0,0}, {100,230,158}, {0,0,0},
@@ -222,7 +232,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
     {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
     {270,112,158}, {270,112,158}
-  },
+  }
 
 };
 

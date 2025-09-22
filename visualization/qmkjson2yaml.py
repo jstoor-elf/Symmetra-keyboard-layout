@@ -8,9 +8,9 @@ layer_names = {
     0: "ALPHA",
     1: "SYM",
     2: "NAV",
-    3: "NUM",
-    4: "MOUSE",
-    5: "SYS",    
+    3: "MOUSE",
+    4: "NUM/FUNC",
+    5: "SYS"       
 }   
 
 # Modifier keys
@@ -27,8 +27,7 @@ modifier_map = {
 
 # Special / one-shot keys
 special_keys = {
-    "KC_NO": "∅",
-    "KC_TRANSPARENT": "↓",
+    "KC_NO": " ",
     "KC_BSPC": "Backspace",
     "OSM(MOD_LSFT)": "Caps Letter",
     "CW_TOGG": "Caps Word",
@@ -91,22 +90,49 @@ rgb_map = {
 audio_map = {
     "KC_AUDIO_VOL_DOWN": "Volume Down",
     "KC_AUDIO_VOL_UP": "Volume Up",
-    "KC_AUDIO_MUTE": "Mute"
+    "KC_AUDIO_MUTE": "Volume Mute"
+}
+
+# Mouse keys
+navigation_map = {
+    "KC_LEFT": "⭠",
+    "KC_DOWN": "⭣",
+    "KC_UP": "⭡",
+    "KC_RIGHT": "⭢",
+    "U_DOC_LEFT": "Doc ⭠",
+    "U_DOC_DOWN": "Doc ⭣",
+    "U_DOC_UP": "Doc ⭡",
+    "U_DOC_RIGHT": "Doc ⭢",   
+    "U_WORD_LEFT": "Word ⭠",
+    "U_PARA_DOWN": "Para ⭣",
+    "U_PARA_UP": " Para ⭡",
+    "U_WORD_RIGHT": "Word ⭢", 
 }
 
 # Mouse keys
 mouse_map = {
-    "KC_MS_BTN1": "Left Click",
-    "KC_MS_BTN2": "Right Click",
-    "KC_MS_BTN3": "Middle Click",
-    "KC_MS_UP": "Mouse Up",
-    "KC_MS_DOWN": "Mouse Down",
-    "KC_MS_LEFT": "Mouse Left",
-    "KC_MS_RIGHT": "Mouse Right",    
-    "KC_MS_WH_UP": "Mouse Wheel Up",
-    "KC_MS_WH_DOWN": "Mouse Wheel Down",
-    "KC_MS_WH_LEFT": "Mouse Wheel Left",
-    "KC_MS_WH_RIGHT": "Mouse Wheel Right",
+    "KC_MS_BTN1": "Mouse Click L",
+    "KC_MS_BTN2": "Mouse Click R",
+    "KC_MS_BTN3": "Mouse Click M",
+    "KC_MS_UP": "Mouse ⭡",
+    "KC_MS_DOWN": "Mouse ⭣",
+    "KC_MS_LEFT": "Mouse ⭠",
+    "KC_MS_RIGHT": "Mouse ⭢",    
+    "KC_MS_WH_UP": "Mouse Wheel ⭡",
+    "KC_MS_WH_DOWN": "Mouse Wheel ⭣",
+    "KC_MS_WH_LEFT": "Mouse Wheel ⭠",
+    "KC_MS_WH_RIGHT": "Mouse Wheel ⭢",
+}
+
+systems_map = {
+    "U_EMOJIS": "😀😎 🤔😭",
+    "U_THUMBS_UP_EMOJI": "👍",
+    "U_SCREENSHOT": "📸",       
+    "U_OS_SEARCH": "🔍",
+    "U_TERMINAL": "📟",     
+    "U_BROWSER": "🌐",
+    "U_LOCK_SCREEN": "🔒",     
+    "U_TOGGLE_OS": "🔄 🪟🍏"    
 }
 
 # Merge all lookup dictionaries
@@ -117,7 +143,9 @@ lookup_map = {
     **symbol_keys, 
     **rgb_map, 
     **audio_map, 
-    **mouse_map
+    **mouse_map,
+    **navigation_map,    
+    **systems_map
 }
 
 def map_special_tap(key: str) -> str | None:
