@@ -21,11 +21,11 @@ Legend for symbols and special keys used in the SVG:
 | 🔍           | Windows search / Spotlight   | 
 | 📟           | Open terminal                | 
 | 🌐           | Open browser                 |
+| 😀😎🤔😭     | Emoji menu                   |
 | 🔒           | Lock screen                  |
 | 🔄🪟🍏       | Switch OS (Win/Mac)          |
 | 📸           | Screenshot                   |
 | 👍           | Thumbs up emoji              | 
-| 😀😎🤔😭     | Emoji menu                   |
 
 ## Layers
 
