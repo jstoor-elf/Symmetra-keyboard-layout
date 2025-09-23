@@ -62,6 +62,7 @@ enum custom_keycodes {
   U_BROWSER,
   U_TOGGLE_OS,
   U_LOCK_SCREEN,
+  U_APP_VIEW,
   U_PREV_APP,
   U_NEXT_APP,
   U_PREV_APP_WINDOW,
@@ -123,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYS] = LAYOUT_voyager(
     KC_NO,          KC_NO,               KC_NO,               KC_NO,               KC_NO,               KC_NO,                     KC_NO,          KC_NO,          KC_NO,          KC_NO,             KC_NO,             KC_NO,
     KC_NO,          KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_NO,               KC_AUDIO_MUTE,       KC_NO,                     KC_NO,          U_PREV_TAB,     U_NEXT_TAB,     KC_NO,             KC_NO,             U_LOCK_SCREEN,          
-    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,             KC_NO,                     KC_NO,          U_PREV_APP,     U_NEXT_APP,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, KC_NO,          
+    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,             KC_NO,                     U_APP_VIEW,     U_PREV_APP,     U_NEXT_APP,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, KC_NO,          
     KC_NO,          KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP,       KC_MEDIA_PLAY_PAUSE, KC_NO,                     KC_NO,          U_OS_SEARCH,    U_TERMINAL,     U_BROWSER,         U_EMOJIS,          U_TOGGLE_OS,          
                                                                                    KC_NO,               KC_NO,                     U_THUMBS_UP_EMOJI, U_SCREENSHOT
   )  
@@ -435,19 +436,21 @@ bool process_keycode_win(uint16_t keycode) {
       current_os = OS_MAC;
       ee_write_byte(EECONFIG_OS_MODE, 1);
       return false;
+    case U_APP_VIEW:
+      tap_code16(G(KC_TAB));
+      break;        
     case U_PREV_APP:
       tap_code16(S(A(KC_TAB)));
+      break; 
     case U_NEXT_APP:
       tap_code16(A(KC_TAB));
+      break; 
     case: U_PREV_APP_WINDOW:
       tap_code16(S(C(KC_TAB)));
       break; 
     case: U_NEXT_APP_WINDOW,
       tap_code16(C(KC_TAB));
-      break; 
-    case U_APP_VIEW:
-      tap_code16(G(KC_TAB));
-      break;   
+      break;  
     case U_PREV_TAB:
       tap_code16(S(C(KC_TAB)));
       break; 
@@ -559,6 +562,9 @@ bool process_keycode_mac(uint16_t keycode) {
       current_os = OS_WINDOWS;
       ee_write_byte(EECONFIG_OS_MODE, 0);     
       return false;;   
+    case U_APP_VIEW:
+      tap_code16(C(KC_UP));
+      break;        
     case U_PREV_APP:
       tap_code16(S(G(KC_TAB)));
       break; 
@@ -570,10 +576,7 @@ bool process_keycode_mac(uint16_t keycode) {
       break; 
     case: U_NEXT_APP_WINDOW,
       tap_code16(G(KC_GRV));
-      break;   
-    case U_APP_VIEW:
-      tap_code16(C(KC_UP));
-      break;      
+      break;       
     case U_PREV_TAB:
       tap_code16(G(A(KC_LEFT)));
       break; 
