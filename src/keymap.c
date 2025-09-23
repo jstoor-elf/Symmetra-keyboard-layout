@@ -122,10 +122,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [SYS] = LAYOUT_voyager(
     KC_NO,          KC_NO,               KC_NO,               KC_NO,               KC_NO,               KC_NO,                     KC_NO,          KC_NO,             KC_NO,             KC_NO,       KC_NO,       KC_NO,
-    KC_NO,          KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_NO,               KC_AUDIO_MUTE,       KC_NO,                     KC_NO,          U_PREV_TAB,        U_NEXT_TAB,        U_BROWSER,   KC_NO,       U_LOCK_SCREEN,          
-    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,             KC_NO,                     KC_NO,          U_PREV_APP,        U_NEXT_APP,        U_OS_SEARCH, KC_NO,       KC_NO,          
-    KC_NO,          KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP,       KC_MEDIA_PLAY_PAUSE, KC_NO,                     KC_NO,          U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_TERMINAL,  U_EMOJIS,    U_TOGGLE_OS,          
-                                                                                   KC_NO,               KC_NO,                     U_SCREENSHOT,   U_THUMBS_UP_EMOJI
+    KC_NO,          KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_NO,               KC_AUDIO_MUTE,       KC_NO,                     U_BROWSER,      U_PREV_TAB,        U_NEXT_TAB,        KC_NO,       KC_NO,       U_LOCK_SCREEN,          
+    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,             KC_NO,                     U_OS_SEARCH,    U_PREV_APP,        U_NEXT_APP,        KC_NO,       KC_NO,       U_EMOJIS,          
+    KC_NO,          KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP,       KC_MEDIA_PLAY_PAUSE, KC_NO,                     U_TERMINAL,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, KC_NO,       KC_NO,       U_TOGGLE_OS,          
+                                                                                   KC_NO,               KC_NO,                     U_THUMBS_UP_EMOJI, U_SCREENSHOT
   )  
 };
 
