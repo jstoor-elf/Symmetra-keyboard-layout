@@ -153,12 +153,16 @@ systems_map = {
     "U_BROWSER": "🌐",
     "U_LOCK_SCREEN": "🔒",     
     "U_TOGGLE_OS": "🔄 🪟🍏",  
-    "U_PREV_TAB": "Tab ↶",
-    "U_NEXT_TAB": "Tab ↷",
-    "U_NEW_TAB": "Tab ➕",
     "U_PREV_WINDOW": "Window ↶",
     "U_NEXT_WINDOW": "Window ↷",
-    "U_WINDOW_SWITCHER": "Task viewer"
+    "U_WINDOW_SWITCHER": "Task viewer",
+    "U_PREV_APP": "App ↶",
+    "U_NEXT_APP": "App ↷",
+    "U_PREV_APP_WINDOW": "App Window ↶",        
+    "U_NEXT_APP_WINDOW": "App Window ↷",
+    "U_PREV_TAB": "Tab ↶",
+    "U_NEXT_TAB": "Tab ↷",
+    "U_NEW_TAB": "Tab ➕"
 }
 
 # Merge all lookup dictionaries
