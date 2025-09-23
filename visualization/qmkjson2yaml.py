@@ -108,6 +108,12 @@ play_map = {
 }
 
 # Mouse keys
+editing_map = { 
+    "U_FIND_PREV": "Find ↶",
+    "U_FIND_NEXT": "Find ↷"
+}
+
+# Mouse keys
 navigation_map = {
     "KC_LEFT": "⭠",
     "KC_DOWN": "⭣",
@@ -120,7 +126,7 @@ navigation_map = {
     "U_WORD_LEFT": "Word ⭠",
     "U_PARA_DOWN": "Para ⭣",
     "U_PARA_UP": " Para ⭡",
-    "U_WORD_RIGHT": "Word ⭢", 
+    "U_WORD_RIGHT": "Word ⭢"
 }
 
 # Mouse keys
@@ -165,6 +171,7 @@ lookup_map = {
     **rgb_map, 
     **audio_map, 
     **mouse_map,
+    **editing_map,
     **navigation_map,   
     **play_map, 
     **systems_map
