@@ -44,8 +44,7 @@ enum custom_keycodes {
   U_SAVE,
   U_MARK_ALL,
   U_MARK_LINE,
-  U_MARK_WORD_PREV,
-  U_MARK_WORD_NEXT,  
+  U_MARK_WORD,
   U_DOC_LEFT,
   U_DOC_DOWN,
   U_DOC_UP,
@@ -100,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     KC_NO,          KC_NO,                                         KC_NO,          KC_NO
   ),
   [NAV] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,            KC_NO,            KC_NO,                                     KC_NO,          KC_NO,         KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          U_FIND_PREV,    U_FIND_NEXT,    U_SEARCH,         U_REPLACE,        U_REPLACE_ALL,                             KC_NO,          U_DOC_LEFT,     U_DOC_DOWN,     U_DOC_UP,       U_DOC_RIGHT,    KC_NO,          
-    KC_NO,          U_UNDO,         U_REDO,         U_COPY,           U_PASTE,          U_SAVE,                                    KC_NO,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_NO,          
-    KC_NO,          U_MARK_ALL,     U_MARK_LINE,    U_MARK_WORD_PREV, U_MARK_WORD_NEXT, KC_NO,                                     KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
-                                                                      MO(3),            KC_NO,                                     KC_NO,          MO(3)
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,         KC_NO,          KC_NO,          KC_NO,          KC_NO,
+    KC_NO,          U_FIND_PREV,    U_FIND_NEXT,    U_SEARCH,       U_REPLACE,      U_REPLACE_ALL,                                 KC_NO,          U_DOC_LEFT,     U_DOC_DOWN,     U_DOC_UP,       U_DOC_RIGHT,    KC_NO,          
+    KC_NO,          U_UNDO,         U_REDO,         U_COPY,         U_PASTE,        U_SAVE,                                        KC_NO,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_NO,          
+    KC_NO,          U_MARK_ALL,     U_MARK_LINE,    U_MARK_WORD,    MOD_LSFT,       KC_NO,                                         KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
+                                                                    MO(3),          KC_NO,                                         KC_NO,          MO(3)
   ),
   [MOUSE] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
