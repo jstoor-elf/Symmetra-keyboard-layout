@@ -10,6 +10,10 @@ QMK layout for my ZSA Voyager.
  
 I have deliberately chosen not to use the top row of the Voyager, partly to _stay_ forward-compatible with other 3×6 + thumb key layouts, and partly to reduce finger travel. My mind tends to favor symmetry, so the Mod-Tap and Layer-Tap keys are positioned symmetrically on both sides of the keyboard.
 
+## Layers
+
+![Keymap](visualization/results/keymap.svg)
+
 ## Key Translations
 
 Legend for symbols and special keys used in the SVG:
@@ -26,10 +30,6 @@ Legend for symbols and special keys used in the SVG:
 | 🔄🪟🍏       | Switch OS (Win/Mac)          |
 | 📸           | Screenshot                   |
 | 👍           | Thumbs up emoji              | 
-
-## Layers
-
-![Keymap](visualization/results/keymap.svg)
 
 ## Visualization Pipeline
 
