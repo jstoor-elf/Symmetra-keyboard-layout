@@ -62,15 +62,13 @@ enum custom_keycodes {
   U_BROWSER,
   U_TOGGLE_OS,
   U_LOCK_SCREEN,
-  U_APP_VIEW,
   U_PREV_APP,
   U_NEXT_APP,
   U_PREV_APP_WINDOW,
   U_NEXT_APP_WINDOW,
   U_APP_SWITCHER,
   U_PREV_TAB,
-  U_NEXT_TAB,  
-  U_NEW_TAB    
+  U_NEXT_TAB  
 };
 
 typedef enum {
@@ -123,12 +121,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                     KC_F11,         KC_F12                                         KC_NO,          KC_0
   ),
   [SYS] = LAYOUT_voyager(
-    KC_NO,          KC_NO,               KC_NO,               KC_NO,               KC_NO,               KC_NO,                     KC_NO,          KC_NO,          KC_NO,      KC_NO,             KC_NO,             KC_NO,
-    KC_NO,          KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_NO,               KC_AUDIO_MUTE,       KC_NO,                     KC_NO,          U_OS_SEARCH,    U_TERMINAL, U_BROWSER,         U_EMOJIS,          U_LOCK_SCREEN,          
-    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,             KC_NO,                     U_APP_VIEW,     U_PREV_APP,     U_NEXT_APP, U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, KC_NO,          
-    KC_NO,          KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP,       KC_MEDIA_PLAY_PAUSE, KC_NO,                     KC_NO,          U_PREV_TAB,     U_NEXT_TAB, U_NEW_TAB,         KC_NO,             U_TOGGLE_OS,          
+    KC_NO,          KC_NO,               KC_NO,               KC_NO,               KC_NO,               KC_NO,                     KC_NO,          KC_NO,             KC_NO,             KC_NO,       KC_NO,       KC_NO,
+    KC_NO,          KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_NO,               KC_AUDIO_MUTE,       KC_NO,                     KC_NO,          U_PREV_TAB,        U_NEXT_TAB,        U_BROWSER,   KC_NO,       U_LOCK_SCREEN,          
+    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,             KC_NO,                     KC_NO,          U_PREV_APP,        U_NEXT_APP,        U_OS_SEARCH, KC_NO,       KC_NO,          
+    KC_NO,          KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP,       KC_MEDIA_PLAY_PAUSE, KC_NO,                     KC_NO,          U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_TERMINAL,  U_EMOJIS,    U_TOGGLE_OS,          
                                                                                    KC_NO,               KC_NO,                     U_SCREENSHOT,   U_THUMBS_UP_EMOJI
-  )
+  )  
 };
 
 /* ######### LED MAPS ######### */
@@ -437,9 +435,6 @@ bool process_keycode_win(uint16_t keycode) {
       current_os = OS_MAC;
       ee_write_byte(EECONFIG_OS_MODE, 1);
       return false;
-    case U_APP_VIEW:
-      tap_code16(G(KC_TAB));
-      break;   
     case U_PREV_APP:
       tap_code16(S(A(KC_TAB)));
     case U_NEXT_APP:
@@ -458,10 +453,7 @@ bool process_keycode_win(uint16_t keycode) {
       break; 
     case U_NEXT_TAB:
       tap_code16(C(KC_TAB)); 
-      break;
-    case U_NEW_TAB:
-      tap_code16(C(KC_T));
-      break;           
+      break;     
   }
 
   return true; // Let QMK handle other keycodes
@@ -566,10 +558,7 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_TOGGLE_OS:
       current_os = OS_WINDOWS;
       ee_write_byte(EECONFIG_OS_MODE, 0);     
-      return false;
-    case U_APP_VIEW:
-      tap_code16(C(KC_UP));
-      break;   
+      return false;;   
     case U_PREV_APP:
       tap_code16(S(G(KC_TAB)));
       break; 
@@ -590,9 +579,6 @@ bool process_keycode_mac(uint16_t keycode) {
       break; 
     case U_NEXT_TAB:
       tap_code16(G(A(KC_RGHT)));
-      break;
-    case U_NEW_TAB:
-      tap_code16(G(KC_T));
       break;
   }
 

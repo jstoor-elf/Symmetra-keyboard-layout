@@ -14,7 +14,7 @@ layer_names = {
 }   
 
 # Modifier keys
-modifier_map = {
+modifier_keys = {
     "MOD_LCTL": "Ctrl",
     "MOD_RCTL": "Ctrl",    
     "MOD_LSFT": "Shift",
@@ -35,7 +35,7 @@ special_keys = {
 }
 
 # Swedish letter keys
-swedish_letters = {
+swedish_keys = {
     "SE_ADIA": "Ä",
     "SE_OSLH": "Ö",
     "SE_AA": "Å",
@@ -78,43 +78,16 @@ symbol_keys = {
     "KC_DOT": ".",
 }
 
-# Macro keys
-macro_map = {
-    "U_MARK_WORD_PREV": "Mark Word ↶",
-    "U_MARK_WORD_NEXT": "Mark Word ↷"    
-}
-
-# RGB keys
-rgb_map = {
-    "TOGGLE_LAYER_COLOR": "RGB Dance",
-    "RGB_VAD": "RGB -",
-    "RGB_VAI": "RGB +",
-    "RGB_TOG": "RGB Mute",
-}
-
-# Audio keys
-audio_map = {
-    "KC_AUDIO_VOL_DOWN": "Volume -",
-    "KC_AUDIO_VOL_UP": "Volume +",
-    "KC_AUDIO_MUTE": "Volume Mute"
-}
-
-# Play keys
-play_map = {
-    "KC_MEDIA_PREV_TRACK": "⏮️", 
-    "KC_MEDIA_NEXT_TRACK": "⏭️",
-    "KC_MEDIA_PLAY_PAUSE": "⏯️", 
-    "KC_MEDIA_STOP": "⏹️"
-}
-
-# Mouse keys
-editing_map = { 
+# Editing keys
+editing_keys = { 
     "U_FIND_PREV": "Find ↶",
-    "U_FIND_NEXT": "Find ↷"
+    "U_FIND_NEXT": "Find ↷",
+    "U_MARK_WORD_PREV": "Mark Word ↶",
+    "U_MARK_WORD_NEXT": "Mark Word ↷"     
 }
 
 # Mouse keys
-navigation_map = {
+navigation_keys = {
     "KC_LEFT": "⭠",
     "KC_DOWN": "⭣",
     "KC_UP": "⭡",
@@ -130,7 +103,7 @@ navigation_map = {
 }
 
 # Mouse keys
-mouse_map = {
+mouse_keys = {
     "KC_MS_BTN1": "Mouse Click L",
     "KC_MS_BTN2": "Mouse Click R",
     "KC_MS_BTN3": "Mouse Click M",
@@ -144,7 +117,15 @@ mouse_map = {
     "KC_MS_WH_RIGHT": "Mouse Wheel ⭢",
 }
 
-systems_map = {
+# System keys
+systems_keys = {
+    "RGB_VAI": "RGB +",
+    "RGB_VAD": "RGB -",
+    "RGB_TOG": "RGB Mute",    
+    "KC_MEDIA_PREV_TRACK": "⏮️", 
+    "KC_MEDIA_NEXT_TRACK": "⏭️",
+    "KC_MEDIA_PLAY_PAUSE": "⏯️", 
+    "KC_MEDIA_STOP": "⏹️",   
     "U_EMOJIS": "😀😎 🤔😭",
     "U_THUMBS_UP_EMOJI": "👍",
     "U_SCREENSHOT": "📸",       
@@ -155,30 +136,27 @@ systems_map = {
     "U_TOGGLE_OS": "🔄 🪟🍏",  
     "U_PREV_WINDOW": "Window ↶",
     "U_NEXT_WINDOW": "Window ↷",
-    "U_WINDOW_SWITCHER": "Task viewer",
     "U_PREV_APP": "App ↶",
     "U_NEXT_APP": "App ↷",
     "U_PREV_APP_WINDOW": "App Window ↶",        
     "U_NEXT_APP_WINDOW": "App Window ↷",
     "U_PREV_TAB": "Tab ↶",
     "U_NEXT_TAB": "Tab ↷",
-    "U_NEW_TAB": "Tab ➕"
+    "KC_AUDIO_VOL_DOWN": "Volume -",
+    "KC_AUDIO_VOL_UP": "Volume +",
+    "KC_AUDIO_MUTE": "Volume Mute",
 }
 
 # Merge all lookup dictionaries
 lookup_map = {
-    **modifier_map, 
+    **modifier_keys, 
     **special_keys,
-    **swedish_letters,
+    **swedish_keys,
     **symbol_keys,
-    **macro_map, 
-    **rgb_map, 
-    **audio_map, 
-    **mouse_map,
-    **editing_map,
-    **navigation_map,   
-    **play_map, 
-    **systems_map
+    **editing_keys,
+    **navigation_keys, 
+    **mouse_keys,   
+    **systems_keys
 }
 
 def map_special_tap(key: str) -> str | None:
