@@ -16,10 +16,16 @@ Legend for symbols and special keys used in the SVG:
 
 | Symbol       | Meaning                      |
 |--------------|------------------------------|
-| ∅            | No key                       |
-| ↓            | Transparent / Inheritance    |
 | ▷            | Layer toggle or modifier     |
 | Caps Letter  | One-Shot shift modifier      |
+| 🔍           | Windows search / Spotlight   | 
+| 📟           | Open terminal                | 
+| 🌐           | Open browser                 |
+| 🔒           | Lock screen                  |
+| 🔄🪟🍏       | Switch OS (Win/Mac)          |
+| 📸           | Screenshot                   |
+| 👍           | Thumbs up emoji              | 
+| 😀😎🤔😭     | Emoji menu                   |
 
 ## Layers
 

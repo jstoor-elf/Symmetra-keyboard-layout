@@ -78,19 +78,33 @@ symbol_keys = {
     "KC_DOT": ".",
 }
 
+# Macro keys
+macro_map = {
+    "U_MARK_WORD_PREV": "Mark Word ↶",
+    "U_MARK_WORD_NEXT": "Mark Word ↷"    
+}
+
 # RGB keys
 rgb_map = {
     "TOGGLE_LAYER_COLOR": "RGB Dance",
-    "RGB_VAD": "RGB Down",
-    "RGB_VAI": "RGB Up",
+    "RGB_VAD": "RGB -",
+    "RGB_VAI": "RGB +",
     "RGB_TOG": "RGB Mute",
 }
 
 # Audio keys
 audio_map = {
-    "KC_AUDIO_VOL_DOWN": "Volume Down",
-    "KC_AUDIO_VOL_UP": "Volume Up",
+    "KC_AUDIO_VOL_DOWN": "Volume -",
+    "KC_AUDIO_VOL_UP": "Volume +",
     "KC_AUDIO_MUTE": "Volume Mute"
+}
+
+# Play keys
+play_map = {
+    "KC_MEDIA_PREV_TRACK": "⏮️", 
+    "KC_MEDIA_NEXT_TRACK": "⏭️",
+    "KC_MEDIA_PLAY_PAUSE": "⏯️", 
+    "KC_MEDIA_STOP": "⏹️"
 }
 
 # Mouse keys
@@ -132,7 +146,13 @@ systems_map = {
     "U_TERMINAL": "📟",     
     "U_BROWSER": "🌐",
     "U_LOCK_SCREEN": "🔒",     
-    "U_TOGGLE_OS": "🔄 🪟🍏"    
+    "U_TOGGLE_OS": "🔄 🪟🍏",  
+    "U_PREV_TAB": "Tab ↶",
+    "U_NEXT_TAB": "Tab ↷",
+    "U_NEW_TAB": "Tab ➕",
+    "U_PREV_WINDOW": "Window ↶",
+    "U_NEXT_WINDOW": "Window ↷",
+    "U_WINDOW_SWITCHER": "Task viewer"
 }
 
 # Merge all lookup dictionaries
@@ -140,11 +160,13 @@ lookup_map = {
     **modifier_map, 
     **special_keys,
     **swedish_letters,
-    **symbol_keys, 
+    **symbol_keys,
+    **macro_map, 
     **rgb_map, 
     **audio_map, 
     **mouse_map,
-    **navigation_map,    
+    **navigation_map,   
+    **play_map, 
     **systems_map
 }
 
