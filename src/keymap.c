@@ -11,12 +11,13 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif
 
-// TODO - Will change
 // Used to highlight specific keys
-#define LEFT_OPTION_KEY_INDEX 10
-#define RIGHT_OPTION_KEY_INDEX 11
-#define LEFT_CTRL_KEY_INDEX 12
-#define RIGHT_CTRL_KEY_INDEX 13
+#define W_KEY_INDEX 8
+#define I_KEY_INDEX 34
+#define N_INDEX 44
+#define M_KEY_INDEX 45
+#define A_KEY_INDEX 13
+#define C_INDEX 21
 #define CAPS_LOCK_KEY_INDEX 18
 
 /* ######### ENUMS ######### */
@@ -320,13 +321,15 @@ bool rgb_matrix_indicators_user(void) {
       if (current_os == OS_MAC) {
         // Set Option keys yellow for Mac on alpha
         RGB rgb = hsv_to_rgb_with_value(HSV_MAC_COLOR);
-        rgb_matrix_set_color(LEFT_OPTION_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-        rgb_matrix_set_color(RIGHT_OPTION_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(M_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(A_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(C_KEY_INDEX, rgb.r, rgb.g, rgb.b);
       } else {
         // Set Ctrl keys blue for Windows on alpha
         RGB rgb = hsv_to_rgb_with_value(HSV_WIN_COLOR);
-        rgb_matrix_set_color(LEFT_CTRL_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-        rgb_matrix_set_color(RIGHT_CTRL_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(W_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(I_KEY_INDEX, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(N_KEY_INDEX, rgb.r, rgb.g, rgb.b);
       }
     }
   } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
