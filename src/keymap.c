@@ -1,15 +1,51 @@
 /* ######### INCLUDES ######### */ 
 
 #include "qmk_keyboard.h"
-#include "raw_hid.h"
 #include "version.h"
-#include "i18n.h"
 
 /* ######### DEFINES ######### */
 
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif 
+
+#define SE_OSLH        KC_SCLN
+#define SE_ADIA        KC_QUOT
+#define SE_AA          KC_LBRC
+#define SE_QUES        S(KC_MINS)
+#define SE_LESS        KC_NUBS
+#define SE_GRTR        S(KC_NUBS)
+#define SE_MINS        KC_SLSH
+#define SE_PIPE        ALGR(KC_NUBS)
+#define SE_ASTR        S(KC_NUHS)
+#define SE_SLSH        S(KC_7)
+#define SE_EQL         S(KC_0)
+#define SE_AMPR        S(KC_6)
+#define SE_TILD        ALGR(KC_RBRC)
+#define SE_PLUS        KC_MINS
+#define SE_LBRC        ALGR(KC_8)
+#define SE_RBRC        ALGR(KC_9)
+#define SE_AT          ALGR(KC_2)
+#define SE_CIRC        S(KC_RBRC)
+#define SE_LCBR        ALGR(KC_7)
+#define SE_RCBR        ALGR(KC_0)
+#define SE_DLR         ALGR(KC_4)
+#define SE_ACUT        KC_EQL
+#define SE_GRV         S(KC_EQL)
+#define SE_LPRN        S(KC_8)
+#define SE_RPRN        S(KC_9)
+#define SE_SCLN        S(KC_COMM)
+#define SE_DQUO        S(KC_2)
+#define SE_BSLS        ALGR(KC_MINS)
+#define SE_UNDS        S(KC_SLSH)
+#define SE_COLN        S(KC_DOT)
+#define SE_APOS        KC_NUHS
+#define SE_LESS_MAC    KC_GRV
+#define SE_GRTR_MAC    S(KC_GRV)
+#define SE_PIPE_MAC    ALGR(KC_7)
+#define SE_LCBR_MAC    S(ALGR(KC_8))
+#define SE_RCBR_MAC    S(ALGR(KC_9))
+#define SE_BSLS_MAC    S(ALGR(KC_7))
 
 /* ######### ENUMS ######### */
 
@@ -21,6 +57,7 @@ enum layers {
   NUM,
   SYS  
 };
+
 
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE, 
@@ -52,7 +89,6 @@ enum custom_keycodes {
   U_TOGGLE_OS,
   U_TERMINAL,
   U_BROWSER,
-  U_TOGGLE_OS,
   U_LOCK_SCREEN,
   U_SHOW_APPS,
   U_SHOW_DESKTOP,  
@@ -62,7 +98,7 @@ enum custom_keycodes {
   U_NEXT_APP_WINDOW,
   U_APP_SWITCHER,
   U_PREV_TAB,
-  U_NEXT_TAB  
+  U_NEXT_TAB
 };
 
 typedef enum {
@@ -451,10 +487,10 @@ bool process_keycode_win(uint16_t keycode) {
     case U_NEXT_APP:
       tap_code16(A(KC_TAB));
       break; 
-    case: U_PREV_APP_WINDOW:
+    case U_PREV_APP_WINDOW:
       tap_code16(S(C(KC_TAB)));
       break; 
-    case: U_NEXT_APP_WINDOW,
+    case U_NEXT_APP_WINDOW:
       tap_code16(C(KC_TAB));
       break;  
     case U_PREV_TAB:
@@ -567,7 +603,7 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_TOGGLE_OS:
       current_os = OS_WINDOWS;
       ee_write_byte(EECONFIG_OS_MODE, 0);     
-      return false;;   
+      return false;  
     case U_SHOW_APPS:
       tap_code16(C(KC_UP));
       break;
@@ -580,17 +616,17 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_NEXT_APP:
       tap_code16(G(KC_TAB));  
       break;     
-    case: U_PREV_APP_WINDOW:
+    case U_PREV_APP_WINDOW:
       tap_code16(S(G(KC_GRV)));
       break; 
-    case: U_NEXT_APP_WINDOW,
+    case U_NEXT_APP_WINDOW:
       tap_code16(G(KC_GRV));
       break;       
     case U_PREV_TAB:
       tap_code16(G(A(KC_LEFT)));
       break; 
     case U_NEXT_TAB:
-      tap_code16(G(A(KC_RGHT)));
+      tap_code16(G(A(KC_RIGHT)));
       break;
   }
 
