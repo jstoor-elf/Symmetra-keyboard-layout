@@ -1,18 +1,12 @@
-#undef TAPPING_TERM
-#define TAPPING_TERM 250
+/* ######### TAPPING / HOLD ######### */
+#define TAPPING_TERM 250          // Tap vs hold threshold in ms
+#define PERMISSIVE_HOLD            // More forgiving with tap-hold detection
 
-#define PERMISSIVE_HOLD
+/* ######### USB / MOUSEKEY ######### */
+#define USB_SUSPEND_WAKEUP_DELAY 0  // No delay for waking up from USB suspend
+#define MOUSEKEY_WHEEL_INTERVAL 120 // Interval between wheel movements
+#define MOUSEKEY_WHEEL_MAX_SPEED 6  // Maximum scroll wheel speed
 
-#define USB_SUSPEND_WAKEUP_DELAY 0
-#undef MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 120
-
-#undef MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 6
-
-#define CAPS_LOCK_STATUS
-#define SERIAL_NUMBER "7yA5b/pj7pxW"
-#define LAYER_STATE_16BIT
-
-#define RGB_MATRIX_STARTUP_SPD 60
-
+/* ######### LAYER / CAPS ######### */
+#define CAPS_LOCK_STATUS           // Enable Caps Lock LED / status
+#define LAYER_STATE_16BIT          // Use 16-bit layer state for more layers

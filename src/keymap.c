@@ -58,7 +58,6 @@ enum layers {
   SYS  
 };
 
-
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE, 
   U_FIND_PREV,
