@@ -9,16 +9,7 @@
 
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
-#endif
-
-// Used to highlight specific keys
-#define W_KEY_INDEX 8
-#define I_KEY_INDEX 34
-#define N_INDEX 44
-#define M_KEY_INDEX 45
-#define A_KEY_INDEX 13
-#define C_INDEX 21
-#define CAPS_LOCK_KEY_INDEX 18
+#endif 
 
 /* ######### ENUMS ######### */
 
@@ -111,9 +102,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [MOUSE] = LAYOUT_voyager(
     KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_MS_WH_LEFT,  KC_MS_UP,       KC_MS_WH_RIGHT, KC_NO,          KC_NO,          
-    KC_NO,          QK_LLCK,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     KC_NO,                                         KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_RIGHT,    KC_NO,          KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_MS_WH_DOWN,  KC_NO,          KC_MS_WH_UP,    KC_NO,          KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
+    KC_NO,          QK_LLCK,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     KC_NO,                                         KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    KC_NO,          
+    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_MS_WH_RIGHT, KC_NO,          
                                                                     KC_NO,          KC_NO,                                         KC_NO,          KC_NO
   ),  
   [NUM] = LAYOUT_voyager(
@@ -132,6 +123,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )  
 };
 
+const uint8_t W_KEY_INDEX         = 8;
+const uint8_t I_KEY_INDEX         = 34;
+const uint8_t N_INDEX             = 44;
+const uint8_t M_KEY_INDEX         = 45;
+const uint8_t A_KEY_INDEX         = 13;
+const uint8_t C_INDEX             = 21;
+const uint8_t CAPS_LOCK_KEY_INDEX = 18;
+
 /* ######### LED MAPS ######### */
 
 // Using HSV (Hue, Saturation, Value) instead of direct RGB allows for:
@@ -143,10 +142,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // 3. More intuitive color mapping: HSV aligns better with how humans perceive colors,
 //    making it easier to pick visually distinct and aesthetically pleasing colors
 //    for different layers, statuses (e.g., Caps Lock), or OS-specific keys.
-
-const HSV HSV_WIN_COLOR = {170, 255, 255};
-const HSV HSV_MAC_COLOR = {43, 255, 255};
-const HSV HSV_CAPSLOCK_COLOR = {0, 255, 255};
 
 const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
@@ -238,6 +233,10 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   }
 
 };
+
+const HSV HSV_WIN_COLOR = {170, 255, 255};
+const HSV HSV_MAC_COLOR = {43, 255, 255};
+const HSV HSV_CAPSLOCK_COLOR = {0, 255, 255};
 
 /* ######### INITIALIZATION HOOK ######### */
 
