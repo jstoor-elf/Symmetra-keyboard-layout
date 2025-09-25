@@ -119,11 +119,11 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
-    XXXXXXX,       XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,         /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,              XXXXXXX,               XXXXXXX,          
-    OSM(MOD_LSFT), KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,            /*|*/KC_Y,            KC_U,               KC_I,               KC_O,                 KC_P,                  KC_ESCAPE,      
-    CW_TOGG,       MT(MOD_LALT, KC_A), LT(4, KC_S),        MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,            /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), LT(4, KC_L),          MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    KC_CAPS,       LT(5, KC_Z),        MT(MOD_LGUI, KC_X), KC_C,               KC_V,               KC_B,            /*|*/KC_N,            KC_M,               KC_COMMA,           MT(MOD_RGUI, KC_DOT), LT(5, SE_AA),          KC_DELETE,      
-                                                                                LT(1, KC_TAB),      LT(2, KC_ENTER),/*|*/LT(2, KC_SPACE), LT(1, KC_BSPC)
+    XXXXXXX,       XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,              XXXXXXX,               XXXXXXX,          
+    OSM(MOD_LSFT), KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,            KC_U,               KC_I,               KC_O,                 KC_P,                  KC_ESCAPE,      
+    CW_TOGG,       MT(MOD_LALT, KC_A), LT(4, KC_S),        MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), LT(4, KC_L),          MT(MOD_RALT, SE_OSLH), SE_ADIA,        
+    KC_CAPS,       LT(5, KC_Z),        MT(MOD_LGUI, KC_X), KC_C,               KC_V,               KC_B,           /*|*/KC_N,            KC_M,               KC_COMMA,           MT(MOD_RGUI, KC_DOT), LT(5, SE_AA),          KC_DELETE,      
+                                                                                LT(1, KC_TAB),     LT(2, KC_ENTER),/*|*/LT(2, KC_SPACE), LT(1, KC_BSPC)
   ),
   [SYM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
