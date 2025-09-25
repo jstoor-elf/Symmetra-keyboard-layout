@@ -383,49 +383,49 @@ bool rgb_matrix_indicators_user(void) {
 bool process_keycode_win(uint16_t keycode) {
   
   switch (keycode) {
-    case RGB_SLD:          // Set RGB to static mode
+    case RGB_SLD:
       rgblight_mode(1); 
       break;
-    case U_FIND_PREV:      // Shift + F3 (Find previous)
+    case U_FIND_PREV:
       tap_code16(S(KC_F3)); 
       break;
-    case U_FIND_NEXT:      // Ctrl + G (Find next)
+    case U_FIND_NEXT:
       tap_code16(C(KC_G)); 
       break;
-    case U_SEARCH:         // Ctrl + F (Search)
+    case U_SEARCH:
       tap_code16(C(KC_F)); 
       break;
-    case U_REPLACE:        // Ctrl + H (Replace)
+    case U_REPLACE:
       tap_code16(C(KC_H)); 
       break;
-    case U_REPLACE_ALL:    // Ctrl + Shift + H (Replace all)
+    case U_REPLACE_ALL:
       tap_code16(C(S(KC_H))); 
       break;
-    case U_UNDO:           // Ctrl + Z (Undo)
+    case U_UNDO:
       tap_code16(C(KC_Z)); 
       break;
-    case U_REDO:           // Ctrl + Y (Redo)
+    case U_REDO:
       tap_code16(C(KC_Y)); 
       break;
-    case U_COPY:           // Ctrl + C (Copy)
+    case U_COPY:
       tap_code16(C(KC_C)); 
       break;
-    case U_PASTE:          // Ctrl + V (Paste)
+    case U_PASTE:
       tap_code16(C(KC_V)); 
       break;
-    case U_SAVE:           // Ctrl + S (Save)
+    case U_SAVE:
       tap_code16(C(KC_S)); 
       break;
-    case U_MARK_ALL:       // Ctrl + A (Select all)
+    case U_MARK_ALL:
       tap_code16(C(KC_A)); 
       break;
-    case U_MARK_LINE:      // Shift + Home -> Shift + End (Select line)
+    case U_MARK_LINE:
       tap_code(KC_HOME);
       register_code(KC_LSFT);
       tap_code(KC_END);
       unregister_code(KC_LSFT);
       break;
-    case U_MARK_WORD:      // Ctrl + Shift + Left/Right (Select word)
+    case U_MARK_WORD:
       tap_code16(C(KC_LEFT));
       register_code(KC_LCTL);
       register_code(KC_LSFT);
@@ -433,40 +433,41 @@ bool process_keycode_win(uint16_t keycode) {
       unregister_code(KC_LSFT);
       unregister_code(KC_LCTL);
       break;
-    case U_DOC_LEFT:       // Home (Go to start of document)
+    case U_DOC_LEFT:
       tap_code(KC_HOME); 
       break;
-    case U_DOC_DOWN:       // Ctrl + End (Go to document end)
+    case U_DOC_DOWN:
       tap_code16(C(KC_END)); 
       break;
-    case U_DOC_UP:         // Ctrl + Home (Go to document start)
+    case U_DOC_UP:
       tap_code16(C(KC_HOME)); 
       break;
-    case U_DOC_RIGHT:      // End (Go to line end)
+    case U_DOC_RIGHT:
       tap_code(KC_END); 
       break;
-    case U_WORD_LEFT:      // Ctrl + Left Arrow
+    case U_WORD_LEFT:
       tap_code16(C(KC_LEFT)); 
       break;
-    case U_PARA_DOWN:      // Ctrl + Down Arrow
+    case U_PARA_DOWN:
       tap_code16(C(KC_DOWN)); 
       break;
-    case U_PARA_UP:        // Ctrl + Up Arrow
+    case U_PARA_UP:
       tap_code16(C(KC_UP)); 
       break;
-    case U_WORD_RIGHT:     // Ctrl + Right Arrow
-      tap_code16(C(KC_RIGHT)); 
+    case U_WORD_RIGHT:
+      tap_code16(C(KC_RIGHT));
+      tap_code(KC_LEFT);
       break;
-    case U_SCREENSHOT:     // GUI + S (Screenshot)
+    case U_SCREENSHOT:
       tap_code16(G(KC_S)); 
       break;
-    case U_OS_SEARCH:      // GUI + Shift + S (OS search)
+    case U_OS_SEARCH:
       tap_code16(G(S(KC_S))); 
       break;
-    case U_LOCK_SCREEN:    // GUI + L (Lock screen)
+    case U_LOCK_SCREEN:
       tap_code16(G(KC_L)); 
       break;
-    case U_EMOJIS:         // GUI + . (Open emoji picker)
+    case U_EMOJIS:
       tap_code16(G(KC_DOT)); 
       break;
     case U_THUMBS_UP_EMOJI:
@@ -516,43 +517,43 @@ bool process_keycode_win(uint16_t keycode) {
 bool process_keycode_mac(uint16_t keycode) {
 
   switch (keycode) {
-    case RGB_SLD:          // Set RGB to static mode
+    case RGB_SLD:
       rgblight_mode(1); 
       break;
-    case U_FIND_PREV:      // Cmd + Shift + G (Find previous)
+    case U_FIND_PREV:
     tap_code16(G(S(KC_G)));
       break;
-    case U_FIND_NEXT:      // Cmd + G (Find next)
+    case U_FIND_NEXT:
       tap_code16(G(KC_G));
       break;
-    case U_SEARCH:         // Cmd + F (Search)
+    case U_SEARCH:
       tap_code16(G(KC_F));
       break;
-    case U_REPLACE:        // Cmd + Option + F (Replace)
+    case U_REPLACE:
       tap_code16(A(G(KC_F)));
       break;
-    case U_REPLACE_ALL:    // Cmd + Option + Shift + F (Replace all)
+    case U_REPLACE_ALL:
       tap_code16(A(G(S(KC_F))));
       break;
-    case U_UNDO:           // Cmd + Z (Undo)
+    case U_UNDO:
       tap_code16(G(KC_Z));
       break;
-    case U_REDO:           // Cmd + Shift + Z (Redo)
+    case U_REDO:
       tap_code16(G(S(KC_Z)));
       break;
-    case U_COPY:           // Cmd + C (Copy)
+    case U_COPY:
       tap_code16(G(KC_C));
       break;
-    case U_PASTE:          // Cmd + V (Paste)
+    case U_PASTE:
       tap_code16(G(KC_V));
       break;
-    case U_SAVE:           // Cmd + S (Save)
+    case U_SAVE: 
       tap_code16(G(KC_S));
       break;
-    case U_MARK_ALL:       // Cmd + A (Select all)
+    case U_MARK_ALL:
       tap_code16(G(KC_A));
       break;
-    case U_MARK_LINE:      // Select the current line (Cmd + Left, then Cmd + Shift + Right)
+    case U_MARK_LINE:
       tap_code16(G(KC_LEFT));
       register_code(KC_LGUI);
       register_code(KC_LSFT);
@@ -560,7 +561,7 @@ bool process_keycode_mac(uint16_t keycode) {
       unregister_code(KC_LSFT);
       unregister_code(KC_LGUI);
       break;
-    case U_MARK_WORD:      // Select the current word (Alt + Left, then Alt + Shift + Right)
+    case U_MARK_WORD:
       tap_code16(A(KC_LEFT));
       register_code(KC_LALT);
       register_code(KC_LSFT);
@@ -568,40 +569,41 @@ bool process_keycode_mac(uint16_t keycode) {
       unregister_code(KC_LSFT);
       unregister_code(KC_LALT);
       break;
-    case U_DOC_LEFT:       // Cmd + Left Arrow (Start of line)
+    case U_DOC_LEFT:
       tap_code16(G(KC_LEFT)); 
       break;
-    case U_DOC_DOWN:       // Cmd + Down Arrow (End of document)
+    case U_DOC_DOWN:
       tap_code16(G(KC_DOWN)); 
       break;
-    case U_DOC_UP:         // Cmd + Up Arrow (Start of document)
+    case U_DOC_UP:
       tap_code16(G(KC_UP)); 
       break;
-    case U_DOC_RIGHT:      // Cmd + Right Arrow (End of line)
+    case U_DOC_RIGHT:
       tap_code16(G(KC_RIGHT)); 
       break;
-    case U_WORD_LEFT:      // Alt + Left Arrow (Move cursor one word left)
+    case U_WORD_LEFT:
       tap_code16(A(KC_LEFT)); 
       break;
-    case U_PARA_DOWN:      // Alt + Down Arrow (Move cursor one paragraph down)
+    case U_PARA_DOWN:
       tap_code16(A(KC_DOWN)); 
       break;
-    case U_PARA_UP:        // Alt + Up Arrow (Move cursor one paragraph up)
+    case U_PARA_UP:
       tap_code16(A(KC_UP)); 
       break;
-    case U_WORD_RIGHT:     // Alt + Right Arrow (Move cursor one word right)
-      tap_code16(A(KC_RIGHT)); 
+    case U_WORD_RIGHT:
+      tap_code16(A(KC_RIGHT));
+      tap_code(KC_LEFT);
       break;
-    case U_SCREENSHOT:     // Cmd + Shift + 4 (Screenshot selection)
+    case U_SCREENSHOT:
       tap_code16(G(S(KC_4))); 
       break;
-    case U_OS_SEARCH:      // Cmd + Space (Spotlight search)
+    case U_OS_SEARCH:
       tap_code16(G(KC_SPACE)); 
       break;
-    case U_LOCK_SCREEN:    // Ctrl + Cmd + Q (Lock screen)
+    case U_LOCK_SCREEN:
       tap_code16(C(G(KC_Q))); 
       break;
-    case U_EMOJIS:         // Ctrl + Cmd + Space (Emoji picker)
+    case U_EMOJIS:
       tap_code16(C(G(KC_SPACE))); 
       break;
     case U_THUMBS_UP_EMOJI:
