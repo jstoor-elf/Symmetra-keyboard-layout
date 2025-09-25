@@ -10,8 +10,6 @@
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif 
 
-#define EECONFIG_OS_MODE 0x00
-
 #define SE_OSLH        KC_SCLN
 #define SE_ADIA        KC_QUOT
 #define SE_AA          KC_LBRC
@@ -112,6 +110,7 @@ typedef enum {
 
 /* ######### GLOBAL VARIABLES ######### */
 
+static RGB runtime_led_buffer[RGB_MATRIX_LED_COUNT] = {0}; // Define a runtime buffer for your LEDs
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
 bool capslock_active = false; // Used for setting color for caps key lede
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
@@ -138,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE, U_REPLACE_ALL,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,  U_DOC_UP, U_DOC_RIGHT,  XXXXXXX,          
     XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,   U_SAVE,       /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,     KC_UP,    KC_RIGHT,     XXXXXXX,          
     XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, MOD_LSFT,  XXXXXXX,      /*|*/XXXXXXX, U_WORD_LEFT, U_PARA_DOWN, U_PARA_UP,U_WORD_RIGHT, XXXXXXX,          
-                                                    MO(3),     XXXXXXX,                                       XXXXXXX,          MO(3)
+                                                    MO(3),     XXXXXXX,      /*|*/XXXXXXX, MO(3)
   ),
   [MOUSE] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -159,17 +158,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,/*|*/U_BROWSER,    U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,   U_CLOSE_TAB,    U_LOCK_SCREEN,          
     XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       RM_TOGG,             XXXXXXX,/*|*/U_TERMINAL,   U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS, U_SHOW_DESKTOP, XXXXXXX,          
     XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,/*|*/U_EMOJIS,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_OS_SEARCH, XXXXXXX,        U_TOGGLE_OS,          
-                                                                      XXXXXXX,             XXXXXXX,     U_SCREENSHOT, U_THUMBS_UP_EMOJI
+                                                                      XXXXXXX,             XXXXXXX,/*|*/U_SCREENSHOT, U_THUMBS_UP_EMOJI
   )  
 };
-
-const uint8_t W_KEY_INDEX         = 8;
-const uint8_t I_KEY_INDEX         = 34;
-const uint8_t N_KEY_INDEX         = 44;
-const uint8_t M_KEY_INDEX         = 45;
-const uint8_t A_KEY_INDEX         = 13;
-const uint8_t C_KEY_INDEX         = 21;
-const uint8_t CAPS_LOCK_KEY_INDEX = 18;
 
 /* ######### LED MAPS ######### */
 
@@ -183,7 +174,7 @@ const uint8_t CAPS_LOCK_KEY_INDEX = 18;
 //    making it easier to pick visually distinct and aesthetically pleasing colors
 //    for different layers, statuses (e.g., Caps Lock), or OS-specific keys.
 
-const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
+const RGB PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [ALPHA] = {
     // Left side
@@ -273,99 +264,118 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   }
 };
 
-const HSV HSV_WIN_COLOR = {170, 255, 255};
-const HSV HSV_MAC_COLOR = {43, 255, 255};
-const HSV HSV_CAPSLOCK_COLOR = {0, 255, 255};
+// Os key rgb indices and rgb values
+const uint8_t W_RGB_KEY_INDEX         = 8;
+const uint8_t I_RGB_KEY_INDEX         = 34;
+const uint8_t N_RGB_KEY_INDEX         = 44;
+const uint8_t M_RGB_KEY_INDEX         = 45;
+const uint8_t A_RGB_KEY_INDEX         = 13;
+const uint8_t C_RGB_KEY_INDEX         = 21;
+const uint8_t CAPSLOCK_RGB_KEY_INDEX  = 18;
+
+const RGB WIN_RGB_COLOR = {170, 255, 255};
+const RGB MAC_RGB_COLOR = {43, 255, 255};
+const RGB CAPSLOCK_RGB_COLOR = {0, 255, 255};
+
+/* ######### LED CONTROL FUNCTIONS ######### */
+
+static RGB apply_brightness(RGB in) {
+  // Apply QMK brightness (v = 0–255) directly
+  uint8_t v = rgb_matrix_config.hsv.v;
+  RGB out;
+  out.r = ((uint16_t)in.r * v) / 255;
+  out.g = ((uint16_t)in.g * v) / 255;
+  out.b = ((uint16_t)in.b * v) / 255;
+  return out;
+}
+
+static RGB pgm_read_rgb(const RGB *addr) {
+  // Reads RGB struct from PROGMEM safely
+  RGB c;
+  c.r = pgm_read_byte(&addr->r);
+  c.g = pgm_read_byte(&addr->g);
+  c.b = pgm_read_byte(&addr->b);
+  return c;
+}
+
+void set_led_buffer_for_layer(uint8_t layer) {
+  // Set the runtime buffer from PROGMEM for a given layer
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    RGB tmp = pgm_read_rgb(&ledmap[layer][i]);
+    runtime_led_buffer[i] = apply_brightness(tmp);
+  }
+
+  // Change alpha layer
+  if (layer == ALPHA) {
+    if (capslock_active) {
+      RGB rgb = apply_brightness(CAPSLOCK_RGB_COLOR);
+      runtime_led_buffer[CAPSLOCK_RGB_KEY_INDEX] = rgb;
+    }
+
+    if (current_os == OS_WINDOWS) {
+      RGB rgb = apply_brightness(WIN_RGB_COLOR);
+      runtime_led_buffer[W_RGB_KEY_INDEX] = rgb;
+      runtime_led_buffer[I_RGB_KEY_INDEX] = rgb;
+      runtime_led_buffer[N_RGB_KEY_INDEX] = rgb;
+    } else {
+      RGB rgb = apply_brightness(MAC_RGB_COLOR);
+      runtime_led_buffer[M_RGB_KEY_INDEX] = rgb;
+      runtime_led_buffer[A_RGB_KEY_INDEX] = rgb;
+      runtime_led_buffer[C_RGB_KEY_INDEX] = rgb;
+    }
+  }
+}
+
+void update_layer_leds(void) {
+  // Updates rgb cache for current layer
+  uint8_t active_layer = biton32(layer_state);
+  set_led_buffer_for_layer(active_layer);
+}
+
+bool led_update_user(led_t led_state) {
+  // Called when the caps/num/scroll lock state changes
+  bool changed_state = capslock_active != led_state.caps_lock;
+  capslock_active = led_state.caps_lock; 
+
+  if (changed_state) {
+    update_layer_leds();
+  }
+
+  return true;
+}
+
+bool rgb_matrix_indicators_user(void) {
+  // Called each RGB frame to set custom per-layer or per-key LED colors
+
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+      RGB c = runtime_led_buffer[i];
+      rgb_matrix_set_color(i, c.r, c.g, c.b);
+  }
+
+  return true;
+}
 
 /* ######### INITIALIZATION HOOK ######### */
 
 void keyboard_post_init_user(void) {
   // Called after keyboard finishes intitialization
-
   rgb_matrix_enable(); // enable rgb matrix in qmk
+  update_layer_leds();
 }
 
-/* ######### LED CONTROL FUNCTIONS ######### */
+/* ######### LAYER CHANGE ######### */
 
-bool led_update_user(led_t led_state) {
-  // Called when the caps/num/scroll lock state changes
-  capslock_active = led_state.caps_lock; // update caps lock active -> use it later to indicate turn on with rgb
-  return true;
-} 
-
-RGB hsv_to_rgb_with_value(HSV hsv) {
-// Convert HSV to RGB while taking the current RGB brightness into account
-  RGB rgb = hsv_to_rgb( hsv );
-  float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-  return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
-}
-
-void set_layer_color_from_ledmap(uint8_t layer) {
-  // Set the layer color from ledmap
-  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) { 
-    
-    HSV hsv;
-    hsv.h = pgm_read_byte(&ledmap[layer][i].h);
-    hsv.s = pgm_read_byte(&ledmap[layer][i].s);
-    hsv.v = pgm_read_byte(&ledmap[layer][i].v);
-    
-    if (!hsv.h && !hsv.s && !hsv.v) {
-      // Endarken the layer
-      rgb_matrix_set_color( i, 0, 0, 0 );
-    } else {
-      // Value from ledmap
-      RGB rgb = hsv_to_rgb_with_value(hsv);
-      rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-    }
-  }
-}
-
-bool rgb_matrix_indicators_user(void) {
-  // Called each RGB frame to set custom per-layer or per-key LED colors
-  
-  uint8_t layer = biton32(layer_state);
-  
-  // Set the layer color based on type of layer
-  if (layer <= MOUSE && !keyboard_config.disable_layer_led) {
-    // Set the base layer color from
-    set_layer_color_from_ledmap(layer);
-
-    if (layer == ALPHA) {
-      
-      if (capslock_active) {
-        // Set specific red color for capslock key, only on alpha
-        RGB rgb = hsv_to_rgb_with_value(HSV_CAPSLOCK_COLOR);
-        rgb_matrix_set_color(CAPS_LOCK_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-      }
-
-      if (current_os == OS_MAC) {
-        // Set Option keys yellow for Mac on alpha
-        RGB rgb = hsv_to_rgb_with_value(HSV_MAC_COLOR);
-        rgb_matrix_set_color(M_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-        rgb_matrix_set_color(A_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-        rgb_matrix_set_color(C_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-      } else {
-        // Set Ctrl keys blue for Windows on alpha
-        RGB rgb = hsv_to_rgb_with_value(HSV_WIN_COLOR);
-        rgb_matrix_set_color(W_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-        rgb_matrix_set_color(I_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-        rgb_matrix_set_color(N_KEY_INDEX, rgb.r, rgb.g, rgb.b);
-      }
-    }
-  } else if (rgb_matrix_get_flags() == LED_FLAG_NONE) {
-    // Endarken the layer
-    rgb_matrix_set_color_all( 0, 0, 0 );
-  }
-
-  return true;
+layer_state_t layer_state_set_user(layer_state_t state) {
+    // Call your LED buffer update whenever the layer changes
+    update_layer_leds();
+    return state;
 }
 
 /* ######### OS-SPECIFIC KEYCODES ######### */
 
-// Handles custom keycodes and shortcuts for Windows OS.
-// Kept separate from macOS for clarity and modularity.
 bool process_keycode_win(uint16_t keycode) {
-  
+  // Handles custom keycodes and shortcuts for Windows OS.
+  // Kept separate from macOS for clarity and modularity.
   switch (keycode) {
     case RGB_SLD:
       rgblight_mode(1); 
@@ -495,10 +505,9 @@ bool process_keycode_win(uint16_t keycode) {
   return true; // Let QMK handle other keycodes
 }
 
-// Handles custom keycodes and shortcuts for Mac.
-// Kept separate from Windows OS for clarity and modularity.
 bool process_keycode_mac(uint16_t keycode) {
-
+  // Handles custom keycodes and shortcuts for Mac.
+  // Kept separate from Windows OS for clarity and modularity.
   switch (keycode) {
     case RGB_SLD:
       rgblight_mode(1); 
@@ -593,7 +602,7 @@ bool process_keycode_mac(uint16_t keycode) {
       SEND_STRING("👍");
       break;      
     case U_TOGGLE_OS:
-      current_os = OS_WINDOWS;    
+      current_os = OS_WINDOWS; 
       return false;  
     case U_SHOW_APPS:
       tap_code16(C(KC_UP));
@@ -630,31 +639,9 @@ bool process_keycode_mac(uint16_t keycode) {
   return true; // Let QMK handle other keycodes
 }
 
-/* ######### MOUSE HELPER ######### */
-
-bool process_mouse_key_press(uint16_t keycode, keyrecord_t *record) {
-  
-  if (record->event.pressed) {
-    add_mods(QK_MODS_GET_MODS(keycode));
-    send_keyboard_report();
-    wait_ms(1);
-    register_code(QK_MODS_GET_BASIC_KEYCODE(keycode));
-    return false;
-  } 
-
-  del_mods(QK_MODS_GET_MODS(keycode));
-  return true;
-}
-
 /* ######### MAIN KEY PROCESSING ######### */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) { // This keycode is a "mod + key" combo (like Ctrl+C, Shift+Tab, etc.)
-    return IS_MOUSE_KEYCODE(QK_MODS_GET_BASIC_KEYCODE(keycode))
-      ? process_mouse_key_press(keycode, record)
-      : true;
-  }
 
   if (!record->event.pressed) {
     return true;
