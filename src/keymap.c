@@ -636,10 +636,10 @@ bool process_keycode_mac(uint16_t keycode) {
       tap_code16(G(A(KC_RIGHT)));
       break;
     case U_NEW_TAB:
-      tap_code16(C(KC_T));
+      tap_code16(G(KC_T));
       break; 
     case U_CLOSE_TAB:
-      tap_code16(C(KC_W));
+      tap_code16(G(KC_W));
       break;           
   }
 
