@@ -1,8 +1,8 @@
 # Ignore everything in Results
-visualization/results/*
+output/*
 
 # But keep SVGs
-!visualization/results/*.svg
+!output/*.svg
 
 # QMK build artifacts
 .qmk_build/

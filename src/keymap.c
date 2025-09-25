@@ -1,6 +1,7 @@
 /* ######### INCLUDES ######### */ 
 
-#include "qmk_keyboard.h"
+#include QMK_KEYBOARD_H
+#include "eeconfig.h"
 #include "version.h"
 
 /* ######### DEFINES ######### */
@@ -8,6 +9,8 @@
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif 
+
+#define EECONFIG_OS_MODE 0x00
 
 #define SE_OSLH        KC_SCLN
 #define SE_ADIA        KC_QUOT
@@ -109,7 +112,7 @@ typedef enum {
 
 /* ######### GLOBAL VARIABLES ######### */
 
-os_t current_os; // Used for storing info about the os
+os_t current_os = OS_WINDOWS; // Used for storing info about the os
 bool capslock_active = false; // Used for setting color for caps key lede
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
 
@@ -117,55 +120,55 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
-    KC_NO,          KC_NO,              KC_NO,              KC_NO,              KC_NO,              KC_NO,                         KC_NO,           KC_NO,              KC_NO,               KC_NO,                 KC_NO,                 KC_NO,          
-    OSM(MOD_LSFT),  KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,                          KC_Y,            KC_U,               KC_I,                KC_O,                  KC_P,                  KC_ESCAPE,      
-    CW_TOGG,        MT(MOD_LALT, KC_A), LT(4, KC_S),        MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,                          KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K),  LT(4, KC_L),           MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    KC_CAPS,        LT(5, KC_Z),        MT(MOD_LGUI, KC_X), KC_C,               KC_V,               KC_B,                          KC_N,            KC_M,               KC_COMMA,            MT(MOD_RGUI,  KC_DOT), LT(5, SE_AA),          KC_DELETE,      
-                                                                                LT(1, KC_TAB),      LT(2, KC_ENTER),               LT(2, KC_SPACE), LT(1, KC_BSPC)
+    XXXXXXX,       XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,         /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,              XXXXXXX,               XXXXXXX,          
+    OSM(MOD_LSFT), KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,            /*|*/KC_Y,            KC_U,               KC_I,               KC_O,                 KC_P,                  KC_ESCAPE,      
+    CW_TOGG,       MT(MOD_LALT, KC_A), LT(4, KC_S),        MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,            /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), LT(4, KC_L),          MT(MOD_RALT, SE_OSLH), SE_ADIA,        
+    KC_CAPS,       LT(5, KC_Z),        MT(MOD_LGUI, KC_X), KC_C,               KC_V,               KC_B,            /*|*/KC_N,            KC_M,               KC_COMMA,           MT(MOD_RGUI, KC_DOT), LT(5, SE_AA),          KC_DELETE,      
+                                                                                LT(1, KC_TAB),      LT(2, KC_ENTER),/*|*/LT(2, KC_SPACE), LT(1, KC_BSPC)
   ),
   [SYM] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,           KC_NO,         KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          SE_QUES,        SE_LESS,        SE_GRTR,        SE_MINS,        SE_PIPE,                                       SE_CIRC,        SE_LCBR,        SE_RCBR,        SE_DLR,         SE_ACUT,        SE_GRV,         
-    KC_PERC,        KC_EXLM,        SE_ASTR,        SE_SLSH,        SE_EQL,         SE_AMPR,                                       KC_HASH,        SE_LPRN,        SE_RPRN,        SE_SCLN,        SE_DQUO,        SE_BSLS,        
-    KC_NO,          SE_TILD,        SE_PLUS,        SE_LBRC,        SE_RBRC,        SE_AT,                                         SE_UNDS,        SE_COLN,        KC_COMMA,       KC_DOT,         SE_APOS,        KC_NO,          
-                                                                    KC_NO,          KC_NO,                                         KC_NO,          KC_NO
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, SE_QUES, SE_LESS, SE_GRTR, SE_MINS, SE_PIPE,/*|*/SE_CIRC, SE_LCBR, SE_RCBR,  SE_DLR,  SE_ACUT, SE_GRV,         
+    KC_PERC, KC_EXLM, SE_ASTR, SE_SLSH, SE_EQL,  SE_AMPR,/*|*/KC_HASH, SE_LPRN, SE_RPRN,  SE_SCLN, SE_DQUO, SE_BSLS,        
+    XXXXXXX, SE_TILD, SE_PLUS, SE_LBRC, SE_RBRC, SE_AT,  /*|*/SE_UNDS, SE_COLN, KC_COMMA, KC_DOT,  SE_APOS, XXXXXXX,          
+                                        XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
   [NAV] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,         KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          U_FIND_PREV,    U_FIND_NEXT,    U_SEARCH,       U_REPLACE,      U_REPLACE_ALL,                                 KC_NO,          U_DOC_LEFT,     U_DOC_DOWN,     U_DOC_UP,       U_DOC_RIGHT,    KC_NO,          
-    KC_NO,          U_UNDO,         U_REDO,         U_COPY,         U_PASTE,        U_SAVE,                                        KC_NO,          KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_NO,          
-    KC_NO,          U_MARK_ALL,     U_MARK_LINE,    U_MARK_WORD,    MOD_LSFT,       KC_NO,                                         KC_NO,          U_WORD_LEFT,    U_PARA_DOWN,    U_PARA_UP,      U_WORD_RIGHT,   KC_NO,          
-                                                                    MO(3),          KC_NO,                                         KC_NO,          MO(3)
+    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,   XXXXXXX,      /*|*/XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,  XXXXXXX,      XXXXXXX,
+    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE, U_REPLACE_ALL,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,  U_DOC_UP, U_DOC_RIGHT,  XXXXXXX,          
+    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,   U_SAVE,       /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,     KC_UP,    KC_RIGHT,     XXXXXXX,          
+    XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, MOD_LSFT,  XXXXXXX,      /*|*/XXXXXXX, U_WORD_LEFT, U_PARA_DOWN, U_PARA_UP,U_WORD_RIGHT, XXXXXXX,          
+                                                    MO(3),     XXXXXXX,                                       XXXXXXX,          MO(3)
   ),
   [MOUSE] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_NO,          QK_LLCK,        KC_MS_BTN2,     KC_MS_BTN3,     KC_MS_BTN1,     KC_NO,                                         KC_NO,          KC_MS_LEFT,     KC_MS_DOWN,     KC_MS_UP,       KC_MS_RIGHT,    KC_NO,          
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_MS_WH_LEFT,  KC_MS_WH_DOWN,  KC_MS_WH_UP,    KC_MS_WH_RIGHT, KC_NO,          
-                                                                    KC_NO,          KC_NO,                                         KC_NO,          KC_NO
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          
+    XXXXXXX, QK_LLCK, MS_BTN2, MS_BTN3, MS_BTN1, XXXXXXX,/*|*/XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX,          
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, XXXXXXX,          
+                                        XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),  
   [NUM] = LAYOUT_voyager(
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                         KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          
-    KC_F5,          KC_F4,          KC_F3,          KC_F2,          KC_F1,          KC_NO,                                         KC_NO,          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           
-    KC_F10,         KC_F9,          KC_F8,          KC_F7,          KC_F6,          KC_NO,                                         KC_NO,          KC_6,           KC_7,           KC_8,           KC_9,           KC_NO,          
-                                                                    KC_F11,         KC_F12                                         KC_NO,          KC_0
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          
+    KC_F5,   KC_F4,   KC_F3,   KC_F2,   KC_F1,   XXXXXXX,/*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,           
+    KC_F10,  KC_F9,   KC_F8,   KC_F7,   KC_F6,   XXXXXXX,/*|*/XXXXXXX, KC_6,    KC_7,    KC_8,    KC_9,    XXXXXXX,          
+                                        KC_F11,  KC_F12, /*|*/XXXXXXX, KC_0
   ),
   [SYS] = LAYOUT_voyager(
-    KC_NO,          KC_NO,               KC_NO,               KC_NO,               KC_NO,               KC_NO,                     KC_NO,          KC_NO,             KC_NO,             KC_NO,       KC_NO,          KC_NO,
-    KC_NO,          KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     KC_NO,               KC_AUDIO_MUTE,       KC_NO,                     U_BROWSER,      U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,   U_CLOSE_TAB,    U_LOCK_SCREEN,          
-    KC_NO,          RGB_VAD,             RGB_VAI,             KC_NO,               RGB_TOG,             KC_NO,                     U_TERMINAL,     U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS, U_SHOW_DESKTOP, KC_NO,          
-    KC_NO,          KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP,       KC_MEDIA_PLAY_PAUSE, KC_NO,                     U_EMOJIS,       U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_OS_SEARCH, KC_NO,          U_TOGGLE_OS,          
-                                                                                   KC_NO,               KC_NO,                     U_SCREENSHOT,   U_THUMBS_UP_EMOJI
+    XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,/*|*/XXXXXXX,      XXXXXXX,           XXXXXXX,           XXXXXXX,     XXXXXXX,        XXXXXXX,
+    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,/*|*/U_BROWSER,    U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,   U_CLOSE_TAB,    U_LOCK_SCREEN,          
+    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       RM_TOGG,             XXXXXXX,/*|*/U_TERMINAL,   U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS, U_SHOW_DESKTOP, XXXXXXX,          
+    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,/*|*/U_EMOJIS,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_OS_SEARCH, XXXXXXX,        U_TOGGLE_OS,          
+                                                                      XXXXXXX,             XXXXXXX,     U_SCREENSHOT, U_THUMBS_UP_EMOJI
   )  
 };
 
 const uint8_t W_KEY_INDEX         = 8;
 const uint8_t I_KEY_INDEX         = 34;
-const uint8_t N_INDEX             = 44;
+const uint8_t N_KEY_INDEX         = 44;
 const uint8_t M_KEY_INDEX         = 45;
 const uint8_t A_KEY_INDEX         = 13;
-const uint8_t C_INDEX             = 21;
+const uint8_t C_KEY_INDEX         = 21;
 const uint8_t CAPS_LOCK_KEY_INDEX = 18;
 
 /* ######### LED MAPS ######### */
@@ -199,15 +202,15 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [SYM] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {270,150,167}, {95,100,153}, {95,100,153}, {100,110,160}, {270,150,167},
-    {270,150,167}, {95,100,153}, {100,110,160}, {100,110,160}, {95,100,153}, {270,150,167},
-    {0,0,0}, {270,150,167}, {100,110,160}, {180,140,223}, {180,140,223}, {270,150,167},
+    {0,0,0}, {255,150,167}, {95,100,153}, {95,100,153}, {100,110,160}, {255,150,167},
+    {255,150,167}, {95,100,153}, {100,110,160}, {100,110,160}, {95,100,153}, {255,150,167},
+    {0,0,0}, {255,150,167}, {100,110,160}, {180,140,223}, {180,140,223}, {255,150,167},
     {0,0,0}, {0,0,0},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {100,110,160}, {180,140,223}, {180,140,223}, {270,150,167}, {270,150,167}, {270,150,167},
-    {270,150,167}, {180,140,223}, {180,140,223}, {270,150,167}, {270,150,167}, {270,150,167},
-    {270,150,167}, {270,150,167}, {270,150,167}, {270,150,167}, {270,150,167}, {0,0,0},
+    {100,110,160}, {180,140,223}, {180,140,223}, {255,150,167}, {255,150,167}, {255,150,167},
+    {255,150,167}, {180,140,223}, {180,140,223}, {255,150,167}, {255,150,167}, {255,150,167},
+    {255,150,167}, {255,150,167}, {255,150,167}, {255,150,167}, {255,150,167}, {0,0,0},
     {0,0,0}, {0,0,0}
   },
 
@@ -263,10 +266,10 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {0,0,0},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
+    {255,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {270,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
-    {270,112,158}, {270,112,158}
+    {255,112,158}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {50,225,167},
+    {255,112,158}, {255,112,158}
   }
 };
 
@@ -280,19 +283,6 @@ void keyboard_post_init_user(void) {
   // Called after keyboard finishes intitialization
 
   rgb_matrix_enable(); // enable rgb matrix in qmk
-
-  // Example: set OS based on EEPROM value
-  uint8_t saved_os = ee_read_byte(EECONFIG_OS_MODE); // Example: set OS based on EEPROM value
-  
-  // If EEPROM is uninitialized, set default to Windows (0), it is 255 if not initialized
-  if (saved_os > 1) {
-      saved_os = 0;
-      ee_write_byte(EECONFIG_OS_MODE, saved_os);
-  }
-
-  current_os = saved_os == 0
-    ? OS_WINDOWS
-    : OS_MAC;
 }
 
 /* ######### LED CONTROL FUNCTIONS ######### */
@@ -333,11 +323,6 @@ void set_layer_color_from_ledmap(uint8_t layer) {
 bool rgb_matrix_indicators_user(void) {
   // Called each RGB frame to set custom per-layer or per-key LED colors
   
-  // Do we have a valid rgb control object? If, not we do nothing.
-  if (rawhid_state.rgb_control.mode != RGB_MATRIX_NONE) {
-    return false;
-  }
-
   uint8_t layer = biton32(layer_state);
   
   // Set the layer color based on type of layer
@@ -474,7 +459,6 @@ bool process_keycode_win(uint16_t keycode) {
       break;          
     case U_TOGGLE_OS:
       current_os = OS_MAC;
-      ee_write_byte(EECONFIG_OS_MODE, 1);
       return false;
     case U_SHOW_APPS:
       tap_code16(G(KC_TAB));
@@ -609,8 +593,7 @@ bool process_keycode_mac(uint16_t keycode) {
       SEND_STRING("👍");
       break;      
     case U_TOGGLE_OS:
-      current_os = OS_WINDOWS;
-      ee_write_byte(EECONFIG_OS_MODE, 0);     
+      current_os = OS_WINDOWS;    
       return false;  
     case U_SHOW_APPS:
       tap_code16(C(KC_UP));

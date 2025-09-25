@@ -104,24 +104,24 @@ navigation_keys = {
 
 # Mouse keys
 mouse_keys = {
-    "KC_MS_BTN1": "Mouse Click L",
-    "KC_MS_BTN2": "Mouse Click R",
-    "KC_MS_BTN3": "Mouse Click M",
-    "KC_MS_UP": "Mouse ⭡",
-    "KC_MS_DOWN": "Mouse ⭣",
-    "KC_MS_LEFT": "Mouse ⭠",
-    "KC_MS_RIGHT": "Mouse ⭢",    
-    "KC_MS_WH_UP": "Mouse Wheel ⭡",
-    "KC_MS_WH_DOWN": "Mouse Wheel ⭣",
-    "KC_MS_WH_LEFT": "Mouse Wheel ⭠",
-    "KC_MS_WH_RIGHT": "Mouse Wheel ⭢",
+    "MS_BTN1": "Mouse Click L",
+    "MS_BTN2": "Mouse Click R",
+    "MS_BTN3": "Mouse Click M",
+    "MS_UP": "Mouse ⭡",
+    "MS_DOWN": "Mouse ⭣",
+    "MS_LEFT": "Mouse ⭠",
+    "MS_RGHT": "Mouse ⭢",    
+    "MS_WHLU": "Mouse Wheel ⭡",
+    "MS_WHLD": "Mouse Wheel ⭣",
+    "MS_WHLL": "Mouse Wheel ⭠",
+    "MS_WHLR": "Mouse Wheel ⭢",
 }
 
 # System keys
 systems_keys = {
-    "RGB_VAI": "RGB +",
-    "RGB_VAD": "RGB -",
-    "RGB_TOG": "RGB Mute",    
+    "RM_VALD": "RGB -",    
+    "RM_VALU": "RGB +",
+    "RM_TOGG": "RGB Mute",    
     "KC_MEDIA_PREV_TRACK": "⏮️", 
     "KC_MEDIA_NEXT_TRACK": "⏭️",
     "KC_MEDIA_PLAY_PAUSE": "⏯️", 
