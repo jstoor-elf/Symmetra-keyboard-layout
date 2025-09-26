@@ -133,13 +133,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ######### KEY INDICES ######### */
 
-const uint8_t W_RGB_KEY_INDEX         = 8;
-const uint8_t I_RGB_KEY_INDEX         = 34;
-const uint8_t N_RGB_KEY_INDEX         = 44;
-const uint8_t M_RGB_KEY_INDEX         = 45;
-const uint8_t A_RGB_KEY_INDEX         = 13;
-const uint8_t C_RGB_KEY_INDEX         = 21;
-const uint8_t CAPSLOCK_RGB_KEY_INDEX  = 18;
+const uint8_t W_RGB_KEY_INDEX        = 8;
+const uint8_t I_RGB_KEY_INDEX        = 34;
+const uint8_t N_RGB_KEY_INDEX        = 44;
+const uint8_t M_RGB_KEY_INDEX        = 45;
+const uint8_t A_RGB_KEY_INDEX        = 13;
+const uint8_t C_RGB_KEY_INDEX        = 21;
+const uint8_t CAPSLOCK_RGB_KEY_INDEX = 18;
 
 /* ######### RGB VALUES ######### */
 
