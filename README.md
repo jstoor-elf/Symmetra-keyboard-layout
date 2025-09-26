@@ -14,7 +14,7 @@ My mind tends to favor symmetry, so the Mod-Tap and Layer-Tap keys are positione
 
 ## Layers
 
-![Keymap](output/keymap.svg)
+![Keymap](assets/keymap.svg)
 
 ## Key Translations
 

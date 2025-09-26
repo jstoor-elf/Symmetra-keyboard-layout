@@ -12,6 +12,9 @@ JSON_FILE="$RESULTS_DIR/keymap.json"
 YAML_FILE="$RESULTS_DIR/keymap.yaml"
 SVG_FILE="$RESULTS_DIR/keymap.svg"
 
+# Create assets folder in repo if it doesn't exist
+ASSETS_DIR=~/Source/Symmetra-keyboard-layout/assets
+
 # Absolute path to Python conversion script
 PYTHON_CONVERTER=~/Source/Symmetra-keyboard-layout/scripts/yamlFromJson.py
 
@@ -23,6 +26,7 @@ trap 'rm -f "$LINK_DIR"' EXIT
 
 # Create directory if it not exists
 mkdir -p "$RESULTS_DIR"  
+mkdir -p "$ASSETS_DIR"
 
 # Create symlink
 ln -s "$SRC_DIR" "$LINK_DIR"
@@ -36,4 +40,6 @@ python3 "$PYTHON_CONVERTER" "$JSON_FILE" > "$YAML_FILE"
 echo "➡️ Generating SVG..."
 python3 -m keymap_drawer draw "$YAML_FILE" --qmk-keyboard zsa/voyager -o "$SVG_FILE"
 
-echo "✅ Finished! Results in $RESULTS_DIR"
+cp "$SVG_FILE" "$ASSETS_DIR/"
+
+echo "✅ Finished! Resulting svg in $ASSETS_DIR"

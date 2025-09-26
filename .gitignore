@@ -1,9 +1,6 @@
 # Ignore everything in Results
 output/*
 
-# But keep SVGs
-!output/*.svg
-
 # QMK build artifacts
 .qmk_build/
 .build/
