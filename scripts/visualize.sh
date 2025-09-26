@@ -7,7 +7,7 @@ SRC_DIR=~/Source/Symmetra-keyboard-layout/src
 LINK_DIR=~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
 
 # Results
-RESULTS_DIR=~/Source/Symmetra-keyboard-layout/output
+RESULTS_DIR=~/Source/Symmetra-keyboard-layout/scripts/output
 JSON_FILE="$RESULTS_DIR/keymap.json"
 YAML_FILE="$RESULTS_DIR/keymap.yaml"
 SVG_FILE="$RESULTS_DIR/keymap.svg"
