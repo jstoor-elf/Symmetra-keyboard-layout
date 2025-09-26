@@ -1,7 +1,7 @@
 /* ######### INCLUDES ######### */ 
 
 #include QMK_KEYBOARD_H
-#include "eeconfig.h"
+#include "swedish_keys.h"
 #include "version.h"
 
 /* ######### DEFINES ######### */
@@ -9,32 +9,6 @@
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
 #endif 
-
-#define SE_OSLH        KC_SCLN
-#define SE_ADIA        KC_QUOT
-#define SE_AA          KC_LBRC
-#define SE_QUES        S(KC_MINS)
-#define SE_MINS        KC_SLSH
-#define SE_ASTR        S(KC_NUHS)
-#define SE_SLSH        S(KC_7)
-#define SE_EQL         S(KC_0)
-#define SE_AMPR        S(KC_6)
-#define SE_TILD        ALGR(KC_RBRC)
-#define SE_PLUS        KC_MINS
-#define SE_LBRC        ALGR(KC_8)
-#define SE_RBRC        ALGR(KC_9)
-#define SE_AT          ALGR(KC_2)
-#define SE_CIRC        S(KC_RBRC)
-#define SE_DLR         ALGR(KC_4)
-#define SE_ACUT        KC_EQL
-#define SE_GRV         S(KC_EQL)
-#define SE_LPRN        S(KC_8)
-#define SE_RPRN        S(KC_9)
-#define SE_SCLN        S(KC_COMM)
-#define SE_DQUO        S(KC_2)
-#define SE_UNDS        S(KC_SLSH)
-#define SE_COLN        S(KC_DOT)
-#define SE_APOS        KC_NUHS
 
 /* ######### ENUMS ######### */
 
@@ -270,9 +244,9 @@ const uint8_t A_RGB_KEY_INDEX         = 13;
 const uint8_t C_RGB_KEY_INDEX         = 21;
 const uint8_t CAPSLOCK_RGB_KEY_INDEX  = 18;
 
-const RGB WIN_RGB_COLOR = {170, 255, 255};
-const RGB MAC_RGB_COLOR = {43, 255, 255};
-const RGB CAPSLOCK_RGB_COLOR = {0, 255, 255};
+const RGB WIN_RGB_COLOR      = {70, 130, 180};
+const RGB MAC_RGB_COLOR      = {255, 191, 0};
+const RGB CAPSLOCK_RGB_COLOR = {114, 47, 55};
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
@@ -378,23 +352,23 @@ bool process_keycode_win(uint16_t keycode) {
       rgblight_mode(1); 
       break;
     case U_SE_LESS: 
-      tap_code16(KC_GRV);
+      tap_code16(SE_LESS_WIN);
       break;
     case U_SE_GRTR: 
-      tap_code16(S(KC_NUBS));
+      tap_code16(SE_GRTR_WIN);
       break;
     case U_SE_PIPE: 
-      tap_code16(ALGR(KC_NUBS));
+      tap_code16(SE_PIPE_WIN);
       break;
     case U_SE_LCBR:
-      tap_code16(ALGR(KC_7));
+      tap_code16(SE_LCBR_WIN);
       break;
     case U_SE_RCBR: 
-      tap_code16(ALGR(KC_0));
+      tap_code16(SE_RCBR_WIN);
       break;
     case U_SE_BSLS: 
-      tap_code16(ALGR(KC_MINS));
-      break;    
+      tap_code16(SE_BSLS_WIN);
+      break;  
     case U_FIND_PREV:
       tap_code16(S(KC_F3)); 
       break;
@@ -528,22 +502,22 @@ bool process_keycode_mac(uint16_t keycode) {
       rgblight_mode(1); 
       break;
     case U_SE_LESS: 
-      tap_code16(KC_GRV);
+      tap_code16(SE_LESS_MAC);
       break;
     case U_SE_GRTR: 
-      tap_code16(S(KC_GRV));
+      tap_code16(SE_GRTR_MAC);
       break;
     case U_SE_PIPE: 
-      tap_code16(ALGR(KC_7));
+      tap_code16(SE_PIPE_MAC);
       break;
     case U_SE_LCBR:
-      tap_code16(S(ALGR(KC_8)));
+      tap_code16(SE_LCBR_MAC);
       break;
     case U_SE_RCBR: 
-      tap_code16(S(ALGR(KC_9)));
+      tap_code16(SE_RCBR_MAC);
       break;
     case U_SE_BSLS: 
-      tap_code16(S(ALGR(KC_7)));
+      tap_code16(SE_BSLS_MAC);
       break;
     case U_FIND_PREV:
     tap_code16(G(S(KC_G)));
