@@ -244,9 +244,9 @@ const uint8_t A_RGB_KEY_INDEX         = 13;
 const uint8_t C_RGB_KEY_INDEX         = 21;
 const uint8_t CAPSLOCK_RGB_KEY_INDEX  = 18;
 
-const RGB WIN_RGB_COLOR      = {70, 130, 180};
-const RGB MAC_RGB_COLOR      = {255, 191, 0};
-const RGB CAPSLOCK_RGB_COLOR = {114, 47, 55};
+const RGB RGB_OS_WIN   = {70, 130, 180};
+const RGB RGB_OS_MAC   = {255, 191, 0};
+const RGB RGB_CAPSLOCK = {114, 47, 55};
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
@@ -279,17 +279,17 @@ void set_led_buffer_for_layer(uint8_t layer) {
   // Change alpha layer
   if (layer == ALPHA) {
     if (capslock_active) {
-      RGB rgb = apply_brightness(CAPSLOCK_RGB_COLOR);
+      RGB rgb = apply_brightness(RGB_CAPSLOCK);
       runtime_led_buffer[CAPSLOCK_RGB_KEY_INDEX] = rgb;
     }
 
     if (current_os == OS_WINDOWS) {
-      RGB rgb = apply_brightness(WIN_RGB_COLOR);
+      RGB rgb = apply_brightness(RGB_OS_WIN);
       runtime_led_buffer[W_RGB_KEY_INDEX] = rgb;
       runtime_led_buffer[I_RGB_KEY_INDEX] = rgb;
       runtime_led_buffer[N_RGB_KEY_INDEX] = rgb;
     } else {
-      RGB rgb = apply_brightness(MAC_RGB_COLOR);
+      RGB rgb = apply_brightness(RGB_OS_MAC);
       runtime_led_buffer[M_RGB_KEY_INDEX] = rgb;
       runtime_led_buffer[A_RGB_KEY_INDEX] = rgb;
       runtime_led_buffer[C_RGB_KEY_INDEX] = rgb;
