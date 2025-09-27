@@ -29,8 +29,8 @@ Legend for symbols and special keys used in the SVG:
 | 🔒           | Lock screen                  |
 | 🔄🪟🍏       | Switch OS (Win/Mac)          |
 | 📸           | Screenshot                   |
-| ⏮️           | Rewind                       | 
-| ⏭️           | Fast forward                 | 
+| ⏮️           | Previous track               | 
+| ⏭️           | Next track.                  | 
 | ⏹️           | Stop                         | 
 | ⏯️           | Play/Pause                   | 
 
