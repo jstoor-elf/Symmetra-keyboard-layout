@@ -34,7 +34,6 @@ enum custom_keycodes {
   U_FIND_NEXT,
   U_SEARCH,
   U_REPLACE,
-  U_REPLACE_ALL,
   U_UNDO,
   U_REDO,
   U_COPY,
@@ -100,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX
   ),
   [NAV] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,       XXXXXXX,      /*|*/XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,  XXXXXXX,      XXXXXXX,
-    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE,     U_REPLACE_ALL,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,  U_DOC_UP, U_DOC_RIGHT,  XXXXXXX,          
-    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE,       /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,     KC_UP,    KC_RIGHT,     XXXXXXX,          
-    XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, KC_LEFT_SHIFT, XXXXXXX,      /*|*/XXXXXXX, U_WORD_LEFT, U_PARA_DOWN, U_PARA_UP,U_WORD_RIGHT, XXXXXXX,          
-                                                    MO(3),         XXXXXXX,      /*|*/XXXXXXX, MO(3)
+    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,       XXXXXXX,/*|*/XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,  XXXXXXX,      XXXXXXX,
+    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE,     XXXXXXX,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,  U_DOC_UP, U_DOC_RIGHT,  XXXXXXX,          
+    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE, /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,     KC_UP,    KC_RIGHT,     XXXXXXX,          
+    XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, KC_LEFT_SHIFT, XXXXXXX,/*|*/XXXXXXX, U_WORD_LEFT, U_PARA_DOWN, U_PARA_UP,U_WORD_RIGHT, XXXXXXX,          
+                                                    MO(3),         XXXXXXX,/*|*/XXXXXXX, MO(3)
   ),
   [MOUSE] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -166,7 +165,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [NAV] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, 
+    {0,0,0}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, {0,0,0}, 
     {0,0,0}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, 
     {0,0,0}, {139,241,220}, {139,241,220}, {139,241,220}, {139,241,220}, {0,0,0}, 
     {0,240,171}, {0,0,0}, 
@@ -338,9 +337,6 @@ bool process_keycode_win(uint16_t keycode) {
     case U_REPLACE:
       tap_code16(C(KC_H)); 
       break;
-    case U_REPLACE_ALL:
-      tap_code16(C(S(KC_H))); 
-      break;
     case U_UNDO:
       tap_code16(C(KC_Z)); 
       break;
@@ -489,9 +485,6 @@ bool process_keycode_mac(uint16_t keycode) {
       break;
     case U_REPLACE:
       tap_code16(A(G(KC_F)));
-      break;
-    case U_REPLACE_ALL:
-      tap_code16(A(G(S(KC_F))));
       break;
     case U_UNDO:
       tap_code16(G(KC_Z));
