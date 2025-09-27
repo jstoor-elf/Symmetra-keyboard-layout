@@ -49,7 +49,8 @@ enum custom_keycodes {
   U_WORD_LEFT,
   U_PARA_DOWN,
   U_PARA_UP,
-  U_WORD_RIGHT, 
+  U_WORD_RIGHT,
+  U_RGB_TOG,
   U_SCREENSHOT,
   U_OS_SEARCH,
   U_EMOJIS,
@@ -78,7 +79,7 @@ typedef enum {
 /* ######### GLOBAL VARIABLES ######### */
 
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
-bool capslock_active = false; // Used for setting color for caps key lede
+bool capslock_active = false; // Used for setting color for caps key led
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
 
 /* ######### KEYMAPS ######### */
@@ -122,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYS] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,           XXXXXXX,          XXXXXXX,            XXXXXXX,
     XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,        U_CLOSE_TAB,        U_LOCK_SCREEN,          
-    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       RM_TOGG,             XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS,      U_SHOW_DESKTOP,     XXXXXXX,          
+    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS,      U_SHOW_DESKTOP,     XXXXXXX,          
     XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_NEW_APP_WINDOW, U_CLOSE_APP_WINDOW, U_TOGGLE_OS,          
                                                                       XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
   )  
@@ -262,24 +263,22 @@ void set_leds_for_layer(uint8_t layer) {
   // Set the runtime buffer from PROGMEM for a given layer
   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     
-    RGB rgb;
+    HSV hsv;
 
     if (layer == ALPHA && capslock_active && i == 18) {
-      rgb = hsv_to_rgb_with_value((HSV) { 0, 0, 180 });
+      hsv = (HSV) { 0, 0, 180 };
     } else if (layer == ALPHA && current_os == OS_MAC) {
-      HSV hsv = pgm_read_hsv(&ledmap_alt[layer][i]);
-      rgb = hsv_to_rgb_with_value(hsv);
+      hsv = pgm_read_hsv(&ledmap_alt[layer][i]);
     } else {
-      HSV hsv = pgm_read_hsv(&ledmap[layer][i]);
-      rgb = hsv_to_rgb_with_value(hsv);
+      hsv = pgm_read_hsv(&ledmap[layer][i]);
     }
 
+    RGB rgb = hsv_to_rgb_with_value(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
 }
 
 bool rgb_matrix_indicators_user(void) {
-  // Called each RGB frame to set custom per-layer or per-key LED colors
   uint8_t active_layer = biton32(layer_state);
   set_leds_for_layer(active_layer);
   return true;
@@ -306,7 +305,7 @@ bool process_keycode_win(uint16_t keycode) {
   switch (keycode) {
     case RGB_SLD:
       rgblight_mode(1); 
-      break;
+      break;     
     case U_SE_LESS: 
       tap_code16(SE_LESS_WIN);
       break;
@@ -393,6 +392,8 @@ bool process_keycode_win(uint16_t keycode) {
     case U_WORD_RIGHT:
       tap_code16(C(KC_RIGHT));
       break;
+    case U_RGB_TOG:
+      rgb_matrix_toggle();        
     case U_SCREENSHOT:
       tap_code16(G(KC_S)); 
       break;
@@ -544,6 +545,8 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_WORD_RIGHT:
       tap_code16(A(KC_RIGHT));
       break;
+    case U_RGB_TOG:
+      rgb_matrix_toggle();             
     case U_SCREENSHOT:
       tap_code16(G(S(KC_4))); 
       break;

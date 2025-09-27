@@ -122,7 +122,7 @@ mouse_keys = {
 systems_keys = {
     "RM_VALD": "RGB -",    
     "RM_VALU": "RGB +",
-    "RM_TOGG": "RGB Mute",    
+    "U_RGB_TOG": "RGB Mute",    
     "KC_MEDIA_PREV_TRACK": "⏮️", 
     "KC_MEDIA_NEXT_TRACK": "⏭️",
     "KC_MEDIA_PLAY_PAUSE": "⏯️", 
