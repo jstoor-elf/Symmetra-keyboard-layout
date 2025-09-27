@@ -54,10 +54,7 @@ enum custom_keycodes {
   U_SCREENSHOT,
   U_OS_SEARCH,
   U_EMOJIS,
-  U_THUMBS_UP_EMOJI,
   U_TOGGLE_OS,
-  U_TERMINAL,
-  U_BROWSER,
   U_LOCK_SCREEN,
   U_SHOW_APPS,
   U_SHOW_DESKTOP,  
@@ -65,6 +62,8 @@ enum custom_keycodes {
   U_NEXT_APP,
   U_PREV_APP_WINDOW,
   U_NEXT_APP_WINDOW,
+  U_NEW_APP_WINDOW,
+  U_CLOSE_APP_WINDOW,  
   U_APP_SWITCHER,
   U_PREV_TAB,
   U_NEXT_TAB,
@@ -122,11 +121,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         KC_F11,  KC_F12, /*|*/XXXXXXX, KC_0
   ),
   [SYS] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,/*|*/XXXXXXX,      XXXXXXX,           XXXXXXX,           XXXXXXX,     XXXXXXX,        XXXXXXX,
-    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,/*|*/U_BROWSER,    U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,   U_CLOSE_TAB,    U_LOCK_SCREEN,          
-    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       RM_TOGG,             XXXXXXX,/*|*/U_TERMINAL,   U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS, U_SHOW_DESKTOP, XXXXXXX,          
-    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,/*|*/U_EMOJIS,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_OS_SEARCH, XXXXXXX,        U_TOGGLE_OS,          
-                                                                      XXXXXXX,             XXXXXXX,/*|*/U_SCREENSHOT, U_THUMBS_UP_EMOJI
+    XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,           XXXXXXX,          XXXXXXX,            XXXXXXX,
+    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,        U_CLOSE_TAB,        U_LOCK_SCREEN,          
+    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       RM_TOGG,             XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS,      U_SHOW_DESKTOP,     XXXXXXX,          
+    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_NEW_APP_WINDOW, U_CLOSE_APP_WINDOW, U_TOGGLE_OS,          
+                                                                      XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
   )  
 };
 
@@ -214,12 +213,12 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {101,238,158}, {101,238,158}, {0,0,0}, {101,238,158}, {0,0,0}, 
     {0,0,0}, {40,239,216}, {40,239,216}, {0,0,0}, {40,239,216}, {0,0,0}, 
     {0,0,0}, {170,255,255}, {170,255,255}, {170,255,255}, {170,255,255}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, 
+    {0,0,0}, {120,112,158}, 
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {234,225,167},
-    {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {0,0,0}, 
-    {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {0,0,0}, {234,225,167}, 
+    {0,0,0}, {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {234,225,167},
+    {0,0,0}, {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {0,0,0}, 
+    {0,0,0}, {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {234,225,167}, 
     {120,112,158}, {120,112,158} 
   }
 };
@@ -409,10 +408,7 @@ bool process_keycode_win(uint16_t keycode) {
       break;
     case U_EMOJIS:
       tap_code16(G(KC_DOT)); 
-      break;
-    case U_THUMBS_UP_EMOJI:
-      SEND_STRING("👍");
-      break;          
+      break;         
     case U_TOGGLE_OS:
       current_os = OS_MAC;
       return false;
@@ -434,6 +430,12 @@ bool process_keycode_win(uint16_t keycode) {
     case U_NEXT_APP_WINDOW:
       tap_code16(C(KC_TAB));
       break;  
+    case U_NEW_APP_WINDOW: 
+      tap_code16(C(KC_N));
+      break;   
+    case U_CLOSE_APP_WINDOW:
+      tap_code16(C(KC_W));
+      break;   
     case U_PREV_TAB:
       tap_code16(S(C(KC_TAB)));
       break; 
@@ -560,12 +562,9 @@ bool process_keycode_mac(uint16_t keycode) {
       break;
     case U_EMOJIS:
       tap_code16(C(G(KC_SPACE))); 
-      break;
-    case U_THUMBS_UP_EMOJI:
-      SEND_STRING("👍");
-      break;      
+      break;   
     case U_TOGGLE_OS:
-      current_os = OS_WINDOWS; 
+      current_os = OS_WINDOWS;
       return false;  
     case U_SHOW_APPS:
       tap_code16(C(KC_UP));
@@ -584,7 +583,13 @@ bool process_keycode_mac(uint16_t keycode) {
       break; 
     case U_NEXT_APP_WINDOW:
       tap_code16(G(KC_GRV));
-      break;       
+      break;    
+    case U_NEW_APP_WINDOW: 
+      tap_code16(G(KC_N)); 
+      break;   
+    case U_CLOSE_APP_WINDOW:
+      tap_code16(G(KC_W));
+      break;   
     case U_PREV_TAB:
       tap_code16(G(A(KC_LEFT)));
       break; 

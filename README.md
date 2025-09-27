@@ -24,14 +24,11 @@ Legend for symbols and special keys used in the SVG:
 |--------------|------------------------------|
 | ▷            | Layer toggle or modifier     |
 | Caps Letter  | One-Shot shift modifier      |
-| 📟           | Open terminal                | 
-| 🌐           | Open browser                 |
 | 🔍           | Windows search / Spotlight   | 
 | 😀😎🤔😭     | Emoji menu                   |
 | 🔒           | Lock screen                  |
 | 🔄🪟🍏       | Switch OS (Win/Mac)          |
 | 📸           | Screenshot                   |
-| 👍           | Thumbs up emoji              | 
 | ⏮️           | Rewind                       | 
 | ⏭️           | Fast forward                 | 
 | ⏹️           | Stop                         | 
