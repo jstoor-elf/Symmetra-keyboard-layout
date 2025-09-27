@@ -79,7 +79,6 @@ typedef enum {
 
 /* ######### GLOBAL VARIABLES ######### */
 
-static RGB runtime_led_buffer[RGB_MATRIX_LED_COUNT] = {0}; // Define a runtime buffer for your LEDs
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
 bool capslock_active = false; // Used for setting color for caps key lede
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
@@ -131,217 +130,166 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )  
 };
 
-/* ######### KEY INDICES ######### */
+/* ######### LEDMAPS ######### */
 
-const uint8_t W_RGB_KEY_INDEX        = 8;
-const uint8_t I_RGB_KEY_INDEX        = 34;
-const uint8_t N_RGB_KEY_INDEX        = 44;
-const uint8_t M_RGB_KEY_INDEX        = 45;
-const uint8_t A_RGB_KEY_INDEX        = 13;
-const uint8_t C_RGB_KEY_INDEX        = 21;
-const uint8_t CAPSLOCK_RGB_KEY_INDEX = 18;
-
-/* ######### RGB VALUES ######### */
-
-const RGB RGB_BLANK            = {0,0,0};
-const RGB RGB_ALPHA            = {67,240,171};
-const RGB RGB_ALPHA_WIN        = {70, 130, 180};
-const RGB RGB_ALPHA_MAC        = {255, 191, 0};
-const RGB RGB_ALPHA_CAPSLOCK   = {114, 47, 55};
-const RGB RGB_SYM              = {135,114,167};
-const RGB RGB_SYM_COMPARISON   = {206,255,153};
-const RGB RGB_SYM_MATH         = {91,255,160};
-const RGB RGB_SYM_BRACKET      = {30,241,223};
-const RGB RGB_NAV_SEARCH       = {46,248,241};
-const RGB RGB_NAV_EDITING      = {220,238,216};
-const RGB RGB_NAV_MARK         = {139,241,220};
-const RGB RGB_NAV_CURSOR       = {83,234,140};
-const RGB RGB_NAV_DOC_CURSOR   = {169,243,216};
-const RGB RGB_NAV_WORD_CURSOR  = {18,250,229};
-const RGB RGB_NAV_PARA_CURSOR  = {18,250,229};
-const RGB RGB_NAV_MOUSE_SWITCH = {0,240,171};
-const RGB RGB_MOUSE_LAYER_LOCK = {208,241,224};
-const RGB RGB_MOUSE_BUTTON     = {137,241,207};
-const RGB RGB_MOUSE_MOVE       = {71,232,162}; 
-const RGB RGB_MOUSE_WHEEL      = {26,242,207};
-const RGB RGB_NUM              = {190,223,209};
-const RGB RGB_NUM_FUNC         = {253,238,205};
-const RGB RGB_SYS              = {120,112,158};
-const RGB RGB_SYS_AUDIO        = {101,238,158};
-const RGB RGB_SYS_LIGHT        = {40,239,216};
-const RGB RGB_SYS_MEDIA        = {170,255,255};
-const RGB RGB_SYS_LOCK_SCREEN  = {234,225,167};
-const RGB RGB_SYS_OS_TOGGLE    = {234,225,167};
-
-/* ######### LED MAPS ######### */
-
-const RGB PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
+const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [ALPHA] = {
     // Left side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK,
-    RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA,
-    RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA,
-    RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA,
-    RGB_ALPHA, RGB_ALPHA,
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171},
+    {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171},
+    {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171},
+    {18,250,255}, {18,250,255},
     // Right side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK,
-    RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA,
-    RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA,
-    RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA, RGB_ALPHA,
-    RGB_ALPHA, RGB_ALPHA,
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171},
+    {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171},
+    {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171}, {67,240,171},
+    {18,250,255}, {18,250,255},
   },
 
   [SYM] = {
     // Left side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK,
-    RGB_BLANK, RGB_SYM, RGB_SYM_COMPARISON, RGB_SYM_COMPARISON, RGB_SYM_MATH, RGB_SYM,
-    RGB_SYM, RGB_SYM_COMPARISON, RGB_SYM_MATH, RGB_SYM_MATH, RGB_SYM_COMPARISON, RGB_SYM,
-    RGB_BLANK, RGB_SYM, RGB_SYM_MATH, RGB_SYM_BRACKET, RGB_SYM_BRACKET, RGB_SYM,
-    RGB_BLANK, RGB_BLANK,
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {135,114,167}, {206,255,153}, {206,255,153}, {91,255,160}, {135,114,167},
+    {135,114,167}, {206,255,153}, {91,255,160}, {91,255,160}, {206,255,153}, {135,114,167},
+    {0,0,0}, {135,114,167}, {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167},
+    {0,0,0}, {0,0,0},
     // Right side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK,
-    RGB_SYM_MATH, RGB_SYM_BRACKET, RGB_SYM_BRACKET, RGB_SYM, RGB_SYM, RGB_SYM,
-    RGB_SYM, RGB_SYM_BRACKET, RGB_SYM_BRACKET, RGB_SYM, RGB_SYM, RGB_SYM,
-    RGB_SYM, RGB_SYM, RGB_SYM, RGB_SYM, RGB_SYM, RGB_BLANK,
-    RGB_BLANK, RGB_BLANK,
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
+    {135,114,167}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
+    {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {0,0,0},
+    {0,0,0}, {0,0,0},
   },
 
   [NAV] = {
     // Left side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_NAV_SEARCH, RGB_NAV_SEARCH, RGB_NAV_SEARCH, RGB_NAV_SEARCH, RGB_NAV_SEARCH, 
-    RGB_BLANK, RGB_NAV_EDITING, RGB_NAV_EDITING, RGB_NAV_EDITING, RGB_NAV_EDITING, RGB_NAV_EDITING, 
-    RGB_BLANK, RGB_NAV_MARK, RGB_NAV_MARK, RGB_NAV_MARK, RGB_NAV_MARK, RGB_BLANK, 
-    RGB_NAV_MOUSE_SWITCH, RGB_BLANK, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, 
+    {0,0,0}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, 
+    {0,0,0}, {139,241,220}, {139,241,220}, {139,241,220}, {139,241,220}, {0,0,0}, 
+    {0,240,171}, {0,0,0}, 
     // Right side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_NAV_DOC_CURSOR, RGB_NAV_DOC_CURSOR, RGB_NAV_DOC_CURSOR, RGB_NAV_DOC_CURSOR, RGB_BLANK, 
-    RGB_BLANK, RGB_NAV_CURSOR, RGB_NAV_CURSOR, RGB_NAV_CURSOR, RGB_NAV_CURSOR, RGB_BLANK, 
-    RGB_BLANK, RGB_NAV_WORD_CURSOR, RGB_NAV_PARA_CURSOR, RGB_NAV_PARA_CURSOR, RGB_NAV_WORD_CURSOR, RGB_BLANK, 
-    RGB_BLANK, RGB_NAV_MOUSE_SWITCH
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {169,243,216}, {169,243,216}, {169,243,216}, {169,243,216}, {0,0,0}, 
+    {0,0,0}, {83,234,140}, {83,234,140}, {83,234,140}, {83,234,140}, {0,0,0}, 
+    {0,0,0}, {18,250,229}, {18,250,229}, {18,250,229}, {18,250,229}, {0,0,0}, 
+    {0,0,0}, {0,240,171}
   },
 
   [MOUSE] = {
   // Left side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_MOUSE_LAYER_LOCK, RGB_MOUSE_BUTTON, RGB_MOUSE_BUTTON, RGB_MOUSE_BUTTON, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {208,241,224}, {137,241,207}, {137,241,207}, {137,241,207}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, 
     // Right side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_MOUSE_MOVE, RGB_MOUSE_MOVE, RGB_MOUSE_MOVE, RGB_MOUSE_MOVE, RGB_BLANK, 
-    RGB_BLANK, RGB_MOUSE_WHEEL, RGB_MOUSE_WHEEL, RGB_MOUSE_WHEEL, RGB_MOUSE_WHEEL, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
+    {0,0,0}, {26,242,207}, {26,242,207}, {26,242,207}, {26,242,207}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, 
   },
 
   [NUM] = {
     // Left side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_BLANK, 
-    RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_NUM_FUNC, RGB_BLANK, 
-    RGB_NUM_FUNC, RGB_NUM_FUNC, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0}, 
+    {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0}, 
+    {253,238,205}, {253,238,205}, 
     // Right side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_NUM, RGB_NUM, RGB_NUM, RGB_NUM, RGB_NUM, 
-    RGB_BLANK, RGB_NUM, RGB_NUM, RGB_NUM, RGB_NUM, RGB_BLANK, 
-    RGB_BLANK, RGB_NUM
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {190,223,209}, {190,223,209}, {190,223,209}, {190,223,209}, {190,223,209}, 
+    {0,0,0}, {190,223,209}, {190,223,209}, {190,223,209}, {190,223,209}, {0,0,0}, 
+    {0,0,0}, {190,223,209}
   }, 
 
   [SYS] = {
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_BLANK, RGB_SYS_AUDIO, RGB_SYS_AUDIO, RGB_BLANK, RGB_SYS_AUDIO, RGB_BLANK, 
-    RGB_BLANK, RGB_SYS_LIGHT, RGB_SYS_LIGHT, RGB_BLANK, RGB_SYS_LIGHT, RGB_BLANK, 
-    RGB_BLANK, RGB_SYS_MEDIA, RGB_SYS_MEDIA, RGB_SYS_MEDIA, RGB_SYS_MEDIA, RGB_BLANK, 
-    RGB_BLANK, RGB_BLANK, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {101,238,158}, {101,238,158}, {0,0,0}, {101,238,158}, {0,0,0}, 
+    {0,0,0}, {40,239,216}, {40,239,216}, {0,0,0}, {40,239,216}, {0,0,0}, 
+    {0,0,0}, {170,255,255}, {170,255,255}, {170,255,255}, {170,255,255}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, 
     // Right side
-    RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, RGB_BLANK, 
-    RGB_SYS, RGB_SYS, RGB_SYS, RGB_SYS, RGB_SYS, RGB_SYS_LOCK_SCREEN,
-    RGB_SYS, RGB_SYS, RGB_SYS, RGB_SYS, RGB_SYS, RGB_BLANK, 
-    RGB_SYS, RGB_SYS, RGB_SYS, RGB_SYS, RGB_BLANK, RGB_SYS_OS_TOGGLE, 
-    RGB_SYS, RGB_SYS 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {234,225,167},
+    {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {0,0,0}, 
+    {120,112,158}, {120,112,158}, {120,112,158}, {120,112,158}, {0,0,0}, {234,225,167}, 
+    {120,112,158}, {120,112,158} 
+  }
+};
+
+const HSV PROGMEM ledmap_alt[][RGB_MATRIX_LED_COUNT] = {
+
+  [ALPHA] = {
+    // Left side
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255},
+    {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255},
+    {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255},
+    {67,240,171}, {67,240,171},
+    // Right side
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255},
+    {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255},
+    {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255}, {18,250,255},
+    {67,240,171}, {67,240,171}
   }
 };
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
-static RGB apply_brightness(RGB in) {
-  // Apply QMK brightness (v = 0–255) directly
-  uint8_t v = rgb_matrix_config.hsv.v;
-  RGB out;
-  out.r = ((uint16_t)in.r * v) / 255;
-  out.g = ((uint16_t)in.g * v) / 255;
-  out.b = ((uint16_t)in.b * v) / 255;
-  return out;
+RGB hsv_to_rgb_with_value(HSV hsv) {
+  RGB rgb = hsv_to_rgb( hsv );
+  float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
+  return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
 }
 
-static RGB pgm_read_rgb(const RGB *addr) {
+static HSV pgm_read_hsv(const HSV *addr) {
   // Reads RGB struct from PROGMEM safely
-  RGB c;
-  c.r = pgm_read_byte(&addr->r);
-  c.g = pgm_read_byte(&addr->g);
-  c.b = pgm_read_byte(&addr->b);
-  return c;
+  HSV hsv;
+  hsv.h = pgm_read_byte(&addr->h);
+  hsv.s = pgm_read_byte(&addr->s);
+  hsv.v = pgm_read_byte(&addr->v);
+  return hsv;
 }
 
-void set_led_buffer_for_layer(uint8_t layer) {
+void set_leds_for_layer(uint8_t layer) {
+  
   // Set the runtime buffer from PROGMEM for a given layer
   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    RGB tmp = pgm_read_rgb(&ledmap[layer][i]);
-    runtime_led_buffer[i] = apply_brightness(tmp);
-  }
+    
+    RGB rgb;
 
-  // Change alpha layer
-  if (layer == ALPHA) {
-    if (capslock_active) {
-      RGB rgb = apply_brightness(RGB_ALPHA_CAPSLOCK);
-      runtime_led_buffer[CAPSLOCK_RGB_KEY_INDEX] = rgb;
-    }
-
-    if (current_os == OS_WINDOWS) {
-      RGB rgb = apply_brightness(RGB_ALPHA_WIN);
-      runtime_led_buffer[W_RGB_KEY_INDEX] = rgb;
-      runtime_led_buffer[I_RGB_KEY_INDEX] = rgb;
-      runtime_led_buffer[N_RGB_KEY_INDEX] = rgb;
+    if (layer == ALPHA && capslock_active && i == 18) {
+      rgb = hsv_to_rgb_with_value((HSV) { 253, 238, 205 });
+    } else if (layer == ALPHA && current_os == OS_MAC) {
+      HSV hsv = pgm_read_hsv(&ledmap_alt[layer][i]);
+      rgb = hsv_to_rgb_with_value(hsv);
     } else {
-      RGB rgb = apply_brightness(RGB_ALPHA_MAC);
-      runtime_led_buffer[M_RGB_KEY_INDEX] = rgb;
-      runtime_led_buffer[A_RGB_KEY_INDEX] = rgb;
-      runtime_led_buffer[C_RGB_KEY_INDEX] = rgb;
+      HSV hsv = pgm_read_hsv(&ledmap[layer][i]);
+      rgb = hsv_to_rgb_with_value(hsv);
     }
+
+    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
-}
-
-void update_layer_leds(void) {
-  // Updates rgb cache for current layer
-  uint8_t active_layer = biton32(layer_state);
-  set_led_buffer_for_layer(active_layer);
-}
-
-bool led_update_user(led_t led_state) {
-  // Called when the caps/num/scroll lock state changes
-  bool changed_state = capslock_active != led_state.caps_lock;
-  capslock_active = led_state.caps_lock; 
-
-  if (changed_state) {
-    update_layer_leds();
-  }
-
-  return true;
 }
 
 bool rgb_matrix_indicators_user(void) {
   // Called each RGB frame to set custom per-layer or per-key LED colors
+  uint8_t active_layer = biton32(layer_state);
+  set_leds_for_layer(active_layer);
+  return true;
+}
 
-  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-      RGB c = runtime_led_buffer[i];
-      rgb_matrix_set_color(i, c.r, c.g, c.b);
-  }
-
+bool led_update_user(led_t led_state) {
+  // Called when the caps/num/scroll lock state changes
+  capslock_active = led_state.caps_lock; 
   return true;
 }
 
@@ -350,15 +298,6 @@ bool rgb_matrix_indicators_user(void) {
 void keyboard_post_init_user(void) {
   // Called after keyboard finishes intitialization
   rgb_matrix_enable(); // enable rgb matrix in qmk
-  update_layer_leds();
-}
-
-/* ######### LAYER CHANGE ######### */
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Call your LED buffer update whenever the layer changes
-    update_layer_leds();
-    return state;
 }
 
 /* ######### OS-SPECIFIC KEYCODES ######### */
@@ -458,7 +397,6 @@ bool process_keycode_win(uint16_t keycode) {
       break;
     case U_WORD_RIGHT:
       tap_code16(C(KC_RIGHT));
-      tap_code(KC_LEFT);
       break;
     case U_SCREENSHOT:
       tap_code16(G(KC_S)); 
@@ -610,7 +548,6 @@ bool process_keycode_mac(uint16_t keycode) {
       break;
     case U_WORD_RIGHT:
       tap_code16(A(KC_RIGHT));
-      tap_code(KC_LEFT);
       break;
     case U_SCREENSHOT:
       tap_code16(G(S(KC_4))); 

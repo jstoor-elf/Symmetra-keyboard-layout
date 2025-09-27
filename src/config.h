@@ -1,27 +1,22 @@
 #pragma once
 
-// Tap-hold configuration for home row mods.
+/* ######### TAPPING ######### */
+#undef TAPPING_TERM
 #define TAPPING_TERM 250
-#define TAPPING_TERM_PER_KEY
-#define FLOW_TAP_TERM 100
-#define CHORDAL_HOLD
 #define PERMISSIVE_HOLD
-#define QUICK_TAP_TERM_PER_KEY
-
-/* ######### USB ######### */
-#define PERMISSIVE_HOLD 
   
-/* ######### MOUSEKEY ######### */
-#ifdef MOUSEKEY_WHEEL_INTERVAL
-  #undef MOUSEKEY_WHEEL_INTERVAL
-#endif
+/* ######### MOUSEKEYS ######### */
+#undef MOUSEKEY_WHEEL_INTERVAL
 #define MOUSEKEY_WHEEL_INTERVAL 120
 
-#ifdef MOUSEKEY_WHEEL_MAX_SPEED
-  #undef MOUSEKEY_WHEEL_MAX_SPEED
-#endif
+#undef MOUSEKEY_WHEEL_MAX_SPEED
 #define MOUSEKEY_WHEEL_MAX_SPEED 6
 
-/* ######### LAYER / CAPS ######### */
+/* ######### CAPS ######### */
 #define CAPS_LOCK_STATUS      
-#define LAYER_STATE_16BIT       
+
+/* ######### LAYER STATE ######### */
+#define LAYER_STATE_16BIT // handle more layers       
+
+/* ######### USB ######### */
+#define USB_SUSPEND_WAKEUP_DELAY 0
