@@ -101,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX
   ),
   [NAV] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,   XXXXXXX,      /*|*/XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,  XXXXXXX,      XXXXXXX,
-    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE, U_REPLACE_ALL,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,  U_DOC_UP, U_DOC_RIGHT,  XXXXXXX,          
-    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,   U_SAVE,       /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,     KC_UP,    KC_RIGHT,     XXXXXXX,          
-    XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, MOD_LSFT,  XXXXXXX,      /*|*/XXXXXXX, U_WORD_LEFT, U_PARA_DOWN, U_PARA_UP,U_WORD_RIGHT, XXXXXXX,          
-                                                    MO(3),     XXXXXXX,      /*|*/XXXXXXX, MO(3)
+    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,       XXXXXXX,      /*|*/XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,  XXXXXXX,      XXXXXXX,
+    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE,     U_REPLACE_ALL,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,  U_DOC_UP, U_DOC_RIGHT,  XXXXXXX,          
+    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE,       /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,     KC_UP,    KC_RIGHT,     XXXXXXX,          
+    XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, KC_LEFT_SHIFT, XXXXXXX,      /*|*/XXXXXXX, U_WORD_LEFT, U_PARA_DOWN, U_PARA_UP,U_WORD_RIGHT, XXXXXXX,          
+                                                    MO(3),         XXXXXXX,      /*|*/XXXXXXX, MO(3)
   ),
   [MOUSE] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,

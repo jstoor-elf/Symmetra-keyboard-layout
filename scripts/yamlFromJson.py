@@ -83,7 +83,8 @@ editing_keys = {
     "U_FIND_PREV": "Find ↶",
     "U_FIND_NEXT": "Find ↷",
     "U_MARK_WORD_PREV": "Mark Word ↶",
-    "U_MARK_WORD_NEXT": "Mark Word ↷"     
+    "U_MARK_WORD_NEXT": "Mark Word ↷",
+    "KC_LEFT_SHIFT": "Shift"
 }
 
 # Mouse keys
