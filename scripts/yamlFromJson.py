@@ -134,8 +134,6 @@ systems_keys = {
     "U_TOGGLE_OS": "🔄 🪟🍏",  
     "U_PREV_WINDOW": "Window ↶",
     "U_NEXT_WINDOW": "Window ↷",
-    "U_PREV_APP": "App ↶",
-    "U_NEXT_APP": "App ↷",  
     "U_PREV_APP_WINDOW": "App Window ↶",        
     "U_NEXT_APP_WINDOW": "App Window ↷",
     "U_NEW_APP_WINDOW": "App Window ➕",

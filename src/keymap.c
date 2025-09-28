@@ -57,9 +57,7 @@ enum custom_keycodes {
   U_TOGGLE_OS,
   U_LOCK_SCREEN,
   U_SHOW_APPS,
-  U_SHOW_DESKTOP,  
-  U_PREV_APP,
-  U_NEXT_APP,
+  U_SHOW_DESKTOP,
   U_PREV_APP_WINDOW,
   U_NEXT_APP_WINDOW,
   U_NEW_APP_WINDOW,
@@ -80,6 +78,7 @@ typedef enum {
 
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
 bool capslock_active = false; // Used for setting color for caps key led
+bool app_switcher_active = false; // Used for knowing if app window is active or not
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
 
 /* ######### KEYMAPS ######### */
@@ -122,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [SYS] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,           XXXXXXX,          XXXXXXX,            XXXXXXX,
-    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,        U_CLOSE_TAB,        U_LOCK_SCREEN,          
-    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS,      U_SHOW_DESKTOP,     XXXXXXX,          
-    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_NEW_APP_WINDOW, U_CLOSE_APP_WINDOW, U_TOGGLE_OS,          
+    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,        U_CLOSE_TAB,        U_LOCK_SCREEN,
+    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     U_SHOW_APPS,       U_SHOW_DESKTOP,    XXXXXXX,          XXXXXXX,            XXXXXXX,
+    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_NEW_APP_WINDOW, U_CLOSE_APP_WINDOW, U_TOGGLE_OS,
                                                                       XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
   )  
 };
@@ -217,7 +216,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,255,200},
-    {0,0,0}, {70,218,204}, {70,218,204}, {70,218,204}, {70,218,204}, {0,0,0}, 
+    {0,0,0}, {70,218,204}, {70,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {85,255,200}, 
     {170,218,204}, {170,218,204}
   }
@@ -415,12 +414,6 @@ bool process_keycode_win(uint16_t keycode) {
     case U_SHOW_DESKTOP:
       tap_code16(G(KC_D));
       break;        
-    case U_PREV_APP:
-      tap_code16(S(A(KC_TAB)));
-      break; 
-    case U_NEXT_APP:
-      tap_code16(A(KC_TAB));
-      break; 
     case U_PREV_APP_WINDOW:
       tap_code16(S(C(KC_TAB)));
       break; 
@@ -567,13 +560,7 @@ bool process_keycode_mac(uint16_t keycode) {
       break;
     case U_SHOW_DESKTOP:
       tap_code16(KC_F11);
-      break;         
-    case U_PREV_APP:
-      tap_code16(S(G(KC_TAB)));
-      break; 
-    case U_NEXT_APP:
-      tap_code16(G(KC_TAB));  
-      break;     
+      break;            
     case U_PREV_APP_WINDOW:
       tap_code16(S(G(KC_GRV)));
       break; 
