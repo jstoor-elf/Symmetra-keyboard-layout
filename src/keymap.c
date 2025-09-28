@@ -288,11 +288,25 @@ bool led_update_user(led_t led_state) {
   return true;
 }
 
+/* ######### EEPROM STATE ######### */
+
+void load_os(void) {
+  // Load OS from EEPROM
+  if (!eeconfig_is_enabled()) {
+    eeconfig_init();
+    current_os = OS_WINDOWS;
+    eeconfig_update_user(current_os);
+  } else {
+    current_os = (uint8_t)eeconfig_read_user();
+  }
+}
+
 /* ######### INITIALIZATION HOOK ######### */
 
 void keyboard_post_init_user(void) {
   // Called after keyboard finishes intitialization
   rgb_matrix_enable(); // enable rgb matrix in qmk
+  load_os(); // Read OS
 }
 
 /* ######### OS-SPECIFIC KEYCODES ######### */
@@ -406,6 +420,7 @@ bool process_keycode_win(uint16_t keycode) {
       break;         
     case U_TOGGLE_OS:
       current_os = OS_MAC;
+      eeconfig_update_user(current_os);
       return false;
     case U_SHOW_APPS:
       tap_code16(G(KC_TAB));
@@ -553,6 +568,7 @@ bool process_keycode_mac(uint16_t keycode) {
       break;   
     case U_TOGGLE_OS:
       current_os = OS_WINDOWS;
+      eeconfig_update_user(current_os);
       return false;  
     case U_SHOW_APPS:
       tap_code16(C(KC_UP));
