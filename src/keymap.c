@@ -405,7 +405,8 @@ bool process_keycode_win(uint16_t keycode) {
       tap_code16(C(KC_RIGHT));
       break;
     case U_RGB_TOG:
-      rgb_matrix_toggle();        
+      rgb_matrix_toggle();    
+      return false; 
     case U_SCREENSHOT:
       tap_code16(G(KC_S)); 
       break;
@@ -483,7 +484,7 @@ bool process_keycode_mac(uint16_t keycode) {
       tap_code16(SE_BSLS_MAC);
       break;
     case U_FIND_PREV:
-    tap_code16(G(S(KC_G)));
+      tap_code16(G(S(KC_G)));
       break;
     case U_FIND_NEXT:
       tap_code16(G(KC_G));
@@ -553,7 +554,8 @@ bool process_keycode_mac(uint16_t keycode) {
       tap_code16(A(KC_RIGHT));
       break;
     case U_RGB_TOG:
-      rgb_matrix_toggle();             
+      rgb_matrix_toggle();          
+      return false;
     case U_SCREENSHOT:
       tap_code16(G(S(KC_4))); 
       break;
