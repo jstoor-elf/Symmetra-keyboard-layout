@@ -78,7 +78,6 @@ typedef enum {
 
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
 bool capslock_active = false; // Used for setting color for caps key led
-bool app_switcher_active = false; // Used for knowing if app window is active or not
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
 
 /* ######### KEYMAPS ######### */
@@ -216,7 +215,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,255,200},
-    {0,0,0}, {70,218,204}, {70,218,204}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {70,218,255}, {70,218,255}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {85,255,200}, 
     {170,218,204}, {170,218,204}
   }
