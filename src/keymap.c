@@ -113,9 +113,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),  
   [NUM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10, /*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
-    XXXXXXX, XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11, /*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
-    XXXXXXX, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12, /*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
+    XXXXXXX, KC_F10,  KC_F3,   KC_F2,   KC_F1,   XXXXXXX, /*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
+    XXXXXXX, KC_F11,  KC_F6,   KC_F5,   KC_F4,   XXXXXXX, /*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
+    XXXXXXX, KC_F12,  KC_F9,   KC_F8,   KC_F7,   XXXXXXX, /*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
   [SYS] = LAYOUT_voyager(
@@ -194,9 +194,9 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [NUM] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, 
-    {0,0,0}, {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, 
-    {0,0,0}, {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, 
+    {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0},
+    {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0},
+    {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0},
     {0,0,0}, {0,0,0},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
