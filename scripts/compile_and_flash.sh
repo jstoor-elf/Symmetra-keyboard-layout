@@ -37,7 +37,7 @@ fi
 
 echo "⚠️ Please put your keyboard into bootloader mode..."
 
-for i in {10..1}; do
+for i in {5..1}; do
     echo "⏳ Flashing will start in $i seconds..."
     sleep 1
 done

@@ -243,11 +243,16 @@ const HSV PROGMEM ledmap_alt[][RGB_MATRIX_LED_COUNT] = {
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
-uint8_t compute_rgb_breathing(uint16_t period) {  
-  uint16_t t = timer_read() % period;
-  float phase = ((float)t / (float)period) * M_PI;
-  float sine_val = sinf(phase);
-  return (uint8_t)(sine_val * 255);
+uint16_t hsv_value_for_animation(uint8_t index) {
+  uint16_t period = 1000;
+  uint16_t period_offset = 50;
+  uint16_t phase_offset = index * period_offset;
+  uint16_t t = (timer_read() + phase_offset) % period;
+  uint16_t value = (t < period/2) 
+    ? (t * 255) / (period/2) 
+    : 255 - ((t - period/2) * 255) / (period/2);
+
+  return value;
 }
 
 RGB hsv_to_rgb_with_value(HSV hsv) {
@@ -282,14 +287,15 @@ bool try_set_leds_for_layer_with_animation(uint8_t layer) {
     return false;
   } 
 
-  if (timer_elapsed(os_effect_timer) > 2000) {
+  if (timer_elapsed(os_effect_timer) > 5000) {
     os_effect_timer = 0; 
   }
 
   // Set the runtime buffer from PROGMEM for a given layer, and sets pulsating value
-  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = pgm_read_hsv_for_layer(layer, i);
-    if (hsv.v != 0 ) { hsv.v = compute_rgb_breathing(500); }
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {    
+    uint16_t hsv_value = hsv_value_for_animation(i);
+    HSV hsv = pgm_read_hsv_for_layer(layer, i); 
+    hsv.v = hsv.v != 0 ? hsv_value : 0;
     RGB rgb = hsv_to_rgb_with_value(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
