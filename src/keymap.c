@@ -244,8 +244,8 @@ const HSV PROGMEM ledmap_alt[][RGB_MATRIX_LED_COUNT] = {
 /* ######### LED CONTROL FUNCTIONS ######### */
 
 uint16_t hsv_value_for_animation(uint8_t index, uint8_t max_v) {
-  uint16_t period = 1000;
-  uint16_t period_offset = 50;
+  uint16_t period = 500;
+  uint16_t period_offset = 100;
   uint16_t phase_offset = index * period_offset;
   uint16_t t = (timer_read() + phase_offset) % period;
   uint16_t value = (t < period/2) 
