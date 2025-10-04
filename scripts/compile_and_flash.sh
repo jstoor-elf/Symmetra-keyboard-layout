@@ -29,7 +29,7 @@ qmk compile -kb zsa/voyager -km "$KEYMAP_NAME"
 echo "✅ Compilation succeeded!"
 
 # Ask if user wants to flash
-read -p "Do you want to flash the keyboard now? (y/n), if so flashing will start in 10 seconds: " flash_confirm
+read -p "Do you want to flash the keyboard now? (y/n), if so flashing will start in 5 seconds: " flash_confirm
 if [[ ! "$flash_confirm" =~ ^[Yy]$ ]]; then
     echo "✅ Skipping flashing."
     exit 0
