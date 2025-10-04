@@ -3,6 +3,7 @@
 #include QMK_KEYBOARD_H
 #include "swedish_keys.h"
 #include "version.h"
+#include <math.h>
 
 /* ######### DEFINES ######### */
 
@@ -77,6 +78,7 @@ typedef enum {
 /* ######### GLOBAL VARIABLES ######### */
 
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
+uint16_t os_effect_timer = 0; // Used for visualizing os switch
 bool capslock_active = false; // Used for setting color for caps key led
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
 
@@ -241,6 +243,13 @@ const HSV PROGMEM ledmap_alt[][RGB_MATRIX_LED_COUNT] = {
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
+uint8_t compute_rgb_breathing(uint16_t period) {  
+  uint16_t t = timer_read() % period;
+  float phase = ((float)t / (float)period) * M_PI;
+  float sine_val = sinf(phase);
+  return (uint8_t)(sine_val * 255);
+}
+
 RGB hsv_to_rgb_with_value(HSV hsv) {
   RGB rgb = hsv_to_rgb( hsv );
   float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
@@ -256,21 +265,42 @@ static HSV pgm_read_hsv(const HSV *addr) {
   return hsv;
 }
 
+HSV pgm_read_hsv_for_layer(uint8_t layer, uint8_t index) {
+  HSV hsv;
+  if (layer == ALPHA && capslock_active && index == 18) {
+    hsv = (HSV) { 0, 0, 180 };
+  } else if (layer == ALPHA && current_os == OS_MAC) {
+    hsv = pgm_read_hsv(&ledmap_alt[layer][index]);
+  } else {
+    hsv = pgm_read_hsv(&ledmap[layer][index]);
+  } 
+  return hsv;
+}
+
+bool try_set_leds_for_layer_with_animation(uint8_t layer) {
+  if (!os_effect_timer) {
+    return false;
+  } 
+
+  if (timer_elapsed(os_effect_timer) > 2000) {
+    os_effect_timer = 0; 
+  }
+
+  // Set the runtime buffer from PROGMEM for a given layer, and sets pulsating value
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    HSV hsv = pgm_read_hsv_for_layer(layer, i);
+    if (hsv.v != 0 ) { hsv.v = compute_rgb_breathing(500); }
+    RGB rgb = hsv_to_rgb_with_value(hsv);
+    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+  }
+
+  return true;
+}
+
 void set_leds_for_layer(uint8_t layer) {
-  
   // Set the runtime buffer from PROGMEM for a given layer
   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    
-    HSV hsv;
-
-    if (layer == ALPHA && capslock_active && i == 18) {
-      hsv = (HSV) { 0, 0, 180 };
-    } else if (layer == ALPHA && current_os == OS_MAC) {
-      hsv = pgm_read_hsv(&ledmap_alt[layer][i]);
-    } else {
-      hsv = pgm_read_hsv(&ledmap[layer][i]);
-    }
-
+    HSV hsv = pgm_read_hsv_for_layer(layer, i);
     RGB rgb = hsv_to_rgb_with_value(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
@@ -278,7 +308,11 @@ void set_leds_for_layer(uint8_t layer) {
 
 bool rgb_matrix_indicators_user(void) {
   uint8_t active_layer = biton32(layer_state);
-  set_leds_for_layer(active_layer);
+  if (try_set_leds_for_layer_with_animation(active_layer)) {
+    return false;
+  } else {
+    set_leds_for_layer(active_layer);
+  }
   return true;
 }
 
@@ -420,6 +454,7 @@ bool process_keycode_win(uint16_t keycode) {
       tap_code16(G(KC_DOT)); 
       break;         
     case U_TOGGLE_OS:
+      os_effect_timer = timer_read();
       current_os = OS_MAC;
       eeconfig_update_user(current_os);
       return false;
@@ -569,6 +604,7 @@ bool process_keycode_mac(uint16_t keycode) {
       tap_code16(C(G(KC_SPACE))); 
       break;   
     case U_TOGGLE_OS:
+      os_effect_timer = timer_read();
       current_os = OS_WINDOWS;
       eeconfig_update_user(current_os);
       return false;  
