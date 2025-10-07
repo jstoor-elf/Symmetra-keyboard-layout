@@ -24,6 +24,7 @@ Legend for symbols and special keys used in the SVG:
 |--------------|------------------------------|
 | ▷            | Layer toggle or modifier     |
 | Caps Letter  | One-Shot shift modifier      |
+| App 🔄       | App switch mode              |
 | 🔍           | Windows search / Spotlight   | 
 | 😀😎🤔😭     | Emoji menu                   |
 | 🔒           | Lock screen                  |

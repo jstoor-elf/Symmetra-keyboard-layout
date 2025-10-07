@@ -35,6 +35,7 @@ enum custom_keycodes {
   U_FIND_NEXT,
   U_SEARCH,
   U_REPLACE,
+  U_CUT,
   U_UNDO,
   U_REDO,
   U_COPY,
@@ -63,11 +64,13 @@ enum custom_keycodes {
   U_NEXT_APP_WINDOW,
   U_NEW_APP_WINDOW,
   U_CLOSE_APP_WINDOW,  
-  U_APP_SWITCHER,
   U_PREV_TAB,
   U_NEXT_TAB,
   U_NEW_TAB,
-  U_CLOSE_TAB    
+  U_CLOSE_TAB,
+  U_APP_SWITCHER,  
+  U_PREV_APP,
+  U_NEXT_APP,    
 };
 
 typedef enum {
@@ -102,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NAV] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,       XXXXXXX,/*|*/XXXXXXX, XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
     XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE,     XXXXXXX,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,          
-    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE, /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
+    U_CUT,   U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE, /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
     XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, KC_LEFT_SHIFT, XXXXXXX,/*|*/XXXXXXX, U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,          
                                                     MO(3),         XXXXXXX,/*|*/XXXXXXX, MO(3)
   ),
@@ -121,11 +124,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
   [SYS] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,           XXXXXXX,          XXXXXXX,            XXXXXXX,
-    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,        U_CLOSE_TAB,        U_LOCK_SCREEN,
-    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     U_SHOW_APPS,       U_SHOW_DESKTOP,    XXXXXXX,          XXXXXXX,            XXXXXXX,
-    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_NEW_APP_WINDOW, U_CLOSE_APP_WINDOW, U_TOGGLE_OS,
-                                                                      XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
+    XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,        XXXXXXX,           XXXXXXX,           XXXXXXX,          XXXXXXX,            XXXXXXX,
+    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,        U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,        U_CLOSE_TAB,        U_LOCK_SCREEN,
+    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS,   U_SHOW_DESKTOP,     XXXXXXX,
+    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_NEW_APP_WINDOW, U_CLOSE_APP_WINDOW, U_TOGGLE_OS,
+                                                                      U_EMOJIS,            U_SCREENSHOT,/*|*/U_APP_SWITCHER, U_OS_SEARCH
   )  
 };
 
@@ -160,14 +163,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
     {135,114,167}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
     {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {0,0,0},
-    {0,0,0}, {0,0,0},
+    {0,0,0}, {0,0,0}
   },
 
   [NAV] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, {0,0,0}, 
-    {0,0,0}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, 
+    {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, 
     {0,0,0}, {139,241,220}, {139,241,220}, {139,241,220}, {139,241,220}, {0,0,0}, 
     {0,240,171}, {0,0,0}, 
     // Right side
@@ -213,13 +216,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {101,238,158}, {101,238,158}, {0,0,0}, {101,238,158}, {0,0,0}, 
     {0,0,0}, {30,239,216}, {30,239,216}, {0,0,0}, {30,239,216}, {0,0,0},
     {0,0,0}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,0,0}, 
-    {0,0,0}, {240,218,204}, 
+    {240,218,204}, {240,218,204}, 
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,255,200},
-    {0,0,0}, {70,218,255}, {70,218,255}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {70,218,255}, {70,218,255}, {70,218,255}, {70,218,255}, {0,0,0}, 
     {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {85,255,200}, 
-    {170,218,204}, {170,218,204}
+    {70,218,255}, {70,218,255}
   }
 };
 
@@ -401,6 +404,9 @@ bool process_keycode_win(uint16_t keycode) {
     case U_REPLACE:
       tap_code16(C(KC_H)); 
       break;
+    case U_CUT:
+      tap_code16(C(KC_X)); 
+      break;      
     case U_UNDO:
       tap_code16(C(KC_Z)); 
       break;
@@ -506,7 +512,13 @@ bool process_keycode_win(uint16_t keycode) {
       break; 
     case U_CLOSE_TAB:
       tap_code16(C(KC_W));
-      break;           
+      break;        
+    case U_PREV_APP:
+      tap_code16(S(KC_TAB));
+      break;
+    case U_NEXT_APP:
+      tap_code(KC_TAB);
+      break;   
   }
 
   return true; // Let QMK handle other keycodes
@@ -549,6 +561,9 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_REPLACE:
       tap_code16(A(G(KC_F)));
       break;
+    case U_CUT:
+      tap_code16(G(KC_X)); 
+      break;          
     case U_UNDO:
       tap_code16(G(KC_Z));
       break;
@@ -656,7 +671,13 @@ bool process_keycode_mac(uint16_t keycode) {
       break; 
     case U_CLOSE_TAB:
       tap_code16(G(KC_W));
-      break;           
+      break;        
+    case U_PREV_APP:
+      tap_code16(S(KC_TAB));
+      break;
+    case U_NEXT_APP:
+      tap_code(KC_TAB);
+      break;
   }
 
   return true; // Let QMK handle other keycodes
@@ -665,6 +686,26 @@ bool process_keycode_mac(uint16_t keycode) {
 /* ######### MAIN KEY PROCESSING ######### */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  if (keycode == U_APP_SWITCHER) {
+    if (record->event.pressed) {
+      if (current_os == OS_MAC) {
+        register_code(KC_LGUI); 
+        tap_code16(KC_TAB); 
+      } else {
+        register_code(KC_LALT);
+      tap_code16(KC_TAB);       
+      }
+    } else {
+      if (current_os == OS_MAC) {
+        unregister_code(KC_LGUI);
+      } else { 
+        unregister_code(KC_LALT);
+      }
+    }       
+    
+    return false;
+  }
 
   if (!record->event.pressed) {
     return true;
