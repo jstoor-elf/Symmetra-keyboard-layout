@@ -48,8 +48,8 @@ enum custom_keycodes {
   U_DOC_UP,
   U_DOC_RIGHT,   
   U_WORD_LEFT,
-  U_PARA_DOWN,
-  U_PARA_UP,
+  U_5_ROWS_DOWN,
+  U_5_ROWS_UP,
   U_WORD_RIGHT,
   U_RGB_TOG,
   U_SCREENSHOT,
@@ -100,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                             XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX
   ),
   [NAV] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,       XXXXXXX,/*|*/XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,  XXXXXXX,      XXXXXXX,
-    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE,     XXXXXXX,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,  U_DOC_UP, U_DOC_RIGHT,  XXXXXXX,          
-    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE, /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,     KC_UP,    KC_RIGHT,     XXXXXXX,          
-    XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, KC_LEFT_SHIFT, XXXXXXX,/*|*/XXXXXXX, U_WORD_LEFT, U_PARA_DOWN, U_PARA_UP,U_WORD_RIGHT, XXXXXXX,          
+    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,       XXXXXXX,/*|*/XXXXXXX, XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
+    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE,     XXXXXXX,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,          
+    XXXXXXX, U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE, /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
+    XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, KC_LEFT_SHIFT, XXXXXXX,/*|*/XXXXXXX, U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,          
                                                     MO(3),         XXXXXXX,/*|*/XXXXXXX, MO(3)
   ),
   [MOUSE] = LAYOUT_voyager(
@@ -348,6 +348,20 @@ void keyboard_post_init_user(void) {
   load_os(); // Read OS
 }
 
+/* ######### OS-GENERIC FUNCTIONALITY ######### */
+
+void move_lines_up(uint16_t lines) {
+  for (int i = 0; i < lines; i++) {
+    tap_code(KC_UP);
+  }
+}
+
+void move_lines_down(uint16_t lines) {
+  for (int i = 0; i < lines; i++) {
+    tap_code(KC_DOWN);
+  }
+}
+
 /* ######### OS-SPECIFIC KEYCODES ######### */
 
 bool process_keycode_win(uint16_t keycode) {
@@ -434,11 +448,11 @@ bool process_keycode_win(uint16_t keycode) {
     case U_WORD_LEFT:
       tap_code16(C(KC_LEFT)); 
       break;
-    case U_PARA_DOWN:
-      tap_code16(C(KC_DOWN)); 
+    case U_5_ROWS_DOWN:
+      move_lines_down(5);
       break;
-    case U_PARA_UP:
-      tap_code16(C(KC_UP)); 
+    case U_5_ROWS_UP:
+      move_lines_up(5);
       break;
     case U_WORD_RIGHT:
       tap_code16(C(KC_RIGHT));
@@ -584,11 +598,11 @@ bool process_keycode_mac(uint16_t keycode) {
     case U_WORD_LEFT:
       tap_code16(A(KC_LEFT)); 
       break;
-    case U_PARA_DOWN:
-      tap_code16(A(KC_DOWN)); 
+    case U_5_ROWS_DOWN:
+      move_lines_down(5);
       break;
-    case U_PARA_UP:
-      tap_code16(A(KC_UP)); 
+    case U_5_ROWS_UP:
+      move_lines_up(5);
       break;
     case U_WORD_RIGHT:
       tap_code16(A(KC_RIGHT));

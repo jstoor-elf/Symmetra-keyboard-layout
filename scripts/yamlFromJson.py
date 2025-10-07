@@ -98,8 +98,8 @@ navigation_keys = {
     "U_DOC_UP": "Doc ⭡",
     "U_DOC_RIGHT": "Doc ⭢",   
     "U_WORD_LEFT": "Word ⭠",
-    "U_PARA_DOWN": "Para ⭣",
-    "U_PARA_UP": " Para ⭡",
+    "U_5_ROWS_DOWN": "5 Rows ⭣",
+    "U_5_ROWS_UP": "5 Rows ⭡",
     "U_WORD_RIGHT": "Word ⭢"
 }
 
