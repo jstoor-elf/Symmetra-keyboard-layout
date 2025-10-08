@@ -172,7 +172,7 @@ def map_special_tap(key: str) -> str | None:
     mt_match = re.match(r"MT\(([^,]+),\s*([^)]+)\)", key)
     if mt_match:
         mod, tap = mt_match.groups()
-        return f"{map_key(tap).splitlines()[0]}\n▷{map_key(mod).splitlines()[0]}"
+        return f"{map_key(tap).splitlines()[0]}\n◇{map_key(mod).splitlines()[0]}"
 
     # Layer-Tap: LT(layer_index, key)
     lt_match = re.match(r"LT\((\d+),\s*([^)]+)\)", key)

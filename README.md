@@ -20,19 +20,20 @@ My mind tends to favor symmetry, so the Mod-Tap and Layer-Tap keys are positione
 
 Legend for symbols and special keys used in the SVG:
 
-| Symbol       | Meaning                      |
-|--------------|------------------------------|
-| ▷            | Layer toggle or modifier     |
-| Caps Letter  | One-Shot shift modifier      |
-| 🔍           | Windows search / Spotlight   | 
-| 😀😎🤔😭     | Emoji menu                   |
-| 🔒           | Lock screen                  |
-| 🔄🪟🍏       | Switch OS (Win/Mac)          |
-| 📸           | Screenshot                   |
-| ⏮️           | Previous track               | 
-| ⏭️           | Next track.                  | 
-| ⏹️           | Stop                         | 
-| ⏯️           | Play/Pause                   | 
+| Symbol       | Meaning                    |
+|--------------|----------------------------|
+| ◇            | Modifier                   |
+| ▷            | Layer toggle               |
+| Caps Letter  | One-Shot shift modifier    |
+| 🔍           | Windows search / Spotlight | 
+| 😀😎🤔😭     | Emoji menu                 |
+| 🔒           | Lock screen                |
+| 🔄🪟🍏       | Switch OS (Win/Mac)        |
+| 📸           | Screenshot                 |
+| ⏮️           | Previous track             | 
+| ⏭️           | Next track.                | 
+| ⏹️           | Stop                       | 
+| ⏯️           | Play/Pause                 | 
 
 ## Visualization Pipeline
 
