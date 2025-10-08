@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYS] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,        XXXXXXX,           XXXXXXX,           XXXXXXX,          XXXXXXX,            XXXXXXX,
     XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,        U_PREV_TAB,        U_NEXT_TAB,        U_NEW_TAB,        U_CLOSE_TAB,        U_LOCK_SCREEN,
-    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS,   U_SHOW_DESKTOP,     XXXXXXX,
+    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP,        U_NEXT_APP,        U_SHOW_APPS,      U_SHOW_DESKTOP,     XXXXXXX,
     XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP_WINDOW, U_NEXT_APP_WINDOW, U_NEW_APP_WINDOW, U_CLOSE_APP_WINDOW, U_TOGGLE_OS,
                                                                       U_EMOJIS,            U_SCREENSHOT,/*|*/U_APP_SWITCHER, U_OS_SEARCH
   )  
@@ -351,7 +351,16 @@ void keyboard_post_init_user(void) {
   load_os(); // Read OS
 }
 
-/* ######### OS-GENERIC FUNCTIONALITY ######### */
+/* ######### OS FUNCTIONALITY ######### */
+
+#define PERFORM_BY_OS(win_action, mac_action) \
+  do {                                        \
+    if (current_os == OS_WINDOWS) {           \
+      win_action;                             \
+    } else {                                  \
+      mac_action;                             \
+    }                                         \
+  } while (0)
 
 void move_lines_up(uint16_t lines) {
   for (int i = 0; i < lines; i++) {
@@ -365,358 +374,121 @@ void move_lines_down(uint16_t lines) {
   }
 }
 
-/* ######### OS-SPECIFIC KEYCODES ######### */
-
-bool process_keycode_win(uint16_t keycode) {
-  // Handles custom keycodes and shortcuts for Windows OS.
-  // Kept separate from macOS for clarity and modularity.
-  switch (keycode) {
-    case RGB_SLD:
-      rgblight_mode(1); 
-      break;     
-    case U_SE_LESS: 
-      tap_code16(SE_LESS_WIN);
-      break;
-    case U_SE_GRTR: 
-      tap_code16(SE_GRTR_WIN);
-      break;
-    case U_SE_PIPE: 
-      tap_code16(SE_PIPE_WIN);
-      break;
-    case U_SE_LCBR:
-      tap_code16(SE_LCBR_WIN);
-      break;
-    case U_SE_RCBR: 
-      tap_code16(SE_RCBR_WIN);
-      break;
-    case U_SE_BSLS: 
-      tap_code16(SE_BSLS_WIN);
-      break;  
-    case U_FIND_PREV:
-      tap_code16(S(KC_F3)); 
-      break;
-    case U_FIND_NEXT:
-      tap_code16(C(KC_G)); 
-      break;
-    case U_SEARCH:
-      tap_code16(C(KC_F)); 
-      break;
-    case U_REPLACE:
-      tap_code16(C(KC_H)); 
-      break;
-    case U_CUT:
-      tap_code16(C(KC_X)); 
-      break;      
-    case U_UNDO:
-      tap_code16(C(KC_Z)); 
-      break;
-    case U_REDO:
-      tap_code16(C(KC_Y)); 
-      break;
-    case U_COPY:
-      tap_code16(C(KC_C)); 
-      break;
-    case U_PASTE:
-      tap_code16(C(KC_V)); 
-      break;
-    case U_SAVE:
-      tap_code16(C(KC_S)); 
-      break;
-    case U_MARK_ALL:
-      tap_code16(C(KC_A)); 
-      break;
-    case U_MARK_LINE:
-      tap_code(KC_HOME);
-      register_code(KC_LSFT);
-      tap_code(KC_END);
-      unregister_code(KC_LSFT);
-      break;
-    case U_MARK_WORD:
-      tap_code16(C(KC_LEFT));
-      register_code(KC_LCTL);
-      register_code(KC_LSFT);
-      tap_code(KC_RIGHT);
-      unregister_code(KC_LSFT);
-      unregister_code(KC_LCTL);
-      break;
-    case U_DOC_LEFT:
-      tap_code(KC_HOME); 
-      break;
-    case U_DOC_DOWN:
-      tap_code16(C(KC_END)); 
-      break;
-    case U_DOC_UP:
-      tap_code16(C(KC_HOME)); 
-      break;
-    case U_DOC_RIGHT:
-      tap_code(KC_END); 
-      break;
-    case U_WORD_LEFT:
-      tap_code16(C(KC_LEFT)); 
-      break;
-    case U_5_ROWS_DOWN:
-      move_lines_down(5);
-      break;
-    case U_5_ROWS_UP:
-      move_lines_up(5);
-      break;
-    case U_WORD_RIGHT:
-      tap_code16(C(KC_RIGHT));
-      break;
-    case U_RGB_TOG:
-      rgb_matrix_toggle();    
-      return false; 
-    case U_SCREENSHOT:
-      tap_code16(G(KC_S)); 
-      break;
-    case U_OS_SEARCH:
-      tap_code16(G(S(KC_S))); 
-      break;
-    case U_LOCK_SCREEN:
-      tap_code16(G(KC_L)); 
-      break;
-    case U_EMOJIS:
-      tap_code16(G(KC_DOT)); 
-      break;         
-    case U_TOGGLE_OS:
-      os_effect_timer = timer_read();
-      current_os = OS_MAC;
-      eeconfig_update_user(current_os);
-      return false;
-    case U_SHOW_APPS:
-      tap_code16(G(KC_TAB));
-      break;    
-    case U_SHOW_DESKTOP:
-      tap_code16(G(KC_D));
-      break;        
-    case U_PREV_APP_WINDOW:
-      tap_code16(S(C(KC_TAB)));
-      break; 
-    case U_NEXT_APP_WINDOW:
-      tap_code16(C(KC_TAB));
-      break;  
-    case U_NEW_APP_WINDOW: 
-      tap_code16(C(KC_N));
-      break;   
-    case U_CLOSE_APP_WINDOW:
-      tap_code16(C(KC_W));
-      break;   
-    case U_PREV_TAB:
-      tap_code16(S(C(KC_TAB)));
-      break; 
-    case U_NEXT_TAB:
-      tap_code16(C(KC_TAB)); 
-      break;  
-    case U_NEW_TAB:
-      tap_code16(C(KC_T));
-      break; 
-    case U_CLOSE_TAB:
-      tap_code16(C(KC_W));
-      break;        
-    case U_PREV_APP:
-      tap_code16(S(KC_TAB));
-      break;
-    case U_NEXT_APP:
-      tap_code(KC_TAB);
-      break;   
-  }
-
-  return true; // Let QMK handle other keycodes
+void flip_os(void) {
+  os_effect_timer = timer_read();
+  current_os = current_os == OS_MAC ? OS_WINDOWS : OS_MAC;
+  eeconfig_update_user(current_os);
 }
 
-bool process_keycode_mac(uint16_t keycode) {
-  // Handles custom keycodes and shortcuts for Mac.
-  // Kept separate from Windows OS for clarity and modularity.
-  switch (keycode) {
-    case RGB_SLD:
-      rgblight_mode(1); 
-      break;
-    case U_SE_LESS: 
-      tap_code16(SE_LESS_MAC);
-      break;
-    case U_SE_GRTR: 
-      tap_code16(SE_GRTR_MAC);
-      break;
-    case U_SE_PIPE: 
-      tap_code16(SE_PIPE_MAC);
-      break;
-    case U_SE_LCBR:
-      tap_code16(SE_LCBR_MAC);
-      break;
-    case U_SE_RCBR: 
-      tap_code16(SE_RCBR_MAC);
-      break;
-    case U_SE_BSLS: 
-      tap_code16(SE_BSLS_MAC);
-      break;
-    case U_FIND_PREV:
-      tap_code16(G(S(KC_G)));
-      break;
-    case U_FIND_NEXT:
-      tap_code16(G(KC_G));
-      break;
-    case U_SEARCH:
-      tap_code16(G(KC_F));
-      break;
-    case U_REPLACE:
-      tap_code16(A(G(KC_F)));
-      break;
-    case U_CUT:
-      tap_code16(G(KC_X)); 
-      break;          
-    case U_UNDO:
-      tap_code16(G(KC_Z));
-      break;
-    case U_REDO:
-      tap_code16(G(S(KC_Z)));
-      break;
-    case U_COPY:
-      tap_code16(G(KC_C));
-      break;
-    case U_PASTE:
-      tap_code16(G(KC_V));
-      break;
-    case U_SAVE: 
-      tap_code16(G(KC_S));
-      break;
-    case U_MARK_ALL:
-      tap_code16(G(KC_A));
-      break;
-    case U_MARK_LINE:
-      tap_code16(G(KC_LEFT));
-      register_code(KC_LGUI);
-      register_code(KC_LSFT);
-      tap_code(KC_RIGHT);
-      unregister_code(KC_LSFT);
-      unregister_code(KC_LGUI);
-      break;
-    case U_MARK_WORD:
-      tap_code16(A(KC_LEFT));
-      register_code(KC_LALT);
-      register_code(KC_LSFT);
-      tap_code(KC_RIGHT);
-      unregister_code(KC_LSFT);
-      unregister_code(KC_LALT);
-      break;
-    case U_DOC_LEFT:
-      tap_code16(G(KC_LEFT)); 
-      break;
-    case U_DOC_DOWN:
-      tap_code16(G(KC_DOWN)); 
-      break;
-    case U_DOC_UP:
-      tap_code16(G(KC_UP)); 
-      break;
-    case U_DOC_RIGHT:
-      tap_code16(G(KC_RIGHT)); 
-      break;
-    case U_WORD_LEFT:
-      tap_code16(A(KC_LEFT)); 
-      break;
-    case U_5_ROWS_DOWN:
-      move_lines_down(5);
-      break;
-    case U_5_ROWS_UP:
-      move_lines_up(5);
-      break;
-    case U_WORD_RIGHT:
-      tap_code16(A(KC_RIGHT));
-      break;
-    case U_RGB_TOG:
-      rgb_matrix_toggle();          
-      return false;
-    case U_SCREENSHOT:
-      tap_code16(G(S(KC_4))); 
-      break;
-    case U_OS_SEARCH:
-      tap_code16(G(KC_SPACE)); 
-      break;
-    case U_LOCK_SCREEN:
-      tap_code16(C(G(KC_Q))); 
-      break;
-    case U_EMOJIS:
-      tap_code16(C(G(KC_SPACE))); 
-      break;   
-    case U_TOGGLE_OS:
-      os_effect_timer = timer_read();
-      current_os = OS_WINDOWS;
-      eeconfig_update_user(current_os);
-      return false;  
-    case U_SHOW_APPS:
-      tap_code16(C(KC_UP));
-      break;
-    case U_SHOW_DESKTOP:
-      tap_code16(KC_F11);
-      break;            
-    case U_PREV_APP_WINDOW:
-      tap_code16(S(G(KC_GRV)));
-      break; 
-    case U_NEXT_APP_WINDOW:
-      tap_code16(G(KC_GRV));
-      break;    
-    case U_NEW_APP_WINDOW: 
-      tap_code16(G(KC_N)); 
-      break;   
-    case U_CLOSE_APP_WINDOW:
-      tap_code16(G(KC_W));
-      break;   
-    case U_PREV_TAB:
-      tap_code16(G(A(KC_LEFT)));
-      break; 
-    case U_NEXT_TAB:
-      tap_code16(G(A(KC_RIGHT)));
-      break;
-    case U_NEW_TAB:
-      tap_code16(G(KC_T));
-      break; 
-    case U_CLOSE_TAB:
-      tap_code16(G(KC_W));
-      break;        
-    case U_PREV_APP:
-      tap_code16(S(KC_TAB));
-      break;
-    case U_NEXT_APP:
-      tap_code(KC_TAB);
-      break;
-  }
+void mark_line_win(void) { 
+  tap_code(KC_HOME); 
+  register_code(KC_LSFT); 
+  tap_code(KC_END); 
+  unregister_code(KC_LSFT); 
+}
 
-  return true; // Let QMK handle other keycodes
+void mark_line_mac(void) { 
+  tap_code16(G(KC_LEFT)); 
+  register_code(KC_LGUI); 
+  register_code(KC_LSFT); 
+  tap_code(KC_RIGHT); 
+  unregister_code(KC_LSFT); 
+  unregister_code(KC_LGUI); 
+}
+
+void mark_word_win(void) { 
+  tap_code16(C(KC_LEFT)); 
+  register_code(KC_LCTL); 
+  register_code(KC_LSFT); 
+  tap_code(KC_RIGHT); 
+  unregister_code(KC_LSFT); 
+  unregister_code(KC_LCTL);
+}
+
+void mark_word_mac(void) { 
+  tap_code16(A(KC_LEFT));   
+  register_code(KC_LALT); 
+  register_code(KC_LSFT); 
+  tap_code(KC_RIGHT); 
+  unregister_code(KC_LSFT); 
+  unregister_code(KC_LALT);
+}
+
+void switch_app_win(void) {
+  register_code(KC_LALT); 
+  tap_code16(KC_TAB);
+}
+
+void switch_app_mac(void) {
+  register_code(KC_LGUI); 
+  tap_code16(KC_TAB); 
+}
+
+bool process_pressed_keycode(uint16_t keycode) {
+  switch (keycode) {
+    case RGB_SLD:            rgblight_mode(1);                                                    break;
+    case U_RGB_TOG:          rgb_matrix_toggle();                                                 return false;
+    case U_TOGGLE_OS:        flip_os();                                                           return false; 
+    case U_SE_LESS:          PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));    break;
+    case U_SE_GRTR:          PERFORM_BY_OS(tap_code16(SE_GRTR_WIN),  tap_code16(SE_GRTR_MAC));    break;
+    case U_SE_PIPE:          PERFORM_BY_OS(tap_code16(SE_PIPE_WIN),  tap_code16(SE_PIPE_MAC));    break;
+    case U_SE_LCBR:          PERFORM_BY_OS(tap_code16(SE_LCBR_WIN),  tap_code16(SE_LCBR_MAC));    break;
+    case U_SE_RCBR:          PERFORM_BY_OS(tap_code16(SE_RCBR_WIN),  tap_code16(SE_RCBR_MAC));    break;
+    case U_SE_BSLS:          PERFORM_BY_OS(tap_code16(SE_BSLS_WIN),  tap_code16(SE_BSLS_MAC));    break;   
+    case U_FIND_PREV:        PERFORM_BY_OS(tap_code16(S(KC_F3)),     tap_code16(G(S(KC_G))));     break;
+    case U_FIND_NEXT:        PERFORM_BY_OS(tap_code16(C(KC_G)),      tap_code16(G(KC_G)));        break;
+    case U_SEARCH:           PERFORM_BY_OS(tap_code16(C(KC_F)),      tap_code16(G(KC_F)));        break;
+    case U_REPLACE:          PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));     break;
+    case U_CUT:              PERFORM_BY_OS(tap_code16(C(KC_X)),      tap_code16(G(KC_X)));        break;
+    case U_COPY:             PERFORM_BY_OS(tap_code16(C(KC_C)),      tap_code16(G(KC_C)));        break;
+    case U_PASTE:            PERFORM_BY_OS(tap_code16(C(KC_V)),      tap_code16(G(KC_V)));        break;
+    case U_UNDO:             PERFORM_BY_OS(tap_code16(C(KC_Z)),      tap_code16(G(KC_Z)));        break;
+    case U_REDO:             PERFORM_BY_OS(tap_code16(S(C(KC_Z))),   tap_code16(G(S(KC_Z))));     break;
+    case U_SAVE:             PERFORM_BY_OS(tap_code16(C(KC_S)),      tap_code16(G(KC_S)));        break;
+    case U_MARK_ALL:         PERFORM_BY_OS(tap_code16(C(KC_A)),      tap_code16(G(KC_A)));        break;
+    case U_MARK_LINE:        PERFORM_BY_OS(mark_line_win(),          mark_line_mac());            break;
+    case U_MARK_WORD:        PERFORM_BY_OS(mark_word_win(),          mark_word_mac());            break;
+    case U_DOC_LEFT:         PERFORM_BY_OS(tap_code(KC_HOME),        tap_code16(G(KC_LEFT)));     break;
+    case U_DOC_DOWN:         PERFORM_BY_OS(tap_code16(C(KC_END)),    tap_code16(G(KC_DOWN)));     break;
+    case U_DOC_UP:           PERFORM_BY_OS(tap_code16(C(KC_HOME)),   tap_code16(G(KC_UP)));       break;
+    case U_DOC_RIGHT:        PERFORM_BY_OS(tap_code(KC_END),         tap_code16(G(KC_RIGHT)));    break;
+    case U_WORD_LEFT:        PERFORM_BY_OS(tap_code16(C(KC_LEFT)),   tap_code16(A(KC_LEFT)));     break;
+    case U_WORD_RIGHT:       PERFORM_BY_OS(tap_code16(C(KC_RIGHT)),  tap_code16(A(KC_RIGHT)));    break;
+    case U_5_ROWS_DOWN:      move_lines_down(5);                                                  break;
+    case U_5_ROWS_UP:        move_lines_up(5);                                                    break;
+    case U_SCREENSHOT:       PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));     break;
+    case U_OS_SEARCH:        PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(KC_SPACE)));    break;
+    case U_LOCK_SCREEN:      PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));     break;
+    case U_EMOJIS:           PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE)))); break;
+    case U_SHOW_APPS:        PERFORM_BY_OS(tap_code16(G(KC_TAB)),    tap_code16(C(KC_UP)));       break;
+    case U_SHOW_DESKTOP:     PERFORM_BY_OS(tap_code16(G(KC_D)),      tap_code16(KC_F11));         break;
+    case U_PREV_APP_WINDOW:  PERFORM_BY_OS(tap_code16(S(C(KC_TAB))), tap_code16(S(G(KC_GRV))));   break;
+    case U_NEXT_APP_WINDOW:  PERFORM_BY_OS(tap_code16(C(KC_TAB)),    tap_code16(G(KC_GRV)));      break;
+    case U_NEW_APP_WINDOW:   PERFORM_BY_OS(tap_code16(C(KC_N)),      tap_code16(G(KC_N)));        break;
+    case U_CLOSE_APP_WINDOW: PERFORM_BY_OS(tap_code16(C(KC_W)),      tap_code16(G(KC_W)));        break;
+    case U_PREV_TAB:         PERFORM_BY_OS(tap_code16(S(C(KC_TAB))), tap_code16(G(A(KC_LEFT))));  break;
+    case U_NEXT_TAB:         PERFORM_BY_OS(tap_code16(C(KC_TAB)),    tap_code16(G(A(KC_RIGHT)))); break;
+    case U_NEW_TAB:          PERFORM_BY_OS(tap_code16(C(KC_T)),      tap_code16(G(KC_T)));        break;
+    case U_CLOSE_TAB:        PERFORM_BY_OS(tap_code16(C(KC_W)),      tap_code16(G(KC_W)));        break;
+    case U_APP_SWITCHER:     PERFORM_BY_OS(switch_app_win(),         switch_app_mac());           return false;    
+    case U_PREV_APP:         tap_code16(S(KC_TAB));                                               break;
+    case U_NEXT_APP:         tap_code(KC_TAB);                                                    break;
+  }
+  return true;
+}
+
+bool process_non_pressed_keycode(uint16_t keycode) {
+  switch (keycode) {
+    case U_APP_SWITCHER: PERFORM_BY_OS(unregister_code(KC_LALT), unregister_code(KC_LGUI)); return false;
+  }
+  return true;
 }
 
 /* ######### MAIN KEY PROCESSING ######### */
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  if (keycode == U_APP_SWITCHER) {
-    if (record->event.pressed) {
-      if (current_os == OS_MAC) {
-        register_code(KC_LGUI); 
-        tap_code16(KC_TAB); 
-      } else {
-        register_code(KC_LALT);
-      tap_code16(KC_TAB);       
-      }
-    } else {
-      if (current_os == OS_MAC) {
-        unregister_code(KC_LGUI);
-      } else { 
-        unregister_code(KC_LALT);
-      }
-    }       
-    
-    return false;
-  }
-
-  if (!record->event.pressed) {
-    return true;
-  }
-
-  switch (current_os) {
-    case OS_WINDOWS:
-      return process_keycode_win(keycode);
-    case OS_MAC:
-      return process_keycode_mac(keycode);
-    default:
-      return true; // fallback
-  }
+  // As simplified as possible now
+  return record->event.pressed 
+    ? process_pressed_keycode(keycode)
+    : process_non_pressed_keycode(keycode);
 }
