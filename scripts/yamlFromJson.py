@@ -142,7 +142,7 @@ systems_keys = {
     "U_NEXT_TAB": "Tab ↷",    
     "U_NEW_TAB": "Tab ➕",
     "U_CLOSE_TAB": "Tab ➖",
-    "U_APP_SWITCHER": "App 🔄",  
+    "U_APP_SWITCHER": "App Switcher",  
     "U_PREV_APP": "App ↶",
     "U_NEXT_APP": "App ↷",        
     "KC_AUDIO_VOL_DOWN": "Volume -",

@@ -1372,7 +1372,7 @@ path.combo {
 <g transform="translate(519, 333) rotate(-30.0)" class="key keypos-50">
 <rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">App</tspan><tspan x="0" dy="1.2em">🔄</tspan>
+<tspan x="0" dy="-0.6em" style="font-size: 88%">App</tspan><tspan x="0" dy="1.2em" style="font-size: 88%">Switcher</tspan>
 </text>
 </g>
 <g transform="translate(559, 290) rotate(-30.0)" class="key keypos-51">
