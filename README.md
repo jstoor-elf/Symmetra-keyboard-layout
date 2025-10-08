@@ -2,6 +2,8 @@
 
 QMK layout for my ZSA Voyager.
 
+![Keyboard](assets/voyager.jpeg)
+
 ## Keywords
 
 `qwerty`, `nordic`, `swedish`, `symmetrical`, `40-keys`, `homerow mods`, `mouse`, `win-mac`, `OS-toggle`
