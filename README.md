@@ -6,7 +6,7 @@ QMK layout for my ZSA Voyager.
 
 ## Keywords
 
-`qwerty`, `nordic`, `swedish`, `40-keys`, `symmetrical`, `homerow-mods`, `vim-navigation`, `mouse-layer`, `win-mac`, `OS-toggle`
+`qwerty`, `nordic`, `swedish`, `40-keys`, `symmetrical`, `homerow-mods`, `vim-navigation`, `mouse-layer`, `edit-cluster`, `win-mac`, `OS-toggle`
 
 ## Design choices
  
