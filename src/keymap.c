@@ -351,6 +351,14 @@ void keyboard_post_init_user(void) {
   load_os(); // Read OS
 }
 
+/* ######### TAPPING TERM ######### */
+
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+  return record->event.key.row == 4
+    ? TAPPING_TERM_THUMBS
+    : TAPPING_TERM;
+}
+
 /* ######### OS FUNCTIONALITY ######### */
 
 #define PERFORM_BY_OS(win_action, mac_action) \
