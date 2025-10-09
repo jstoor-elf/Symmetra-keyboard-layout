@@ -25,6 +25,7 @@ enum layers {
 // For mac/win compatability
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
+  U_BACK_TAB,
   U_SE_LESS, 
   U_SE_GRTR,
   U_SE_PIPE,
@@ -70,7 +71,7 @@ enum custom_keycodes {
   U_CLOSE_TAB,
   U_APP_SWITCHER,  
   U_PREV_APP,
-  U_NEXT_APP,    
+  U_NEXT_APP    
 };
 
 typedef enum {
@@ -89,12 +90,12 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
-    XXXXXXX,       XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,              XXXXXXX,               XXXXXXX,          
-    OSM(MOD_LSFT), KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,            KC_U,               KC_I,               KC_O,                 KC_P,                  KC_ESCAPE,      
-    CW_TOGG,       MT(MOD_LALT, KC_A), LT(4, KC_S),        MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), LT(4, KC_L),          MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    KC_CAPS,       LT(5, KC_Z),        MT(MOD_LGUI, KC_X), KC_C,               KC_V,               KC_B,           /*|*/KC_N,            KC_M,               KC_COMMA,           MT(MOD_RGUI, KC_DOT), LT(5, SE_AA),          KC_DELETE,      
-                                                                               LT(1, KC_TAB),      LT(2, KC_ENTER),/*|*/LT(2, KC_SPACE), LT(1, KC_BSPC)
-  ),
+    XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
+    KC_CAPS, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,            KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
+    KC_BSPC, MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
+    CW_TOGG, LT(5, KC_Z),        KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,            KC_M,               KC_COMMA,           KC_DOT,             LT(5, SE_AA),          KC_DELETE,      
+                                                                         LT(1, KC_TAB),      LT(2, KC_ENTER),/*|*/LT(2, KC_SPACE), MO(4)
+  ),                                  
   [SYM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, SE_QUES, U_SE_LESS, U_SE_GRTR, SE_MINS, U_SE_PIPE,/*|*/SE_CIRC, U_SE_LCBR, U_SE_RCBR,  SE_DLR,  SE_ACUT, SE_GRV,         
@@ -107,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,    U_REPLACE,     XXXXXXX,/*|*/XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,          
     U_CUT,   U_UNDO,      U_REDO,      U_COPY,      U_PASTE,       U_SAVE, /*|*/XXXXXXX, KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
     XXXXXXX, U_MARK_ALL,  U_MARK_LINE, U_MARK_WORD, KC_LEFT_SHIFT, XXXXXXX,/*|*/XXXXXXX, U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,          
-                                                    MO(3),         XXXXXXX,/*|*/XXXXXXX, MO(3)
+                                                    XXXXXXX,       MO(3),  /*|*/MO(3),   XXXXXXX     
   ),
   [MOUSE] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -118,9 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),  
   [NUM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_F10,  KC_F3,   KC_F2,   KC_F1,   XXXXXXX, /*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
-    XXXXXXX, KC_F11,  KC_F6,   KC_F5,   KC_F4,   XXXXXXX, /*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
-    XXXXXXX, KC_F12,  KC_F9,   KC_F8,   KC_F7,   XXXXXXX, /*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
+    XXXXXXX, KC_F10,  KC_F3,   KC_F2,   KC_F1,   XXXXXXX,/*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
+    XXXXXXX, KC_F11,  KC_F6,   KC_F5,   KC_F4,   XXXXXXX,/*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
+    XXXXXXX, KC_F12,  KC_F9,   KC_F8,   KC_F7,   XXXXXXX,/*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
   [SYS] = LAYOUT_voyager(
@@ -172,13 +173,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, {0,0,0}, 
     {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, 
     {0,0,0}, {139,241,220}, {139,241,220}, {139,241,220}, {139,241,220}, {0,0,0}, 
-    {0,240,171}, {0,0,0}, 
+    {0,0,0}, {0,240,171}, 
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {169,243,216}, {169,243,216}, {169,243,216}, {169,243,216}, {0,0,0}, 
     {0,0,0}, {83,234,140}, {83,234,140}, {83,234,140}, {83,234,140}, {0,0,0}, 
     {0,0,0}, {18,250,229}, {18,250,229}, {18,250,229}, {18,250,229}, {0,0,0}, 
-    {0,0,0}, {0,240,171}
+    {0,240,171}, {0,0,0}
   },
 
   [MOUSE] = {
@@ -199,9 +200,9 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [NUM] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0},
-    {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0},
-    {0,0,0}, {253,238,205}, {253,238,205}, {253,238,205}, {253,238,205}, {0,0,0},
+    {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
+    {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
+    {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
     {0,0,0}, {0,0,0},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
@@ -275,7 +276,7 @@ static HSV pgm_read_hsv(const HSV *addr) {
 
 HSV pgm_read_hsv_for_layer(uint8_t layer, uint8_t index) {
   HSV hsv;
-  if (layer == ALPHA && capslock_active && index == 18) {
+  if (layer == ALPHA && capslock_active && index == 6) {
     hsv = (HSV) { 0, 0, 180 };
   } else if (layer == ALPHA && current_os == OS_MAC) {
     hsv = pgm_read_hsv(&ledmap_alt[layer][index]);
@@ -436,7 +437,7 @@ bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
     case RGB_SLD:            rgblight_mode(1);                                                    break;
     case U_RGB_TOG:          rgb_matrix_toggle();                                                 return false;
-    case U_TOGGLE_OS:        flip_os();                                                           return false; 
+    case U_TOGGLE_OS:        flip_os();                                                           return false;
     case U_SE_LESS:          PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));    break;
     case U_SE_GRTR:          PERFORM_BY_OS(tap_code16(SE_GRTR_WIN),  tap_code16(SE_GRTR_MAC));    break;
     case U_SE_PIPE:          PERFORM_BY_OS(tap_code16(SE_PIPE_WIN),  tap_code16(SE_PIPE_MAC));    break;

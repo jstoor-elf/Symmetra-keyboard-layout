@@ -29,9 +29,9 @@ modifier_keys = {
 special_keys = {
     "KC_NO": " ",
     "KC_BSPC": "Backspace",
-    "OSM(MOD_LSFT)": "Caps Letter",
     "CW_TOGG": "Caps Word",
-    "QK_LLCK": "Lock Layer",
+    "KC_CAPS": "Caps Lock",  
+    "QK_LLCK": "Lock Layer"
 }
 
 # Swedish letter keys
