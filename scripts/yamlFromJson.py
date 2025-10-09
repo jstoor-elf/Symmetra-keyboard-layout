@@ -28,8 +28,7 @@ modifier_keys = {
 # Special / one-shot keys
 special_keys = {
     "KC_NO": " ",
-    "KC_BSPC": "⌫",
-    "KC_DELETE": "⌦",
+    "KC_BSPC": "Backspace",
     "CW_TOGG": "Caps Word",
     "KC_CAPS": "Caps Lock",  
     "QK_LLCK": "Lock Layer"
