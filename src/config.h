@@ -2,8 +2,8 @@
 
 /* ######### TAPPING ######### */
 #undef TAPPING_TERM
-#define TAPPING_TERM 240
-#define TAPPING_TERM_THUMBS 320
+#define TAPPING_TERM 200
+#define TAPPING_TERM_THUMBS 300
 #define PERMISSIVE_HOLD
   
 /* ######### MOUSEKEYS ######### */
@@ -14,7 +14,7 @@
 #define MOUSEKEY_WHEEL_MAX_SPEED 6
 
 /* ######### CAPS ######### */
-#define CAPS_LOCK_STATUS      
+#define CAPS_LOCK_STATUS
 
 /* ######### LAYER STATE ######### */
 #define LAYER_STATE_16BIT // handle more layers       
