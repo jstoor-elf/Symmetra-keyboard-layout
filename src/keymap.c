@@ -90,11 +90,11 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
-    KC_CAPS, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,            KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
-    KC_BSPC, MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    CW_TOGG, LT(5, KC_Z),        KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,            KC_M,               KC_COMMA,           KC_DOT,             LT(5, SE_AA),          KC_DELETE,      
-                                                                         LT(1, KC_TAB),      LT(2, KC_ENTER),/*|*/LT(2, KC_SPACE), MO(4)
+    XXXXXXX,       XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,      /*|*/XXXXXXX,        XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
+    QK_REPEAT_KEY, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,         /*|*/KC_Y,           KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
+    CW_TOGG,       MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,         /*|*/KC_H,           MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
+    KC_CAPS,       LT(5, KC_Z),        KC_X,               KC_C,               KC_V,               KC_B,         /*|*/KC_N,           KC_M,               KC_COMMA,           KC_DOT,             LT(5, SE_AA),          KC_DELETE,      
+                                                                               LT(1, KC_ENTER),    LT(2, KC_TAB),/*|*/LT(2, KC_BSPC), LT(4, KC_SPACE)
   ),                                  
   [SYM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
@@ -276,7 +276,7 @@ static HSV pgm_read_hsv(const HSV *addr) {
 
 HSV pgm_read_hsv_for_layer(uint8_t layer, uint8_t index) {
   HSV hsv;
-  if (layer == ALPHA && capslock_active && index == 6) {
+  if (layer == ALPHA && capslock_active && index == 18) {
     hsv = (HSV) { 0, 0, 180 };
   } else if (layer == ALPHA && current_os == OS_MAC) {
     hsv = pgm_read_hsv(&ledmap_alt[layer][index]);

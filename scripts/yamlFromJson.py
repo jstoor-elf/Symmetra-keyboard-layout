@@ -31,7 +31,8 @@ special_keys = {
     "KC_BSPC": "Backspace",
     "CW_TOGG": "Caps Word",
     "KC_CAPS": "Caps Lock",  
-    "QK_LLCK": "Lock Layer"
+    "QK_LLCK": "Lock Layer",
+    "QK_REPEAT_KEY": "Repeat"    
 }
 
 # Swedish letter keys

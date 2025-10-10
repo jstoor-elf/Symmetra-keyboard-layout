@@ -165,9 +165,7 @@ path.combo {
 </g>
 <g transform="translate(28, 106)" class="key keypos-12">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Caps</tspan><tspan x="0" dy="1.2em">Lock</tspan>
-</text>
+<text x="0" y="0" class="key tap">Repeat</text>
 </g>
 <g transform="translate(84, 106)" class="key keypos-13">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -215,7 +213,9 @@ path.combo {
 </g>
 <g transform="translate(28, 162)" class="key keypos-24">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap"><tspan style="font-size: 78%">Backspace</tspan></text>
+<text x="0" y="0" class="key tap">
+<tspan x="0" dy="-0.6em">Caps</tspan><tspan x="0" dy="1.2em">Word</tspan>
+</text>
 </g>
 <g transform="translate(84, 162)" class="key keypos-25">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
@@ -280,7 +280,7 @@ path.combo {
 <g transform="translate(28, 218)" class="key keypos-36">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Caps</tspan><tspan x="0" dy="1.2em">Word</tspan>
+<tspan x="0" dy="-0.6em">Caps</tspan><tspan x="0" dy="1.2em">Lock</tspan>
 </text>
 </g>
 <g transform="translate(84, 218)" class="key keypos-37">
@@ -334,25 +334,25 @@ path.combo {
 <g transform="translate(309, 290) rotate(30.0)" class="key keypos-48">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Tab</tspan><tspan x="0" dy="1.2em">▷SYM</tspan>
+<tspan x="0" dy="-0.6em">Enter</tspan><tspan x="0" dy="1.2em">▷SYM</tspan>
 </text>
 </g>
 <g transform="translate(349, 333) rotate(30.0)" class="key keypos-49">
 <rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Enter</tspan><tspan x="0" dy="1.2em">▷NAV</tspan>
+<tspan x="0" dy="-0.6em">Tab</tspan><tspan x="0" dy="1.2em">▷NAV</tspan>
 </text>
 </g>
 <g transform="translate(519, 333) rotate(-30.0)" class="key keypos-50">
 <rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">Space</tspan><tspan x="0" dy="1.2em">▷NAV</tspan>
+<tspan x="0" dy="-0.6em" style="font-size: 78%">Backspace</tspan><tspan x="0" dy="1.2em" style="font-size: 78%">▷NAV</tspan>
 </text>
 </g>
 <g transform="translate(559, 290) rotate(-30.0)" class="key keypos-51">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-0.6em">▷NUM/</tspan><tspan x="0" dy="1.2em">FUNC</tspan>
+<tspan x="0" dy="-1.2em" style="font-size: 88%">MO(4,</tspan><tspan x="0" dy="1.2em" style="font-size: 88%">KC_SPACE</tspan><tspan x="0" dy="1.2em" style="font-size: 88%">)</tspan>
 </text>
 </g>
 </g>
