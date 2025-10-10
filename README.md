@@ -2,17 +2,13 @@
 
 QMK layout for my ZSA Voyager.
 
+I have deliberately chosen not to use the top row of the Voyager, partly to _stay_ forward-compatible with other 3×6 + thumb key layouts, and partly to reduce finger travel. 
+
 ![Keyboard](assets/voyager.jpeg)
 
 ## Keywords
 
 `qwerty`, `nordic`, `swedish`, `40-keys`, `symmetrical`, `homerow-mods`, `vim-navigation`, `mouse-layer`, `edit-cluster`, `win-mac`, `OS-toggle`
-
-## Design choices
- 
-I have deliberately chosen not to use the top row of the Voyager, partly to _stay_ forward-compatible with other 3×6 + thumb key layouts, and partly to reduce finger travel. 
-
-My mind tends to favor symmetry, so the Mod-Tap and Layer-Tap keys are positioned symmetrically on both sides of the keyboard.
 
 ## Layers
 
