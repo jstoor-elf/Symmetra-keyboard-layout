@@ -1,4 +1,4 @@
-# Symmetra-keyboard-layout
+# Symmetra
 
 QMK layout for my ZSA Voyager.
 
