@@ -1,4 +1,4 @@
-# Symmetra
+# Symmetra W H
 
 QMK layout for my ZSA Voyager.
 
