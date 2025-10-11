@@ -3,7 +3,7 @@
 /* ######### TAPPING ######### */
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
-#define TAPPING_TERM_THUMBS 300
+#define TAPPING_TERM_THUMBS 330
 #define PERMISSIVE_HOLD
   
 /* ######### MOUSEKEYS ######### */
