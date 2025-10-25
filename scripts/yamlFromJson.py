@@ -7,10 +7,11 @@ import sys
 layer_names = {
     0: "ALPHA",
     1: "SYM",
-    2: "NAV",
-    3: "MOUSE",
-    4: "NUM/FUNC",
-    5: "SYS"       
+    2: "NUM/FUNC",      
+    3: "NAV",
+    4: "MOUSE",  
+    5: "MARK",
+    6: "SYS"       
 }   
 
 # Modifier keys

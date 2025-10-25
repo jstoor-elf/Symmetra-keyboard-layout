@@ -41,5 +41,5 @@ echo "➡️ Generating SVG..."
 python3 -m keymap_drawer draw "$YAML_FILE" --qmk-keyboard zsa/voyager -o "$SVG_FILE"
 
 cp "$SVG_FILE" "$ASSETS_DIR/"
-
+    
 echo "✅ Finished! Resulting svg in $ASSETS_DIR"
