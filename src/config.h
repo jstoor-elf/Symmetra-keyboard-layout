@@ -17,7 +17,11 @@
 #define CAPS_LOCK_STATUS
 
 /* ######### LAYER STATE ######### */
-#define LAYER_STATE_16BIT // handle more layers       
+#define LAYER_STATE_16BIT // handle more layers     
+
+/* ### WORD AND LINE SELECTION ### */
+#define SELECT_WORD_OS_DYNAMIC
+#define SELECT_WORD_TIMEOUT 2000 
 
 /* ######### USB ######### */
 #define USB_SUSPEND_WAKEUP_DELAY 0

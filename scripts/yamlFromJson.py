@@ -83,9 +83,10 @@ symbol_keys = {
 editing_keys = { 
     "U_FIND_PREV": "Find ↶",
     "U_FIND_NEXT": "Find ↷",
-    "U_MARK_WORD_PREV": "Mark Word ↶",
-    "U_MARK_WORD_NEXT": "Mark Word ↷",
-    "KC_LEFT_SHIFT": "Shift"
+    "SELWBAK": "Mark Word ⭠",
+    "SELLINE": "Mark Line ⭣",
+    "SELLINEBK": "Mark Line ⭡",
+    "SELWORD": "Mark Word ⭢"
 }
 
 # Mouse keys
