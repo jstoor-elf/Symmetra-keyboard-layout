@@ -10,8 +10,7 @@ layer_names = {
     2: "NUM/FUNC",      
     3: "NAV",
     4: "MOUSE",  
-    5: "MARK",
-    6: "SYS"       
+    5: "SYS"       
 }   
 
 # Modifier keys
@@ -86,7 +85,6 @@ editing_keys = {
     "U_FIND_NEXT": "Find ↷",
     "SELWBAK": "Mark Word ⭠",
     "SELLINE": "Mark Line ⭣",
-    "SELLINEBK": "Mark Line ⭡",
     "SELWORD": "Mark Word ⭢"
 }
 
