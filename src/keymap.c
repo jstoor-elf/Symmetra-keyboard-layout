@@ -99,14 +99,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, SE_QUES, U_SE_LESS, U_SE_GRTR, SE_MINS, U_SE_PIPE,/*|*/SE_CIRC, U_SE_LCBR, U_SE_RCBR,  SE_DLR,  SE_ACUT, SE_GRV,         
     KC_PERC, KC_EXLM, SE_ASTR,   SE_SLSH,   SE_EQL,  SE_AMPR,  /*|*/KC_HASH, SE_LPRN,   SE_RPRN,    SE_SCLN, SE_DQUO, U_SE_BSLS,        
     XXXXXXX, SE_TILD, SE_PLUS,   SE_LBRC,   SE_RBRC, SE_AT,    /*|*/SE_UNDS, SE_COLN,   KC_COMMA,   KC_DOT,  SE_APOS, XXXXXXX,          
-                                            XXXXXXX, MO(5),    /*|*/MO(5),   XXXXXXX
+                                            XXXXXXX, XXXXXXX,  /*|*/MO(5),   XXXXXXX
   ),
   [NUM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, KC_F10,  KC_F3,   KC_F2,   KC_F1,   XXXXXXX,/*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
     XXXXXXX, KC_F11,  KC_F6,   KC_F5,   KC_F4,   XXXXXXX,/*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
     XXXXXXX, KC_F12,  KC_F9,   KC_F8,   KC_F7,   XXXXXXX,/*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
-                                        XXXXXXX, MO(5),  /*|*/MO(5),   XXXXXXX
+                                        XXXXXXX, MO(5),  /*|*/XXXXXXX, XXXXXXX
   ),  
   [NAV] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,   XXXXXXX,      /*|*/XXXXXXX,       XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
@@ -155,7 +155,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {135,114,167}, {206,255,153}, {206,255,153}, {91,255,160}, {135,114,167},
     {135,114,167}, {206,255,153}, {91,255,160}, {91,255,160}, {206,255,153}, {135,114,167},
     {0,0,0}, {135,114,167}, {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167},
-    {0,0,0}, {0,0,180},
+    {0,0,0}, {0,0,0},
     // Right side,
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
     {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
@@ -176,7 +176,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {120,223,209}, {120,223,209}, {120,223,209}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {120,223,209}, {120,223,209}, {120,223,209}, {120,223,209}, {0,0,0}, 
     {0,0,0}, {120,223,209}, {120,223,209}, {120,223,209}, {0,0,0}, {0,0,0},
-    {0,0,180}, {0,0,0}
+    {0,0,0}, {0,0,0}
   },
   
   [NAV] = {
