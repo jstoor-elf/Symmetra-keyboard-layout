@@ -21,7 +21,8 @@ Legend for symbols and special keys used in the SVG:
 | Symbol       | Meaning                    |
 |--------------|----------------------------|
 | ◇            | Modifier                   |
-| ▷            | Layer toggle               |
+| ▷            | Momentary Layer toggle     |
+| ⏼            | Layer toggle               |
 | 🔍           | Windows search / Spotlight | 
 | 😀😎🤔😭     | Emoji menu                 |
 | 🔒           | Lock screen                |

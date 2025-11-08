@@ -31,8 +31,7 @@ special_keys = {
     "KC_BSPC": "Backspace",
     "CW_TOGG": "Caps Word",
     "KC_CAPS": "Caps Lock",  
-    "QK_LLCK": "Lock Layer",
-    "QK_REPEAT_KEY": "Repeat"    
+    "QK_LLCK": "Lock Layer"
 }
 
 # Swedish letter keys
@@ -186,6 +185,11 @@ def map_special_tap(key: str) -> str | None:
     if mo_match:
         layer_index = int(mo_match.group(1))
         return f"▷{layer_names.get(layer_index, f'LAYER{layer_index}')}"
+
+    match = re.match(r"TG\((\d+)\)", key)
+    if match:
+        layer_index = int(match.group(1))
+        return f"⏼{layer_names.get(layer_index, f'LAYER{layer_index}')}"
     
     return None
 

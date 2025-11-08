@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,       XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,      /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
     KC_CAPS,       KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,         /*|*/KC_Y,            KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
     CW_TOGG,       MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,         /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    QK_REPEAT_KEY, KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,         /*|*/KC_N,            KC_M,               KC_COMMA,           KC_DOT,             SE_AA,          KC_DELETE,      
+    TG(5),         KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,         /*|*/KC_N,            KC_M,               KC_COMMA,           KC_DOT,             SE_AA,          KC_DELETE,      
                                                                                LT(1, KC_ENTER),    LT(3, KC_TAB),/*|*/LT(3, KC_BSPC), LT(2, KC_SPACE)
   ),                                  
   [SYM] = LAYOUT_voyager(
@@ -99,35 +99,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, SE_QUES, U_SE_LESS, U_SE_GRTR, SE_MINS, U_SE_PIPE,/*|*/SE_CIRC, U_SE_LCBR, U_SE_RCBR,  SE_DLR,  SE_ACUT, SE_GRV,         
     KC_PERC, KC_EXLM, SE_ASTR,   SE_SLSH,   SE_EQL,  SE_AMPR,  /*|*/KC_HASH, SE_LPRN,   SE_RPRN,    SE_SCLN, SE_DQUO, U_SE_BSLS,        
     XXXXXXX, SE_TILD, SE_PLUS,   SE_LBRC,   SE_RBRC, SE_AT,    /*|*/SE_UNDS, SE_COLN,   KC_COMMA,   KC_DOT,  SE_APOS, XXXXXXX,          
-                                            XXXXXXX, XXXXXXX,  /*|*/MO(5),   XXXXXXX
+                                            XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX
   ),
   [NUM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, KC_F10,  KC_F3,   KC_F2,   KC_F1,   XXXXXXX,/*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
     XXXXXXX, KC_F11,  KC_F6,   KC_F5,   KC_F4,   XXXXXXX,/*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
     XXXXXXX, KC_F12,  KC_F9,   KC_F8,   KC_F7,   XXXXXXX,/*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
-                                        XXXXXXX, MO(5),  /*|*/XXXXXXX, XXXXXXX
+                                        XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),  
   [NAV] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,   XXXXXXX,      /*|*/XXXXXXX,       XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
     XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,   U_REPLACE, XXXXXXX,      /*|*/XXXXXXX,       U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,          
     XXXXXXX, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   SELWORD,      /*|*/XXXXXXX,       KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
     XXXXXXX, U_UNDO,      U_REDO,      U_MARK_ALL, SELLINE,   SELWBAK,      /*|*/XXXXXXX,       U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,          
-                                                   MO(5),     LT(4, KC_TAB),/*|*/LT(4,KC_BSPC), MO(5)     
+                                                   XXXXXXX,   LT(4, KC_TAB),/*|*/LT(4,KC_BSPC), XXXXXXX     
   ), 
   [MOUSE] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          
-    XXXXXXX, QK_LLCK, MS_BTN2, MS_BTN3, MS_BTN1, XXXXXXX,/*|*/XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX,          
+    XXXXXXX, XXXXXXX, MS_BTN2, MS_BTN3, MS_BTN1, XXXXXXX,/*|*/XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX,          
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, XXXXXXX,          
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
   [SYS] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,             XXXXXXX,           XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
-    XXXXXXX, XXXXXXX,             KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,     KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        U_LOCK_SCREEN,
-    XXXXXXX, U_APP_SWITCHER,      RM_VALD,           RM_VALU,             U_RGB_TOG,           U_SCREENSHOT,/*|*/U_OS_SEARCH, U_PREV_APP,        U_SHOW_DESKTOP,     U_SHOW_APPS,      U_NEXT_APP,        XXXXXXX,
-    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP,     KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, U_EMOJIS,    /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, U_TOGGLE_OS,
-                                                                          XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX
+    XXXXXXX,       XXXXXXX,             XXXXXXX,           XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,        XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
+    U_TOGGLE_OS,   XXXXXXX,             KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,     KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,        U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        KC_ESCAPE,
+    U_LOCK_SCREEN, XXXXXXX,             RM_VALD,           RM_VALU,             U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP,        U_SHOW_DESKTOP,     U_SHOW_APPS,      U_NEXT_APP,        XXXXXXX,
+    TG(5),         KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP,     KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, XXXXXXX,
+                                                                                U_EMOJIS,            U_SCREENSHOT,/*|*/U_APP_SWITCHER, U_OS_SEARCH
   )  
 };
 
@@ -161,7 +161,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
     {135,114,167}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
     {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {0,0,0},
-    {0,0,180}, {0,0,0}
+    {0,0,0}, {0,0,0}
   },
 
   [NUM] = {
@@ -170,7 +170,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
     {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
     {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
-    {0,0,0}, {0,0,180},
+    {0,0,0}, {0,0,0},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {120,223,209}, {120,223,209}, {120,223,209}, {0,0,0}, {0,0,0}, 
@@ -185,20 +185,20 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, {0,0,0}, 
     {0,0,0}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {5,201,240}, 
     {0,0,0}, {100,255,255}, {100,255,255}, {5,201,240}, {5,201,240}, {5,201,240}, 
-    {0,0,180}, {0,0,180},
+    {0,0,0}, {0,0,180},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {169,243,216}, {169,243,216}, {169,243,216}, {169,243,216}, {0,0,0},
     {0,0,0}, {83,234,140}, {83,234,140}, {83,234,140}, {83,234,140}, {0,0,0}, 
     {0,0,0}, {18,250,229}, {18,250,229}, {18,250,229}, {18,250,229}, {0,0,0}, 
-    {0,0,180}, {0,0,180}
+    {0,0,180}, {0,0,0}
   },
 
   [MOUSE] = {
   // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {208,241,224}, {137,241,207}, {137,241,207}, {137,241,207}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {137,241,207}, {137,241,207}, {137,241,207}, {0,0,0}, 
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {0,0,0}, 
     // Right side
@@ -211,16 +211,16 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [SYS] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {0,0,0}, 
-    {0,0,0}, {70,218,255}, {30,239,216}, {30,239,216}, {30,239,216}, {240,218,204},
-    {0,0,0}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {240,218,204}, 
-    {0,0,0}, {0,0,0},
+    {85,255,100}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {0,0,0}, 
+    {0,255,100}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {0,0,0},
+    {0,0,100}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,0,0}, 
+    {240,218,204}, {240,218,204},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,255,200},
-    {70,218,255}, {70,218,255}, {70,218,255}, {70,218,255}, {70,218,255}, {0,0,0}, 
-    {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {85,255,200}, 
-    {0,0,0}, {0,0,0}
+    {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,0,100},
+    {0,0,0}, {70,218,255}, {70,218,255}, {70,218,255}, {70,218,255}, {0,0,0}, 
+    {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {0,0,0}, 
+    {70,218,255}, {70,218,255}
   }
 };
 
@@ -405,7 +405,7 @@ bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
     case RGB_SLD:            rgblight_mode(1);                                                    break;
     case U_RGB_TOG:          rgb_matrix_toggle();                                                 return false;
-    case U_TOGGLE_OS:        flip_os();                                                           return false;
+    case U_TOGGLE_OS:        (flip_os(), layer_off(5));                                           return false;
     case U_SE_LESS:          PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));    break;
     case U_SE_GRTR:          PERFORM_BY_OS(tap_code16(SE_GRTR_WIN),  tap_code16(SE_GRTR_MAC));    break;
     case U_SE_PIPE:          PERFORM_BY_OS(tap_code16(SE_PIPE_WIN),  tap_code16(SE_PIPE_MAC));    break;
@@ -421,14 +421,14 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_PASTE:            PERFORM_BY_OS(tap_code16(C(KC_V)),      tap_code16(G(KC_V)));        break;
     case U_UNDO:
       PERFORM_BY_OS(
-          (register_code(KC_LCTL), register_code(KC_Z)),
-          (register_code(KC_LGUI), register_code(KC_Z))
+        (register_code(KC_LCTL), register_code(KC_Z)),
+        (register_code(KC_LGUI), register_code(KC_Z))
       );
       break;
     case U_REDO:
       PERFORM_BY_OS(
-          (register_code(KC_LCTL), register_code(KC_LSFT), register_code(KC_Z)),
-          (register_code(KC_LGUI), register_code(KC_LSFT), register_code(KC_Z))
+        (register_code(KC_LCTL), register_code(KC_LSFT), register_code(KC_Z)),
+        (register_code(KC_LGUI), register_code(KC_LSFT), register_code(KC_Z))
       );
       break;
     case U_SAVE:             PERFORM_BY_OS(tap_code16(C(KC_S)),      tap_code16(G(KC_S)));        break;
@@ -453,7 +453,12 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_5_ROWS_UP:        move_lines_up(5);                                                    break;
     case U_SCREENSHOT:       PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));     break;
     case U_OS_SEARCH:        PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(KC_SPACE)));    break;
-    case U_LOCK_SCREEN:      PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));     break;
+    case U_LOCK_SCREEN:      
+      PERFORM_BY_OS(
+        (tap_code16(G(KC_L)), layer_off(5)),      
+        (tap_code16(C(G(KC_Q))), layer_off(5))
+      );     
+      break;
     case U_EMOJIS:           PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE)))); break;
     case U_SHOW_APPS:        PERFORM_BY_OS(tap_code16(G(KC_TAB)),    tap_code16(C(KC_UP)));       break;
     case U_SHOW_DESKTOP:     PERFORM_BY_OS(tap_code16(G(KC_D)),      tap_code16(KC_F11));         break;
@@ -476,26 +481,26 @@ bool process_non_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
     case U_UNDO:
       PERFORM_BY_OS(
-          (unregister_code(KC_Z), unregister_code(KC_LCTL)),
-          (unregister_code(KC_Z), unregister_code(KC_LGUI))
+        (unregister_code(KC_Z), unregister_code(KC_LCTL)),
+        (unregister_code(KC_Z), unregister_code(KC_LGUI))
       );
       break;
     case U_REDO:
       PERFORM_BY_OS(
-          (unregister_code(KC_Z), unregister_code(KC_LSFT), unregister_code(KC_LCTL)),
-          (unregister_code(KC_Z), unregister_code(KC_LSFT), unregister_code(KC_LGUI))
+        (unregister_code(KC_Z), unregister_code(KC_LSFT), unregister_code(KC_LCTL)),
+        (unregister_code(KC_Z), unregister_code(KC_LSFT), unregister_code(KC_LGUI))
       );
       break;    
     case U_WORD_LEFT:
       PERFORM_BY_OS(
-          (unregister_code(KC_LEFT), unregister_code(KC_LCTL)),
-          (unregister_code(KC_LEFT), unregister_code(KC_LALT))
+        (unregister_code(KC_LEFT), unregister_code(KC_LCTL)),
+        (unregister_code(KC_LEFT), unregister_code(KC_LALT))
       );
       break;
     case U_WORD_RIGHT:
       PERFORM_BY_OS(
-          (unregister_code(KC_RIGHT), unregister_code(KC_LCTL)),
-          (unregister_code(KC_RIGHT), unregister_code(KC_LALT)) 
+        (unregister_code(KC_RIGHT), unregister_code(KC_LCTL)),
+        (unregister_code(KC_RIGHT), unregister_code(KC_LALT)) 
       );  
       break;  
     case U_APP_SWITCHER: PERFORM_BY_OS(unregister_code(KC_LALT), unregister_code(KC_LGUI)); return false;
