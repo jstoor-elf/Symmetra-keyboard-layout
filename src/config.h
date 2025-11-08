@@ -25,3 +25,6 @@
 
 /* ######### USB ######### */
 #define USB_SUSPEND_WAKEUP_DELAY 0
+
+/* ######### FAST CURSOR ######### */
+#define FAST_CURSOR_INTERVAL 150

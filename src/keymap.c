@@ -81,8 +81,13 @@ typedef enum {
 
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
 uint16_t os_effect_timer = 0; // Used for visualizing os switch
-bool capslock_active = false; // Used for setting color for caps key led
+bool capslock_active = false; // Used for setting color for caps key leda
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
+
+static bool fast_cursor_up_active = false; // Used to know if fast cursor is held
+static uint16_t fast_cursor_up_timer = 0; // Used to know the time between the last cursor movement
+static bool fast_cursor_down_active = false; // Used to know if fast cursor is held
+static uint16_t fast_cursor_down_timer = 0; // Used to know the time between the last cursor movement
 
 /* ######### KEYMAPS ######### */
 
@@ -368,13 +373,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }                                         \
   } while (0)
 
-void move_lines_up(uint16_t lines) {
+void fast_cursor_move_up(uint16_t lines) {
   for (int i = 0; i < lines; i++) {
     tap_code(KC_UP);
   }
 }
 
-void move_lines_down(uint16_t lines) {
+void fast_cursor_move_down(uint16_t lines) {
   for (int i = 0; i < lines; i++) {
     tap_code(KC_DOWN);
   }
@@ -449,8 +454,20 @@ bool process_pressed_keycode(uint16_t keycode) {
           (register_code(KC_LALT), register_code(KC_RIGHT))
       );
       break;
-    case U_5_ROWS_DOWN:      move_lines_down(5);                                                  break;
-    case U_5_ROWS_UP:        move_lines_up(5);                                                    break;
+    case U_5_ROWS_DOWN:      
+      (
+        fast_cursor_down_active = true, 
+        fast_cursor_down_timer = timer_read(), 
+        fast_cursor_move_down(5)
+      );
+      return false;
+    case U_5_ROWS_UP:        
+      (
+        fast_cursor_up_active = true, 
+        fast_cursor_up_timer = timer_read(), 
+        fast_cursor_move_up(5)
+      );
+      return false;
     case U_SCREENSHOT:       PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));     break;
     case U_OS_SEARCH:        PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(KC_SPACE)));    break;
     case U_LOCK_SCREEN:      
@@ -479,6 +496,14 @@ bool process_pressed_keycode(uint16_t keycode) {
 
 bool process_non_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
+    case U_5_ROWS_DOWN:      
+      fast_cursor_down_active = false;
+      fast_cursor_down_timer = 0;              
+      break;
+    case U_5_ROWS_UP:
+      fast_cursor_up_active = false;
+      fast_cursor_up_timer = 0;        
+      break;
     case U_UNDO:
       PERFORM_BY_OS(
         (unregister_code(KC_Z), unregister_code(KC_LCTL)),
@@ -515,4 +540,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return record->event.pressed 
     ? process_pressed_keycode(keycode)
     : process_non_pressed_keycode(keycode);
+}
+
+void matrix_scan_user(void) {
+    if (fast_cursor_up_active && timer_elapsed(fast_cursor_up_timer) > FAST_CURSOR_INTERVAL) {
+        fast_cursor_move_up(5);
+        fast_cursor_up_timer = timer_read();
+    }
+
+    if (fast_cursor_down_active && timer_elapsed(fast_cursor_down_timer) > FAST_CURSOR_INTERVAL) {
+        fast_cursor_move_down(5);
+        fast_cursor_down_timer = timer_read();
+    }
 }
