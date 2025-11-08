@@ -131,9 +131,9 @@ systems_keys = {
     "U_SCREENSHOT": "📸",       
     "U_OS_SEARCH": "🔍",
     "U_LOCK_SCREEN": "🔒",     
-    "U_TOGGLE_OS": "🔄 🪟🍏",  
-    "U_PREV_WINDOW": "Window ↶",
-    "U_NEXT_WINDOW": "Window ↷",
+    "U_TOGGLE_OS": "🔄 🪟🍏",
+    "U_PREV_DESKTOP": "Desktop ↶",
+    "U_NEXT_DESKTOP": "Desktop ↷",
     "U_PREV_APP_WINDOW": "App Window ↶",
     "U_NEXT_APP_WINDOW": "App Window ↷",
     "U_NEW_APP_WINDOW": "App Window ➕",
@@ -144,9 +144,7 @@ systems_keys = {
     "U_CLOSE_TAB": "Tab ➖",
     "KC_AUDIO_VOL_DOWN": "Volume -",
     "KC_AUDIO_VOL_UP": "Volume +",
-    "KC_AUDIO_MUTE": "Volume Mute",
-    "U_PREV_DESKTOP": "Desktop ⭠",
-    "U_NEXT_DESKTOP": "Desktop ⭢"
+    "KC_AUDIO_MUTE": "Volume Mute"
 }
 
 # Merge all lookup dictionaries
