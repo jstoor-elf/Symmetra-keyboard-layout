@@ -67,9 +67,7 @@ enum custom_keycodes {
   U_NEXT_TAB,
   U_NEW_TAB,
   U_CLOSE_TAB,
-  U_APP_SWITCHER,  
-  U_PREV_APP,
-  U_NEXT_APP
+  U_APP_SWITCHER
 };
 
 typedef enum {
@@ -86,8 +84,11 @@ extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that s
 
 static bool fast_cursor_up_active = false; // Used to know if fast cursor is held
 static uint16_t fast_cursor_up_timer = 0; // Used to know the time between the last cursor movement
+static uint16_t fast_cursor_up_last_repeat = 0; // Used for repeating scroll
+
 static bool fast_cursor_down_active = false; // Used to know if fast cursor is held
 static uint16_t fast_cursor_down_timer = 0; // Used to know the time between the last cursor movement
+static uint16_t fast_cursor_down_last_repeat = 0; // Used for repeating scroll
 
 /* ######### KEYMAPS ######### */
 
@@ -128,11 +129,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
   [SYS] = LAYOUT_voyager(
-    XXXXXXX,       XXXXXXX,             XXXXXXX,           XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,        XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
-    U_TOGGLE_OS,   XXXXXXX,             KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,     KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,        U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        KC_ESCAPE,
-    U_LOCK_SCREEN, XXXXXXX,             RM_VALD,           RM_VALU,             U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP,        U_SHOW_DESKTOP,     U_SHOW_APPS,      U_NEXT_APP,        XXXXXXX,
-    TG(5),         KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP,     KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,     /*|*/XXXXXXX,        U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, XXXXXXX,
-                                                                                U_EMOJIS,            U_SCREENSHOT,/*|*/U_APP_SWITCHER, U_OS_SEARCH
+    XXXXXXX,       XXXXXXX,             XXXXXXX,           XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
+    U_TOGGLE_OS,   XXXXXXX,             KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,     KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        KC_ESCAPE,
+    U_LOCK_SCREEN, XXXXXXX,             RM_VALD,           RM_VALU,             U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           U_SHOW_DESKTOP,     U_SHOW_APPS,      XXXXXXX,           XXXXXXX,
+    TG(5),         KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP,     KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, XXXXXXX,
+                                                                                XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
   )  
 };
 
@@ -219,11 +220,11 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {85,255,100}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {0,0,0}, 
     {0,255,100}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {0,0,0},
     {0,0,100}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,0,0}, 
-    {240,218,204}, {240,218,204},
+    {0,0,0}, {240,218,204},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,0,100},
-    {0,0,0}, {70,218,255}, {70,218,255}, {70,218,255}, {70,218,255}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {70,218,255}, {70,218,255}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {0,0,0}, 
     {70,218,255}, {70,218,255}
   }
@@ -458,6 +459,7 @@ bool process_pressed_keycode(uint16_t keycode) {
       (
         fast_cursor_down_active = true, 
         fast_cursor_down_timer = timer_read(), 
+        fast_cursor_down_last_repeat = 0,
         fast_cursor_move_down(5)
       );
       return false;
@@ -465,6 +467,7 @@ bool process_pressed_keycode(uint16_t keycode) {
       (
         fast_cursor_up_active = true, 
         fast_cursor_up_timer = timer_read(), 
+        fast_cursor_up_last_repeat = 0,
         fast_cursor_move_up(5)
       );
       return false;
@@ -488,8 +491,6 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_NEW_TAB:          PERFORM_BY_OS(tap_code16(C(KC_T)),      tap_code16(G(KC_T)));        break;
     case U_CLOSE_TAB:        PERFORM_BY_OS(tap_code16(C(KC_W)),      tap_code16(G(KC_W)));        break;
     case U_APP_SWITCHER:     PERFORM_BY_OS(switch_app_win(),         switch_app_mac());           return false;    
-    case U_PREV_APP:         tap_code16(S(KC_TAB));                                               break;
-    case U_NEXT_APP:         tap_code(KC_TAB);                                                    break;
   }
   return true;
 }
@@ -498,11 +499,9 @@ bool process_non_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
     case U_5_ROWS_DOWN:      
       fast_cursor_down_active = false;
-      fast_cursor_down_timer = 0;              
       break;
     case U_5_ROWS_UP:
-      fast_cursor_up_active = false;
-      fast_cursor_up_timer = 0;        
+      fast_cursor_up_active = false;   
       break;
     case U_UNDO:
       PERFORM_BY_OS(
@@ -543,13 +542,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
-    if (fast_cursor_up_active && timer_elapsed(fast_cursor_up_timer) > FAST_CURSOR_INTERVAL) {
-        fast_cursor_move_up(5);
-        fast_cursor_up_timer = timer_read();
+  if (fast_cursor_up_active) {
+    uint16_t elapsed = timer_elapsed(fast_cursor_up_timer);
+    if (elapsed > FAST_CURSOR_INITIAL_DELAY &&
+      elapsed - fast_cursor_up_last_repeat > FAST_CURSOR_INTERVAL) {
+      fast_cursor_move_up(5);
+      fast_cursor_up_last_repeat = elapsed;
     }
+  }
 
-    if (fast_cursor_down_active && timer_elapsed(fast_cursor_down_timer) > FAST_CURSOR_INTERVAL) {
-        fast_cursor_move_down(5);
-        fast_cursor_down_timer = timer_read();
+  if (fast_cursor_down_active) {
+    uint16_t elapsed = timer_elapsed(fast_cursor_down_timer);
+    if (elapsed > FAST_CURSOR_INITIAL_DELAY &&
+      elapsed - fast_cursor_down_last_repeat > FAST_CURSOR_INTERVAL) {
+      fast_cursor_move_down(5);
+      fast_cursor_down_last_repeat = elapsed;
     }
+  }
 }
