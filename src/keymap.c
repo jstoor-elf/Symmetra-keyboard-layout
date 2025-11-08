@@ -130,11 +130,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
   [SYS] = LAYOUT_voyager(
-    XXXXXXX,       XXXXXXX,             XXXXXXX,           XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
-    U_TOGGLE_OS,   XXXXXXX,             KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,     KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        XXXXXXX,
-    U_LOCK_SCREEN, XXXXXXX,             RM_VALD,           RM_VALU,             U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     U_PREV_DESKTOP,    U_SHOW_DESKTOP,     U_SHOW_APPS,      U_NEXT_DESKTOP,    XXXXXXX,
-    TG(5),         KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP,     KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, XXXXXXX,
-                                                                                XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
+    XXXXXXX,       XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
+    U_TOGGLE_OS,   KC_AUDIO_VOL_DOWN,   XXXXXXX,       KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,     XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        XXXXXXX,
+    U_LOCK_SCREEN, RM_VALD,             XXXXXXX,       U_RGB_TOG,           RM_VALU,             XXXXXXX,     /*|*/XXXXXXX,     U_PREV_DESKTOP,    U_SHOW_DESKTOP,     U_SHOW_APPS,      U_NEXT_DESKTOP,    XXXXXXX,
+    TG(5),         KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, XXXXXXX,
+                                                                            XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
   )  
 };
 
@@ -218,8 +218,8 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [SYS] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {85,255,100}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {0,0,0}, 
-    {0,255,100}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {0,0,0},
+    {85,255,100}, {101,238,158}, {0,0,0}, {101,238,158}, {101,238,158}, {0,0,0}, 
+    {0,255,100}, {30,239,216}, {0,0,0}, {30,239,216}, {30,239,216}, {0,0,0},
     {0,0,100}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,0,0}, 
     {0,0,0}, {240,218,204},
     // Right side
