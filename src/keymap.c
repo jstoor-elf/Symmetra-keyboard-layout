@@ -67,7 +67,8 @@ enum custom_keycodes {
   U_NEXT_TAB,
   U_NEW_TAB,
   U_CLOSE_TAB,
-  U_APP_SWITCHER
+  U_PREV_DESKTOP,
+  U_NEXT_DESKTOP
 };
 
 typedef enum {
@@ -131,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYS] = LAYOUT_voyager(
     XXXXXXX,       XXXXXXX,             XXXXXXX,           XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
     U_TOGGLE_OS,   XXXXXXX,             KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP,     KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        XXXXXXX,
-    U_LOCK_SCREEN, XXXXXXX,             RM_VALD,           RM_VALU,             U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           U_SHOW_DESKTOP,     U_SHOW_APPS,      XXXXXXX,           XXXXXXX,
+    U_LOCK_SCREEN, XXXXXXX,             RM_VALD,           RM_VALU,             U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     U_PREV_DESKTOP,    U_SHOW_DESKTOP,     U_SHOW_APPS,      U_NEXT_DESKTOP,    XXXXXXX,
     TG(5),         KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP,     KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, XXXXXXX,
                                                                                 XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
   )  
@@ -224,7 +225,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,0,0},
-    {0,0,0}, {0,0,0}, {70,218,255}, {70,218,255}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {70,218,255}, {70,218,255}, {70,218,255}, {70,218,255}, {0,0,0}, 
     {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {0,0,0}, 
     {70,218,255}, {70,218,255}
   }
@@ -397,14 +398,32 @@ void flip_os(void) {
   eeconfig_update_user(current_os);
 }
 
-void switch_app_win(void) {
-  register_code(KC_LALT); 
-  tap_code16(KC_TAB);
+void prev_virtual_desktop_win(void) {
+  register_code(KC_LWIN);
+  register_code(KC_LCTL);
+  tap_code(KC_LEFT);
+  unregister_code(KC_LCTL); 
+  unregister_code(KC_LWIN);
 }
 
-void switch_app_mac(void) {
-  register_code(KC_LGUI); 
-  tap_code16(KC_TAB); 
+void next_virtual_desktop_win(void) {
+  register_code(KC_LWIN);
+  register_code(KC_LCTL);
+  tap_code(KC_RGHT);
+  unregister_code(KC_LCTL); 
+  unregister_code(KC_LWIN);
+}
+
+void prev_virtual_desktop_mac(void) {
+  register_code(KC_LCTL);
+  tap_code(KC_LEFT);
+  unregister_code(KC_LCTL);
+}
+
+void next_virtual_desktop_mac(void) {
+  register_code(KC_LCTL);
+  tap_code(KC_RGHT);
+  unregister_code(KC_LCTL);
 }
 
 bool process_pressed_keycode(uint16_t keycode) {
@@ -490,7 +509,8 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_NEXT_TAB:         PERFORM_BY_OS(tap_code16(C(KC_TAB)),    tap_code16(G(A(KC_RIGHT)))); break;
     case U_NEW_TAB:          PERFORM_BY_OS(tap_code16(C(KC_T)),      tap_code16(G(KC_T)));        break;
     case U_CLOSE_TAB:        PERFORM_BY_OS(tap_code16(C(KC_W)),      tap_code16(G(KC_W)));        break;
-    case U_APP_SWITCHER:     PERFORM_BY_OS(switch_app_win(),         switch_app_mac());           return false;    
+    case U_PREV_DESKTOP:     PERFORM_BY_OS(prev_virtual_desktop_win(), prev_virtual_desktop_mac()); return false;  
+    case U_NEXT_DESKTOP:     PERFORM_BY_OS(next_virtual_desktop_win(), next_virtual_desktop_mac()); return false;
   }
   return true;
 }
@@ -526,8 +546,7 @@ bool process_non_pressed_keycode(uint16_t keycode) {
         (unregister_code(KC_RIGHT), unregister_code(KC_LCTL)),
         (unregister_code(KC_RIGHT), unregister_code(KC_LALT)) 
       );  
-      break;  
-    case U_APP_SWITCHER: PERFORM_BY_OS(unregister_code(KC_LALT), unregister_code(KC_LGUI)); return false;
+      break;
   }
   return true;
 }
