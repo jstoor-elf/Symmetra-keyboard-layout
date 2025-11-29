@@ -418,7 +418,7 @@ bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
     case RGB_SLD:            rgblight_mode(1);                                                    break;
     case U_RGB_TOG:          rgb_matrix_toggle();                                                 return false;
-    case U_TOGGLE_OS:        (flip_os(), layer_off(5));                                           return false;
+    case U_TOGGLE_OS:        flip_os();                                                           return false;
     case U_SE_LESS:          PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));    break;
     case U_SE_GRTR:          PERFORM_BY_OS(tap_code16(SE_GRTR_WIN),  tap_code16(SE_GRTR_MAC));    break;
     case U_SE_PIPE:          PERFORM_BY_OS(tap_code16(SE_PIPE_WIN),  tap_code16(SE_PIPE_MAC));    break;
@@ -461,7 +461,7 @@ bool process_pressed_keycode(uint16_t keycode) {
           (register_code(KC_LCTL), register_code(KC_RIGHT)),
           (register_code(KC_LALT), register_code(KC_RIGHT))
       );
-      break;
+      break;  
     case U_5_ROWS_DOWN:      
       (
         fast_cursor_down_active = true, 
@@ -479,13 +479,8 @@ bool process_pressed_keycode(uint16_t keycode) {
       );
       return false;
     case U_SCREENSHOT:       PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));     break;
-    case U_OS_SEARCH:        PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(KC_SPACE)));    break;
-    case U_LOCK_SCREEN:      
-      PERFORM_BY_OS(
-        (tap_code16(G(KC_L)), layer_off(5)),      
-        (tap_code16(C(G(KC_Q))), layer_off(5))
-      );     
-      break;
+    case U_OS_SEARCH:        PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));    break;
+    case U_LOCK_SCREEN:      PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));     break;
     case U_EMOJIS:           PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE)))); break;
   }
   return true;
