@@ -10,7 +10,7 @@ layer_names = {
     2: "NUM/FUNC",      
     3: "NAV",
     4: "MOUSE",  
-    5: "SYS"       
+    5: "MEDIA"       
 }   
 
 # Modifier keys
@@ -132,16 +132,6 @@ systems_keys = {
     "U_OS_SEARCH": "🔍",
     "U_LOCK_SCREEN": "🔒",     
     "U_TOGGLE_OS": "🔄 🪟🍏",
-    "U_PREV_DESKTOP": "Desktop ↶",
-    "U_NEXT_DESKTOP": "Desktop ↷",
-    "U_PREV_APP_WINDOW": "App Window ↶",
-    "U_NEXT_APP_WINDOW": "App Window ↷",
-    "U_NEW_APP_WINDOW": "App Window ➕",
-    "U_CLOSE_APP_WINDOW": "App Window ➖",    
-    "U_PREV_TAB": "Tab ↶",
-    "U_NEXT_TAB": "Tab ↷",    
-    "U_NEW_TAB": "Tab ➕",
-    "U_CLOSE_TAB": "Tab ➖",
     "KC_AUDIO_VOL_DOWN": "Volume -",
     "KC_AUDIO_VOL_UP": "Volume +",
     "KC_AUDIO_MUTE": "Volume Mute"
@@ -182,11 +172,6 @@ def map_special_tap(key: str) -> str | None:
     if mo_match:
         layer_index = int(mo_match.group(1))
         return f"▷{layer_names.get(layer_index, f'LAYER{layer_index}')}"
-
-    match = re.match(r"TG\((\d+)\)", key)
-    if match:
-        layer_index = int(match.group(1))
-        return f"⏼{layer_names.get(layer_index, f'LAYER{layer_index}')}"
     
     return None
 

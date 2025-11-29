@@ -19,7 +19,7 @@ enum layers {
   NUM,
   NAV,  
   MOUSE,
-  SYS  
+  MEDIA  
 };
 
 // For mac/win compatability
@@ -56,19 +56,7 @@ enum custom_keycodes {
   U_OS_SEARCH,
   U_EMOJIS,
   U_TOGGLE_OS,
-  U_LOCK_SCREEN,
-  U_SHOW_APPS,
-  U_SHOW_DESKTOP,
-  U_PREV_APP_WINDOW,
-  U_NEXT_APP_WINDOW,
-  U_NEW_APP_WINDOW,
-  U_CLOSE_APP_WINDOW,  
-  U_PREV_TAB,
-  U_NEXT_TAB,
-  U_NEW_TAB,
-  U_CLOSE_TAB,
-  U_PREV_DESKTOP,
-  U_NEXT_DESKTOP
+  U_LOCK_SCREEN
 };
 
 typedef enum {
@@ -98,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX,       XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,      /*|*/XXXXXXX,         XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
     KC_CAPS,       KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,         /*|*/KC_Y,            KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
     CW_TOGG,       MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,         /*|*/KC_H,            MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    TG(5),         KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,         /*|*/KC_N,            KC_M,               KC_COMMA,           KC_DOT,             SE_AA,          KC_DELETE,      
+    MO(5),         KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,         /*|*/KC_N,            KC_M,               KC_COMMA,           KC_DOT,             SE_AA,                 KC_DELETE,      
                                                                                LT(1, KC_ENTER),    LT(3, KC_TAB),/*|*/LT(3, KC_BSPC), LT(2, KC_SPACE)
   ),                                  
   [SYM] = LAYOUT_voyager(
@@ -125,16 +113,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOUSE] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          
-    XXXXXXX, XXXXXXX, MS_BTN2, MS_BTN3, MS_BTN1, XXXXXXX,/*|*/XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX,          
+    XXXXXXX, XXXXXXX, MS_BTN2, MS_BTN3, MS_BTN1, XXXXXXX,/*|*/XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX,         
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, XXXXXXX,          
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),
-  [SYS] = LAYOUT_voyager(
-    XXXXXXX,       XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,           XXXXXXX,            XXXXXXX,          XXXXXXX,           XXXXXXX,
-    U_TOGGLE_OS,   KC_AUDIO_VOL_DOWN,   XXXXXXX,       KC_AUDIO_MUTE,       KC_AUDIO_VOL_UP,     XXXXXXX,     /*|*/XXXXXXX,     U_PREV_TAB,        U_CLOSE_TAB,        U_NEW_TAB,        U_NEXT_TAB,        XXXXXXX,
-    U_LOCK_SCREEN, RM_VALD,             XXXXXXX,       U_RGB_TOG,           RM_VALU,             XXXXXXX,     /*|*/XXXXXXX,     U_PREV_DESKTOP,    U_SHOW_DESKTOP,     U_SHOW_APPS,      U_NEXT_DESKTOP,    XXXXXXX,
-    TG(5),         KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,     /*|*/XXXXXXX,     U_PREV_APP_WINDOW, U_CLOSE_APP_WINDOW, U_NEW_APP_WINDOW, U_NEXT_APP_WINDOW, XXXXXXX,
-                                                                            XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
+  [MEDIA] = LAYOUT_voyager(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX,      XXXXXXX,       XXXXXXX,             XXXXXXX,             XXXXXXX,             XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX,      XXXXXXX,       KC_AUDIO_MUTE,       KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     U_TOGGLE_OS,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX,      XXXXXXX,       U_RGB_TOG,           RM_VALD,             RM_VALU,             XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/U_EMOJIS,     KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, U_LOCK_SCREEN,
+                                        XXXXXXX, XXXXXXX,/*|*/U_SCREENSHOT, U_OS_SEARCH
   )  
 };
 
@@ -216,17 +204,17 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,0}, {0,0,0},
   }, 
 
-  [SYS] = {
+  [MEDIA] = {
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {85,255,100}, {101,238,158}, {0,0,0}, {101,238,158}, {101,238,158}, {0,0,0}, 
-    {0,255,100}, {30,239,216}, {0,0,0}, {30,239,216}, {30,239,216}, {0,0,0},
-    {0,0,100}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,0,0}, 
-    {0,0,0}, {240,218,204},
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
+    {0,0,0}, {0,0,0},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {120,218,204}, {120,218,204}, {120,218,204}, {120,218,204}, {0,0,0},
-    {0,0,0}, {70,218,255}, {70,218,255}, {70,218,255}, {70,218,255}, {0,0,0}, 
-    {0,0,0}, {14,235,217}, {14,235,217}, {14,235,217}, {14,235,217}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {85,255,200},
+    {0,0,0}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {0,0,0}, 
+    {70,218,255}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,255,200}, 
     {70,218,255}, {70,218,255}
   }
 };
@@ -499,18 +487,6 @@ bool process_pressed_keycode(uint16_t keycode) {
       );     
       break;
     case U_EMOJIS:           PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE)))); break;
-    case U_SHOW_APPS:        PERFORM_BY_OS(tap_code16(G(KC_TAB)),    tap_code16(C(KC_UP)));       break;
-    case U_SHOW_DESKTOP:     PERFORM_BY_OS(tap_code16(G(KC_D)),      tap_code16(KC_F11));         break;
-    case U_PREV_APP_WINDOW:  PERFORM_BY_OS(tap_code16(S(C(KC_TAB))), tap_code16(S(G(KC_GRV))));   break;
-    case U_NEXT_APP_WINDOW:  PERFORM_BY_OS(tap_code16(C(KC_TAB)),    tap_code16(G(KC_GRV)));      break;
-    case U_NEW_APP_WINDOW:   PERFORM_BY_OS(tap_code16(C(KC_N)),      tap_code16(G(KC_N)));        break;
-    case U_CLOSE_APP_WINDOW: PERFORM_BY_OS(tap_code16(C(KC_W)),      tap_code16(G(KC_W)));        break;
-    case U_PREV_TAB:         PERFORM_BY_OS(tap_code16(S(C(KC_TAB))), tap_code16(G(A(KC_LEFT))));  break;
-    case U_NEXT_TAB:         PERFORM_BY_OS(tap_code16(C(KC_TAB)),    tap_code16(G(A(KC_RIGHT)))); break;
-    case U_NEW_TAB:          PERFORM_BY_OS(tap_code16(C(KC_T)),      tap_code16(G(KC_T)));        break;
-    case U_CLOSE_TAB:        PERFORM_BY_OS(tap_code16(C(KC_W)),      tap_code16(G(KC_W)));        break;
-    case U_PREV_DESKTOP:     PERFORM_BY_OS(prev_virtual_desktop_win(), prev_virtual_desktop_mac()); return false;  
-    case U_NEXT_DESKTOP:     PERFORM_BY_OS(next_virtual_desktop_win(), next_virtual_desktop_mac()); return false;
   }
   return true;
 }
