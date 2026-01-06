@@ -46,7 +46,7 @@ The shell script visualize.sh automates all steps: creating a temporary symlink,
 
 ## Future Changes
 
-I am planning on changing to the swedish [_Kvikk layout_](https://lykt.xyz/skl/kvikk/), which has been optimized and evaluated with Carplax optimization. The typing effort statistics looks fine for both english and swedish. I will begin by adding an alpha layer called ALPHA/1, which can be switched to from the MEDIA-layer's rightmost-key on the homerow, the one sandwiched between the os-toggle key and the lock-screen-key.    
+I am planning on changing to the swedish [_Kvikk layout_](https://lykt.xyz/skl/kvikk/), which has been optimized and evaluated with Carpalx optimization. The typing effort statistics looks fine for both english and swedish. I will begin by adding an alpha layer called ALPHA/1, which can be switched to from the MEDIA-layer's rightmost-key on the homerow, the one sandwiched between the os-toggle key and the lock-screen-key.    
 |  |  |  |  |  |  |  |  |  |  |  |  |
 |--|--|--|--|--|--|--|--|--|--|--|--|
 | caps lock | x | c | o | ä | u | h | k | m | b | j | escape |
