@@ -93,16 +93,16 @@ static uint16_t fast_cursor_down_last_repeat = 0; // Used for repeating scroll
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA0] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
-    QK_REP,  KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,             KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
+    KC_CAPS, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,             KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
     CW_TOGG, MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,             MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    KC_CAPS, LT(MEDIA, KC_Z),    KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,             KC_M,               KC_COMMA,           KC_DOT,             LT(MEDIA, SE_AA),      KC_DELETE,      
+    QK_REP,  LT(MEDIA, KC_Z),    KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,             KC_M,               KC_COMMA,           KC_DOT,             LT(MEDIA, SE_AA),      KC_DELETE,      
                                                                          LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
   ),
   [ALPHA1] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,             XXXXXXX,          
-    QK_REP,  KC_X,               KC_C,               KC_O,               KC_SE_ADIA,         KC_U,           /*|*/KC_H,             KC_K,               KC_M,               KC_B,               KC_J,                KC_ESCAPE,      
-    CW_TOGG, MT(MOD_LALT, KC_L), MT(MOD_LGUI, KC_R), MT(MOD_LCTL, KC_A), MT(MOD_LSFT, KC_E), KC_I,           /*|*/KC_D,             MT(MOD_RSFT, KC_T), MT(MOD_RCTL, KC_N), MT(MOD_RGUI, KC_S), MT(MOD_RALT, SE_G),  KC_V,        
-    KC_CAPS, LT(MEDIA, KC_Q)     KC_Z,               SE_AA,              SE_OSLH,            KC_Y,           /*|*/KC_F,             KC_P,               KC_COMMA,           KC_DOT,             LT(MEDIA, KC_W),     KC_DELETE,      
+    KC_CAPS, KC_X,               KC_C,               KC_O,               SE_ADIA,            KC_U,           /*|*/KC_H,             KC_K,               KC_M,               KC_B,               KC_J,                KC_ESCAPE,      
+    CW_TOGG, MT(MOD_LALT, KC_L), MT(MOD_LGUI, KC_R), MT(MOD_LCTL, KC_A), MT(MOD_LSFT, KC_E), KC_I,           /*|*/KC_D,             MT(MOD_RSFT, KC_T), MT(MOD_RCTL, KC_N), MT(MOD_RGUI, KC_S), MT(MOD_RALT, KC_G),  KC_V,        
+    QK_REP,  LT(MEDIA, KC_Q),    KC_Z,               SE_AA,              SE_OSLH,            KC_Y,           /*|*/KC_F,             KC_P,               KC_COMMA,           KC_DOT,             LT(MEDIA, KC_W),     KC_DELETE,      
                                                                          LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
   ),                                   
   [SYM] = LAYOUT_voyager(
@@ -245,7 +245,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {85,255,200},
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {149, 245, 100}, 
+    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {149,245,100}, 
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,200}, 
     {70,218,255}, {70,218,255}
   }
@@ -315,7 +315,7 @@ static HSV pgm_read_hsv(const HSV *addr) {
 
 HSV pgm_read_hsv_for_layer(uint8_t layer, uint8_t index) {
   HSV hsv;
-  if ((layer == ALPHA0 || layer == ALPHA1) && capslock_active && index == 18) {
+  if ((layer == ALPHA0 || layer == ALPHA1) && capslock_active && index == 6) {
     hsv = (HSV) { 0, 0, 180 };
   } else if ((layer == ALPHA0 || layer == ALPHA1) && current_os == OS_MAC) {
     hsv = pgm_read_hsv(&ledmap_alt[layer][index]);
@@ -389,6 +389,7 @@ void load_eeprom(void) {
     uint8_t ee = eeconfig_read_user();
     current_os = (ee >> 4) & 0x0F;
     current_alpha = ee & 0x0F;
+    layer_move(current_alpha);
   }
 }
 
@@ -445,6 +446,7 @@ void flip_os(void) {
 void flip_alpha(void) {
   animation_effect_timer = timer_read();
   current_alpha = current_alpha == ALPHA_QWERTY ? ALPHA_KVIKK : ALPHA_QWERTY;
+  layer_move(current_alpha);
   update_eeprom();
 }
 
