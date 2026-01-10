@@ -28,7 +28,7 @@ Legend for symbols and special keys used in the SVG:
 | 😀😎🤔😭 | Emoji menu                   |
 | 🔒        | Lock screen                 |
 | 🔄🪟🍏    | Switch OS (Win/Mac)         |
-| 🔄QK      | Switch layer (QWERTY/Kvikk) |
+| 🔄⚪⚡     | Switch layer (QWERTY/Kvikk) |
 | 📸        | Screenshot                  |
 | ⏮️        | Previous track              |
 | ⏭️        | Next track.                 |
