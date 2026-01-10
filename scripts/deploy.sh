@@ -2,19 +2,11 @@
 set -euo pipefail
 
 # ---- CONFIG ----
+SRC_ROOT="${1:?Usage: $0 <SRC_DIR>}"
 KEYMAP_NAME="my_keymap"
-QMK_DIR=~/qmk_firmware
-KEYBOARD_PATH="keyboards/zsa/voyager/keymaps"
-LINK_DIR="$QMK_DIR/$KEYBOARD_PATH/$KEYMAP_NAME"
+LINK_DIR=~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
 
-# ---- ARG CHECK ----
-if [[ $# -ne 1 ]]; then
-    echo "Usage: $0 <path-to-keymap-root>"
-    echo "Example: $0 ~/Source/Symmetra-keyboard-layout"
-    exit 1
-fi
-
-SRC_ROOT="$1"
+# Src files
 SRC_DIR="$SRC_ROOT/src"
 
 if [[ ! -d "$SRC_DIR" ]]; then

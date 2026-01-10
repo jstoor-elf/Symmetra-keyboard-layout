@@ -27,8 +27,8 @@ Legend for symbols and special keys used in the SVG:
 | 🔍        | Windows search / Spotlight        |
 | 😀😎🤔😭 | Emoji menu                         |
 | 🔒        | Lock screen                       |
-| 🔄🪟🍏    | Switch OS (Win/Mac)               |
-| 🔄⚪⚡     | Switch alpha layer (QWERTY/Kvikk) |
+| 🔄🪟🍏    | Toggle OS (Win/Mac)               |
+| 🔄⚪⚡     | Toggle alpha layer (QWERTY/Kvikk) |
 | 📸        | Screenshot                        |
 | ⏮️        | Previous track                    |
 | ⏭️        | Next track.                       |
