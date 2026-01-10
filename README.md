@@ -20,20 +20,20 @@ My alt. alpha-layout of choice is the [swedish Kvikk layout](https://lykt.xyz/sk
 
 Legend for symbols and special keys used in the SVG:
 
-| Symbol       | Meaning                  |
-|-----------|-----------------------------|
-| ◇         | Modifier                    |
-| ▷         | Momentary Layer toggle      |
-| 🔍        | Windows search / Spotlight  |
-| 😀😎🤔😭 | Emoji menu                   |
-| 🔒        | Lock screen                 |
-| 🔄🪟🍏    | Switch OS (Win/Mac)         |
-| 🔄⚪⚡     | Switch layer (QWERTY/Kvikk) |
-| 📸        | Screenshot                  |
-| ⏮️        | Previous track              |
-| ⏭️        | Next track.                 |
-| ⏹️        | Stop                        |
-| ⏯️        | Play/Pause                  |
+| Symbol    | Meaning                           |
+|-----------|-----------------------------------|
+| ◇         | Modifier                          |
+| ▷         | Momentary Layer toggle            |
+| 🔍        | Windows search / Spotlight        |
+| 😀😎🤔😭 | Emoji menu                         |
+| 🔒        | Lock screen                       |
+| 🔄🪟🍏    | Switch OS (Win/Mac)               |
+| 🔄⚪⚡     | Switch alpha layer (QWERTY/Kvikk) |
+| 📸        | Screenshot                        |
+| ⏮️        | Previous track                    |
+| ⏭️        | Next track.                       |
+| ⏹️        | Stop                              |
+| ⏯️        | Play/Pause                        |
 
 ## Visualization Pipeline
 
