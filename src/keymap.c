@@ -76,7 +76,8 @@ typedef enum {
 os_t current_os = OS_WINDOWS; // Used for storing info about the os
 alpha_t current_alpha = ALPHA_QWERTY; // Used for storing info about the alpha layer
 
-uint16_t animation_effect_timer = 0; // Used for visualizing os and layer switch
+uint16_t animation_os_timer = 0; // Used for visualizing os and layer switch
+uint16_t animation_alpha_timer = 0; // Used for visualizing os and layer switch
 bool capslock_active = false; // Used for setting color for caps key leda
 extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
 
@@ -154,7 +155,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {10,245,232}, {10,245,232},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
+    {83,245,131}, {10,245,232}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
     {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
     {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
     {10,245,232}, {10,245,232}
@@ -163,16 +164,16 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [ALPHA1] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131},
-    {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131},
-    {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131},
-    {234,245,232}, {234,245,232},
+    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
+    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
+    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
+    {10,245,232}, {10,245,232},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131},
-    {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131},
-    {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131}, {124,245,131},
-    {234,245,232}, {234,245,232}
+    {83,245,131}, {83,245,131}, {10,245,232}, {83,245,131}, {83,245,131}, {83,245,131},
+    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
+    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
+    {10,245,232}, {10,245,232}
   },
 
   [SYM] = {
@@ -262,7 +263,7 @@ const HSV PROGMEM ledmap_alt[][RGB_MATRIX_LED_COUNT] = {
     {83,245,131}, {83,245,131},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
+    {10,245,232}, {83,245,131}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
     {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
     {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
     {83,245,131}, {83,245,131}
@@ -271,31 +272,40 @@ const HSV PROGMEM ledmap_alt[][RGB_MATRIX_LED_COUNT] = {
   [ALPHA1] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232},
-    {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232},
-    {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232},
-    {124,245,131}, {124,245,131},
+    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
+    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
+    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
+    {83,245,131}, {83,245,131},
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232},
-    {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232},
-    {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232}, {234,245,232},
-    {124,245,131}, {124,245,131}
+    {10,245,232}, {10,245,232}, {83,245,131}, {10,245,232}, {10,245,232}, {10,245,232},
+    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
+    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
+    {83,245,131}, {83,245,131}
   }
 };
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
-uint16_t hsv_value_for_animation(uint8_t index, uint8_t max_v) {
-  uint16_t period = 500;
+uint16_t hsv_value_for_os_animation(uint8_t index, uint8_t max_v) {
+  uint16_t period = 1000;
   uint16_t period_offset = 100;
   uint16_t phase_offset = index * period_offset;
   uint16_t t = (timer_read() + phase_offset) % period;
   uint16_t value = (t < period/2) 
     ? (t * max_v) / (period/2) 
     : max_v - ((t - period/2) * max_v) / (period/2);
-
   return value;
+}
+
+// Pulses a single key back and forth
+uint16_t hsv_value_for_alpha_animation(uint8_t max_v) {
+    uint16_t period = 1000;
+    uint16_t t = timer_read() % period;
+    uint16_t value = (t < period / 2)
+      ? (t * max_v) / (period / 2)
+      : max_v - ((t - period / 2) * max_v) / (period / 2);
+    return value;\
 }
 
 RGB hsv_to_rgb_with_value(HSV hsv) {
@@ -325,19 +335,43 @@ HSV pgm_read_hsv_for_layer(uint8_t layer, uint8_t index) {
   return hsv;
 }
 
-bool try_set_leds_for_layer_with_animation(uint8_t layer) {
-  if (!animation_effect_timer) {
+bool try_set_leds_for_layer_with_os_animation(uint8_t layer) {
+  if (!animation_os_timer) {
     return false;
   } 
 
-  if (timer_elapsed(animation_effect_timer) > 5000) {
-    animation_effect_timer = 0; 
+  if (timer_elapsed(animation_os_timer) > 5000) {
+    animation_os_timer = 0; 
   }
 
   // Set the runtime buffer from PROGMEM for a given layer, and sets pulsating value
   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {    
     HSV hsv = pgm_read_hsv_for_layer(layer, i);
-    hsv.v = hsv.v != 0 ? hsv_value_for_animation(i, hsv.v) : 0;
+    hsv.v = hsv.v != 0 ? hsv_value_for_os_animation(i, hsv.v) : 0;
+    RGB rgb = hsv_to_rgb_with_value(hsv);
+    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+  }
+
+  return true;
+}
+
+bool try_set_leds_for_layer_with_alpha_animation(uint8_t layer) {
+  if (!animation_alpha_timer) {
+    return false;
+  } 
+
+  if (timer_elapsed(animation_alpha_timer) > 5000) {
+    animation_alpha_timer = 0; 
+  }
+
+  uint8_t alpha_key = current_alpha == ALPHA_QWERTY ? 33 : 34;
+
+  // Set the runtime buffer from PROGMEM for a given layer, and sets pulsating value
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {    
+    HSV hsv = pgm_read_hsv_for_layer(layer, i);
+    if (i == alpha_key) {
+      hsv.v = hsv_value_for_alpha_animation(hsv.v);
+    }
     RGB rgb = hsv_to_rgb_with_value(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
@@ -356,7 +390,8 @@ void set_leds_for_layer(uint8_t layer) {
 
 bool rgb_matrix_indicators_user(void) {
   uint8_t active_layer = biton32(layer_state);
-  if (try_set_leds_for_layer_with_animation(active_layer)) {
+  if (try_set_leds_for_layer_with_os_animation(active_layer) ||
+      try_set_leds_for_layer_with_alpha_animation(active_layer)) {
     return false;
   } else {
     set_leds_for_layer(active_layer);
@@ -438,13 +473,15 @@ bool select_word_host_is_mac(void) {
 }
 
 void flip_os(void) {
-  animation_effect_timer = timer_read();
+  animation_os_timer = timer_read();
+  animation_alpha_timer = 0;
   current_os = current_os == OS_MAC ? OS_WINDOWS : OS_MAC;
   update_eeprom();
 }
 
 void flip_alpha(void) {
-  animation_effect_timer = timer_read();
+  animation_alpha_timer = timer_read();
+  animation_os_timer = 0;
   current_alpha = current_alpha == ALPHA_QWERTY ? ALPHA_KVIKK : ALPHA_QWERTY;
   layer_move(current_alpha);
   update_eeprom();
