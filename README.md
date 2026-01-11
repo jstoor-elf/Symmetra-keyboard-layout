@@ -4,7 +4,7 @@ QMK layout for my ZSA Voyager.
 
 I have deliberately chosen not to use the top row of the Voyager, partly to _stay_ forward-compatible with other 3×6 + thumb key layouts, and partly to reduce finger travel.  
 
-My alt. alpha-layout of choice is the [swedish Kvikk layout](https://lykt.xyz/skl/kvikk/).
+My alternative alpha layout of choice is the [Swedish Kvikk Layout](https://lykt.xyz/skl/kvikk/), QWERTY is also supported.
 
 ![Keyboard](assets/voyager.jpeg)
 
