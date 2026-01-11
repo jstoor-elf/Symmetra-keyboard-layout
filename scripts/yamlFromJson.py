@@ -5,12 +5,13 @@ import sys
 
 # Mapping from QMK layer indices to readable names
 layer_names = {
-    0: "ALPHA",
-    1: "SYM",
-    2: "NUM/FUNC",      
-    3: "NAV",
-    4: "MOUSE",  
-    5: "MEDIA"       
+    "ALPHA0": "ALPHA ⋅ QWERTY",
+    "ALPHA1": "ALPHA ⋅ KVIKK",
+    "SYM": "SYM",
+    "NUM": "NUM/FUNC",      
+    "NAV": "NAV",
+    "MOUSE": "MOUSE",  
+    "MEDIA": "MEDIA"       
 }   
 
 # Modifier keys
@@ -31,7 +32,8 @@ special_keys = {
     "KC_BSPC": "Backspace",
     "CW_TOGG": "Caps Word",
     "KC_CAPS": "Caps Lock",  
-    "QK_LLCK": "Lock Layer"
+    "QK_LLCK": "Lock Layer",
+    "QK_REP": "Repeat"
 }
 
 # Swedish letter keys
@@ -132,6 +134,7 @@ systems_keys = {
     "U_OS_SEARCH": "🔍",
     "U_LOCK_SCREEN": "🔒",     
     "U_TOGGLE_OS": "🔄 🪟🍏",
+    "U_TOGGLE_ALPHA": "🔄 ⚪⚡",
     "KC_AUDIO_VOL_DOWN": "Volume -",
     "KC_AUDIO_VOL_UP": "Volume +",
     "KC_AUDIO_MUTE": "Volume Mute"
@@ -162,16 +165,16 @@ def map_special_tap(key: str) -> str | None:
         return f"{map_key(tap).splitlines()[0]}\n◇{map_key(mod).splitlines()[0]}"
 
     # Layer-Tap: LT(layer_index, key)
-    lt_match = re.match(r"LT\((\d+),\s*([^)]+)\)", key)
+    lt_match = re.match(r"LT\((\w+),\s*([^)]+)\)", key)
     if lt_match:
-        layer_index, tap = lt_match.groups()
-        return f"{map_key(tap).splitlines()[0]}\n▷{layer_names.get(int(layer_index), f'LAYER{layer_index}').upper()}"
+        layer_name, tap = lt_match.groups()
+        return f"{map_key(tap).splitlines()[0]}\n▷{layer_names.get(layer_name, layer_name).upper()}"
 
     # Momentary layer: MO(layer_index)
-    mo_match = re.match(r"MO\((\d+)\)", key)
+    mo_match = re.match(r"MO\((\w+)\)", key)
     if mo_match:
-        layer_index = int(mo_match.group(1))
-        return f"▷{layer_names.get(layer_index, f'LAYER{layer_index}')}"
+        layer_name = mo_match.group(1)
+        return f"▷{layer_names.get(layer_name, layer_name)}"
     
     return None
 
@@ -218,7 +221,7 @@ def main():
     keymap_yaml = {"keyboard": "ZSA Voyager", "layers": {}}
 
     for i, layer in enumerate(keymap_json["layers"]):
-        keymap_yaml["layers"][layer_names.get(i)] = map_layer(layer)
+        keymap_yaml["layers"][list(layer_names.values())[i]] = map_layer(layer)
 
     yaml.dump(keymap_yaml, sys.stdout, sort_keys=False, default_flow_style=False)
 

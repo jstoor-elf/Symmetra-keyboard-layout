@@ -1,34 +1,38 @@
 #!/bin/bash
 set -euo pipefail
 
-# Keymap name
+# ---- CONFIG ----
+SRC_ROOT="${1:?Usage: $0 <SRC_DIR>}"
 KEYMAP_NAME="my_keymap"
-SRC_DIR=~/Source/Symmetra-keyboard-layout/src
 LINK_DIR=~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
 
-# Ensure no leftover symlink
-[ -L "$LINK_DIR" ] && rm "$LINK_DIR"
+# Src files
+SRC_DIR="$SRC_ROOT/src"
 
-# Always clean up symlink when script exits
+if [[ ! -d "$SRC_DIR" ]]; then
+    echo "❌ Source directory not found: $SRC_DIR"
+    exit 1
+fi
+
+# ---- CLEANUP ----
+[ -L "$LINK_DIR" ] && rm "$LINK_DIR"
 trap 'rm -f "$LINK_DIR"' EXIT
 
-# Confirm compilation
+# ---- CONFIRM COMPILE ----
 read -p "Do you want to compile the keymap? (y/n): " confirm
-if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
-    echo "Flashing and compilation canceled by user."
+if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+    echo "Compilation canceled by user."
     exit 0
 fi
 
-# Create symlink
+# ---- SYMLINK ----
 ln -s "$SRC_DIR" "$LINK_DIR"
-  
-# Compile  
 
+# ---- COMPILE ----
 qmk compile -kb zsa/voyager -km "$KEYMAP_NAME"
-
 echo "✅ Compilation succeeded!"
 
-# Ask if user wants to flash
+# ---- FLASH ----
 read -p "Do you want to flash the keyboard now? (y/n), if so flashing will start in 5 seconds: " flash_confirm
 if [[ ! "$flash_confirm" =~ ^[Yy]$ ]]; then
     echo "✅ Skipping flashing."

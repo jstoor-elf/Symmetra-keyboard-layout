@@ -2,21 +2,24 @@
 set -euo pipefail
 
 # Keymap name
+SRC_ROOT="${1:?Usage: $0 <SRC_DIR>}"
 KEYMAP_NAME="my_keymap"
-SRC_DIR=~/Source/Symmetra-keyboard-layout/src
 LINK_DIR=~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
 
+# Src files
+SRC_DIR="$SRC_ROOT/src"
+
 # Results
-RESULTS_DIR=~/Source/Symmetra-keyboard-layout/scripts/output
+RESULTS_DIR="$SRC_ROOT/scripts/output"
 JSON_FILE="$RESULTS_DIR/keymap.json"
 YAML_FILE="$RESULTS_DIR/keymap.yaml"
 SVG_FILE="$RESULTS_DIR/keymap.svg"
 
 # Create assets folder in repo if it doesn't exist
-ASSETS_DIR=~/Source/Symmetra-keyboard-layout/assets
+ASSETS_DIR="$SRC_ROOT/assets"
 
 # Absolute path to Python conversion script
-PYTHON_CONVERTER=~/Source/Symmetra-keyboard-layout/scripts/yamlFromJson.py
+PYTHON_CONVERTER="$SRC_ROOT/scripts/yamlFromJson.py"
 
 # Always clean up symlink when script exits
 trap 'rm -f "$LINK_DIR"' EXIT
