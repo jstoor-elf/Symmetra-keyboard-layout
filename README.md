@@ -10,7 +10,7 @@ My alternative alpha layout of choice is the [Swedish Kvikk Layout](https://lykt
 
 ## Keywords
 
-`qwerty-kvikk`, `alpha-toggle`, `win-mac`, `OS-toggle`, `nordic`, `swedish`, `40-keys`, `symmetrical`, `homerow-mods`, `vim-navigation`, `mouse-layer`, `edit-cluster`
+`qwerty`, `kvikk`, `alpha-toggle`, `win`, `mac`, `OS-toggle`, `nordic`, `swedish`, `40-keys`, `symmetrical`, `homerow-mods`, `vim-navigation`, `mouse-layer`, `edit-cluster`
 
 ## Layers
 
