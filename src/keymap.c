@@ -305,7 +305,7 @@ uint16_t hsv_value_for_alpha_animation(uint8_t max_v) {
     uint16_t value = (t < period / 2)
       ? (t * max_v) / (period / 2)
       : max_v - ((t - period / 2) * max_v) / (period / 2);
-    return value;\
+    return value;
 }
 
 RGB hsv_to_rgb_with_value(HSV hsv) {
