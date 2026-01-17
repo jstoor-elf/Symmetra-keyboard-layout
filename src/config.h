@@ -2,7 +2,7 @@
 
 /* ######### TAPPING ######### */
 #undef TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 220
 #define TAPPING_TERM_THUMBS 330
 #define PERMISSIVE_HOLD
   
