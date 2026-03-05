@@ -10,8 +10,7 @@ layer_names = {
     "SYM": "SYM",
     "NUM": "NUM/FUNC",      
     "NAV": "NAV",
-    "MOUSE": "MOUSE",  
-    "MEDIA": "MEDIA"       
+    "SYS": "SYS"       
 }   
 
 # Modifier keys
@@ -128,8 +127,7 @@ systems_keys = {
     "KC_MEDIA_PREV_TRACK": "⏮️", 
     "KC_MEDIA_NEXT_TRACK": "⏭️",
     "KC_MEDIA_PLAY_PAUSE": "⏯️", 
-    "KC_MEDIA_STOP": "⏹️",   
-    "U_EMOJIS": "😀😎 🤔😭",
+    "KC_MEDIA_STOP": "⏹️",
     "U_SCREENSHOT": "📸",       
     "U_OS_SEARCH": "🔍",
     "U_LOCK_SCREEN": "🔒",     

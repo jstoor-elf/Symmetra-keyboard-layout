@@ -18,9 +18,8 @@ enum layers {
   ALPHA1,
   SYM,
   NUM,
-  NAV,  
-  MOUSE,
-  MEDIA  
+  NAV,
+  SYS  
 };
 
 // For mac/win compatability
@@ -55,7 +54,6 @@ enum custom_keycodes {
   U_RGB_TOG,
   U_SCREENSHOT,
   U_OS_SEARCH,
-  U_EMOJIS,
   U_TOGGLE_OS,
   U_TOGGLE_ALPHA,
   U_LOCK_SCREEN
@@ -96,14 +94,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
     KC_CAPS, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,             KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
     CW_TOGG, MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,             MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    QK_REP,  LT(MEDIA, KC_Z),    KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,             KC_M,               KC_COMMA,           KC_DOT,             LT(MEDIA, SE_AA),      KC_DELETE,      
+    QK_REP,  KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,             KC_M,               KC_COMMA,           KC_DOT,             SE_AA,                 KC_DELETE,      
                                                                          LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
   ),
   [ALPHA1] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,             XXXXXXX,          
     KC_CAPS, KC_X,               KC_C,               KC_O,               SE_ADIA,            KC_U,           /*|*/KC_H,             KC_K,               KC_M,               KC_B,               KC_J,                KC_ESCAPE,      
     CW_TOGG, MT(MOD_LALT, KC_L), MT(MOD_LGUI, KC_R), MT(MOD_LCTL, KC_A), MT(MOD_LSFT, KC_E), KC_I,           /*|*/KC_D,             MT(MOD_RSFT, KC_T), MT(MOD_RCTL, KC_N), MT(MOD_RGUI, KC_S), MT(MOD_RALT, KC_G),  KC_V,        
-    QK_REP,  LT(MEDIA, KC_Q),    KC_Z,               SE_AA,              SE_OSLH,            KC_Y,           /*|*/KC_F,             KC_P,               KC_COMMA,           KC_DOT,             LT(MEDIA, KC_W),     KC_DELETE,      
+    QK_REP,  KC_Q,               KC_Z,               SE_AA,              SE_OSLH,            KC_Y,           /*|*/KC_F,             KC_P,               KC_COMMA,           KC_DOT,             KC_W,                KC_DELETE,      
                                                                          LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
   ),                                   
   [SYM] = LAYOUT_voyager(
@@ -121,26 +119,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),  
   [NAV] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,   XXXXXXX,          /*|*/XXXXXXX,            XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
-    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,   U_REPLACE, XXXXXXX,          /*|*/XXXXXXX,            U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,          
-    XXXXXXX, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   SELWORD,          /*|*/XXXXXXX,            KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
-    XXXXXXX, U_UNDO,      U_REDO,      U_MARK_ALL, SELLINE,   SELWBAK,          /*|*/XXXXXXX,            U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,          
-                                                   XXXXXXX,   LT(MOUSE, KC_TAB),/*|*/LT(MOUSE, KC_BSPC), XXXXXXX     
+    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,   XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
+    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,   U_REPLACE, XXXXXXX,        /*|*/XXXXXXX,          U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,          
+    XXXXXXX, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   SELWORD,        /*|*/XXXXXXX,          KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
+    XXXXXXX, U_UNDO,      U_REDO,      U_MARK_ALL, SELLINE,   SELWBAK,        /*|*/XXXXXXX,          U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,          
+                                                   XXXXXXX,   LT(SYS, KC_TAB),/*|*/LT(SYS, KC_BSPC), XXXXXXX     
   ), 
-  [MOUSE] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, XXXXXXX,          
-    XXXXXXX, XXXXXXX, MS_BTN2, MS_BTN3, MS_BTN1, XXXXXXX,/*|*/XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX,         
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          
-                                        XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
-  ),
-  [MEDIA] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,             XXXXXXX,             XXXXXXX,       XXXXXXX,             XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_AUDIO_VOL_DOWN,   KC_AUDIO_VOL_UP,     XXXXXXX,       KC_AUDIO_MUTE,       XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, U_TOGGLE_OS,
-    XXXXXXX, RM_VALD,             RM_VALU,             XXXXXXX,       U_RGB_TOG,           XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, U_TOGGLE_ALPHA,
-    XXXXXXX, KC_MEDIA_PREV_TRACK, KC_MEDIA_NEXT_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, U_LOCK_SCREEN,
-                                                                      XXXXXXX,             U_SCREENSHOT,/*|*/U_OS_SEARCH, U_EMOJIS
-  )  
+  [SYS] = LAYOUT_voyager(
+    XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,         XXXXXXX,       XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,     XXXXXXX,        XXXXXXX, XXXXXXX,       XXXXXXX,
+    XXXXXXX, XXXXXXX, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_MUTE, U_SCREENSHOT,/*|*/U_OS_SEARCH, MS_WHLL,     MS_WHLD,        MS_WHLU, MS_WHLR,       XXXXXXX,          
+    XXXXXXX, XXXXXXX, MS_BTN2,           MS_BTN3,         MS_BTN1,       XXXXXXX,     /*|*/XXXXXXX,     MS_LEFT,     MS_DOWN,        MS_UP,   MS_RGHT,       XXXXXXX,         
+    XXXXXXX, XXXXXXX, RM_VALD,           RM_VALU,         U_RGB_TOG,     XXXXXXX,     /*|*/XXXXXXX,     U_TOGGLE_OS, U_TOGGLE_ALPHA, XXXXXXX, U_LOCK_SCREEN, XXXXXXX,          
+                                                          XXXXXXX,       XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX
+  )
 };
 
 /* ######### LEDMAPS ######### */
@@ -221,34 +212,19 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     {0,0,180}, {0,0,0}
   },
 
-  [MOUSE] = {
+  [SYS] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {137,241,207}, {137,241,207}, {137,241,207}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {70,218,255}, 
+    {0,0,0}, {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {0,0,0}, 
     {0,0,0}, {0,0,0}, 
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {26,242,207}, {26,242,207}, {26,242,207}, {26,242,207}, {0,0,0}, 
+    {70,218,255}, {71,232,162}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
     {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
+    {0,0,0}, {85,255,200}, {149,245,100}, {0,0,0}, {0,255,200}, {0,0,0}, 
     {0,0,0}, {0,0,0},
-  }, 
-
-  [MEDIA] = {
-    // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {101,238,158}, {101,238,158}, {0,0,0}, {101,238,158}, {0,0,0},
-    {0,0,0}, {30,239,216}, {30,239,216}, {0,0,0}, {30,239,216}, {0,0,0},
-    {0,0,0}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,0,0},
-    {0,0,0}, {70,218,255},
-    // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {85,255,200},
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {149,245,100}, 
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,255,200}, 
-    {70,218,255}, {70,218,255}
   }
 };
 
@@ -627,7 +603,6 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_SCREENSHOT:       PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));     break;
     case U_OS_SEARCH:        PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));    break;
     case U_LOCK_SCREEN:      PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));     break;
-    case U_EMOJIS:           PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE)))); break;
   }
   return true;
 }
