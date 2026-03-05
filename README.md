@@ -25,7 +25,6 @@ Legend for symbols and special keys used in the SVG:
 | ◇         | Modifier                          |
 | ▷         | Momentary Layer toggle            |
 | 🔍        | Windows search / Spotlight        |
-| 😀😎🤔😭 | Emoji menu                         |
 | 🔒        | Lock screen                       |
 | 🔄🪟🍏    | Toggle OS (Win/Mac)               |
 | 🔄⚪⚡     | Toggle alpha layer (QWERTY/Kvikk) |
