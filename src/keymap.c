@@ -126,11 +126,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    XXXXXXX,   LT(SYS, KC_TAB),/*|*/LT(SYS, KC_BSPC), XXXXXXX     
   ), 
   [SYS] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,         XXXXXXX,       XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX,     XXXXXXX,        XXXXXXX, XXXXXXX,       XXXXXXX,
-    XXXXXXX, XXXXXXX, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_MUTE, U_SCREENSHOT,/*|*/U_OS_SEARCH, MS_WHLL,     MS_WHLD,        MS_WHLU, MS_WHLR,       XXXXXXX,          
-    XXXXXXX, XXXXXXX, MS_BTN2,           MS_BTN3,         MS_BTN1,       XXXXXXX,     /*|*/XXXXXXX,     MS_LEFT,     MS_DOWN,        MS_UP,   MS_RGHT,       XXXXXXX,         
-    XXXXXXX, XXXXXXX, RM_VALD,           RM_VALU,         U_RGB_TOG,     XXXXXXX,     /*|*/XXXXXXX,     U_TOGGLE_OS, U_TOGGLE_ALPHA, XXXXXXX, U_LOCK_SCREEN, XXXXXXX,          
-                                                          XXXXXXX,       XXXXXXX,     /*|*/XXXXXXX,     XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,         XXXXXXX,       XXXXXXX,       /*|*/XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_MUTE, U_SCREENSHOT,  /*|*/U_OS_SEARCH,   MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, XXXXXXX,          
+    XXXXXXX, XXXXXXX, MS_BTN2,           MS_BTN3,         MS_BTN1,       U_TOGGLE_ALPHA,/*|*/XXXXXXX,       MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, XXXXXXX,         
+    XXXXXXX, XXXXXXX, RM_VALD,           RM_VALU,         U_RGB_TOG,     U_TOGGLE_OS,   /*|*/U_LOCK_SCREEN, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          
+                                                          XXXXXXX,       XXXXXXX,       /*|*/XXXXXXX,       XXXXXXX
   )
 };
 
@@ -216,14 +216,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {70,218,255}, 
-    {0,0,0}, {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {0,0,0}, 
+    {0,0,0}, {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {149,245,100}, 
+    {0,0,0}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {85,255,200}, 
     {0,0,0}, {0,0,0}, 
     // Right side
     {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {70,218,255}, {71,232,162}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
     {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
-    {0,0,0}, {85,255,200}, {149,245,100}, {0,0,0}, {0,255,200}, {0,0,0}, 
+    {0,255,200}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
     {0,0,0}, {0,0,0},
   }
 };
