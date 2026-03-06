@@ -18,6 +18,7 @@ enum layers {
   ALPHA1,
   SYM,
   NUM,
+  EXT,
   NAV,
   SYS  
 };
@@ -91,32 +92,39 @@ static uint16_t fast_cursor_down_last_repeat = 0; // Used for repeating scroll
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA0] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
-    KC_CAPS, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,             KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
-    CW_TOGG, MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,             MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    QK_REP,  KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,             KC_M,               KC_COMMA,           KC_DOT,             SE_AA,                 KC_DELETE,      
-                                                                         LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,         /*|*/XXXXXXX,            XXXXXXX,         XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,          
+    XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,              KC_T,            /*|*/KC_Y,               KC_U,            KC_I,     KC_O,    KC_P,    XXXXXXX,      
+    XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,              KC_G,            /*|*/KC_H,               KC_J,            KC_K,     KC_L,    SE_OSLH, XXXXXXX,        
+    XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,              KC_B,            /*|*/KC_N,               KC_M,            SE_ADIA,  KC_DOT,  SE_AA,   XXXXXXX,      
+                                        LT(SYM, KC_ENTER), LT(NAV, SE_ADIA),/*|*/LT(NAV, KC_ESCAPE), LT(NUM, KC_SPACE)
   ),
   [ALPHA1] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,             XXXXXXX,          
-    KC_CAPS, KC_X,               KC_C,               KC_O,               SE_ADIA,            KC_U,           /*|*/KC_H,             KC_K,               KC_M,               KC_B,               KC_J,                KC_ESCAPE,      
-    CW_TOGG, MT(MOD_LALT, KC_L), MT(MOD_LGUI, KC_R), MT(MOD_LCTL, KC_A), MT(MOD_LSFT, KC_E), KC_I,           /*|*/KC_D,             MT(MOD_RSFT, KC_T), MT(MOD_RCTL, KC_N), MT(MOD_RGUI, KC_S), MT(MOD_RALT, KC_G),  KC_V,        
-    QK_REP,  KC_Q,               KC_Z,               SE_AA,              SE_OSLH,            KC_Y,           /*|*/KC_F,             KC_P,               KC_COMMA,           KC_DOT,             KC_W,                KC_DELETE,      
-                                                                         LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,      /*|*/XXXXXXX,            XXXXXXX,               XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX,          
+    XXXXXXX, KC_X,    KC_C,    KC_O,    SE_ADIA,           KC_U,         /*|*/KC_H,               KC_K,                  KC_M,     KC_B,    KC_J,    XXXXXXX,      
+    XXXXXXX, KC_L,    KC_R,    KC_A,    KC_E,              KC_I,         /*|*/KC_D,               KC_T,                  KC_N,     KC_S,    KC_G,    XXXXXXX,        
+    XXXXXXX, KC_Q,    KC_Z,    SE_AA,   SE_OSLH,           KC_Y,         /*|*/KC_F,               KC_P,                  KC_V,     KC_DOT,  KC_W,    XXXXXXX,      
+                                        LT(SYM, KC_ENTER), LT(NAV, KC_V),/*|*/LT(NAV, KC_ESCAPE), LT(KC_SPACE, KC_SPACE)
   ),                                   
   [SYM] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, SE_QUES, U_SE_LESS, U_SE_GRTR, SE_MINS, U_SE_PIPE,/*|*/SE_CIRC, U_SE_LCBR, U_SE_RCBR,  SE_DLR,  SE_ACUT, SE_GRV,         
-    KC_PERC, KC_EXLM, SE_ASTR,   SE_SLSH,   SE_EQL,  SE_AMPR,  /*|*/KC_HASH, SE_LPRN,   SE_RPRN,    SE_SCLN, SE_DQUO, U_SE_BSLS,        
-    XXXXXXX, SE_TILD, SE_PLUS,   SE_LBRC,   SE_RBRC, SE_AT,    /*|*/SE_UNDS, SE_COLN,   KC_COMMA,   KC_DOT,  SE_APOS, XXXXXXX,          
-                                            XXXXXXX, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX
+    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  /*|*/XXXXXXX, XXXXXXX,           XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, SE_QUES, U_SE_LESS, U_SE_GRTR, SE_MINS,  U_SE_PIPE,/*|*/SE_CIRC, U_SE_LCBR,         U_SE_RCBR,  SE_DLR,  SE_ACUT, SE_GRV,         
+    XXXXXXX, KC_EXLM, SE_ASTR,   SE_SLSH,   SE_EQL,   SE_AMPR,  /*|*/KC_HASH, SE_LPRN,           SE_RPRN,    SE_SCLN, SE_DQUO, XXXXXXX,        
+    XXXXXXX, SE_TILD, SE_PLUS,   SE_LBRC,   SE_RBRC,  SE_AT,    /*|*/SE_UNDS, SE_COLN,           KC_COMMA,   KC_DOT,  SE_APOS, XXXXXXX,          
+                                            KC_ENTER, XXXXXXX,  /*|*/KC_PERC, LT(MOD, U_SE_BSLS)
   ),
   [NUM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, KC_F10,  KC_F3,   KC_F2,   KC_F1,   XXXXXXX,/*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
     XXXXXXX, KC_F11,  KC_F6,   KC_F5,   KC_F4,   XXXXXXX,/*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
     XXXXXXX, KC_F12,  KC_F9,   KC_F8,   KC_F7,   XXXXXXX,/*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
-                                        XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX
+                                        MO(MOD), XXXXXXX,/*|*/XXXXXXX, KC_SPACE
+  ), 
+  [EXT] = LAYOUT_voyager(
+    XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,/*|*/XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
+    XXXXXXX, KC_ESCAPE,     KC_TAB,        KC_ENTER,      KC_SPACE,      XXXXXXX,/*|*/XXXXXXX, KC_SPACE,      KC_ENTER,      KC_TAB,       KC_ESCAPE,     XXXXXXX,
+    XXXXXXX, OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), XXXXXXX,/*|*/XXXXXXX, OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RGUI), OSM(MOD_RALT), XXXXXXX,
+    XXXXXXX, KC_CAPS,       CW_TOGG,       KC_DELETE,     KC_BSPC,       XXXXXXX,/*|*/XXXXXXX, KC_BSPC,       KC_DELETE,     CW_TOGG,       KC_CAPS,       XXXXXXX,
+                                                          XXXXXXX,       XXXXXXX,/*|*/XXXXXXX, XXXXXXX
   ),  
   [NAV] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,   XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
