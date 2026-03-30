@@ -82,24 +82,26 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 /* ######### COMBOS ######### */
 
 const uint16_t PROGMEM combo_aa[]   = {SE_ADIA, SE_OSLH, COMBO_END};
-const uint16_t PROGMEM combo_func[] = {T_L_OUT, T_R_OUT, COMBO_END};
-const uint16_t PROGMEM combo_num[]  = {T_L_IN,  T_R_IN,  COMBO_END};
-const uint16_t PROGMEM combo_eql[]  = {KC_H,    KC_A,    COMBO_END};
-const uint16_t PROGMEM combo_coln[] = {KC_J,    KC_Y,    COMBO_END};
-const uint16_t PROGMEM combo_scln[] = {KC_K,    KC_F,    COMBO_END};
-const uint16_t PROGMEM combo_ent[]  = {KC_T,    KC_S,    COMBO_END};
-const uint16_t PROGMEM combo_esc[]  = {KC_D,    KC_C,    COMBO_END};
-const uint16_t PROGMEM combo_tab[]  = {KC_M,    KC_W,    COMBO_END};
-const uint16_t PROGMEM combo_bspc[] = {KC_O,    KC_U,    KC_COMMA, COMBO_END};
-const uint16_t PROGMEM combo_del[]  = {KC_B,    KC_L,    KC_D,     COMBO_END};
+const uint16_t PROGMEM combo_num[]  = {T_L_OUT, T_R_OUT, COMBO_END};
+const uint16_t PROGMEM combo_caps[] = {T_L_IN,  T_R_IN,  COMBO_END};
+const uint16_t PROGMEM combo_func[] = {KC_G,    KC_P,    COMBO_END};
+const uint16_t PROGMEM combo_eql[]  = {KC_Y,    KC_O,    COMBO_END};
+const uint16_t PROGMEM combo_coln[] = {KC_H,    KC_A,    COMBO_END};
+const uint16_t PROGMEM combo_slsh[] = {KC_F,    SE_ADIA, COMBO_END};
+const uint16_t PROGMEM combo_ent[]  = {KC_A,    KC_E,    COMBO_END}; 
+const uint16_t PROGMEM combo_esc[]  = {KC_T,    KC_S,    COMBO_END};
+const uint16_t PROGMEM combo_tab[]  = {KC_R,    KC_T,    COMBO_END};
+const uint16_t PROGMEM combo_bspc[] = {KC_O,    KC_U,    COMBO_END};
+const uint16_t PROGMEM combo_del[]  = {KC_Q,    KC_M,    COMBO_END};
 
 combo_t key_combos[] = {
   COMBO(combo_aa,   SE_AA),
-  COMBO(combo_func, OSL(FUNC)),
   COMBO(combo_num,  TG(NUM)),
+  COMBO(combo_caps, CW_TOGG),
+  COMBO(combo_func, OSL(FUNC)),
   COMBO(combo_eql,  SE_EQL),
   COMBO(combo_coln, SE_COLN),
-  COMBO(combo_scln, SE_SCLN),
+  COMBO(combo_slsh, SE_SLSH),
   COMBO(combo_ent,  KC_ENT),
   COMBO(combo_esc,  KC_ESC),
   COMBO(combo_bspc, KC_BSPC),
@@ -119,40 +121,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         T_L_OUT, T_L_IN,     T_R_IN,  T_R_OUT
   ),
 
-  // Left outer thumb activates: left home row = OSMs, right side = symbols
   [SYM_L] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,    SE_CIRC, KC_HASH, SE_AT,   SE_DQUO,  KC_COMMA, XXXXXXX,
-    XXXXXXX, OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), XXXXXXX,    SE_SLSH, SE_QUES, SE_LBRC, SE_RBRC,  SE_MINS,  XXXXXXX, 
-    XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,    SE_GRV,  SE_AMPR, SE_LPRN, SE_RPRN,  KC_DOT,   XXXXXXX, 
-                                                           _______,      _______,    _______, _______
+    XXXXXXX, OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), XXXXXXX,    SE_PERC, SE_SCLN, SE_LBRC, SE_RBRC,  SE_UNDS,  XXXXXXX,
+    XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,    SE_ACUT, SE_AMPR, SE_LPRN, SE_RPRN,  KC_DOT,   XXXXXXX, 
+                                                          XXXXXXX,       XXXXXXX,    XXXXXXX, XXXXXXX
   ),
 
-  // Right outer thumb activates: left side = symbols, right home row = OSMs
   [SYM_R] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,      XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
-    XXXXXXX, SE_DLR,   SE_PLUS,   SE_ASTR,   KC_EXLM,  SE_TILD,      XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
-    XXXXXXX, U_SE_PIPE, U_SE_LCBR, U_SE_RCBR, SE_MINS,  U_SE_BSLS,   XXXXXXX, OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RGUI), OSM(MOD_RALT), XXXXXXX,
-    XXXXXXX, SE_APOS,  U_SE_LESS, U_SE_GRTR, KC_PERC,  KC_COMMA,     XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
-                                              _______,  _______,      _______, _______
+    XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,   XXXXXXX,     XXXXXX,  XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
+    XXXXXXX, SE_DLR,   SE_PLUS,   SE_ASTR,    KC_EXLM,   SE_TILD,     XXXXXX,  XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
+    XXXXXXX, SE_QUES,   U_SE_LCBR, U_SE_RCBR, SE_MINS,   U_SE_BSLS,   XXXXXXX, OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RGUI), OSM(MOD_RALT), XXXXXXX,
+    XXXXXXX, SE_APOS,  U_SE_LESS, U_SE_GRTR,  U_SE_PIPE, SE_GRV,      XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
+                                              XXXXXXX,  XXXXXXX,      XXXXXXX, XXXXXXX
   ),
 
-  // Both inner thumbs combo: locked until Enter (L-inner) or Cancel (R-inner)
   [NUM] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_6,    KC_4,    KC_0,    KC_2,    XXXXXXX,          XXXXXXX, KC_3,    KC_1,    KC_5,    KC_7,    XXXXXXX,
+    XXXXXXX, KC_6,    KC_4,    KC_2,    KC_0,    XXXXXXX,          XXXXXXX, KC_1,    KC_3,    KC_5,    KC_7,    XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_8,    XXXXXXX,          XXXXXXX, KC_9,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                         XXXXXXX, U_NUM_ENTER,      TG(NUM), XXXXXXX
   ),
-
-  // Both outer thumbs combo: one-shot, accessible from ALPHA and SYM layers
+ 
   [FUNC] = LAYOUT_voyager(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,
-    XXXXXXX, KC_F6,   KC_F4,   KC_F10,  KC_F2,   KC_F12,     KC_F11,  KC_F3,   KC_F1,   KC_F5,   KC_F7,      XXXXXXX,
+    XXXXXXX, KC_F6,   KC_F4,   KC_F2,   KC_F10,  KC_F12,     KC_F11,  KC_F1,   KC_F3,   KC_F5,   KC_F7,      XXXXXXX,
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F8,   XXXXXXX,    XXXXXXX, KC_F9,   XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,
-                                        _______, _______,    _______, _______
+                                        XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX
   ),
 
   [NAV] = LAYOUT_voyager(
@@ -160,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   U_SEARCH,     XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,
     XXXXXXX, MOD_LALT,    MOD_LGUI,    MOD_LCTL,   MOD_LSFT,  SELWORD,      XXXXXXX, KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,
     XXXXXXX, U_UNDO,      U_REDO,      U_MARK_ALL, SELLINE,   SELWBAK,      XXXXXXX, U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,
-                                                   _______,   _______,      _______, _______
+                                                   XXXXXXX,   XXXXXXX,      XXXXXXX, XXXXXXX
   )
 };
 
