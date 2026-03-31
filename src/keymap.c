@@ -82,9 +82,9 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 /* ######### COMBOS ######### */
 
 const uint16_t PROGMEM combo_aa[]   = {SE_ADIA, SE_OSLH, COMBO_END};
-const uint16_t PROGMEM combo_num[]  = {T_L_OUT, T_R_OUT, COMBO_END};
-const uint16_t PROGMEM combo_caps[] = {T_L_IN,  T_R_IN,  COMBO_END};
-const uint16_t PROGMEM combo_func[] = {KC_G,    KC_P,    COMBO_END};
+const uint16_t PROGMEM combo_num[]  = {T_L_IN,  T_R_IN,  COMBO_END};
+const uint16_t PROGMEM combo_func[] = {T_L_OUT, T_R_OUT, COMBO_END};
+const uint16_t PROGMEM combo_caps[] = {KC_T,    KC_A,    COMBO_END};
 const uint16_t PROGMEM combo_eql[]  = {KC_Y,    KC_O,    COMBO_END};
 const uint16_t PROGMEM combo_coln[] = {KC_H,    KC_A,    COMBO_END};
 const uint16_t PROGMEM combo_slsh[] = {KC_F,    SE_ADIA, COMBO_END};
