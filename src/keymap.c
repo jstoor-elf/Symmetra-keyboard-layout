@@ -6,17 +6,17 @@
 
 /* ######### THUMB KEY ALIASES ######### */
 
-#define T_L_OUT OSL(SYM_L)
+#define T_L_OUT OSL(EDIT_SYM)
 #define T_L_IN  LT(NAV, KC_SPC)
 #define T_R_IN  OSM(MOD_RSFT)
-#define T_R_OUT OSL(SYM_R)
+#define T_R_OUT OSL(SYM_EDIT)
 
 /* ######### ENUMS ######### */
 
 enum layers {
   ALPHA,
-  SYM_L,
-  SYM_R,
+  EDIT_SYM,
+  SYM_EDIT,
   NUM,
   FUNC,
   NAV,
@@ -31,10 +31,7 @@ enum custom_keycodes {
   U_SE_LCBR,
   U_SE_RCBR,
   U_SE_BSLS,
-  U_FIND_PREV,
-  U_FIND_NEXT,
   U_SEARCH,
-  U_REPLACE,
   U_CUT,
   U_UNDO,
   U_REDO,
@@ -117,24 +114,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                T_L_OUT, T_L_IN,     T_R_IN,  T_R_OUT
   ),
 
-  [SYM_L] = LAYOUT_split_3x5_2(
-    XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,    SE_CIRC, KC_HASH, SE_AT,   SE_DQUO, KC_DOT,
-    OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), XXXXXXX,    SE_PERC, SE_SCLN, SE_LBRC, SE_RBRC, SE_UNDS,
-    XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,    SE_ACUT, SE_AMPR, SE_LPRN, SE_RPRN, KC_COMMA,
-                                                 XXXXXXX,       XXXXXXX,    XXXXXXX, XXXXXXX
+  [EDIT_SYM] = LAYOUT_split_3x5_2(
+    U_SAVE,        U_CUT,         U_COPY,        U_PASTE,         XXXXXXX,    SE_CIRC, KC_HASH, SE_AT,   SE_DQUO, KC_DOT,
+    OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT),   XXXXXXX,    SE_PERC, SE_SCLN, SE_LBRC, SE_RBRC, SE_UNDS,
+    U_UNDO,        U_REDO,        U_SEARCH,      U_MARK_ALL,      XXXXXXX,    SE_ACUT, SE_AMPR, SE_LPRN, SE_RPRN, KC_COMMA,
+                                                 XXXXXXX,         XXXXXXX,    XXXXXXX, XXXXXXX
   ),
 
-  [SYM_R] = LAYOUT_split_3x5_2(
+  [SYM_EDIT] = LAYOUT_split_3x5_2(
     SE_DLR,  SE_PLUS,   SE_ASTR,   KC_EXLM,   SE_TILD,     XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
     SE_QUES, U_SE_LCBR, U_SE_RCBR, SE_MINS,   U_SE_BSLS,   XXXXXXX, OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RGUI), OSM(MOD_RALT),
-    SE_APOS, U_SE_LESS, U_SE_GRTR, U_SE_PIPE, SE_GRV,      XXXXXXX, XXXXXXX,       XXXXXXX,       XXXXXXX,       XXXXXXX,
-                                   XXXXXXX,   XXXXXXX,      XXXXXXX, XXXXXXX
+    SE_APOS, U_SE_LESS, U_SE_GRTR, U_SE_PIPE, SE_GRV,      XXXXXXX, SELLINE,       SELWBAK,       SELWORD,       XXXXXXX,
+                                   XXXXXXX,   XXXXXXX,     XXXXXXX, XXXXXXX
   ),
 
   [NUM] = LAYOUT_split_3x5_2(
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_6,    KC_4,    KC_2,    KC_0,    XXXXXXX,          XXXXXXX, KC_1,    KC_3,    KC_5,    KC_7,
-    XXXXXXX, XXXXXXX, XXXXXXX, KC_8,   XXXXXXX,          XXXXXXX, KC_9,    XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_8,   XXXXXXX,           XXXXXXX, KC_9,    XXXXXXX, XXXXXXX, XXXXXXX,
                                XXXXXXX, U_NUM_ENTER,      TG(NUM), XXXXXXX
   ),
 
@@ -146,9 +143,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [NAV] = LAYOUT_split_3x5_2(
-    U_SAVE,   U_CUT,    U_COPY,     U_PASTE,  U_SEARCH,   XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,
-    MOD_LALT, MOD_LGUI, MOD_LCTL,   MOD_LSFT, SELWORD,    XXXXXXX, KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,
-    U_UNDO,   U_REDO,   U_MARK_ALL, SELLINE,  SELWBAK,    XXXXXXX, U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX, U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,
+    MOD_LALT, MOD_LGUI, MOD_LCTL,   MOD_LSFT, XXXXXXX,    XXXXXXX, KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX, U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT,
                                     XXXXXXX,  XXXXXXX,    MO(MOUSE), XXXXXXX
   ),
 
@@ -303,10 +300,7 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_SE_LCBR:     PERFORM_BY_OS(tap_code16(SE_LCBR_WIN),  tap_code16(SE_LCBR_MAC));   break;
     case U_SE_RCBR:     PERFORM_BY_OS(tap_code16(SE_RCBR_WIN),  tap_code16(SE_RCBR_MAC));   break;
     case U_SE_BSLS:     PERFORM_BY_OS(tap_code16(SE_BSLS_WIN),  tap_code16(SE_BSLS_MAC));   break;
-    case U_FIND_PREV:   PERFORM_BY_OS(tap_code16(S(KC_F3)),     tap_code16(G(S(KC_G))));    break;
-    case U_FIND_NEXT:   PERFORM_BY_OS(tap_code16(C(KC_G)),      tap_code16(G(KC_G)));       break;
     case U_SEARCH:      PERFORM_BY_OS(tap_code16(C(KC_F)),      tap_code16(G(KC_F)));       break;
-    case U_REPLACE:     PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));    break;
     case U_CUT:         PERFORM_BY_OS(tap_code16(C(KC_X)),      tap_code16(G(KC_X)));       break;
     case U_COPY:        PERFORM_BY_OS(tap_code16(C(KC_C)),      tap_code16(G(KC_C)));       break;
     case U_PASTE:       PERFORM_BY_OS(tap_code16(C(KC_V)),      tap_code16(G(KC_V)));       break;
