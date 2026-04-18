@@ -170,19 +170,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [NAV] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,   _DEAD_,   _DEAD_,   _DEAD_,   _DEAD_,  /*|*/   _DEAD_,    _DEAD_,      _DEAD_,        _DEAD_,      _DEAD_,       _DEAD_,
-    _DEAD_, _OFF_,    _OFF_,    _OFF_,    _OFF_,    _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
-    _DEAD_, MOD_LALT, MOD_LGUI, MOD_LCTL, MOD_LSFT, _OFF_,   /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
-    _DEAD_, _OFF_,    _OFF_,    _OFF_,    _OFF_,    _OFF_,   /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
-                                          _OFF_,    _OFF_,   /*|*/   MO(MOUSE), _OFF_
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,    _DEAD_,      _DEAD_,        _DEAD_,      _DEAD_,       _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
+    _DEAD_, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
+                                       _OFF_,   _OFF_,   /*|*/   MO(MOUSE), _OFF_
   ),
 
   [MOUSE] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,   _DEAD_,   _DEAD_,   _DEAD_,   _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,  _DEAD_,
-    _DEAD_, _OFF_,    _OFF_,    _OFF_,    _OFF_,    _OFF_,   /*|*/   _OFF_,   MS_BTN1, MS_UP,   MS_BTN2,  _OFF_,   _DEAD_,
-    _DEAD_, MOD_LALT, MOD_LGUI, MOD_LCTL, MOD_LSFT, _OFF_,   /*|*/   _OFF_,   MS_LEFT, MS_DOWN, MS_RIGHT, _OFF_,   _DEAD_,
-    _DEAD_, _OFF_,    _OFF_,    _OFF_,    _OFF_,    _OFF_,   /*|*/   _OFF_,   MS_WHLD, MS_BTN3, MS_WHLU,  _OFF_,   _DEAD_,
-                                          _OFF_,    _OFF_,   /*|*/   _OFF_,   _OFF_
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,  _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   MS_BTN1, MS_UP,   MS_BTN2,  _OFF_,   _DEAD_,
+    _DEAD_, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,   MS_LEFT, MS_DOWN, MS_RGHT,  _OFF_,   _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   MS_WHLD, MS_BTN3, MS_WHLU,  _OFF_,   _DEAD_,
+                                       _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
   ),
 
   [SYS] = LAYOUT_voyager(
