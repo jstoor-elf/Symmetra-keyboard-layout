@@ -74,6 +74,7 @@ typedef enum {
 os_t current_os = OS_WINDOWS;
 
 uint16_t animation_os_timer = 0;
+bool caps_word_active = false;
 extern rgb_config_t rgb_matrix_config;
 
 static bool fast_cursor_up_active = false;
@@ -89,31 +90,31 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 const uint16_t PROGMEM combo_aa[]   = {SE_ADIA, SE_OSLH, COMBO_END};
 const uint16_t PROGMEM combo_num[]  = {T_L_IN,  T_R_IN,  COMBO_END};
 const uint16_t PROGMEM combo_func[] = {T_L_OUT, T_R_OUT, COMBO_END};
-const uint16_t PROGMEM combo_caps[] = {KC_T,    KC_A,    COMBO_END};
+const uint16_t PROGMEM combo_caps[] = {KC_S,    KC_H,    COMBO_END};
+const uint16_t PROGMEM combo_slsh[] = {KC_M,    KC_W,    COMBO_END};
+const uint16_t PROGMEM combo_coln[] = {KC_F,    SE_ADIA, COMBO_END};
 const uint16_t PROGMEM combo_eql[]  = {KC_Y,    KC_O,    COMBO_END};
-const uint16_t PROGMEM combo_coln[] = {KC_H,    KC_A,    COMBO_END};
-const uint16_t PROGMEM combo_slsh[] = {KC_F,    SE_ADIA, COMBO_END};
-const uint16_t PROGMEM combo_ent[]  = {KC_A,    KC_E,    COMBO_END};
-const uint16_t PROGMEM combo_esc[]  = {KC_T,    KC_S,    COMBO_END};
-const uint16_t PROGMEM combo_tab[]  = {KC_R,    KC_T,    COMBO_END};
+const uint16_t PROGMEM combo_esc[]  = {KC_D,    KC_C,    COMBO_END};
+const uint16_t PROGMEM combo_ent[]  = {KC_H,    KC_A,    COMBO_END};
+const uint16_t PROGMEM combo_tab[]  = {KC_T,    KC_S,    COMBO_END};
 const uint16_t PROGMEM combo_bspc[] = {KC_O,    KC_U,    COMBO_END};
-const uint16_t PROGMEM combo_del[]  = {KC_Q,    KC_M,    COMBO_END};
-const uint16_t PROGMEM combo_sys[]  = {KC_B,    KC_COMMA, COMBO_END};
+const uint16_t PROGMEM combo_del[]  = {KC_L,    KC_D,    COMBO_END};
+const uint16_t PROGMEM combo_sys[]  = {KC_B,    KC_DOT,  COMBO_END};
 
 combo_t key_combos[] = {
-  COMBO(combo_aa,   SE_AA),
-  COMBO(combo_num,  TG(NUM)),
-  COMBO(combo_caps, CW_TOGG),
-  COMBO(combo_func, OSL(FUNC)),
-  COMBO(combo_eql,  SE_EQL),
-  COMBO(combo_coln, SE_COLN),
-  COMBO(combo_slsh, SE_SLSH),
-  COMBO(combo_ent,  KC_ENT),
-  COMBO(combo_esc,  KC_ESC),
-  COMBO(combo_bspc, KC_BSPC),
-  COMBO(combo_del,  KC_DEL),
-  COMBO(combo_tab,  KC_TAB),
-  COMBO(combo_sys,  TG(SYS)),
+  COMBO(combo_aa,   SE_AA), // Å
+  COMBO(combo_num,  TG(NUM)), // NUMWORD
+  COMBO(combo_caps, CW_TOGG),  // CAPSWORD
+  COMBO(combo_func, OSL(FUNC)), // To function layer
+  COMBO(combo_eql,  SE_EQL), // =
+  COMBO(combo_coln, SE_COLN), // :
+  COMBO(combo_slsh, SE_SLSH), // /
+  COMBO(combo_ent,  KC_ENT), // Enter
+  COMBO(combo_esc,  KC_ESC), // Escape
+  COMBO(combo_bspc, KC_BSPC), // Backspace
+  COMBO(combo_del,  KC_DEL), // Delete
+  COMBO(combo_tab,  KC_TAB), // Tab
+  COMBO(combo_sys,  TG(SYS)), // To system layer
 };
 
 /* ######### KEYMAPS ######### */
@@ -139,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYM_EDIT_L] = LAYOUT_voyager(
     _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,
     _DEAD_, U_SAVE,        U_CUT,         U_COPY,        U_PASTE,       _OFF_,   /*|*/   SE_CIRC, KC_HASH, SE_AT,   SE_DQUO, KC_DOT,   _DEAD_,
-    _DEAD_, OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_LCTL), OSM(MOD_LSFT), _OFF_,   /*|*/   SE_PERC, SE_SCLN, SE_LBRC, SE_RBRC, SE_UNDS,  _DEAD_,
+    _DEAD_, OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), _OFF_,   /*|*/   SE_PERC, SE_SCLN, SE_LBRC, SE_RBRC, SE_UNDS,  _DEAD_,
     _DEAD_, U_UNDO,        U_REDO,        U_SEARCH,      U_MARK_ALL,    _OFF_,   /*|*/   SE_ACUT, SE_AMPR, SE_LPRN, SE_RPRN, KC_COMMA, _DEAD_,
                                                          _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_
   ),
@@ -148,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYM_EDIT_R] = LAYOUT_voyager(
     _DEAD_, _DEAD_,   _DEAD_,    _DEAD_,    _DEAD_,    _DEAD_,    /*|*/   _DEAD_,  _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,
     _DEAD_, SE_DLR,   SE_PLUS,   SE_ASTR,   KC_EXLM,   SE_TILD,   /*|*/   _OFF_,   _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-    _DEAD_, SE_QUES,  U_SE_LCBR, U_SE_RCBR, SE_MINS,   U_SE_BSLS, /*|*/   _OFF_,   OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RGUI), OSM(MOD_RALT), _DEAD_,
+    _DEAD_, SE_QUES,  U_SE_LCBR, U_SE_RCBR, SE_MINS,   U_SE_BSLS, /*|*/   _OFF_,   OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RALT), OSM(MOD_RGUI), _DEAD_,
     _DEAD_, SE_APOS,  U_SE_LESS, U_SE_GRTR, U_SE_PIPE, SE_GRV,    /*|*/   _OFF_,   SELLINE,       SELWBAK,       SELWORD,       _OFF_,         _DEAD_,
                                             _OFF_,     _OFF_,     /*|*/   _OFF_,   _OFF_
   ),
@@ -158,21 +159,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,       /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
     _DEAD_, KC_6,    KC_4,    KC_2,    KC_0,    _OFF_,       /*|*/   _OFF_,   KC_1,    KC_3,    KC_5,    KC_7,    _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_8,    _OFF_,       /*|*/   _OFF_,   KC_9,    _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-                                       _OFF_,   U_NUM_ENTER, /*|*/   TG(NUM), _OFF_
+                                       _OFF_,   U_NUM_ENTER, /*|*/   _OFF_,   _OFF_
   ),
 
   [FUNC] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-    _DEAD_, KC_F6,   KC_F4,   KC_F2,   KC_F10,  KC_F12,  /*|*/   KC_F11,  KC_F1,   KC_F3,   KC_F5,   KC_F7,   _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_F8,   _OFF_,   /*|*/   _OFF_,   KC_F9,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, KC_F6,   KC_F4,   KC_F2,   _OFF_,   _OFF_,  /*|*/    _OFF_,   KC_F1,   KC_F3,   KC_F5,   KC_F7,   _DEAD_,
+    _DEAD_, _OFF_,   KC_F12,  KC_F10,  KC_F8,   _OFF_,   /*|*/   _OFF_,   KC_F9,   KC_F11,  _OFF_,   _OFF_,   _DEAD_,
                                        _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
   ),
 
   [NAV] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,    _DEAD_,      _DEAD_,        _DEAD_,      _DEAD_,       _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
-    _DEAD_, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
+    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
                                        _OFF_,   _OFF_,   /*|*/   MO(MOUSE), _OFF_
   ),
@@ -180,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOUSE] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,  _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   MS_BTN1, MS_UP,   MS_BTN2,  _OFF_,   _DEAD_,
-    _DEAD_, KC_LALT, KC_LGUI, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,   MS_LEFT, MS_DOWN, MS_RGHT,  _OFF_,   _DEAD_,
+    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,   MS_LEFT, MS_DOWN, MS_RGHT,  _OFF_,   _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   MS_WHLD, MS_BTN3, MS_WHLU,  _OFF_,   _DEAD_,
                                        _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
   ),
@@ -198,9 +199,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define C_OFF  {0,   0,   0  }
 #define C_ORG  {20,  255, 200}  // orange       – top row keys
-#define C_DGR  {0,   0,   60 }  // dark grey    – outer column + os indicator
+#define C_DGR  {0,   0,   60 }  // dark grey    – os indicator
+#define C_PRP  {190, 200, 200}  // purple       – outer column accent
 #define C_WHT  {0,   0,   200}  // white        – home + bottom row keys
 #define C_RED  {0,   245, 200}  // red          – thumb keys
+#define C_CW   {85,  255, 200}  // green        – caps word active
 #define C_THB  {10,  245, 232}  // cyan         – thumb keys (other layers)
 #define C_MOD  {20,  230, 210}  // teal-orange  – one-shot modifiers
 #define C_SYM  {190, 200, 200}  // purple       – symbols
@@ -227,21 +230,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_SSYS {70,  218, 255}  // blue         – system actions (screenshot/search/emojis)
 #define C_SOGT {85,  255, 200}  // mint         – OS toggle
 
+// LED indices for dynamic overrides
+#define LED_KC_Y 33
+#define LED_KC_D 9
+
 const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [ALPHA] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row (dead)
-    C_OFF, C_DGR, C_ORG, C_ORG, C_ORG, C_ORG,   // B(outer) L D C V
-    C_OFF, C_DGR, C_WHT, C_WHT, C_WHT, C_WHT,   // N(outer) R T S G
-    C_OFF, C_DGR, C_WHT, C_WHT, C_WHT, C_WHT,   // X(outer) Q M W Z
+    C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,   // B(outer) L D C V
+    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,   // N(outer) R T S G
+    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,   // X(outer) Q M W Z
     C_RED, C_RED,                                // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row (dead)
-    C_ORG, C_ORG, C_ORG, C_ORG, C_DGR, C_OFF,   // J Y O U DOT(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_DGR, C_OFF,   // P H A E I(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_DGR, C_OFF,   // K F ADIA OSLH COMMA(outer)
-    C_RED, C_RED                                 // T_R_IN, T_R_OUT
+    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,   // J Y O U DOT(outer)
+    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,   // P H A E I(outer)
+    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,   // K F ADIA OSLH COMMA(outer)
+    C_RED, C_RED                                // T_R_IN, T_R_OUT
   },
 
   [SYM_EDIT_L] = {
@@ -253,9 +260,9 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_THB, C_OFF,                                    // T_L_OUT (active), T_L_IN
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // CIRC HASH AT DQUO
-    C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // PERC SCLN LBRC RBRC
-    C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // ACUT AMPR LPRN RPRN
+    C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // CIRC HASH AT DQUO
+    C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // PERC SCLN LBRC RBRC
+    C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // ACUT AMPR LPRN RPRN
     C_OFF, C_OFF                                     // T_R_IN, T_R_OUT
   },
 
@@ -269,7 +276,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // OSM: RSFT RCTL RGUI RALT
+    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // OSM: RSFT RCTL RALT RGUI
     C_OFF, C_NSEL, C_NSEL, C_NSEL, C_OFF,  C_OFF,   // SELLINE SELWBAK SELWORD
     C_OFF, C_THB                                     // T_R_IN, T_R_OUT (active)
   },
@@ -286,7 +293,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // all XXXXXXX
     C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,   // 1 3 5 7
     C_OFF, C_NUM, C_OFF, C_OFF, C_OFF, C_OFF,   // 9
-    C_ACT, C_OFF                                 // T_R_IN (TG(NUM)), T_R_OUT
+    C_ACT, C_OFF                                 // T_L_IN (U_NUM_ENTER), T_R_IN
   },
 
   [FUNC] = {
@@ -376,21 +383,6 @@ static HSV pgm_read_hsv(const HSV *addr) {
   return hsv;
 }
 
-bool try_set_leds_for_layer_with_os_animation(uint8_t layer) {
-  if (!animation_os_timer) return false;
-  if (timer_elapsed(animation_os_timer) > 5000) {
-    animation_os_timer = 0;
-    return false;
-  }
-  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = pgm_read_hsv(&ledmap[layer][i]);
-    hsv.v = hsv.v != 0 ? hsv_value_for_os_animation(i, hsv.v) : 0;
-    RGB rgb = hsv_to_rgb_with_value(hsv);
-    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-  }
-  return true;
-}
-
 void set_leds_for_layer(uint8_t layer) {
   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
     HSV hsv = pgm_read_hsv(&ledmap[layer][i]);
@@ -398,9 +390,6 @@ void set_leds_for_layer(uint8_t layer) {
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
   }
 }
-
-#define LED_KC_Y 33
-#define LED_KC_D 9
 
 void apply_os_indicators(void) {
   HSV win = C_DGR;
@@ -413,16 +402,49 @@ void apply_os_indicators(void) {
   rgb_matrix_set_color(LED_KC_D, d_rgb.r, d_rgb.g, d_rgb.b);
 }
 
+void apply_os_animation(void) {
+  if (!animation_os_timer) return;
+  if (timer_elapsed(animation_os_timer) > 3000) {
+    animation_os_timer = 0;
+    return;
+  }
+  uint8_t led = (current_os == OS_WINDOWS) ? LED_KC_Y : LED_KC_D;
+  uint8_t v = hsv_value_for_os_animation(led, 200);
+  RGB rgb = hsv_to_rgb_with_value((HSV){190, 200, v});
+  rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
+}
+
+void apply_caps_word_animation(void) {
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    HSV hsv = pgm_read_hsv(&ledmap[ALPHA][i]);
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(i, 0, 0, 0);
+    } else {
+      hsv.h = 0;
+      hsv.s = 245;
+      hsv.v = hsv_value_for_os_animation(i, hsv.v);
+      RGB rgb = hsv_to_rgb_with_value(hsv);
+      rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    }
+  }
+}
+
 bool rgb_matrix_indicators_user(void) {
   uint8_t active_layer = biton32(layer_state);
-  if (try_set_leds_for_layer_with_os_animation(active_layer)) {
-    return false;
+  if (active_layer == ALPHA && caps_word_active) {
+    apply_caps_word_animation();
+  } else {
+    set_leds_for_layer(active_layer);
   }
-  set_leds_for_layer(active_layer);
   if (active_layer == ALPHA) {
     apply_os_indicators();
+    apply_os_animation();
   }
   return true;
+}
+
+void caps_word_set_user(bool active) {
+  caps_word_active = active;
 }
 
 /* ######### EEPROM STATE ######### */
