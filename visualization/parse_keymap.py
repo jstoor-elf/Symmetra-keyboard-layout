@@ -433,7 +433,8 @@ svg.keymap {{
 .key      {{ fill: {_KEY_BG}; stroke: {_BORDER}; stroke-width: 1; }}
 .key.dead {{ fill: {_KEY_BG}; stroke: {_BORDER}; stroke-width: 1; }}
 text {{ text-anchor: middle; dominant-baseline: middle; }}
-text.label {{ font-size: 15px; font-weight: bold; fill: {_LABEL_CLR};
+text.label {{ font-size: 15px; font-weight: bold; fill: #ffffff;
+              stroke: #1a1a1c; stroke-width: 5px; paint-order: stroke fill;
               text-anchor: start; dominant-baseline: auto; }}
 """
 
