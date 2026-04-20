@@ -191,7 +191,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,       _OFF_,        _OFF_,    _OFF_,       _DEAD_,
     _DEAD_, _OFF_,   KC_VOLD, KC_VOLU, KC_MUTE, _OFF_,   /*|*/   _OFF_,   U_OS_SEARCH, U_SCREENSHOT, U_EMOJIS, U_TOGGLE_OS, _DEAD_,
     _DEAD_, _OFF_,   KC_MPRV, KC_MNXT, KC_MPLY, _OFF_,   /*|*/   _OFF_,   _OFF_,       _OFF_,        _OFF_,    _OFF_,       _DEAD_,
-                                       _OFF_,   _OFF_,   /*|*/   TG(SYS), _OFF_
+                                       _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
   )
 };
 
@@ -200,13 +200,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_OFF  {0,   0,   0  }
 #define C_ORG  {20,  255, 200}  // orange       – top row keys
 #define C_DGR  {0,   0,   60 }  // dark grey    – os indicator
-#define C_PRP  {190, 200, 200}  // purple       – outer column accent
+#define C_PRP  {190, 160, 255}  // purple       – outer column accent
 #define C_WHT  {0,   0,   200}  // white        – home + bottom row keys
 #define C_RED  {0,   245, 200}  // red          – thumb keys
 #define C_CW   {85,  255, 200}  // green        – caps word active
 #define C_THB  {10,  245, 232}  // cyan         – thumb keys (other layers)
 #define C_MOD  {20,  230, 210}  // teal-orange  – one-shot modifiers
-#define C_SYM  {190, 200, 200}  // purple       – symbols
+#define C_SYM  {190, 160, 255}  // purple       – symbols
 #define C_NUM  {120, 223, 209}  // teal         – numbers
 #define C_FN   {30,  241, 180}  // yellow       – function keys
 #define C_ACT  {0,   215, 255}  // red          – special actions (enter/cancel/toggle)
@@ -216,14 +216,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_NFND {46,  248, 241}  // blue         – search
 #define C_NSEL {5,   201, 240}  // steel blue   – selection/mark
 // NAV layer
-#define C_NDOC {169, 243, 216}  // teal         – document navigation
+#define C_NDOC {170, 150, 230}  // teal         – document navigation
 #define C_NARW {83,  234, 140}  // green        – arrow keys
-#define C_NWRD {18,  250, 229}  // teal         – word/fast navigation
+#define C_NWRD {0,   245, 200}  // teal         – word/fast navigation
 #define C_NTHB {0,   0,   180}  // dim blue     – nav thumb
 // MOUSE layer
 #define C_MBTN {137, 241, 207}  // green        – mouse buttons
 #define C_MMOV {71,  232, 162}  // dark green   – mouse movement
-#define C_MWHL {26,  242, 207}  // teal         – mouse wheel
+#define C_MWHL {0,   245, 200}  // red          – mouse wheel
 // SYS layer
 #define C_SVOL {101, 238, 158}  // green        – volume controls
 #define C_SMDA {180, 255, 255}  // light blue   – media transport
@@ -300,14 +300,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // all XXXXXXX
-    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_FN,   // F6 F4 F2 F10 F12
-    C_OFF, C_OFF, C_OFF, C_OFF, C_FN,  C_OFF,   // F8
+    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,   // F6 F4 F2 F10 F12
+    C_OFF, C_OFF, C_FN,  C_FN,  C_FN,  C_OFF,   // F8
     C_OFF, C_OFF,                                // thumbs
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // all XXXXXXX
-    C_FN,  C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,  // F11 F1 F3 F5 F7
-    C_OFF, C_FN,  C_OFF, C_OFF, C_OFF, C_OFF,   // F9
+    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,  // F11 F1 F3 F5 F7
+    C_OFF, C_FN,  C_FN,  C_OFF, C_OFF, C_OFF,   // F9
     C_OFF, C_OFF                                 // thumbs
   },
 

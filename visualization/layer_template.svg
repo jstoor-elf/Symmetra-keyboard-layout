@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 898 450" width="898" height="450" class="layer-template">
+  <text id="layer-label" x="0" y="28" class="label">LAYER</text>
+  <g id="keys" transform="translate(0,56)">
+
+    <!-- Left row 0 (top / dead row) -->
+    <g id="key-0"  transform="translate(28,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-1"  transform="translate(84,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-2"  transform="translate(140,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-3"  transform="translate(196,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-4"  transform="translate(252,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-5"  transform="translate(308,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+
+    <!-- Left row 1 -->
+    <g id="key-6"  transform="translate(28,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-7"  transform="translate(84,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-8"  transform="translate(140,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-9"  transform="translate(196,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-10" transform="translate(252,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-11" transform="translate(308,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+
+    <!-- Left row 2 (home) -->
+    <g id="key-12" transform="translate(28,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-17" transform="translate(308,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+
+    <!-- Left row 3 (bottom) -->
+    <g id="key-18" transform="translate(28,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+
+    <!-- Left thumbs -->
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key"/></g>
+
+    <!-- Right row 0 (top / dead row) -->
+    <g id="key-26" transform="translate(560,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-27" transform="translate(616,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-28" transform="translate(672,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-29" transform="translate(728,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-30" transform="translate(784,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+    <g id="key-31" transform="translate(840,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+
+    <!-- Right row 1 -->
+    <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+
+    <!-- Right row 2 (home) -->
+    <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+
+    <!-- Right row 3 (bottom) -->
+    <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+    <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead"/></g>
+
+    <!-- Right thumbs -->
+    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key"/></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/></g>
+
+  </g>
+</svg>
