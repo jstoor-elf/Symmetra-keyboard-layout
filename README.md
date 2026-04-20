@@ -1,10 +1,12 @@
-# Symmetra W H
+# Symmetra
 
 QMK layout for my ZSA Voyager.
 
-I have deliberately chosen not to use the top row of the Voyager, partly to _stay_ forward-compatible with other 3×6 + thumb key layouts, and partly to reduce finger travel.
+A 34-key layout (3×5 + 2 thumbs per side) designed to minimize finger travel. Compatible with the ZSA Voyager as well as boards like the Ferris Sweep and other similar 34-key split keyboards. The top row and outer columns of the Voyager have been physically removed.
 
-My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swedish letters Ä, Ö, Å added via combos.
+The layout is mainly inspired by [Jonas Hietala's T-34](https://www.jonashietala.se/blog/2021/06/03/the-t-34-keyboard-layout/). After finding out the hard way that home-row mods are not for me — too many timing issues — I moved to one-shot modifiers and combos instead.
+
+My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swedish letters Ä and Ö on the base layer, and Å via a combo of the two.
 
 ![Keyboard](assets/voyager.jpeg)
 
@@ -16,22 +18,6 @@ My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swed
 
 ![Keymap](visualization/keymap.svg)
 
-## Key Translations
-
-Legend for symbols and special keys used in the SVG:
-
-| Symbol    | Meaning                           |
-|-----------|-----------------------------------|
-| ○         | One-shot (OSL layer / OSM mod)    |
-| ▲         | Hold to activate layer (MO / LT)  |
-| ⇔         | Toggle layer on/off (TG)          |
-| 🔍        | Windows search / Spotlight        |
-| 😀        | Emoji menu                        |
-| 🔄 OS     | Toggle OS (Win/Mac)               |
-| 📸        | Screenshot                        |
-| ⏮️        | Previous track                    |
-| ⏭️        | Next track                        |
-| ⏯️        | Play/Pause                        |
 
 ## Visualization Pipeline
 
