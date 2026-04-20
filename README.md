@@ -2,15 +2,15 @@
 
 QMK layout for my ZSA Voyager.
 
-I have deliberately chosen not to use the top row of the Voyager, partly to _stay_ forward-compatible with other 3×6 + thumb key layouts, and partly to reduce finger travel.  
+I have deliberately chosen not to use the top row of the Voyager, partly to _stay_ forward-compatible with other 3×6 + thumb key layouts, and partly to reduce finger travel.
 
-My alternative alpha layout of choice is the [Swedish Kvikk Layout](https://lykt.xyz/skl/kvikk/), QWERTY is also supported.
+My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swedish letters Ä, Ö, Å added via combos.
 
 ![Keyboard](assets/voyager.jpeg)
 
 ## Keywords
 
-`qwerty-kvikk`, `win-mac`, `nordic`, `swedish`, `40-keys`, `symmetrical`, `homerow-mods`, `vim-navigation`, `mouse-layer`, `edit-cluster`, `getreuer-select-word`, `OS-toggle`, `alpha-toggle`
+`gallium`, `win-mac`, `nordic`, `swedish`, `34-keys`, `one-shot-mods`, `combos`, `vim-navigation`, `mouse-layer`, `edit-cluster`, `getreuer-select-word`, `OS-toggle`
 
 ## Layers
 
@@ -22,27 +22,25 @@ Legend for symbols and special keys used in the SVG:
 
 | Symbol    | Meaning                           |
 |-----------|-----------------------------------|
-| ◇         | Modifier                          |
-| ▷         | Momentary Layer toggle            |
+| ○         | One-shot layer (OSL)              |
+| ▲         | Hold to activate layer (MO / LT)  |
+| ⇔         | Toggle layer on/off (TG)          |
 | 🔍        | Windows search / Spotlight        |
-| 😀😎🤔😭 | Emoji menu                         |
-| 🔒        | Lock screen                       |
-| 🔄🪟🍏    | Toggle OS (Win/Mac)               |
-| 🔄⚪⚡     | Toggle alpha layer (QWERTY/Kvikk) |
+| 😀        | Emoji menu                        |
+| 🔄 OS     | Toggle OS (Win/Mac)               |
 | 📸        | Screenshot                        |
 | ⏮️        | Previous track                    |
-| ⏭️        | Next track.                       |
-| ⏹️        | Stop                              |
+| ⏭️        | Next track                        |
 | ⏯️        | Play/Pause                        |
 
 ## Visualization Pipeline
 
-The QMK keymap.c is converted into a visual representation of all layers. qmk c2json generates a JSON file, a custom Python script (yamlFromJson.py) converts it to YAML with readable layer names and symbolic keys, and keymap-drawer produces the SVG.
+The keymap SVG is generated directly from `src/keymap.c` by a custom Python script.
 
-The shell script visualize.sh automates all steps: creating a temporary symlink, generating JSON and YAML, and producing the SVG.
+```
+python3 visualization/parse_keymap.py --svg visualization/keymap.svg
+```
 
-**Dependencies:**  
-- QMK CLI (`qmk c2json`)  
-- `keymap-drawer` Python module  
-- Custom Python script: `yamlFromJson.py`  
-- Shell script: `visualize.sh`
+**Dependencies:**
+- Python 3.11+
+- No external Python packages required

@@ -136,6 +136,10 @@ LABEL_MAP: dict[str, str] = {
     "U_EMOJIS":     "Emojis",    "U_TOGGLE_OS":  "Switch OS",
 }
 
+_OSL_SYM = "○"   # one-shot layer prefix
+_MO_SYM  = "▲"   # hold/momentary layer prefix
+_TG_SYM  = "⇔"   # toggle layer prefix
+
 def _layer_label(name: str) -> str:
     return LAYER_LABELS.get(name, name)
 
@@ -155,29 +159,29 @@ def map_key(keycode: str) -> str:
     # OSL(LAYER) — one-shot layer
     m = re.fullmatch(r"OSL\((\w+)\)", keycode)
     if m:
-        return _layer_label(m.group(1))
+        return f"{_OSL_SYM}\u00a0{_layer_label(m.group(1))}"
 
     # LT(LAYER, key) — layer-tap
     m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", keycode)
     if m:
         layer, tap = m.group(1), m.group(2).strip()
-        return f"{map_key(tap)}\n[{_layer_label(layer)}]"
+        return f"{map_key(tap)}\n{_MO_SYM}\u00a0{_layer_label(layer)}"
 
     # MT(MOD, key) — mod-tap
     m = re.fullmatch(r"MT\((\w+),\s*([^)]+)\)", keycode)
     if m:
         mod, tap = m.group(1), m.group(2).strip()
-        return f"{map_key(tap)}\n[{_mod_label(mod)}]"
+        return f"{map_key(tap)}\n{_mod_label(mod)}"
 
     # MO(LAYER) — momentary layer
     m = re.fullmatch(r"MO\((\w+)\)", keycode)
     if m:
-        return _layer_label(m.group(1))
+        return f"{_MO_SYM}\u00a0{_layer_label(m.group(1))}"
 
     # TG(LAYER) — toggle layer
     m = re.fullmatch(r"TG\((\w+)\)", keycode)
     if m:
-        return _layer_label(m.group(1))
+        return f"{_TG_SYM}\u00a0{_layer_label(m.group(1))}"
 
     # direct lookup
     if keycode in LABEL_MAP:

@@ -225,10 +225,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_MMOV {71,  232, 162}  // dark green   – mouse movement
 #define C_MWHL {0,   245, 200}  // red          – mouse wheel
 // SYS layer
-#define C_SVOL {101, 238, 158}  // green        – volume controls
-#define C_SMDA {180, 255, 255}  // light blue   – media transport
+#define C_SVOL {150, 150, 220}  // light blue   – volume controls
+#define C_SMDA {40,  150, 200}  // yellow       – media transport
 #define C_SSYS {70,  218, 255}  // blue         – system actions (screenshot/search/emojis)
-#define C_SOGT {85,  255, 200}  // mint         – OS toggle
+#define C_SOGT {120,  170, 200} // mint         – OS toggle
 
 // LED indices for dynamic overrides
 #define LED_KC_Y 33
