@@ -154,7 +154,7 @@ def map_key(keycode: str) -> str:
     # OSM(MOD_xxx) — one-shot modifier
     m = re.fullmatch(r"OSM\((\w+)\)", keycode)
     if m:
-        return _mod_label(m.group(1))
+        return f"{_OSL_SYM}\u00a0{_mod_label(m.group(1))}"
 
     # OSL(LAYER) — one-shot layer
     m = re.fullmatch(r"OSL\((\w+)\)", keycode)

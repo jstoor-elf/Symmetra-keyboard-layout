@@ -22,7 +22,7 @@ Legend for symbols and special keys used in the SVG:
 
 | Symbol    | Meaning                           |
 |-----------|-----------------------------------|
-| ○         | One-shot layer (OSL)              |
+| ○         | One-shot (OSL layer / OSM mod)    |
 | ▲         | Hold to activate layer (MO / LT)  |
 | ⇔         | Toggle layer on/off (TG)          |
 | 🔍        | Windows search / Spotlight        |

@@ -84,7 +84,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
-    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" fill="#c80707">Shift</text></g>
+    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" fill="#c80707">○ Shift</text></g>
     <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">○ Sym</tspan><tspan x="0" dy="1.2em">Right</tspan></text></g>
 
   </g>
@@ -113,10 +113,10 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-12" transform="translate(28,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Gui</text></g>
-    <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Alt</text></g>
-    <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Ctrl</text></g>
-    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Shift</text></g>
+    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Gui</text></g>
+    <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Alt</text></g>
+    <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Ctrl</text></g>
+    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Shift</text></g>
     <g id="key-17" transform="translate(308,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
     
@@ -229,10 +229,10 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Shift</text></g>
-    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Ctrl</text></g>
-    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Alt</text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">Gui</text></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Shift</text></g>
+    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Ctrl</text></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Alt</text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d26d14">○ Gui</text></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
