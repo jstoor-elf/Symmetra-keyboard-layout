@@ -14,7 +14,7 @@ My alternative alpha layout of choice is the [Swedish Kvikk Layout](https://lykt
 
 ## Layers
 
-![Keymap](assets/keymap.svg)
+![Keymap](visualization/keymap.svg)
 
 ## Key Translations
 
