@@ -58,9 +58,9 @@ KMAP_TO_LED = _make_kmap_to_led()
 # ── label resolution ──────────────────────────────────────────────────────────
 
 LAYER_LABELS = {
-    "ALPHA":      "Alpha",
-    "SYM_EDIT_L": "Sym-L",
-    "SYM_EDIT_R": "Sym-R",
+    "ALPHA":      "Alpha ⋅ Gallium",
+    "SYM_EDIT_L": "Sym Left",
+    "SYM_EDIT_R": "Sym Right",
     "NUM":        "Num",
     "FUNC":       "Func",
     "NAV":        "Nav",
@@ -131,9 +131,9 @@ LABEL_MAP: dict[str, str] = {
 
     # System
     "KC_VOLD": "Vol -",      "KC_VOLU": "Vol +",    "KC_MUTE": "Mute",
-    "KC_MPRV": "⏮️",          "KC_MNXT": "⏭️",       "KC_MPLY": "⏯️",
-    "U_OS_SEARCH":  "🔍",    "U_SCREENSHOT": "📸",
-    "U_EMOJIS":     "😀",    "U_TOGGLE_OS":  "🔄 OS",
+    "KC_MPRV": "Prev Track", "KC_MNXT": "Next Track",  "KC_MPLY": "Play/ Pause",
+    "U_OS_SEARCH":  "OS Search",    "U_SCREENSHOT": "Scrrenshot",
+    "U_EMOJIS":     "Emojis",    "U_TOGGLE_OS":  "Switch OS",
 }
 
 def _layer_label(name: str) -> str:
@@ -416,7 +416,14 @@ _BG        = "#212123"
 _KEY_BG    = "#141416"
 _BORDER    = "#30363d"
 _DIM       = "#6e7681"   # dead / off keys
-_LABEL_CLR = _KEY_BG
+
+def _contrast_color(h: str) -> str:
+    h = h.lstrip("#")
+    r, g, b = (int(h[i:i+2], 16) / 255 for i in (0, 2, 4))
+    luminance = 0.299 * r + 0.587 * g + 0.114 * b
+    return "#dededc" if luminance < 0.5 else "#1a1a1c"
+
+_LABEL_CLR = _contrast_color("#ffffff")
 
 _CSS = f"""\
 svg.keymap {{
