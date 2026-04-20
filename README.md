@@ -1,4 +1,4 @@
-# Symmetra
+# Gallium 34 key QMK layout
 
 QMK layout for my ZSA Voyager.
 
