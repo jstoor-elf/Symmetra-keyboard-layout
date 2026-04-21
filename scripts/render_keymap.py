@@ -347,6 +347,7 @@ def build_ir() -> dict:
 
     layers = []
     keycode_to_layers: dict[str, set[str]] = {}
+    keycode_to_led: dict[str, int] = {}
     for name, idx in sorted(layer_enum.items(), key=lambda x: x[1]):
         keys_raw   = keymaps.get(name, [None] * 52)
         colors_raw = ledmaps.get(name, [None] * 52)
@@ -357,6 +358,8 @@ def build_ir() -> dict:
             resolved  = resolve(raw_kc)
             if raw_kc not in dead:
                 keycode_to_layers.setdefault(raw_kc, set()).add(name)
+                if raw_kc not in keycode_to_led:
+                    keycode_to_led[raw_kc] = led_idx
             keys.append({
                 **pos,
                 "led_index": led_idx,
@@ -384,12 +387,14 @@ def build_ir() -> dict:
             sides |= keycode_to_sides.get(k, set())
         side = "both" if len(sides) == 2 else (next(iter(sides)) if sides else None)
 
+        led_indices = [keycode_to_led[k] for k in combo["keys"] if k in keycode_to_led]
         annotated_combos.append({
             **combo,
             "action_label": map_key(resolve(combo["action"])),
             "key_labels":   [map_key(resolve(k)) for k in combo["keys"]],
             "layers":       sorted(common),
             "side":         side,
+            "led_indices":  led_indices,
         })
 
     return {
@@ -498,10 +503,74 @@ def _fill_layer(template_root: ET.Element, layer: dict, palette: dict) -> ET.Ele
 
     return root
 
+_COMBO_INDENT   = 10   # inset from each key's inner edge toward its center
+_COMBO_HALF_MIN = 10   # minimum half-size, keeps box visible for same-row combos
+
+def _extract_key_centers(template_root: ET.Element) -> tuple[dict[int, tuple[float, float]], float]:
+    """Returns ({led_index: (cx, cy_in_keys_group)}, keys_group_y_offset)."""
+    centers: dict[int, tuple[float, float]] = {}
+    keys_g = template_root.find(f".//{_T('g')}[@id='keys']")
+    if keys_g is None:
+        return centers, 56.0
+    m = re.search(r"translate\([^,]*,([^)]+)\)", keys_g.get("transform", ""))
+    y_off = float(m.group(1)) if m else 56.0
+    for child in keys_g:
+        gid = child.get("id", "")
+        if not gid.startswith("key-"):
+            continue
+        try:
+            idx = int(gid[4:])
+        except ValueError:
+            continue
+        m2 = re.search(r"translate\(([^,]+),([^)]+)\)", child.get("transform", ""))
+        if m2:
+            centers[idx] = (float(m2.group(1)), float(m2.group(2)))
+    return centers, y_off
+
+
+def _combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], keys_y_off: float) -> str:
+    indices = combo.get("led_indices", [])
+    if len(indices) < 2:
+        return ""
+    positions = [key_centers[i] for i in indices if i in key_centers]
+    if len(positions) < 2:
+        return ""
+
+    xs = [p[0] for p in positions]
+    ys = [p[1] + keys_y_off for p in positions]
+
+    cx_c = (min(xs) + max(xs)) / 2
+    cy_c = (min(ys) + max(ys)) / 2
+
+    # shrink inward from each key's inner edge; clamp to minimum box size
+    x1 = min(min(xs) + _COMBO_INDENT, cx_c - _COMBO_HALF_MIN)
+    x2 = max(max(xs) - _COMBO_INDENT, cx_c + _COMBO_HALF_MIN)
+    y1 = min(min(ys) + _COMBO_INDENT, cy_c - _COMBO_HALF_MIN)
+    y2 = max(max(ys) - _COMBO_INDENT, cy_c + _COMBO_HALF_MIN)
+
+    w, h   = x2 - x1, y2 - y1
+    cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
+
+    label = combo["action_label"].replace("\n", " ")
+    label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    return (
+        f'<rect x="{x1:.1f}" y="{y1:.1f}" width="{w:.1f}" height="{h:.1f}" '
+        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="white" stroke-width="0.5"/>\n'
+        f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
+        f'fill="white" stroke="white" stroke-width="0.5" paint-order="stroke fill" '
+        f'style="font-size:10px;font-weight:400;">{label}</text>'
+    )
+
+
 def render_svg(ir: dict) -> str:
     layers  = ir["layers"]
+    combos  = ir["combos"]
     palette = ir["color_palette"]
     template_root = ET.parse(TEMPLATE_PATH).getroot()
+    key_centers, keys_y_off = _extract_key_centers(template_root)
+
+    same_side_combos = [c for c in combos if c.get("side") in ("left", "right")]
 
     total_h = len(layers) * (_LAYER_H + _LAYER_GAP) + 40
     parts = [
@@ -516,6 +585,11 @@ def render_svg(ir: dict) -> str:
         parts.append(f'<g transform="translate({_MARGIN},{y})">')
         for child in root:
             parts.append(ET.tostring(child, encoding="unicode"))
+        for combo in same_side_combos:
+            if layer["name"] in combo["layers"]:
+                frag = _combo_overlay(combo, key_centers, keys_y_off)
+                if frag:
+                    parts.append(frag)
         parts.append("</g>")
 
     parts.append("</svg>")
