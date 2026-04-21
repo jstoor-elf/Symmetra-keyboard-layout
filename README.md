@@ -18,7 +18,7 @@ My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swed
 
 The keymap below shows key positions and RGB coloring for each layer. The removed outer columns and top row are rendered in a different geometry to reflect that those switches have been physically removed.
 
-![Keymap](visualization/keymap.svg)
+![Keymap](assets/keymap.svg)
 
 
 ## Visualization Pipeline

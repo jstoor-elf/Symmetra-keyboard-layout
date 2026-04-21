@@ -407,7 +407,7 @@ import xml.etree.ElementTree as ET
 ET.register_namespace("",      "http://www.w3.org/2000/svg")
 ET.register_namespace("xlink", "http://www.w3.org/1999/xlink")
 
-TEMPLATE_PATH = Path(__file__).parent / "layer_template.svg"
+TEMPLATE_PATH = ROOT / "assets" / "layer_template.svg"
 _NS  = "http://www.w3.org/2000/svg"
 _T   = lambda tag: f"{{{_NS}}}{tag}"
 
@@ -523,16 +523,20 @@ def render_svg(ir: dict) -> str:
 
 # ── entry point ───────────────────────────────────────────────────────────────
 
+SVG_OUT = ROOT / "assets" / "keymap.svg"
+
 if __name__ == "__main__":
     import argparse
     p = argparse.ArgumentParser()
-    p.add_argument("--svg", metavar="FILE", help="write SVG to FILE instead of JSON to stdout")
+    p.add_argument("--json", action="store_true", help="dump IR as JSON to stdout instead")
+    p.add_argument("--svg", metavar="FILE", help="write SVG to FILE instead of the default assets/keymap.svg")
     args = p.parse_args()
 
     ir = build_ir()
-    if args.svg:
-        Path(args.svg).write_text(render_svg(ir))
-        print(f"wrote {args.svg}", file=sys.stderr)
-    else:
+    if args.json:
         json.dump(ir, sys.stdout, indent=2)
         print()
+    else:
+        out = Path(args.svg) if args.svg else SVG_OUT
+        out.write_text(render_svg(ir))
+        print(f"wrote {out}", file=sys.stderr)
