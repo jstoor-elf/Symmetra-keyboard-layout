@@ -556,9 +556,9 @@ def _combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], key
 
     return (
         f'<rect x="{x1:.1f}" y="{y1:.1f}" width="{w:.1f}" height="{h:.1f}" '
-        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="white" stroke-width="0.5"/>\n'
+        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>\n'
         f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
-        f'fill="white" stroke="white" stroke-width="0.5" paint-order="stroke fill" '
+        f'fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" '
         f'style="font-size:10px;font-weight:400;">{label}</text>'
     )
 
