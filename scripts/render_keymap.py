@@ -59,8 +59,8 @@ KMAP_TO_LED = _make_kmap_to_led()
 
 LAYER_LABELS = {
     "ALPHA":      "Alpha ⋅ Gallium",
-    "SYM_EDIT_L": "Sym Left",
-    "SYM_EDIT_R": "Sym Right",
+    "SYM_EDIT_L": "Sym-L",
+    "SYM_EDIT_R": "Sym-R",
     "NUM":        "Num",
     "FUNC":       "Func",
     "NAV":        "Nav",
