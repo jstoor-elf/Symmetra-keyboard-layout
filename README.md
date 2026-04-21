@@ -23,11 +23,20 @@ The keymap below shows key positions and RGB coloring for each layer. The remove
 
 ## Visualization Pipeline
 
-The keymap SVG is generated directly from `src/keymap.c` by a custom Python script.
+The keymap SVG is generated directly from `src/keymap.c` by a custom Python script. It renders all layers with key labels, RGB colors, and combo indicators for same-side combos.
 
+```bash
+./scripts/visualize.sh
 ```
-python3 visualization/parse_keymap.py --svg visualization/keymap.svg
-```
+
+Output is written to `assets/keymap.svg`. Optional flags:
+
+| Flag | Description |
+|------|-------------|
+| `--json` | Dump the internal IR as JSON to stdout instead |
+| `--svg FILE` | Write SVG to a custom path instead of `assets/keymap.svg` |
+
+**Template:** `assets/layer_template.svg` — defines key positions and geometry for the ZSA Voyager.
 
 **Dependencies:**
 - Python 3.11+
