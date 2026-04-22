@@ -362,10 +362,11 @@ def build_ir() -> dict:
                     keycode_to_led[raw_kc] = led_idx
             keys.append({
                 **pos,
-                "led_index": led_idx,
-                "keycode":   raw_kc,
-                "label":     map_key(raw_kc if raw_kc in LABEL_MAP else (resolved or "")),
-                "color":     colors_raw[led_idx],
+                "led_index":       led_idx,
+                "keycode":         raw_kc,
+                "resolved_keycode": resolved or raw_kc,
+                "label":           map_key(raw_kc if raw_kc in LABEL_MAP else (resolved or "")),
+                "color":           colors_raw[led_idx],
             })
 
         layers.append({"name": name, "index": idx, "keys": keys})
@@ -388,13 +389,15 @@ def build_ir() -> dict:
         side = "both" if len(sides) == 2 else (next(iter(sides)) if sides else None)
 
         led_indices = [keycode_to_led[k] for k in combo["keys"] if k in keycode_to_led]
+        resolved_action = resolve(combo["action"]) or combo["action"]
         annotated_combos.append({
             **combo,
-            "action_label": map_key(resolve(combo["action"])),
-            "key_labels":   [map_key(resolve(k)) for k in combo["keys"]],
-            "layers":       sorted(common),
-            "side":         side,
-            "led_indices":  led_indices,
+            "resolved_action": resolved_action,
+            "action_label":    map_key(resolved_action),
+            "key_labels":      [map_key(resolve(k)) for k in combo["keys"]],
+            "layers":          sorted(common),
+            "side":            side,
+            "led_indices":     led_indices,
         })
 
     return {
@@ -471,6 +474,49 @@ def _make_text(label: str, color: str) -> ET.Element:
             ts.text = line
     return el
 
+def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
+    """Return (chip_style, display_name, tap_kc) for action keys, else None.
+    style: 'osl' | 'osm' | 'hold' | 'toggle'; tap_kc set only for LT."""
+    if not kc:
+        return None
+    m = re.fullmatch(r"OSL\((\w+)\)", kc)
+    if m: return ("osl",    _layer_label(m.group(1)), None)
+    m = re.fullmatch(r"MO\((\w+)\)", kc)
+    if m: return ("hold",   _layer_label(m.group(1)), None)
+    m = re.fullmatch(r"TG\((\w+)\)", kc)
+    if m: return ("toggle", _layer_label(m.group(1)), None)
+    m = re.fullmatch(r"OSM\((\w+)\)", kc)
+    if m: return ("osm",    _mod_label(m.group(1)),   None)
+    m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", kc)
+    if m: return ("hold",   _layer_label(m.group(1)), m.group(2).strip())
+    return None
+
+
+def _make_action_chip(name: str, color: str, y_center: float, style: str) -> ET.Element:
+    """Chip inside a key group; shape encodes the action type:
+    osl    = rounded rect        (one-shot layer)
+    osm    = sharp rect          (one-shot modifier)
+    hold   = right-pointing tag  (MO / LT hold)
+    toggle = double-chevron      (TG)
+    """
+    W, H = 40, 13
+    hw, hh = W / 2, H / 2
+    yc = y_center
+    g = ET.Element(_T("g"))
+
+    r = ET.SubElement(g, _T("rect"))
+    r.set("x", f"{-hw:.0f}"); r.set("y", f"{yc - hh:.1f}")
+    r.set("width", str(W)); r.set("height", str(H)); r.set("rx", "0")
+    r.set("fill", "#1a1a1c"); r.set("stroke", color); r.set("stroke-width", "0.5")
+
+    t = ET.SubElement(g, _T("text"))
+    t.set("x", "0"); t.set("y", f"{yc:.1f}")
+    t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
+    t.set("fill", color); t.set("style", "font-size:10px")
+    t.text = name
+
+    return g
+
 def _fill_layer(template_root: ET.Element, layer: dict, palette: dict) -> ET.Element:
     root = copy.deepcopy(template_root)
 
@@ -499,7 +545,20 @@ def _fill_layer(template_root: ET.Element, layer: dict, palette: dict) -> ET.Ele
             if h:
                 text_color = h
 
-        group.append(_make_text(label, text_color))
+        resolved_kc = key.get("resolved_keycode")
+        action = _parse_action_chip(resolved_kc)
+
+        if action:
+            style, display_name, tap_kc = action
+            if tap_kc:
+                tap_el = _make_text(map_key(tap_kc), text_color)
+                tap_el.set("y", "-7")
+                group.append(tap_el)
+                group.append(_make_action_chip(display_name, text_color, y_center=14.0, style=style))
+            else:
+                group.append(_make_action_chip(display_name, text_color, y_center=2.0, style=style))
+        else:
+            group.append(_make_text(label, text_color))
 
     return root
 
@@ -563,6 +622,74 @@ def _combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], key
     )
 
 
+_THUMB_LEDS      = {24, 25, 50, 51}
+_CROSSSIDE_BOX_W = 46
+_CROSSSIDE_BOX_H = 20
+
+# Offset from each thumb key's center to its inner-top corner (the corner facing the gap).
+# Derived from the key's rotation and rect half-sizes.
+_THUMB_INNER_CORNER: dict[int, tuple[float, float]] = {
+    24: ( 35.52,  -9.52),  # left  outer, 52×52, rot  30°
+    25: ( 41.02, -19.04),  # left  inner, 52×74, rot  30°
+    50: (-41.02, -19.04),  # right inner, 52×74, rot -30°
+    51: (-35.52,  -9.52),  # right outer, 52×52, rot -30°
+}
+
+def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], keys_y_off: float) -> str:
+    indices = combo.get("led_indices", [])
+    if len(indices) < 2 or not all(i in _THUMB_LEDS for i in indices):
+        return ""
+
+    corners = []
+    for i in indices:
+        if i not in key_centers or i not in _THUMB_INNER_CORNER:
+            return ""
+        kx, ky = key_centers[i]
+        dx, dy = _THUMB_INNER_CORNER[i]
+        corners.append((kx + dx, ky + keys_y_off + dy))
+
+    cx = sum(p[0] for p in corners) / len(corners)
+    cy = sum(p[1] for p in corners) / len(corners)
+
+    W, H   = _CROSSSIDE_BOX_W, _CROSSSIDE_BOX_H
+    hw, hh = W / 2, H / 2
+    bx1, bx2 = cx - hw, cx + hw
+    by1       = cy - hh
+
+    # Determine chip style from the action keycode
+    parsed = _parse_action_chip(combo.get("resolved_action") or combo.get("action"))
+    if parsed:
+        chip_style, display_name, _ = parsed
+        if display_name == LAYER_LABELS.get("NUM", "Num"):
+            chip_style = "numword"
+        label = display_name
+    else:
+        chip_style = "osl"
+        label = combo["action_label"].replace("\n", " ")
+    label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    color = "#a0a0a0"
+    parts = []
+
+    for kx, ky in corners:
+        ex = bx1 if kx < cx else bx2
+        parts.append(
+            f'<line x1="{kx:.1f}" y1="{ky:.1f}" x2="{ex:.1f}" y2="{cy:.1f}" '
+            f'stroke="{color}" stroke-width="0.5" stroke-dasharray="3,2"/>'
+        )
+
+    parts.append(
+        f'<rect x="{bx1:.1f}" y="{by1:.1f}" width="{W}" height="{H}" '
+        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="{color}" stroke-width="0.5"/>'
+    )
+    parts.append(
+        f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
+        f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
+        f'style="font-size:10px;font-weight:400;">{label}</text>'
+    )
+    return "\n".join(parts)
+
+
 def render_svg(ir: dict) -> str:
     layers  = ir["layers"]
     combos  = ir["combos"]
@@ -570,7 +697,9 @@ def render_svg(ir: dict) -> str:
     template_root = ET.parse(TEMPLATE_PATH).getroot()
     key_centers, keys_y_off = _extract_key_centers(template_root)
 
-    same_side_combos = [c for c in combos if c.get("side") in ("left", "right")]
+    same_side_combos   = [c for c in combos if c.get("side") in ("left", "right")]
+    crossside_thumb_combos = [c for c in combos if c.get("side") == "both"
+                              and all(i in _THUMB_LEDS for i in c.get("led_indices", []))]
 
     total_h = len(layers) * (_LAYER_H + _LAYER_GAP) + 40
     parts = [
@@ -588,6 +717,11 @@ def render_svg(ir: dict) -> str:
         for combo in same_side_combos:
             if layer["name"] in combo["layers"]:
                 frag = _combo_overlay(combo, key_centers, keys_y_off)
+                if frag:
+                    parts.append(frag)
+        for combo in crossside_thumb_combos:
+            if layer["name"] in combo["layers"]:
+                frag = _crossside_thumb_overlay(combo, key_centers, keys_y_off)
                 if frag:
                     parts.append(frag)
         parts.append("</g>")
