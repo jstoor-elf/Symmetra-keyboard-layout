@@ -256,8 +256,8 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     
     <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f04932"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">Line</tspan></text></g>
-    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f04932"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">⬅Word</tspan></text></g>
-    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f04932"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">Word⮕</tspan></text></g>
+    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f04932"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">←Word</tspan></text></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f04932"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">Word→</tspan></text></g>
     <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
@@ -479,26 +479,26 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">⬅</tspan></text></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">⬇</tspan></text></g>
-    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">⬆</tspan></text></g>
-    <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">⮕</tspan></text></g>
+    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">←</tspan></text></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">↓</tspan></text></g>
+    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
+    <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5e5ee6"><tspan x="0" dy="-.6em">Doc</tspan><tspan x="0" dy="1.2em">→</tspan></text></g>
     <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
     <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">⬅</text></g>
-    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">⬇</text></g>
-    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">⬆</text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">⮕</text></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">←</text></g>
+    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">↓</text></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">↑</text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#18c00f">→</text></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
     <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Word</tspan><tspan x="0" dy="1.2em">⬅</tspan></text></g>
-    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">5-Rows</tspan><tspan x="0" dy="1.2em">⬇</tspan></text></g>
-    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">5-Rows</tspan><tspan x="0" dy="1.2em">⬆</tspan></text></g>
-    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Word</tspan><tspan x="0" dy="1.2em">⮕</tspan></text></g>
+    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Word</tspan><tspan x="0" dy="1.2em">←</tspan></text></g>
+    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">5-Rows</tspan><tspan x="0" dy="1.2em">↓</tspan></text></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">5-Rows</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
+    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Word</tspan><tspan x="0" dy="1.2em">→</tspan></text></g>
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
@@ -560,24 +560,24 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     
     <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#0ba3cf"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">L</tspan></text></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">⬆</tspan></text></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
     <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#0ba3cf"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">R</tspan></text></g>
     <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
     <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">⬅</tspan></text></g>
-    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">⬇</tspan></text></g>
-    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">⮕</tspan></text></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">←</tspan></text></g>
+    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">↓</tspan></text></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#4ac011"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">→</tspan></text></g>
     <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
     <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">⬇</tspan></text></g>
+    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">↓</tspan></text></g>
     <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#0ba3cf"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">M</tspan></text></g>
-    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">⬆</tspan></text></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c80707"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
     <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 

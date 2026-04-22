@@ -108,18 +108,18 @@ LABEL_MAP: dict[str, str] = {
     "KC_LGUI": "Gui",   "KC_RGUI": "Gui",
 
     # Navigation
-    "KC_LEFT": "⬅",          "KC_DOWN": "⬇",
-    "KC_UP":   "⬆",          "KC_RIGHT": "⮕",
-    "U_DOC_LEFT":    "Doc ⬅",    "U_DOC_DOWN":  "Doc ⬇",
-    "U_DOC_UP":      "Doc ⬆",    "U_DOC_RIGHT": "Doc ⮕",
-    "U_WORD_LEFT":   "Word ⬅",   "U_WORD_RIGHT": "Word ⮕",
-    "U_5_ROWS_DOWN": "5-Rows ⬇", "U_5_ROWS_UP":  "5-Rows ⬆",
+    "KC_LEFT": "←",          "KC_DOWN": "↓",
+    "KC_UP":   "↑",          "KC_RIGHT": "→",
+    "U_DOC_LEFT":    "Doc ←",    "U_DOC_DOWN":  "Doc ↓",
+    "U_DOC_UP":      "Doc ↑",    "U_DOC_RIGHT": "Doc →",
+    "U_WORD_LEFT":   "Word ←",   "U_WORD_RIGHT": "Word →",
+    "U_5_ROWS_DOWN": "5-Rows ↓", "U_5_ROWS_UP":  "5-Rows ↑",
 
     # Mouse
     "MS_BTN1": "Click L",    "MS_BTN2": "Click R",   "MS_BTN3": "Click M",
-    "MS_UP":   "Mouse ⬆",    "MS_DOWN": "Mouse ⬇",
-    "MS_LEFT": "Mouse ⬅",    "MS_RGHT": "Mouse ⮕",
-    "MS_WHLU": "Wheel ⬆",    "MS_WHLD": "Wheel ⬇",
+    "MS_UP":   "Mouse ↑",    "MS_DOWN": "Mouse ↓",
+    "MS_LEFT": "Mouse ←",    "MS_RGHT": "Mouse →",
+    "MS_WHLU": "Wheel ↑",    "MS_WHLD": "Wheel ↓",
 
     # Edit / selection
     "U_SAVE":      "Save",      "U_CUT":      "Cut",
@@ -127,7 +127,7 @@ LABEL_MAP: dict[str, str] = {
     "U_UNDO":      "Undo",      "U_REDO":     "Redo",
     "U_SEARCH":    "Find",      "U_MARK_ALL": "Select All",
     "U_NUM_ENTER": "Enter",
-    "SELLINE":  "Select Line",  "SELWBAK": "Select ⬅Word", "SELWORD": "Select Word⮕",
+    "SELLINE":  "Select Line",  "SELWBAK": "Select ←Word", "SELWORD": "Select Word→",
 
     # System
     "KC_VOLD": "Vol -",      "KC_VOLU": "Vol +",    "KC_MUTE": "Mute",
