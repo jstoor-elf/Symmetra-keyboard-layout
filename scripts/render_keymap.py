@@ -499,21 +499,19 @@ def _make_action_chip(name: str, color: str, y_center: float, style: str) -> ET.
     hold   = right-pointing tag  (MO / LT hold)
     toggle = double-chevron      (TG)
     """
-    W, H = 40, 13
-    hw, hh = W / 2, H / 2
     yc = y_center
     g = ET.Element(_T("g"))
-
-    r = ET.SubElement(g, _T("rect"))
-    r.set("x", f"{-hw:.0f}"); r.set("y", f"{yc - hh:.1f}")
-    r.set("width", str(W)); r.set("height", str(H)); r.set("rx", "0")
-    r.set("fill", "#1a1a1c"); r.set("stroke", color); r.set("stroke-width", "0.5")
 
     t = ET.SubElement(g, _T("text"))
     t.set("x", "0"); t.set("y", f"{yc:.1f}")
     t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
-    t.set("fill", color); t.set("style", "font-size:10px")
+    t.set("fill", color); t.set("style", "font-size:13px")
     t.text = name
+
+    u = ET.SubElement(g, _T("line"))
+    u.set("x1", "-18"); u.set("x2", "18")
+    u.set("y1", f"{yc + 9:.1f}"); u.set("y2", f"{yc + 9:.1f}")
+    u.set("stroke", color); u.set("stroke-width", "2.5"); u.set("stroke-linecap", "square")
 
     return g
 
@@ -685,7 +683,12 @@ def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, fl
     parts.append(
         f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
         f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
-        f'style="font-size:10px;font-weight:400;">{label}</text>'
+        f'style="font-size:11px;font-weight:400;">{label}</text>'
+    )
+    uy = cy + 7
+    parts.append(
+        f'<line x1="{cx - 14:.1f}" y1="{uy:.1f}" x2="{cx + 14:.1f}" y2="{uy:.1f}" '
+        f'stroke="{color}" stroke-width="2.0" stroke-linecap="square"/>'
     )
     return "\n".join(parts)
 
