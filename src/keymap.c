@@ -18,7 +18,7 @@
 #define T_L_OUT OSL(SYM_EDIT_L)
 #define T_L_IN  LT(NAV, KC_SPC)
 #define T_R_IN  OSM(MOD_RSFT)
-#define T_R_OUT OSL(SYM_EDIT_R)
+#define T_R_OUT OSL(SYM_EDIT_R)               
 
 /* ######### ENUMS ######### */
 
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_NDOC {170, 150, 230}  // teal         – document navigation
 #define C_NARW {83,  234, 140}  // green        – arrow keys
 #define C_NWRD {0,   245, 200}  // teal         – word/fast navigation
-#define C_NTHB {0,   0,   180}  // dim blue     – nav thumb
+#define C_NTHB {0,   215, 255}  // red          – nav thumb
 // MOUSE layer
 #define C_MBTN {137, 241, 207}  // green        – mouse buttons
 #define C_MMOV {71,  232, 162}  // dark green   – mouse movement
@@ -317,7 +317,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // ALT GUI CTL SFT
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_NTHB,                                   // T_L_OUT, T_L_IN (active)
+    C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN (active)
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_NDOC, C_NDOC, C_NDOC, C_NDOC, C_OFF,   // DOC_LEFT DOWN UP RIGHT

@@ -474,6 +474,16 @@ def _make_text(label: str, color: str) -> ET.Element:
             ts.text = line
     return el
 
+_ACTION_COLORS: dict[str, str] = {
+    "osl":     "#7eb8f7",  # pastel blue    — one-shot layer
+    "osm":     "#7dd4a0",  # pastel green   — one-shot modifier
+    "hold":    "#f4a96d",  # pastel orange  — hold / LT
+    "toggle":  "#b99af5",  # pastel lavender — toggle
+    "numword": "#f4909a",  # pastel pink    — numword
+}
+
+_LEGEND_H = 160  # height reserved above the first layer for the legend
+
 def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     """Return (chip_style, display_name, tap_kc) for action keys, else None.
     style: 'osl' | 'osm' | 'hold' | 'toggle'; tap_kc set only for LT."""
@@ -511,7 +521,7 @@ def _make_action_chip(name: str, color: str, y_center: float, style: str) -> ET.
     u = ET.SubElement(g, _T("line"))
     u.set("x1", "-18"); u.set("x2", "18")
     u.set("y1", f"{yc + 9:.1f}"); u.set("y2", f"{yc + 9:.1f}")
-    u.set("stroke", color); u.set("stroke-width", "2.5"); u.set("stroke-linecap", "square")
+    u.set("stroke", _ACTION_COLORS.get(style, color)); u.set("stroke-width", "2.5"); u.set("stroke-linecap", "square")
 
     return g
 
@@ -677,7 +687,8 @@ def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, fl
     bx1, bx2 = cx - hw, cx + hw
     by1       = cy - hh
 
-    color = "#a0a0a0"
+    color       = "#a0a0a0"
+    uline_color = _ACTION_COLORS.get(chip_style, color)
     parts = []
 
     for kx, ky in corners:
@@ -700,7 +711,7 @@ def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, fl
     uhw = W / 2 - 6
     parts.append(
         f'<line x1="{cx - uhw:.1f}" y1="{uy:.1f}" x2="{cx + uhw:.1f}" y2="{uy:.1f}" '
-        f'stroke="{color}" stroke-width="2.0" stroke-linecap="square"/>'
+        f'stroke="{uline_color}" stroke-width="2.0" stroke-linecap="square"/>'
     )
     return "\n".join(parts)
 
@@ -719,8 +730,9 @@ def _crossside_nonthumb_overlay(combo: dict, key_centers: dict[int, tuple[float,
 
     parsed = _parse_action_chip(combo.get("resolved_action") or combo.get("action"))
     if parsed:
-        _, label, _ = parsed
+        chip_style, label, _ = parsed
     else:
+        chip_style = "osl"
         label = combo["action_label"].replace("\n", " ")
     label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -729,7 +741,8 @@ def _crossside_nonthumb_overlay(combo: dict, key_centers: dict[int, tuple[float,
     bx1, bx2 = cx - hw, cx + hw
     by1 = y_route - hh
 
-    color = "#a0a0a0"
+    color       = "#a0a0a0"
+    uline_color = _ACTION_COLORS.get(chip_style, color)
     parts = []
 
     dash = f'stroke="{color}" stroke-width="0.5" stroke-dasharray="3,2"'
@@ -756,8 +769,48 @@ def _crossside_nonthumb_overlay(combo: dict, key_centers: dict[int, tuple[float,
     uhw = W / 2 - 6
     parts.append(
         f'<line x1="{cx - uhw:.1f}" y1="{uy:.1f}" x2="{cx + uhw:.1f}" y2="{uy:.1f}" '
-        f'stroke="{color}" stroke-width="2.0" stroke-linecap="square"/>'
+        f'stroke="{uline_color}" stroke-width="2.0" stroke-linecap="square"/>'
     )
+    return "\n".join(parts)
+
+
+def _render_legend(canvas_w: int, margin: int) -> str:
+    items = [
+        ("osl",     "One-shot layer"),
+        ("osm",     "One-shot mod"),
+        ("hold",    "Hold / LT"),
+        ("toggle",  "Toggle"),
+        ("numword", "Numword"),
+    ]
+    pad_x    = 12
+    pad_y    = 10
+    row_h    = 18
+    swatch   = 24
+    gap      = 10
+    title_h  = 20
+    box_h    = pad_y * 2 + title_h + row_h * len(items)
+
+    parts = [
+        f'<g transform="translate({margin},12)">',
+        f'<rect x="0" y="0" width="160" height="{box_h}" rx="4" '
+        f'fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>',
+        f'<text x="{pad_x}" y="{pad_y + title_h / 2:.1f}" '
+        f'style="text-anchor:start;dominant-baseline:middle;font-size:11px;font-weight:bold;" '
+        f'fill="#ffffff">Legend</text>',
+    ]
+    for i, (style, label) in enumerate(items):
+        color = _ACTION_COLORS[style]
+        y = pad_y + title_h + i * row_h + row_h / 2
+        parts.append(
+            f'<line x1="{pad_x}" y1="{y:.1f}" x2="{pad_x + swatch}" y2="{y:.1f}" '
+            f'stroke="{color}" stroke-width="2.5" stroke-linecap="square"/>'
+        )
+        parts.append(
+            f'<text x="{pad_x + swatch + gap}" y="{y:.1f}" '
+            f'style="text-anchor:start;dominant-baseline:middle;font-size:10px;" '
+            f'fill="#c0c0c0">{label}</text>'
+        )
+    parts.append('</g>')
     return "\n".join(parts)
 
 
@@ -779,15 +832,16 @@ def render_svg(ir: dict) -> str:
         key=lambda c: min(key_centers[i][1] for i in c["led_indices"] if i in key_centers)
     )
 
-    total_h = len(layers) * (_LAYER_H + _LAYER_GAP) + 40
+    total_h = len(layers) * (_LAYER_H + _LAYER_GAP) + 40 + _LEGEND_H
     parts = [
         f'<svg width="{_CANVAS_W}" height="{total_h}" viewBox="0 0 {_CANVAS_W} {total_h}" '
         f'class="keymap" xmlns="http://www.w3.org/2000/svg">',
         f'<style>{_CSS}</style>',
+        _render_legend(_CANVAS_W, _MARGIN),
     ]
 
     for i, layer in enumerate(layers):
-        y    = i * (_LAYER_H + _LAYER_GAP)
+        y    = _LEGEND_H + i * (_LAYER_H + _LAYER_GAP)
         root = _fill_layer(template_root, layer, palette)
         parts.append(f'<g transform="translate({_MARGIN},{y})">')
         # Routing lines drawn first so key labels render on top
