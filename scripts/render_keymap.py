@@ -61,7 +61,7 @@ LAYER_LABELS = {
     "ALPHA":      "Alpha",
     "SYM_EDIT_L": "Sym-L",
     "SYM_EDIT_R": "Sym-R",
-    "NUM":        "Num",
+    "NUM":        "NumWord",
     "FUNC":       "Func",
     "NAV":        "Nav",
     "MOUSE":      "Mouse",
