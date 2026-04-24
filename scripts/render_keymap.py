@@ -58,7 +58,7 @@ KMAP_TO_LED = _make_kmap_to_led()
 # ── label resolution ──────────────────────────────────────────────────────────
 
 LAYER_LABELS = {
-    "ALPHA":      "Alpha ⋅ Gallium",
+    "ALPHA":      "Alpha",
     "SYM_EDIT_L": "Sym-L",
     "SYM_EDIT_R": "Sym-R",
     "NUM":        "Num",
@@ -99,7 +99,7 @@ LABEL_MAP: dict[str, str] = {
     # Common keys
     "KC_BSPC": "Bspc",  "KC_DEL":  "Del",   "KC_ENT":  "Enter",
     "KC_ESC":  "Esc",   "KC_TAB":  "Tab",   "KC_SPC":  "Space",
-    "CW_TOGG": "Caps\nWord",
+    "CW_TOGG": "CapsWord",
 
     # Held modifiers (NAV / MOUSE layers)
     "KC_LSFT": "Shift", "KC_RSFT": "Shift",
@@ -623,6 +623,17 @@ def _combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], key
 _THUMB_LEDS      = {24, 25, 50, 51}
 _CROSSSIDE_BOX_W = 46
 _CROSSSIDE_BOX_H = 20
+_CROSSSIDE_BOX_PAD = 12  # horizontal padding inside box (total)
+_CHAR_W_10PX     = 6.0   # estimated character width at 10px
+# y-route levels (in layer coords) for cross-side non-thumb combos, top-down
+_NONTHUMB_ROUTE_YS = [15, 42]
+_ROUTE_X_LEFT  =   5.0   # x for left-side outer vertical leg
+_ROUTE_X_RIGHT = 893.0   # x for right-side outer vertical leg
+
+def _crossside_box_w(label: str) -> float:
+    """Expand box width if label is wider than the default; otherwise keep default."""
+    needed = len(label) * _CHAR_W_10PX + _CROSSSIDE_BOX_PAD
+    return max(_CROSSSIDE_BOX_W, needed)
 
 # Offset from each thumb key's center to its inner-top corner (the corner facing the gap).
 # Derived from the key's rotation and rect half-sizes.
@@ -649,12 +660,7 @@ def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, fl
     cx = sum(p[0] for p in corners) / len(corners)
     cy = sum(p[1] for p in corners) / len(corners)
 
-    W, H   = _CROSSSIDE_BOX_W, _CROSSSIDE_BOX_H
-    hw, hh = W / 2, H / 2
-    bx1, bx2 = cx - hw, cx + hw
-    by1       = cy - hh
-
-    # Determine chip style from the action keycode
+    # Determine label first so box width can adapt
     parsed = _parse_action_chip(combo.get("resolved_action") or combo.get("action"))
     if parsed:
         chip_style, display_name, _ = parsed
@@ -665,6 +671,11 @@ def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, fl
         chip_style = "osl"
         label = combo["action_label"].replace("\n", " ")
     label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    W, H   = _crossside_box_w(label), _CROSSSIDE_BOX_H
+    hw, hh = W / 2, H / 2
+    bx1, bx2 = cx - hw, cx + hw
+    by1       = cy - hh
 
     color = "#a0a0a0"
     parts = []
@@ -677,17 +688,74 @@ def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, fl
         )
 
     parts.append(
-        f'<rect x="{bx1:.1f}" y="{by1:.1f}" width="{W}" height="{H}" '
+        f'<rect x="{bx1:.1f}" y="{by1:.1f}" width="{W:.1f}" height="{H}" '
         f'rx="4" fill="#141416" fill-opacity="0.88" stroke="{color}" stroke-width="0.5"/>'
     )
     parts.append(
         f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
         f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
-        f'style="font-size:11px;font-weight:400;">{label}</text>'
+        f'style="font-size:10px;font-weight:400;">{label}</text>'
     )
     uy = cy + 7
+    uhw = W / 2 - 6
     parts.append(
-        f'<line x1="{cx - 14:.1f}" y1="{uy:.1f}" x2="{cx + 14:.1f}" y2="{uy:.1f}" '
+        f'<line x1="{cx - uhw:.1f}" y1="{uy:.1f}" x2="{cx + uhw:.1f}" y2="{uy:.1f}" '
+        f'stroke="{color}" stroke-width="2.0" stroke-linecap="square"/>'
+    )
+    return "\n".join(parts)
+
+
+def _crossside_nonthumb_overlay(combo: dict, key_centers: dict[int, tuple[float, float]],
+                                keys_y_off: float, y_route: float, lines_only: bool = False) -> str:
+    indices = combo.get("led_indices", [])
+    if len(indices) < 2:
+        return ""
+    positions = [(key_centers[i][0], key_centers[i][1] + keys_y_off)
+                 for i in indices if i in key_centers]
+    if len(positions) < 2:
+        return ""
+
+    cx = sum(p[0] for p in positions) / len(positions)
+
+    parsed = _parse_action_chip(combo.get("resolved_action") or combo.get("action"))
+    if parsed:
+        _, label, _ = parsed
+    else:
+        label = combo["action_label"].replace("\n", " ")
+    label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    W, H = _crossside_box_w(label), _CROSSSIDE_BOX_H
+    hw, hh = W / 2, H / 2
+    bx1, bx2 = cx - hw, cx + hw
+    by1 = y_route - hh
+
+    color = "#a0a0a0"
+    parts = []
+
+    dash = f'stroke="{color}" stroke-width="0.5" stroke-dasharray="3,2"'
+    for kx, ky in positions:
+        hx = bx1 if kx < cx else bx2
+        ky_start = ky - 13
+        kx_start = kx + 13 if kx < cx else kx - 13
+        parts.append(f'<line x1="{kx_start:.1f}" y1="{ky_start:.1f}" x2="{kx_start:.1f}" y2="{y_route:.1f}" {dash}/>')
+        parts.append(f'<line x1="{kx_start:.1f}" y1="{y_route:.1f}" x2="{hx:.1f}" y2="{y_route:.1f}" {dash}/>')
+
+    if lines_only:
+        return "\n".join(parts)
+
+    parts.append(
+        f'<rect x="{bx1:.1f}" y="{by1:.1f}" width="{W:.1f}" height="{H}" '
+        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="{color}" stroke-width="0.5"/>'
+    )
+    parts.append(
+        f'<text x="{cx:.1f}" y="{y_route:.1f}" text-anchor="middle" dominant-baseline="middle" '
+        f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
+        f'style="font-size:10px;font-weight:400;">{label}</text>'
+    )
+    uy = y_route + 7
+    uhw = W / 2 - 6
+    parts.append(
+        f'<line x1="{cx - uhw:.1f}" y1="{uy:.1f}" x2="{cx + uhw:.1f}" y2="{uy:.1f}" '
         f'stroke="{color}" stroke-width="2.0" stroke-linecap="square"/>'
     )
     return "\n".join(parts)
@@ -703,6 +771,13 @@ def render_svg(ir: dict) -> str:
     same_side_combos   = [c for c in combos if c.get("side") in ("left", "right")]
     crossside_thumb_combos = [c for c in combos if c.get("side") == "both"
                               and all(i in _THUMB_LEDS for i in c.get("led_indices", []))]
+    # Non-thumb cross-side combos sorted by highest key (smallest template y) first
+    _raw_nonthumb = [c for c in combos if c.get("side") == "both"
+                     and not all(i in _THUMB_LEDS for i in c.get("led_indices", []))]
+    crossside_nonthumb_combos = sorted(
+        _raw_nonthumb,
+        key=lambda c: min(key_centers[i][1] for i in c["led_indices"] if i in key_centers)
+    )
 
     total_h = len(layers) * (_LAYER_H + _LAYER_GAP) + 40
     parts = [
@@ -715,6 +790,13 @@ def render_svg(ir: dict) -> str:
         y    = i * (_LAYER_H + _LAYER_GAP)
         root = _fill_layer(template_root, layer, palette)
         parts.append(f'<g transform="translate({_MARGIN},{y})">')
+        # Routing lines drawn first so key labels render on top
+        for idx, combo in enumerate(crossside_nonthumb_combos):
+            if layer["name"] in combo["layers"]:
+                y_route = _NONTHUMB_ROUTE_YS[idx % len(_NONTHUMB_ROUTE_YS)]
+                frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route, lines_only=True)
+                if frag:
+                    parts.append(frag)
         for child in root:
             parts.append(ET.tostring(child, encoding="unicode"))
         for combo in same_side_combos:
@@ -725,6 +807,12 @@ def render_svg(ir: dict) -> str:
         for combo in crossside_thumb_combos:
             if layer["name"] in combo["layers"]:
                 frag = _crossside_thumb_overlay(combo, key_centers, keys_y_off)
+                if frag:
+                    parts.append(frag)
+        for idx, combo in enumerate(crossside_nonthumb_combos):
+            if layer["name"] in combo["layers"]:
+                y_route = _NONTHUMB_ROUTE_YS[idx % len(_NONTHUMB_ROUTE_YS)]
+                frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route)
                 if frag:
                     parts.append(frag)
         parts.append("</g>")
