@@ -16,7 +16,9 @@ My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swed
 
 ## Layers
 
-The keymap below shows key positions and RGB coloring for each layer. The removed outer columns and top row are rendered in a different geometry to reflect that those switches have been physically removed.
+The keymap below shows key positions and RGB coloring for each layer. The removed outer columns and top row are rendered in a different geometry to reflect that those switches have been physically removed.   
+
+A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer, one-shot modifier, hold/LT, toggle, and numword. Same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box.
 
 ![Keymap](assets/keymap.svg)
 
