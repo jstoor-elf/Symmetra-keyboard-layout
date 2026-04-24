@@ -11,7 +11,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
               text-anchor: start; dominant-baseline: auto; }
 </style>
 <g transform="translate(30,12)">
-<rect x="0" y="0" width="160" height="130" rx="4" fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>
+<rect x="0" y="0" width="160" height="148" rx="4" fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>
 <text x="12" y="20.0" style="text-anchor:start;dominant-baseline:middle;font-size:11px;font-weight:bold;" fill="#ffffff">Legend</text>
 <line x1="12" y1="39.0" x2="36" y2="39.0" stroke="#7eb8f7" stroke-width="2.5" stroke-linecap="square"/>
 <text x="46" y="39.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">One-shot layer</text>
@@ -23,6 +23,8 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <text x="46" y="93.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">Toggle</text>
 <line x1="12" y1="111.0" x2="36" y2="111.0" stroke="#f4909a" stroke-width="2.5" stroke-linecap="square"/>
 <text x="46" y="111.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">Numword</text>
+<line x1="12" y1="129.0" x2="36" y2="129.0" stroke="#6ad4d4" stroke-width="2.5" stroke-linecap="square"/>
+<text x="46" y="129.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">CapsWord</text>
 </g>
 <g transform="translate(30,160)">
 <line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
@@ -152,7 +154,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <line x1="603.0" y1="42.0" x2="464.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <rect x="404.0" y="32.0" width="60.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
 <text x="434.0" y="42.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">CapsWord</text>
-<line x1="410.0" y1="49.0" x2="458.0" y2="49.0" stroke="#7eb8f7" stroke-width="2.0" stroke-linecap="square"/>
+<line x1="410.0" y1="49.0" x2="458.0" y2="49.0" stroke="#6ad4d4" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,640)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Sym-L</text>

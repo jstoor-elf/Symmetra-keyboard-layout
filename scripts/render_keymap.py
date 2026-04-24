@@ -480,6 +480,7 @@ _ACTION_COLORS: dict[str, str] = {
     "hold":    "#f4a96d",  # pastel orange  — hold / LT
     "toggle":  "#b99af5",  # pastel lavender — toggle
     "numword": "#f4909a",  # pastel pink    — numword
+    "capsword": "#6ad4d4", # pastel teal    — capsword
 }
 
 _LEGEND_H = 160  # height reserved above the first layer for the legend
@@ -499,6 +500,7 @@ def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     if m: return ("osm",    _mod_label(m.group(1)),   None)
     m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", kc)
     if m: return ("hold",   _layer_label(m.group(1)), m.group(2).strip())
+    if kc == "CW_TOGG": return ("capsword", "CapsWord", None)
     return None
 
 
@@ -780,7 +782,8 @@ def _render_legend(canvas_w: int, margin: int) -> str:
         ("osm",     "One-shot mod"),
         ("hold",    "Hold / LT"),
         ("toggle",  "Toggle"),
-        ("numword", "Numword"),
+        ("numword",  "Numword"),
+        ("capsword", "CapsWord"),
     ]
     pad_x    = 12
     pad_y    = 10
