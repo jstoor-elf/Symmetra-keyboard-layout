@@ -61,7 +61,8 @@ enum custom_keycodes {
   U_NUM_ENTER,
   U_SCREENSHOT,
   U_OS_SEARCH,
-  U_EMOJIS
+  U_EMOJIS,
+  U_LOCK_SCREEN
 };
 
 typedef enum {
@@ -188,9 +189,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SYS] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,      _DEAD_,       _DEAD_,   _DEAD_,      _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,       _OFF_,        _OFF_,    _OFF_,       _DEAD_,
-    _DEAD_, _OFF_,   KC_VOLD, KC_VOLU, KC_MUTE, _OFF_,   /*|*/   _OFF_,   U_OS_SEARCH, U_SCREENSHOT, U_EMOJIS, U_TOGGLE_OS, _DEAD_,
-    _DEAD_, _OFF_,   KC_MPRV, KC_MNXT, KC_MPLY, _OFF_,   /*|*/   _OFF_,   _OFF_,       _OFF_,        _OFF_,    _OFF_,       _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    _OFF_,         _DEAD_,
+    _DEAD_, _OFF_,   KC_VOLD, KC_VOLU, KC_MUTE, _OFF_,   /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,         _DEAD_,
+    _DEAD_, _OFF_,   KC_MPRV, KC_MNXT, KC_MPLY, _OFF_,   /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  _OFF_,    _OFF_,         _DEAD_,
                                        _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
   )
 };
@@ -338,7 +339,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_MBTN, C_MMOV, C_MBTN, C_OFF,  C_OFF,   // BTN1 UP BTN2
     C_OFF, C_MMOV, C_MMOV, C_MMOV, C_OFF,  C_OFF,   // LEFT DOWN RIGHT
     C_OFF, C_MWHL, C_MBTN, C_MWHL, C_OFF,  C_OFF,   // WHLD BTN3 WHLU
-    C_OFF, C_OFF                                     // thumbs
+    C_OFF, C_OFF                                    // thumbs
   },
 
   [SYS] = {
@@ -351,9 +352,9 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_SSYS, C_SSYS, C_SSYS, C_SOGT, C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS TOGGLE_OS
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_ACT, C_OFF                                     // T_R_IN (TG(SYS)), T_R_OUT
+    C_OFF, C_SSYS, C_SSYS, C_SSYS, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
+    C_OFF, C_SOGT, C_SOGT, C_OFF,  C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS
+    C_ACT, C_OFF                                    // T_R_IN (TG(SYS)), T_R_OUT
   }
 };
 
@@ -577,6 +578,7 @@ bool process_pressed_keycode(uint16_t keycode) {
     case RGB_SLD:        rgblight_mode(1);                                                       break;
     case U_TOGGLE_OS:    flip_os();                                                              return false;
     case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));      break;
+    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));      break;
     case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      break;
     case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   break;
     case U_NUM_ENTER:    tap_code(KC_ENT); layer_off(NUM);                                      return false;
