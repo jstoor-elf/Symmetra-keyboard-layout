@@ -2,7 +2,7 @@
 
 QMK layout for my ZSA Voyager.
 
-A 34-key layout (3×5 + 2 thumbs per side) designed to minimize finger travel. Compatible with the ZSA Voyager as well as boards like the Ferris Sweep and other similar 34-key split keyboards. The top row and outer columns of the Voyager have been physically removed.
+A 34-key layout (3×5 + 2 thumbs per side) designed to minimize finger travel. Compatible with the ZSA Voyager as well as boards like the Ferris Sweep and other similar 34-key split keyboards. The switches on the top row and outer columns of the Voyager have been physically removed.
 
 The layout is mainly inspired by [Jonas Hietala's T-34](https://www.jonashietala.se/blog/2021/06/03/the-t-34-keyboard-layout/). After finding out the hard way that home-row mods are not for me — too many timing issues — I moved to one-shot modifiers and combos instead.
 
