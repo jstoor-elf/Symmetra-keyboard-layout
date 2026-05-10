@@ -2,11 +2,11 @@
 
 QMK layout for my ZSA Voyager.
 
-A 34-key layout (3×5 + 2 thumbs per side) designed to minimize finger travel. Compatible with the ZSA Voyager as well as boards like the Ferris Sweep and other similar 34-key split keyboards. The switches in the top row and outer columns of the Voyager have been physically removed. A dedicated OS toggle lets you switch between Mac and Windows shortcuts and commands on the fly.
+A 34-key layout (3×5 + 2 thumbs per side) designed to minimize finger travel. Compatible with the ZSA Voyager as well as boards like the Ferris Sweep and other similar 34-key split keyboards. The switches in the top row and outer columns of the Voyager have been physically removed.
 
 The layout is mainly inspired by [Jonas Hietala's T-34](https://www.jonashietala.se/blog/2021/06/03/the-t-34-keyboard-layout/). After finding out the hard way that home-row mods are not for me — too many timing issues — I moved to one-shot modifiers and combos instead.
 
-My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swedish letters Ä and Ö on the base layer, and Å via a combo of the two.
+My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swedish letters Ä and Ö on the base layer, and Å via a combo of the two. A dedicated OS toggle lets you switch between Mac and Windows shortcuts and commands on the fly.
 
 ![Keyboard](assets/voyager.jpeg)
 
