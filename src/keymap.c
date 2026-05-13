@@ -62,7 +62,13 @@ enum custom_keycodes {
   U_SCREENSHOT,
   U_OS_SEARCH,
   U_EMOJIS,
-  U_LOCK_SCREEN
+  U_LOCK_SCREEN,
+  U_RGB_TOG,
+  U_NUM_DEAC_R,
+  U_FUNC_DEAC_L,
+  U_FUNC_DEAC_R,
+  U_SYS_DEAC_L,
+  U_SYS_DEAC_R
 };
 
 typedef enum {
@@ -88,34 +94,41 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 
 /* ######### COMBOS ######### */
 
-const uint16_t PROGMEM combo_aa[]   = {SE_ADIA, SE_OSLH, COMBO_END};
-const uint16_t PROGMEM combo_num[]  = {T_L_IN,  T_R_IN,  COMBO_END};
-const uint16_t PROGMEM combo_func[] = {T_L_OUT, T_R_OUT, COMBO_END};
-const uint16_t PROGMEM combo_caps[] = {KC_S,    KC_H,    COMBO_END};
-const uint16_t PROGMEM combo_slsh[] = {KC_M,    KC_W,    COMBO_END};
-const uint16_t PROGMEM combo_coln[] = {KC_F,    SE_ADIA, COMBO_END};
-const uint16_t PROGMEM combo_eql[]  = {KC_Y,    KC_O,    COMBO_END};
-const uint16_t PROGMEM combo_esc[]  = {KC_T,    KC_S,    COMBO_END};
-const uint16_t PROGMEM combo_ent[]  = {KC_H,    KC_A,    COMBO_END};
-const uint16_t PROGMEM combo_tab[]  = {KC_D,    KC_C,    COMBO_END};
-const uint16_t PROGMEM combo_bspc[] = {KC_O,    KC_U,    COMBO_END};
-const uint16_t PROGMEM combo_del[]  = {KC_L,    KC_D,    COMBO_END};
-const uint16_t PROGMEM combo_sys[]  = {KC_B,    KC_DOT,  COMBO_END};
+const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
+const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
+const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
+const uint16_t PROGMEM combo_caps[]      = {KC_S,          KC_H,          COMBO_END};
+const uint16_t PROGMEM combo_slsh[]      = {KC_M,          KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_coln[]      = {KC_F,          SE_ADIA,       COMBO_END};
+const uint16_t PROGMEM combo_eql[]       = {KC_Y,          KC_O,          COMBO_END};
+const uint16_t PROGMEM combo_esc[]       = {KC_T,          KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_ent[]       = {KC_H,          KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_tab[]       = {KC_D,          KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_bspc[]      = {KC_O,          KC_U,          COMBO_END};
+const uint16_t PROGMEM combo_del[]       = {KC_L,          KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_sys[]       = {KC_B,          KC_DOT,        COMBO_END};
+const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_ENTER,   U_NUM_DEAC_R,  COMBO_END};
+const uint16_t PROGMEM combo_func_deac[] = {U_FUNC_DEAC_L, U_FUNC_DEAC_R, COMBO_END};
+const uint16_t PROGMEM combo_sys_deac[]  = {U_SYS_DEAC_L,  U_SYS_DEAC_R,  COMBO_END};
+
 
 combo_t key_combos[] = {
-  COMBO(combo_aa,   SE_AA), // Å
-  COMBO(combo_num,  TG(NUM)), // NUMWORD
-  COMBO(combo_caps, CW_TOGG),  // CAPSWORD
-  COMBO(combo_func, OSL(FUNC)), // To function layer
-  COMBO(combo_eql,  SE_EQL), // =
-  COMBO(combo_coln, SE_COLN), // :
-  COMBO(combo_slsh, SE_SLSH), // /
-  COMBO(combo_ent,  KC_ENT), // Enter
-  COMBO(combo_esc,  KC_ESC), // Escape
-  COMBO(combo_bspc, KC_BSPC), // Backspace
-  COMBO(combo_del,  KC_DEL), // Delete
-  COMBO(combo_tab,  KC_TAB), // Tab
-  COMBO(combo_sys,  TG(SYS)), // To system layer
+  COMBO(combo_aa,        SE_AA), // Å
+  COMBO(combo_num,       TG(NUM)), // NUMWORD
+  COMBO(combo_caps,      CW_TOGG),  // CAPSWORD
+  COMBO(combo_func,      OSL(FUNC)), // To function layer
+  COMBO(combo_eql,       SE_EQL), // =
+  COMBO(combo_coln,      SE_COLN), // :
+  COMBO(combo_slsh,      SE_SLSH), // /
+  COMBO(combo_ent,       KC_ENT), // Enter
+  COMBO(combo_esc,       KC_ESC), // Escape
+  COMBO(combo_bspc,      KC_BSPC), // Backspace
+  COMBO(combo_del,       KC_DEL), // Delete
+  COMBO(combo_tab,       KC_TAB), // Tab
+  COMBO(combo_sys,       TG(SYS)), // To system layer
+  COMBO(combo_num_deac,  TG(NUM)), // To base layer
+  COMBO(combo_func_deac, TG(FUNC)), // To base layer
+  COMBO(combo_sys_deac,  TG(SYS)), // Deactivate layer
 };
 
 /* ######### KEYMAPS ######### */
@@ -156,19 +169,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [NUM] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,      /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,       /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-    _DEAD_, KC_6,    KC_4,    KC_2,    KC_0,    _OFF_,       /*|*/   _OFF_,   KC_1,    KC_3,    KC_5,    KC_7,    _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_8,    _OFF_,       /*|*/   _OFF_,   KC_9,    _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-                                       _OFF_,   U_NUM_ENTER, /*|*/   _OFF_,   _OFF_
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,      /*|*/   _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,       /*|*/   _OFF_,        _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, KC_6,    KC_4,    KC_2,    KC_0,    _OFF_,       /*|*/   _OFF_,        KC_1,    KC_3,    KC_5,    KC_7,    _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_8,    _OFF_,       /*|*/   _OFF_,        KC_9,    _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+                                       _OFF_,   U_NUM_ENTER, /*|*/   U_NUM_DEAC_R, _OFF_
   ),
 
   [FUNC] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-    _DEAD_, KC_F6,   KC_F4,   KC_F2,   _OFF_,   _OFF_,  /*|*/    _OFF_,   KC_F1,   KC_F3,   KC_F5,   KC_F7,   _DEAD_,
-    _DEAD_, _OFF_,   KC_F12,  KC_F10,  KC_F8,   _OFF_,   /*|*/   _OFF_,   KC_F9,   KC_F11,  _OFF_,   _OFF_,   _DEAD_,
-                                       _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,        _DEAD_,  /*|*/   _DEAD_,  _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_,        _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, KC_F6,   KC_F4,   KC_F2,   _OFF_,         _OFF_,  /*|*/    _OFF_,   KC_F1,        KC_F3,   KC_F5,   KC_F7,   _DEAD_,
+    _DEAD_, _OFF_,   KC_F12,  KC_F10,  KC_F8,         _OFF_,   /*|*/   _OFF_,   KC_F9,        KC_F11,  _OFF_,   _OFF_,   _DEAD_,
+                                       U_FUNC_DEAC_L, _OFF_,   /*|*/   _OFF_,   U_FUNC_DEAC_R
   ),
 
   [NAV] = LAYOUT_voyager(
@@ -188,11 +201,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [SYS] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,      _DEAD_,       _DEAD_,   _DEAD_,      _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    _OFF_,         _DEAD_,
-    _DEAD_, _OFF_,   KC_VOLD, KC_VOLU, KC_MUTE, _OFF_,   /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,         _DEAD_,
-    _DEAD_, _OFF_,   KC_MPRV, KC_MNXT, KC_MPLY, _OFF_,   /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  _OFF_,    _OFF_,         _DEAD_,
-                                       _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
+    _DEAD_, _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,    _DEAD_,/*|*/   _DEAD_,  _DEAD_,        _DEAD_,       _DEAD_,   _DEAD_,       _DEAD_,
+    _DEAD_, U_SYS_DEAC_L, RM_VALD, RM_VALU, U_RGB_TOG, _OFF_, /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    U_SYS_DEAC_R, _DEAD_,
+    _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
+    _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  _OFF_,    _OFF_,        _DEAD_,
+                                            _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
   )
 };
 
@@ -230,6 +243,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_SMDA {40,  150, 200}  // yellow       – media transport
 #define C_SSYS {70,  218, 255}  // blue         – system actions (screenshot/search/emojis)
 #define C_SOGT {120,  170, 200} // mint         – OS toggle
+#define C_SRGB {30,  239, 216}  // teal         – RGB brightness/toggle
 
 // LED indices for dynamic overrides
 #define LED_KC_Y 33
@@ -239,17 +253,17 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [ALPHA] = {
     // Left side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row (dead)
-    C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,   // B(outer) L D C V
-    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,   // N(outer) R T S G
-    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,   // X(outer) Q M W Z
-    C_RED, C_RED,                                // T_L_OUT, T_L_IN
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
+    C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
+    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // N(outer) R T S G
+    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // X(outer) Q M W Z
+    C_RED, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row (dead)
-    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,   // J Y O U DOT(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,   // P H A E I(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,   // K F ADIA OSLH COMMA(outer)
-    C_RED, C_RED                                // T_R_IN, T_R_OUT
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
+    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y O U DOT(outer)
+    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // P H A E I(outer)
+    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH COMMA(outer)
+    C_RED, C_RED                                    // T_R_IN, T_R_OUT
   },
 
   [SYM_EDIT_L] = {
@@ -258,13 +272,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_NEDT, C_NEDT, C_NEDT, C_NEDT, C_OFF,   // SAVE CUT COPY PASTE
     C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // OSM: ALT GUI CTL SFT
     C_OFF, C_NUND, C_NUND, C_NFND, C_NSEL, C_OFF,   // UNDO REDO SEARCH MARK_ALL
-    C_THB, C_OFF,                                    // T_L_OUT (active), T_L_IN
+    C_THB, C_OFF,                                   // T_L_OUT (active), T_L_IN
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // CIRC HASH AT DQUO
     C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // PERC SCLN LBRC RBRC
     C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // ACUT AMPR LPRN RPRN
-    C_OFF, C_OFF                                     // T_R_IN, T_R_OUT
+    C_OFF, C_OFF                                    // T_R_IN, T_R_OUT
   },
 
   [SYM_EDIT_R] = {
@@ -273,43 +287,43 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_SYM,   // DLR PLUS ASTR EXLM TILD
     C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_SYM,   // QUES LCBR RCBR MINS BSLS
     C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_SYM,   // APOS LESS GRTR PIPE GRV
-    C_OFF, C_OFF,                                    // T_L_OUT, T_L_IN
+    C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // OSM: RSFT RCTL RALT RGUI
     C_OFF, C_NSEL, C_NSEL, C_NSEL, C_OFF,  C_OFF,   // SELLINE SELWBAK SELWORD
-    C_OFF, C_THB                                     // T_R_IN, T_R_OUT (active)
+    C_OFF, C_THB                                    // T_R_IN, T_R_OUT (active)
   },
 
   [NUM] = {
     // Left side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // all XXXXXXX
-    C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,   // 6 4 2 0
-    C_OFF, C_OFF, C_OFF, C_OFF, C_NUM, C_OFF,   // 8
-    C_OFF, C_ACT,                                // T_L_OUT, T_L_IN (U_NUM_ENTER)
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 6 4 2 0
+    C_OFF, C_OFF, C_OFF, C_OFF, C_NUM, C_OFF,       // 8
+    C_OFF, C_ACT,                                   // U_NUM_ENTER
     // Right side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // all XXXXXXX
-    C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,   // 1 3 5 7
-    C_OFF, C_NUM, C_OFF, C_OFF, C_OFF, C_OFF,   // 9
-    C_ACT, C_OFF                                 // T_L_IN (U_NUM_ENTER), T_R_IN
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 1 3 5 7
+    C_OFF, C_NUM, C_OFF, C_OFF, C_OFF, C_OFF,       // 9
+    C_OFF, C_OFF                                    // all XXXXXXX
   },
 
   [FUNC] = {
     // Left side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // all XXXXXXX
-    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,   // F6 F4 F2 F10 F12
-    C_OFF, C_OFF, C_FN,  C_FN,  C_FN,  C_OFF,   // F8
-    C_OFF, C_OFF,                                // thumbs
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,       // F6 F4 F2 F10 F12
+    C_OFF, C_OFF, C_FN,  C_FN,  C_FN,  C_OFF,       // F8
+    C_OFF, C_OFF,                                   // all XXXXXXX
     // Right side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // top row
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,   // all XXXXXXX
-    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,  // F11 F1 F3 F5 F7
-    C_OFF, C_FN,  C_FN,  C_OFF, C_OFF, C_OFF,   // F9
-    C_OFF, C_OFF                                 // thumbs
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,       // F11 F1 F3 F5 F7
+    C_OFF, C_FN,  C_FN,  C_OFF, C_OFF, C_OFF,       // F9
+    C_OFF, C_OFF                                    // all XXXXXXX
   },
 
   [NAV] = {
@@ -324,7 +338,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_NDOC, C_NDOC, C_NDOC, C_NDOC, C_OFF,   // DOC_LEFT DOWN UP RIGHT
     C_OFF, C_NARW, C_NARW, C_NARW, C_NARW, C_OFF,   // LEFT DOWN UP RIGHT
     C_OFF, C_NWRD, C_NWRD, C_NWRD, C_NWRD, C_OFF,   // WORD_LEFT 5DOWN 5UP WORD_RIGHT
-    C_NTHB, C_OFF                                    // T_R_IN (MO(MOUSE)), T_R_OUT
+    C_NTHB, C_OFF                                   // T_R_IN (MO(MOUSE)), T_R_OUT
   },
 
   [MOUSE] = {
@@ -345,7 +359,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [SYS] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_OFF,  C_SRGB, C_SRGB, C_SRGB, C_OFF,   // RM_VALD RM_VALU U_RGB_TOG
     C_OFF, C_OFF,  C_SVOL, C_SVOL, C_SVOL, C_OFF,   // VOLD VOLU MUTE
     C_OFF, C_OFF,  C_SMDA, C_SMDA, C_SMDA, C_OFF,   // MPRV MNXT MPLY
     C_OFF, C_OFF,                                    // thumbs
@@ -575,10 +589,11 @@ void five_rows_up(bool pressed) {
 
 bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
-    case RGB_SLD:        rgblight_mode(1);                                                       break;
-    case U_TOGGLE_OS:    flip_os();                                                              return false;
-    case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));      break;
-    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));      break;
+    case RGB_SLD:        rgblight_mode(1);                                                      break;
+    case U_RGB_TOG:      rgb_matrix_toggle();                                                   return false;
+    case U_TOGGLE_OS:    flip_os();                                                             return false;
+    case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));       break;
+    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));       break;
     case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      break;
     case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   break;
     case U_NUM_ENTER:    tap_code(KC_ENT); layer_off(NUM);                                      return false;
@@ -604,6 +619,11 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_WORD_RIGHT:   PERFORM_BY_OS(word_right_win(true),     word_right_mac(true));         break;
     case U_5_ROWS_DOWN:  five_rows_down(true);                                                  return false;
     case U_5_ROWS_UP:    five_rows_up(true);                                                    return false;
+    case U_NUM_DEAC_R:                                                                          return false;
+    case U_FUNC_DEAC_L:                                                                         return false;
+    case U_FUNC_DEAC_R:                                                                         return false;
+    case U_SYS_DEAC_L:                                                                          return false;
+    case U_SYS_DEAC_R:                                                                          return false;
   }
   return true;
 }

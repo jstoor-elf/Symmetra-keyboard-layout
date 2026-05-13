@@ -11,7 +11,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
               text-anchor: start; dominant-baseline: auto; }
 </style>
 <g transform="translate(30,12)">
-<rect x="0" y="0" width="160" height="148" rx="4" fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>
+<rect x="0" y="0" width="160" height="130" rx="4" fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>
 <text x="12" y="20.0" style="text-anchor:start;dominant-baseline:middle;font-size:11px;font-weight:bold;" fill="#ffffff">Legend</text>
 <line x1="12" y1="39.0" x2="36" y2="39.0" stroke="#7eb8f7" stroke-width="2.5" stroke-linecap="square"/>
 <text x="46" y="39.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">One-shot layer</text>
@@ -21,10 +21,8 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <text x="46" y="75.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">Hold / LT</text>
 <line x1="12" y1="93.0" x2="36" y2="93.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square"/>
 <text x="46" y="93.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">Toggle</text>
-<line x1="12" y1="111.0" x2="36" y2="111.0" stroke="#f4909a" stroke-width="2.5" stroke-linecap="square"/>
-<text x="46" y="111.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">Numword</text>
-<line x1="12" y1="129.0" x2="36" y2="129.0" stroke="#6ad4d4" stroke-width="2.5" stroke-linecap="square"/>
-<text x="46" y="129.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">CapsWord</text>
+<line x1="12" y1="111.0" x2="36" y2="111.0" stroke="#6ad4d4" stroke-width="2.5" stroke-linecap="square"/>
+<text x="46" y="111.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">CapsWord</text>
 </g>
 <g transform="translate(30,160)">
 <line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
@@ -135,7 +133,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <line x1="478.0" y1="370.0" x2="461.0" y2="370.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <rect x="407.0" y="360.0" width="54.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
 <text x="434.0" y="370.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">NumWord</text>
-<line x1="413.0" y1="377.0" x2="455.0" y2="377.0" stroke="#f4909a" stroke-width="2.0" stroke-linecap="square"/>
+<line x1="413.0" y1="377.0" x2="455.0" y2="377.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 <line x1="344.5" y1="336.5" x2="411.0" y2="336.5" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <line x1="523.5" y1="336.5" x2="457.0" y2="336.5" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <rect x="411.0" y="326.5" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
@@ -395,6 +393,11 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
   </g>
 
+<line x1="390.0" y1="370.0" x2="407.0" y2="370.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="478.0" y1="370.0" x2="461.0" y2="370.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<rect x="407.0" y="360.0" width="54.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="434.0" y="370.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">NumWord</text>
+<line x1="413.0" y1="377.0" x2="455.0" y2="377.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,2080)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Func</text>
@@ -475,6 +478,11 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
   </g>
 
+<line x1="344.5" y1="336.5" x2="411.0" y2="336.5" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="523.5" y1="336.5" x2="457.0" y2="336.5" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<rect x="411.0" y="326.5" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="434.0" y="336.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Func</text>
+<line x1="417.0" y1="343.5" x2="451.0" y2="343.5" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,2560)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Nav</text>
@@ -637,6 +645,10 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
 </g>
 <g transform="translate(30,3520)">
+<line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="97.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="771.0" y1="149.0" x2="771.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="771.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Sys</text>
   
 <g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
@@ -652,9 +664,9 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     
     <g id="key-6" transform="translate(28,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
     <g id="key-7" transform="translate(84,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-8" transform="translate(140,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-9" transform="translate(196,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-10" transform="translate(252,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-8" transform="translate(140,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d89c0d"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">-</tspan></text></g>
+    <g id="key-9" transform="translate(196,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d89c0d"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">+</tspan></text></g>
+    <g id="key-10" transform="translate(252,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#d89c0d"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">Toggle</tspan></text></g>
     <g id="key-11" transform="translate(308,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
     
@@ -715,5 +727,12 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
   </g>
 
+<line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="97.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="771.0" y1="149.0" x2="771.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="771.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<rect x="411.0" y="5.0" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="434.0" y="15.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Sys</text>
+<line x1="417.0" y1="22.0" x2="451.0" y2="22.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 </svg>

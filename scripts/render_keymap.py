@@ -127,11 +127,13 @@ LABEL_MAP: dict[str, str] = {
     "U_UNDO":      "Undo",      "U_REDO":     "Redo",
     "U_SEARCH":    "Find",      "U_MARK_ALL": "Select All",
     "U_NUM_ENTER": "Enter",
+    "U_NUM_DEAC_R": "", "U_FUNC_DEAC_L": "", "U_FUNC_DEAC_R": "", "U_SYS_DEAC_L": "", "U_SYS_DEAC_R": "",
     "SELLINE":  "Select Line",  "SELWBAK": "Select ←Word", "SELWORD": "Select Word→",
 
     # System
     "KC_VOLD": "Vol -",      "KC_VOLU": "Vol +",    "KC_MUTE": "Mute",
     "KC_MPRV": "Prev Track", "KC_MNXT": "Next Track",  "KC_MPLY": "Play/ Pause",
+    "RM_VALD": "RGB -",      "RM_VALU": "RGB +",    "U_RGB_TOG": "RGB Toggle",
     "U_OS_SEARCH":  "OS Search",    "U_SCREENSHOT": "Scrrenshot",
     "U_EMOJIS":     "Emojis",    "U_TOGGLE_OS":  "Switch OS",
 }
@@ -479,7 +481,7 @@ _ACTION_COLORS: dict[str, str] = {
     "osm":     "#7dd4a0",  # pastel green   — one-shot modifier
     "hold":    "#f4a96d",  # pastel orange  — hold / LT
     "toggle":  "#b99af5",  # pastel lavender — toggle
-    "numword": "#f4909a",  # pastel pink    — numword
+
     "capsword": "#6ad4d4", # pastel teal    — capsword
 }
 
@@ -677,7 +679,7 @@ def _crossside_thumb_overlay(combo: dict, key_centers: dict[int, tuple[float, fl
     if parsed:
         chip_style, display_name, _ = parsed
         if display_name == LAYER_LABELS.get("NUM", "Num"):
-            chip_style = "numword"
+            chip_style = "toggle"
         label = display_name
     else:
         chip_style = "osl"
@@ -782,7 +784,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
         ("osm",     "One-shot mod"),
         ("hold",    "Hold / LT"),
         ("toggle",  "Toggle"),
-        ("numword",  "Numword"),
+
         ("capsword", "CapsWord"),
     ]
     pad_x    = 12
@@ -848,9 +850,11 @@ def render_svg(ir: dict) -> str:
         root = _fill_layer(template_root, layer, palette)
         parts.append(f'<g transform="translate({_MARGIN},{y})">')
         # Routing lines drawn first so key labels render on top
-        for idx, combo in enumerate(crossside_nonthumb_combos):
+        layer_nonthumb_idx = 0
+        for combo in crossside_nonthumb_combos:
             if layer["name"] in combo["layers"]:
-                y_route = _NONTHUMB_ROUTE_YS[idx % len(_NONTHUMB_ROUTE_YS)]
+                y_route = _NONTHUMB_ROUTE_YS[layer_nonthumb_idx % len(_NONTHUMB_ROUTE_YS)]
+                layer_nonthumb_idx += 1
                 frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route, lines_only=True)
                 if frag:
                     parts.append(frag)
@@ -866,9 +870,11 @@ def render_svg(ir: dict) -> str:
                 frag = _crossside_thumb_overlay(combo, key_centers, keys_y_off)
                 if frag:
                     parts.append(frag)
-        for idx, combo in enumerate(crossside_nonthumb_combos):
+        layer_nonthumb_idx = 0
+        for combo in crossside_nonthumb_combos:
             if layer["name"] in combo["layers"]:
-                y_route = _NONTHUMB_ROUTE_YS[idx % len(_NONTHUMB_ROUTE_YS)]
+                y_route = _NONTHUMB_ROUTE_YS[layer_nonthumb_idx % len(_NONTHUMB_ROUTE_YS)]
+                layer_nonthumb_idx += 1
                 frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route)
                 if frag:
                     parts.append(frag)
