@@ -483,6 +483,7 @@ _ACTION_COLORS: dict[str, str] = {
     "toggle":  "#b99af5",  # pastel lavender — toggle
 
     "capsword": "#6ad4d4", # pastel teal    — capsword
+    "numenter": "#b99af5", # pastel lavender — num enter (exits layer)
 }
 
 _LEGEND_H = 160  # height reserved above the first layer for the legend
@@ -502,7 +503,8 @@ def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     if m: return ("osm",    _mod_label(m.group(1)),   None)
     m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", kc)
     if m: return ("hold",   _layer_label(m.group(1)), m.group(2).strip())
-    if kc == "CW_TOGG": return ("capsword", "CapsWord", None)
+    if kc == "CW_TOGG":    return ("capsword", "CapsWord", None)
+    if kc == "U_NUM_ENTER": return ("numenter", "Enter", None)
     return None
 
 
