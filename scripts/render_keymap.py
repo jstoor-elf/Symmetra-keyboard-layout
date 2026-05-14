@@ -413,6 +413,11 @@ def build_ir() -> dict:
             and bool(set(idxs) & _inner_thumbs)
             and not all(i in _all_thumbs for i in idxs)
         )
+        c["thumb_3key_combo"] = (
+            len(idxs) == 3
+            and bool(set(idxs) & _inner_thumbs)
+            and not all(i in _all_thumbs for i in idxs)
+        )
 
     return {
         "layers":        layers,
@@ -521,6 +526,50 @@ def _classify_thumb_combos(combos: list[dict]) -> tuple[list, list, list, list]:
             target = next(i for i in idxs if i != _COMBO_ENTER_LED)
             (enter_sym if target < 26 else enter_num).append(c)
     return space_sym, enter_sym, space_num, enter_num
+
+
+def _classify_thumb_3key_combos(combos: list[dict]) -> tuple[list, list, list, list]:
+    """Group 3-key thumb combos → (space_sym, enter_sym, space_num, enter_num)."""
+    space_sym, enter_sym, space_num, enter_num = [], [], [], []
+    for c in combos:
+        if not c.get("thumb_3key_combo"):
+            continue
+        idxs = c["led_indices"]
+        if _COMBO_SPACE_LED in idxs:
+            non_thumb = [i for i in idxs if i != _COMBO_SPACE_LED]
+            (space_sym if all(i >= 26 for i in non_thumb) else space_num).append(c)
+        elif _COMBO_ENTER_LED in idxs:
+            non_thumb = [i for i in idxs if i != _COMBO_ENTER_LED]
+            (enter_sym if all(i < 26 for i in non_thumb) else enter_num).append(c)
+    return space_sym, enter_sym, space_num, enter_num
+
+
+def _3key_thumb_combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]],
+                               keys_y_off: float, color: str, thumb_led: int) -> str:
+    non_thumb = [i for i in combo.get("led_indices", []) if i != thumb_led]
+    positions = [key_centers[i] for i in non_thumb if i in key_centers]
+    if len(positions) < 2:
+        return ""
+    xs = [p[0] for p in positions]
+    ys = [p[1] + keys_y_off for p in positions]
+    cx_c = (min(xs) + max(xs)) / 2
+    cy_c = (min(ys) + max(ys)) / 2
+    x1 = min(min(xs) + _COMBO_INDENT, cx_c - _COMBO_HALF_MIN)
+    x2 = max(max(xs) - _COMBO_INDENT, cx_c + _COMBO_HALF_MIN)
+    y1 = min(min(ys) + _COMBO_INDENT, cy_c - _COMBO_HALF_MIN)
+    y2 = max(max(ys) - _COMBO_INDENT, cy_c + _COMBO_HALF_MIN)
+    w, h = x2 - x1, y2 - y1
+    cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
+    label = combo["action_label"].replace("\n", " ")
+    label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    sz = "7px" if len(label) > 6 else "10px"
+    return "\n".join([
+        f'<rect x="{x1:.1f}" y="{y1:.1f}" width="{w:.1f}" height="{h:.1f}" '
+        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>',
+        f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
+        f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
+        f'style="font-size:{sz};font-weight:400;">{label}</text>',
+    ])
 
 
 def _render_dual_combo_panel(template_root: ET.Element, title: str,
@@ -938,7 +987,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
 
     parts = [
         f'<g transform="translate({margin},12)">',
-        f'<rect x="0" y="0" width="160" height="{box_h}" rx="4" '
+        f'<rect x="0" y="0" width="210" height="{box_h}" rx="4" '
         f'fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>',
         f'<text x="{pad_x}" y="{pad_y + title_h / 2:.1f}" '
         f'style="text-anchor:start;dominant-baseline:middle;font-size:11px;font-weight:bold;" '
@@ -978,7 +1027,8 @@ def render_svg(ir: dict) -> str:
     # Non-thumb cross-side combos sorted by highest key (smallest template y) first
     _raw_nonthumb = [c for c in combos if c.get("side") == "both"
                      and not all(i in _THUMB_LEDS for i in c.get("led_indices", []))
-                     and not c.get("thumb_key_combo")]
+                     and not c.get("thumb_key_combo")
+                     and not c.get("thumb_3key_combo")]
     crossside_nonthumb_combos = sorted(
         _raw_nonthumb,
         key=lambda c: min(key_centers[i][1] for i in c["led_indices"] if i in key_centers)
@@ -996,9 +1046,16 @@ def render_svg(ir: dict) -> str:
     space_sym, enter_sym, space_num, enter_num = (
         _classify_thumb_combos(combos) if alpha_layer else ([], [], [], [])
     )
+    space_sym_3k, enter_sym_3k, space_num_3k, enter_num_3k = (
+        _classify_thumb_3key_combos(combos) if alpha_layer else ([], [], [], [])
+    )
     combo_panels = [
         ("Alpha · Sym Combos", space_sym, enter_sym),
         ("Alpha · Num Combos", space_num, enter_num),
+    ]
+    combo_panels_3k = [
+        (space_sym_3k, enter_sym_3k),
+        (space_num_3k, enter_num_3k),
     ]
 
     panel_offset = 0
@@ -1037,7 +1094,7 @@ def render_svg(ir: dict) -> str:
         parts.append("</g>")
 
         if layer["name"] == "ALPHA" and alpha_layer:
-            for title, space_c, enter_c in combo_panels:
+            for panel_idx, (title, space_c, enter_c) in enumerate(combo_panels):
                 panel_offset += 1
                 yp = _LEGEND_H + (i + panel_offset) * (_LAYER_H + _LAYER_GAP)
                 panel_root = _render_dual_combo_panel(
@@ -1046,6 +1103,15 @@ def render_svg(ir: dict) -> str:
                 parts.append(f'<g transform="translate({_MARGIN},{yp})">')
                 for child in panel_root:
                     parts.append(ET.tostring(child, encoding="unicode"))
+                space_3k, enter_3k = combo_panels_3k[panel_idx]
+                for c in space_3k:
+                    frag = _3key_thumb_combo_overlay(c, key_centers, keys_y_off, _COMBO_SPACE_COLOR, _COMBO_SPACE_LED)
+                    if frag:
+                        parts.append(frag)
+                for c in enter_3k:
+                    frag = _3key_thumb_combo_overlay(c, key_centers, keys_y_off, _COMBO_ENTER_COLOR, _COMBO_ENTER_LED)
+                    if frag:
+                        parts.append(frag)
                 parts.append("</g>")
 
     parts.append("</svg>")

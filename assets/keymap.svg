@@ -11,7 +11,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
               text-anchor: start; dominant-baseline: auto; }
 </style>
 <g transform="translate(30,12)">
-<rect x="0" y="0" width="160" height="130" rx="4" fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>
+<rect x="0" y="0" width="210" height="130" rx="4" fill="#141416" fill-opacity="0.8" stroke="#404040" stroke-width="0.5"/>
 <text x="12" y="20.0" style="text-anchor:start;dominant-baseline:middle;font-size:11px;font-weight:bold;" fill="#ffffff">Legend</text>
 <line x1="12" y1="39.0" x2="36" y2="39.0" stroke="#7dd4a0" stroke-width="2.5" stroke-linecap="square"/>
 <text x="46" y="39.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">One-shot layer (OSL)</text>
@@ -90,7 +90,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c8c8c8">H</text></g>
     <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c8c8c8">A</text></g>
     <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c8c8c8">I</text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#aa5fff">Repeat</text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#aa5fff" style="font-size:13px">Shift</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#f4d06d" stroke-width="2.5" stroke-linecap="square" /></g></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
@@ -109,20 +109,18 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
 <rect x="682.0" y="247.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
 <text x="700.0" y="257.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Å</text>
-<rect x="150.0" y="247.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="168.0" y="257.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:7px;font-weight:400;">CapsWord</text>
+<rect x="738.0" y="258.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="756.0" y="268.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:7px;font-weight:400;">CapsWord</text>
+<rect x="94.0" y="202.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="112.0" y="212.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Bspc</text>
 <rect x="206.0" y="250.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
 <text x="224.0" y="260.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Tab</text>
-<rect x="206.0" y="138.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="224.0" y="148.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Esc</text>
+<rect x="150.0" y="247.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="168.0" y="257.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Esc</text>
 <rect x="626.0" y="250.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
 <text x="644.0" y="260.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Enter</text>
-<rect x="626.0" y="138.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="644.0" y="148.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">:</text>
-<rect x="682.0" y="135.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="700.0" y="145.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Bspc</text>
-<rect x="150.0" y="135.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="168.0" y="145.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Del</text>
+<rect x="94.0" y="258.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="112.0" y="268.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Del</text>
 <line x1="390.0" y1="370.0" x2="407.0" y2="370.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <line x1="478.0" y1="370.0" x2="461.0" y2="370.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <rect x="407.0" y="360.0" width="54.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
@@ -164,10 +162,10 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-12" transform="translate(28,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
-    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">?</text></g>
+    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">/</text></g>
     <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">{</text></g>
     <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">}</text></g>
-    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">!</text></g>
+    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">_</text></g>
     <g id="key-17" transform="translate(308,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">\</text></g>
 
     
@@ -176,7 +174,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">&lt;</text></g>
     <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">&gt;</text></g>
     <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">|</text></g>
-    <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#b87090" stroke="#b87090" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">`</text></g>
+    <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Z</text></g>
 
     
     <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
@@ -199,19 +197,19 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
 
     
-    <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">%</text></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">;</text></g>
+    <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">?</text></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">:</text></g>
     <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">[</text></g>
     <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">]</text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">_</text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">;</text></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
 
     
-    <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">´</text></g>
+    <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">%</text></g>
     <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">&amp;</text></g>
     <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">(</text></g>
     <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">)</text></g>
-    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">/</text></g>
+    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:13px;font-weight:400;">!</text></g>
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
 
     
@@ -220,6 +218,10 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
   </g>
 
+<rect x="738.0" y="146.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="756.0" y="156.5" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">´</text>
+<rect x="738.0" y="202.5" width="36.0" height="20.0" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="756.0" y="212.5" text-anchor="middle" dominant-baseline="middle" fill="#559e82" stroke="#559e82" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">`</text>
 </g>
 <g transform="translate(30,1120)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Alpha · Num Combos</text>

@@ -8,6 +8,8 @@ The layout is mainly inspired by [Jonas Hietala's T-34](https://www.jonashietala
 
 My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swedish letters Ä and Ö on the base layer, and Å via a combo of the two. A dedicated OS toggle lets you switch between Mac and Windows shortcuts/commands on the fly.
 
+The right inner thumb carries E — the most frequent letter in English — reducing overall finger travel significantly. One-shot Shift sits on the right home row pinky as a dedicated key. A comprehensive combo system gives access to all symbols and numbers directly from the alpha layer via the two inner thumb keys.
+
 ![Keyboard](assets/voyager.jpeg)
 
 ## Keywords
@@ -18,7 +20,7 @@ My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swed
 
 The keymap below shows key positions and RGB coloring for each layer. The keycaps in the outer columns and top row are rendered in a different geometry to reflect that those switches have been physically removed.   
 
-A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer, one-shot modifier, hold/LT, toggle, capsword and numword. Same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box.
+A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer, one-shot modifier, momentary (MO), layer-tap (LT), and toggle. Same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box.
 
 ![Keymap](assets/keymap.svg)
 
