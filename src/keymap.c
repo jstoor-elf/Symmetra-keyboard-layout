@@ -15,22 +15,22 @@
 #define _DEAD_  XXXXXXX  // physically removed switch
 #define _OFF_   XXXXXXX  // within range, unassigned on this layer
 
-#define T_L_OUT OSL(SYM_EDIT_L)
+#define T_L_OUT OSL(MOD)
 #define T_L_IN  LT(NAV, KC_SPC)
-#define T_R_IN  OSM(MOD_RSFT)
-#define T_R_OUT OSL(SYM_EDIT_R)               
+#define T_R_IN  KC_E
+#define T_R_OUT OSL(SHORTCUT)
 
 /* ######### ENUMS ######### */
 
 enum layers {
   ALPHA,
-  SYM_EDIT_L,
-  SYM_EDIT_R,
   NUM,
   FUNC,
   NAV,
   MOUSE,
-  SYS
+  SYS,
+  SHORTCUT,
+  MOD
 };
 
 enum custom_keycodes {
@@ -59,16 +59,20 @@ enum custom_keycodes {
   U_WORD_RIGHT,
   U_TOGGLE_OS,
   U_NUM_ENTER,
+  U_NUM_SPACE,
   U_SCREENSHOT,
   U_OS_SEARCH,
   U_EMOJIS,
   U_LOCK_SCREEN,
   U_RGB_TOG,
-  U_NUM_DEAC_R,
+
   U_FUNC_DEAC_L,
   U_FUNC_DEAC_R,
   U_SYS_DEAC_L,
-  U_SYS_DEAC_R
+  U_SYS_DEAC_R,
+  U_FIND_PREV,
+  U_FIND_NEXT,
+  U_REPLACE
 };
 
 typedef enum {
@@ -94,41 +98,129 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 
 /* ######### COMBOS ######### */
 
+// Base combos
 const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
 const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
-const uint16_t PROGMEM combo_caps[]      = {KC_S,          KC_H,          COMBO_END};
-const uint16_t PROGMEM combo_esc[]       = {KC_M,          KC_W,          COMBO_END};
-const uint16_t PROGMEM combo_slsh[]      = {KC_D,          KC_C,          COMBO_END};
-const uint16_t PROGMEM combo_coln[]      = {KC_F,          SE_ADIA,       COMBO_END};
-const uint16_t PROGMEM combo_eql[]       = {KC_Y,          KC_O,          COMBO_END};
-const uint16_t PROGMEM combo_tab[]       = {KC_T,          KC_S,          COMBO_END};
-const uint16_t PROGMEM combo_ent[]       = {KC_H,          KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_caps[]      = {KC_Q,          KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_esc[]       = {KC_D,          KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
+const uint16_t PROGMEM combo_coln[]      = {KC_Y,          KC_O,          COMBO_END};
 const uint16_t PROGMEM combo_bspc[]      = {KC_O,          KC_U,          COMBO_END};
 const uint16_t PROGMEM combo_del[]       = {KC_L,          KC_D,          COMBO_END};
 const uint16_t PROGMEM combo_sys[]       = {KC_B,          KC_DOT,        COMBO_END};
-const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_ENTER,   U_NUM_DEAC_R,  COMBO_END};
+// Deactivation combos
+const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_ENTER,   COMBO_END};
 const uint16_t PROGMEM combo_func_deac[] = {U_FUNC_DEAC_L, U_FUNC_DEAC_R, COMBO_END};
 const uint16_t PROGMEM combo_sys_deac[]  = {U_SYS_DEAC_L,  U_SYS_DEAC_R,  COMBO_END};
+// Symbol combos: Space (T_L_IN) + right-side key
+const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_END};
+const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_Y,          COMBO_END};
+const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        KC_O,          COMBO_END};
+const uint16_t PROGMEM combo_sym_dquo[]  = {T_L_IN,        KC_U,          COMBO_END};
+const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
+const uint16_t PROGMEM combo_sym_scln[]  = {T_L_IN,        KC_H,          COMBO_END};
+const uint16_t PROGMEM combo_sym_lbrc[]  = {T_L_IN,        KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_sym_unds[]  = {T_L_IN,        QK_REP,        COMBO_END};
+const uint16_t PROGMEM combo_sym_acut[]  = {T_L_IN,        KC_K,          COMBO_END};
+const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_END};
+const uint16_t PROGMEM combo_sym_lprn[]  = {T_L_IN,        SE_ADIA,       COMBO_END};
+const uint16_t PROGMEM combo_sym_rprn[]  = {T_L_IN,        SE_OSLH,       COMBO_END};
+const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_COMMA,      COMBO_END};
+const uint16_t PROGMEM combo_sym_eql[]   = {T_L_IN,        KC_DOT,        COMBO_END};
+// Symbol combos: Enter (T_R_IN) + left-side key
+const uint16_t PROGMEM combo_sym_dlr[]   = {T_R_IN,        KC_B,          COMBO_END};
+const uint16_t PROGMEM combo_sym_plus[]  = {T_R_IN,        KC_L,          COMBO_END};
+const uint16_t PROGMEM combo_sym_astr[]  = {T_R_IN,        KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_sym_exlm[]  = {T_R_IN,        KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_sym_tild[]  = {T_R_IN,        KC_V,          COMBO_END};
+const uint16_t PROGMEM combo_sym_ques[]  = {T_R_IN,        KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_sym_lcbr[]  = {T_R_IN,        KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_sym_rcbr[]  = {T_R_IN,        KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_sym_mins[]  = {T_R_IN,        KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_sym_bsls[]  = {T_R_IN,        KC_G,          COMBO_END};
+const uint16_t PROGMEM combo_sym_apos[]  = {T_R_IN,        KC_X,          COMBO_END};
+const uint16_t PROGMEM combo_sym_less[]  = {T_R_IN,        KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_sym_grtr[]  = {T_R_IN,        KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_sym_pipe[]  = {T_R_IN,        KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_sym_grv[]   = {T_R_IN,        KC_Z,          COMBO_END};
+// Number combos: Space (T_L_IN) + left-side key
+const uint16_t PROGMEM combo_num_6[]     = {T_L_IN,        KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_num_4[]     = {T_L_IN,        KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_num_2[]     = {T_L_IN,        KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_num_0[]     = {T_L_IN,        KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_num_8[]     = {T_L_IN,        KC_W,          COMBO_END};
+// Number combos: Enter (T_R_IN) + right-side key
+const uint16_t PROGMEM combo_num_1[]     = {T_R_IN,        KC_H,          COMBO_END};
+const uint16_t PROGMEM combo_num_3[]     = {T_R_IN,        KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_num_5[]     = {T_R_IN,        KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        QK_REP,        COMBO_END};
+const uint16_t PROGMEM combo_num_9[]     = {T_R_IN,        KC_F,          COMBO_END};
 
 
 combo_t key_combos[] = {
-  COMBO(combo_aa,        SE_AA), // Å
-  COMBO(combo_num,       TG(NUM)), // NUMWORD
-  COMBO(combo_caps,      CW_TOGG),  // CAPSWORD
-  COMBO(combo_func,      OSL(FUNC)), // To function layer
-  COMBO(combo_eql,       SE_EQL), // =
-  COMBO(combo_coln,      SE_COLN), // :
-  COMBO(combo_slsh,      SE_SLSH), // /
-  COMBO(combo_ent,       KC_ENT), // Enter
-  COMBO(combo_esc,       KC_ESC), // Escape
-  COMBO(combo_bspc,      KC_BSPC), // Backspace
-  COMBO(combo_del,       KC_DEL), // Delete
-  COMBO(combo_tab,       KC_TAB), // Tab
-  COMBO(combo_sys,       TG(SYS)), // To system layer
-  COMBO(combo_num_deac,  TG(NUM)), // To base layer
-  COMBO(combo_func_deac, TG(FUNC)), // To base layer
-  COMBO(combo_sys_deac,  TG(SYS)), // Deactivate layer
+  // Base combos
+  COMBO(combo_aa,        SE_AA),
+  COMBO(combo_num,       TG(NUM)),
+  COMBO(combo_func,      OSL(FUNC)),
+  COMBO(combo_caps,      CW_TOGG),
+  COMBO(combo_tab,       KC_TAB),
+  COMBO(combo_esc,       KC_ESC),
+  COMBO(combo_ent,       KC_ENT),
+  COMBO(combo_coln,      SE_COLN),
+  COMBO(combo_bspc,      KC_BSPC),
+  COMBO(combo_del,       KC_DEL),
+  COMBO(combo_sys,       TG(SYS)),
+  // Deactivation combos
+  COMBO(combo_num_deac,  TG(NUM)),
+  COMBO(combo_func_deac, TG(FUNC)),
+  COMBO(combo_sys_deac,  TG(SYS)),
+  // Symbol combos via Space + right-side key
+  COMBO(combo_sym_circ,  SE_CIRC),
+  COMBO(combo_sym_hash,  SE_EQL),
+  COMBO(combo_sym_at,    SE_AT),
+  COMBO(combo_sym_dquo,  SE_DQUO),
+  COMBO(combo_sym_perc,  SE_PERC),
+  COMBO(combo_sym_scln,  SE_SCLN),
+  COMBO(combo_sym_lbrc,  SE_LBRC),
+  COMBO(combo_sym_rbrc,  SE_RBRC),
+  COMBO(combo_sym_unds,  SE_UNDS),
+  COMBO(combo_sym_acut,  SE_ACUT),
+  COMBO(combo_sym_ampr,  SE_AMPR),
+  COMBO(combo_sym_lprn,  SE_LPRN),
+  COMBO(combo_sym_rprn,  SE_RPRN),
+  COMBO(combo_sym_slsh,  SE_SLSH),
+  COMBO(combo_sym_eql,   KC_HASH),
+  // Symbol combos via Enter + left-side key
+  COMBO(combo_sym_dlr,   SE_DLR),
+  COMBO(combo_sym_plus,  SE_PLUS),
+  COMBO(combo_sym_astr,  SE_ASTR),
+  COMBO(combo_sym_exlm,  SE_MINS),
+  COMBO(combo_sym_tild,  SE_TILD),
+  COMBO(combo_sym_ques,  SE_QUES),
+  COMBO(combo_sym_lcbr,  U_SE_LCBR),
+  COMBO(combo_sym_rcbr,  U_SE_RCBR),
+  COMBO(combo_sym_mins,  KC_EXLM),
+  COMBO(combo_sym_bsls,  U_SE_BSLS),
+  COMBO(combo_sym_apos,  SE_APOS),
+  COMBO(combo_sym_less,  U_SE_LESS),
+  COMBO(combo_sym_grtr,  U_SE_GRTR),
+  COMBO(combo_sym_pipe,  U_SE_PIPE),
+  COMBO(combo_sym_grv,   SE_GRV),
+  // Number combos via Space + left-side key
+  COMBO(combo_num_6,     KC_6),
+  COMBO(combo_num_4,     KC_4),
+  COMBO(combo_num_2,     KC_2),
+  COMBO(combo_num_0,     KC_0),
+  COMBO(combo_num_8,     KC_8),
+  // Number combos via Enter + right-side key
+  COMBO(combo_num_1,     KC_1),
+  COMBO(combo_num_3,     KC_3),
+  COMBO(combo_num_5,     KC_5),
+  COMBO(combo_num_7,     KC_7),
+  COMBO(combo_num_9,     KC_9),
 };
 
 /* ######### KEYMAPS ######### */
@@ -145,27 +237,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
     _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,  _DEAD_,   /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,   _DEAD_,
     _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_O,    KC_U,     KC_DOT,   _DEAD_,
-    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_E,     KC_I,     _DEAD_,
+    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     QK_REP,   _DEAD_,
     _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_COMMA, _DEAD_,
                                     T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
-  ),
-
-  // Left outer thumb: left = edit commands + OSMs, right = symbols
-  [SYM_EDIT_L] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,
-    _DEAD_, U_SAVE,        U_CUT,         U_COPY,        U_PASTE,       _OFF_,   /*|*/   SE_CIRC, KC_HASH, SE_AT,   SE_DQUO, KC_DOT,   _DEAD_,
-    _DEAD_, OSM(MOD_LGUI), OSM(MOD_LALT), OSM(MOD_LCTL), OSM(MOD_LSFT), _OFF_,   /*|*/   SE_PERC, SE_SCLN, SE_LBRC, SE_RBRC, SE_UNDS,  _DEAD_,
-    _DEAD_, U_UNDO,        U_REDO,        U_SEARCH,      U_MARK_ALL,    _OFF_,   /*|*/   SE_ACUT, SE_AMPR, SE_LPRN, SE_RPRN, KC_COMMA, _DEAD_,
-                                                         _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_
-  ),
-
-  // Right outer thumb: left = symbols, right = OSMs + selection
-  [SYM_EDIT_R] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,   _DEAD_,    _DEAD_,    _DEAD_,    _DEAD_,    /*|*/   _DEAD_,  _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,
-    _DEAD_, SE_DLR,   SE_PLUS,   SE_ASTR,   KC_EXLM,   SE_TILD,   /*|*/   _OFF_,   _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-    _DEAD_, SE_QUES,  U_SE_LCBR, U_SE_RCBR, SE_MINS,   U_SE_BSLS, /*|*/   _OFF_,   OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RALT), OSM(MOD_RGUI), _DEAD_,
-    _DEAD_, SE_APOS,  U_SE_LESS, U_SE_GRTR, U_SE_PIPE, SE_GRV,    /*|*/   _OFF_,   SELLINE,       SELWBAK,       SELWORD,       _OFF_,         _DEAD_,
-                                            _OFF_,     _OFF_,     /*|*/   _OFF_,   _OFF_
   ),
 
   [NUM] = LAYOUT_voyager(
@@ -173,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,       /*|*/   _OFF_,        _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
     _DEAD_, KC_6,    KC_4,    KC_2,    KC_0,    _OFF_,       /*|*/   _OFF_,        KC_1,    KC_3,    KC_5,    KC_7,    _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_8,    _OFF_,       /*|*/   _OFF_,        KC_9,    _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-                                       _OFF_,   U_NUM_ENTER, /*|*/   U_NUM_DEAC_R, _OFF_
+                                       _OFF_,   U_NUM_SPACE, /*|*/   U_NUM_ENTER,  _OFF_
   ),
 
   [FUNC] = LAYOUT_voyager(
@@ -189,7 +263,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
     _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
-                                       _OFF_,   _OFF_,   /*|*/   MO(MOUSE), _OFF_
+                                       _OFF_,   _OFF_,   /*|*/   MO(MOUSE), OSL(SHORTCUT)
   ),
 
   [MOUSE] = LAYOUT_voyager(
@@ -206,6 +280,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  _OFF_,    _OFF_,        _DEAD_,
                                             _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
+  ),
+
+  [SHORTCUT] = LAYOUT_voyager(
+    _DEAD_, _DEAD_,      _DEAD_,      _DEAD_,     _DEAD_,    _DEAD_,  /*|*/   _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,
+    _DEAD_, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,   U_REPLACE, _OFF_,   /*|*/   _OFF_,  _OFF_,  _OFF_,  _OFF_,  _OFF_,  _DEAD_,
+    _DEAD_, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   SELWORD, /*|*/   _OFF_,  _OFF_,  _OFF_,  _OFF_,  _OFF_,  _DEAD_,
+    _DEAD_, U_UNDO,      U_REDO,      U_MARK_ALL, SELLINE,   SELWBAK, /*|*/   _OFF_,  _OFF_,  _OFF_,  _OFF_,  _OFF_,  _DEAD_,
+                                                  _OFF_,     _OFF_,   /*|*/   _OFF_,  _OFF_
+  ),
+
+  [MOD] = LAYOUT_voyager(
+    _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,  /*|*/   _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,
+    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
+    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RALT), OSM(MOD_RGUI), _DEAD_,
+    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
+                                                          _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
   )
 };
 
@@ -266,49 +356,19 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_RED, C_RED                                    // T_R_IN, T_R_OUT
   },
 
-  [SYM_EDIT_L] = {
-    // Left side
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_NEDT, C_NEDT, C_NEDT, C_NEDT, C_OFF,   // SAVE CUT COPY PASTE
-    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // OSM: ALT GUI CTL SFT
-    C_OFF, C_NUND, C_NUND, C_NFND, C_NSEL, C_OFF,   // UNDO REDO SEARCH MARK_ALL
-    C_THB, C_OFF,                                   // T_L_OUT (active), T_L_IN
-    // Right side
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // CIRC HASH AT DQUO
-    C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // PERC SCLN LBRC RBRC
-    C_SYM, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_OFF,   // ACUT AMPR LPRN RPRN
-    C_OFF, C_OFF                                    // T_R_IN, T_R_OUT
-  },
-
-  [SYM_EDIT_R] = {
-    // Left side
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_SYM,   // DLR PLUS ASTR EXLM TILD
-    C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_SYM,   // QUES LCBR RCBR MINS BSLS
-    C_OFF, C_SYM,  C_SYM,  C_SYM,  C_SYM,  C_SYM,   // APOS LESS GRTR PIPE GRV
-    C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN
-    // Right side
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // OSM: RSFT RCTL RALT RGUI
-    C_OFF, C_NSEL, C_NSEL, C_NSEL, C_OFF,  C_OFF,   // SELLINE SELWBAK SELWORD
-    C_OFF, C_THB                                    // T_R_IN, T_R_OUT (active)
-  },
-
   [NUM] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 6 4 2 0
     C_OFF, C_OFF, C_OFF, C_OFF, C_NUM, C_OFF,       // 8
-    C_OFF, C_ACT,                                   // U_NUM_ENTER
+    C_OFF, C_ACT,                                   // U_NUM_SPACE
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 1 3 5 7
     C_OFF, C_NUM, C_OFF, C_OFF, C_OFF, C_OFF,       // 9
-    C_OFF, C_OFF                                    // all XXXXXXX
+    C_ACT, C_OFF                                    // U_NUM_ENTER, T_R_OUT
   },
 
   [FUNC] = {
@@ -330,7 +390,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // ALT GUI CTL SFT
+    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // GUI ALT CTL SFT
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN (active)
     // Right side
@@ -338,14 +398,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_NDOC, C_NDOC, C_NDOC, C_NDOC, C_OFF,   // DOC_LEFT DOWN UP RIGHT
     C_OFF, C_NARW, C_NARW, C_NARW, C_NARW, C_OFF,   // LEFT DOWN UP RIGHT
     C_OFF, C_NWRD, C_NWRD, C_NWRD, C_NWRD, C_OFF,   // WORD_LEFT 5DOWN 5UP WORD_RIGHT
-    C_NTHB, C_OFF                                   // T_R_IN (MO(MOUSE)), T_R_OUT
+    C_NTHB, C_THB                                   // MO(MOUSE), OSL(SHORTCUT)
   },
 
   [MOUSE] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // ALT GUI CTL SFT
+    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // GUI ALT CTL SFT
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_OFF,                                    // thumbs
     // Right side
@@ -368,7 +428,37 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_SSYS, C_SSYS, C_SSYS, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
     C_OFF, C_SOGT, C_SOGT, C_OFF,  C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS
-    C_ACT, C_OFF                                    // T_R_IN (TG(SYS)), T_R_OUT
+    C_OFF, C_OFF                                    // thumbs
+  },
+
+  [SHORTCUT] = {
+    // Left side
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_NFND, C_NFND, C_NFND, C_NFND, C_OFF,   // FIND_PREV FIND_NEXT SEARCH REPLACE
+    C_OFF, C_NEDT, C_NEDT, C_NEDT, C_NEDT, C_NSEL,  // SAVE CUT COPY PASTE SELWORD
+    C_OFF, C_NUND, C_NUND, C_NSEL, C_NSEL, C_NSEL,  // UNDO REDO MARK_ALL SELLINE SELWBAK
+    C_OFF, C_OFF,                                   // thumbs
+    // Right side
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF                                    // thumbs
+  },
+
+  [MOD] = {
+    // Left side
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // home row (cleared)
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_THB, C_OFF,                                   // T_L_OUT (active), T_L_IN
+    // Right side
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_MOD, C_MOD, C_MOD, C_MOD, C_OFF,       // OSM: RSFT RCTL RALT RGUI
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF                                    // thumbs
   }
 };
 
@@ -596,7 +686,8 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));       break;
     case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      break;
     case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   break;
-    case U_NUM_ENTER:    tap_code(KC_ENT); layer_off(NUM);                                      return false;
+    case U_NUM_ENTER:    tap_code(KC_ENT);   layer_off(NUM);                                    return false;
+    case U_NUM_SPACE:    tap_code(KC_SPC);   layer_off(NUM);                                    return false;
     case U_SE_LESS:      PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));      break;
     case U_SE_GRTR:      PERFORM_BY_OS(tap_code16(SE_GRTR_WIN),  tap_code16(SE_GRTR_MAC));      break;
     case U_SE_PIPE:      PERFORM_BY_OS(tap_code16(SE_PIPE_WIN),  tap_code16(SE_PIPE_MAC));      break;
@@ -619,7 +710,10 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_WORD_RIGHT:   PERFORM_BY_OS(word_right_win(true),     word_right_mac(true));         break;
     case U_5_ROWS_DOWN:  five_rows_down(true);                                                  return false;
     case U_5_ROWS_UP:    five_rows_up(true);                                                    return false;
-    case U_NUM_DEAC_R:                                                                          return false;
+    case U_FIND_PREV:    PERFORM_BY_OS(tap_code16(S(KC_F3)),     tap_code16(G(S(KC_G))));       break;
+    case U_FIND_NEXT:    PERFORM_BY_OS(tap_code16(C(KC_G)),      tap_code16(G(KC_G)));          break;
+    case U_REPLACE:      PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));       break;
+
     case U_FUNC_DEAC_L:                                                                         return false;
     case U_FUNC_DEAC_R:                                                                         return false;
     case U_SYS_DEAC_L:                                                                          return false;

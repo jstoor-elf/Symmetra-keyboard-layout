@@ -58,14 +58,14 @@ KMAP_TO_LED = _make_kmap_to_led()
 # ── label resolution ──────────────────────────────────────────────────────────
 
 LAYER_LABELS = {
-    "ALPHA":      "Alpha",
-    "SYM_EDIT_L": "Sym-L",
-    "SYM_EDIT_R": "Sym-R",
-    "NUM":        "NumWord",
-    "FUNC":       "Func",
-    "NAV":        "Nav",
-    "MOUSE":      "Mouse",
-    "SYS":        "Sys",
+    "ALPHA":    "Alpha",
+    "NUM":      "NumWord",
+    "FUNC":     "Func",
+    "NAV":      "Nav",
+    "MOUSE":    "Mouse",
+    "SYS":      "Sys",
+    "SHORTCUT": "Shrtc",
+    "MOD":      "Mod",
 }
 
 MOD_LABELS = {
@@ -99,7 +99,7 @@ LABEL_MAP: dict[str, str] = {
     # Common keys
     "KC_BSPC": "Bspc",  "KC_DEL":  "Del",   "KC_ENT":  "Enter",
     "KC_ESC":  "Esc",   "KC_TAB":  "Tab",   "KC_SPC":  "Space",
-    "CW_TOGG": "CapsWord",
+    "CW_TOGG": "CapsWord", "QK_REP": "Repeat",
 
     # Held modifiers (NAV / MOUSE layers)
     "KC_LSFT": "Shift", "KC_RSFT": "Shift",
@@ -126,8 +126,8 @@ LABEL_MAP: dict[str, str] = {
     "U_COPY":      "Copy",      "U_PASTE":    "Paste",
     "U_UNDO":      "Undo",      "U_REDO":     "Redo",
     "U_SEARCH":    "Find",      "U_MARK_ALL": "Select All",
-    "U_NUM_ENTER": "Enter",
-    "U_NUM_DEAC_R": "", "U_FUNC_DEAC_L": "", "U_FUNC_DEAC_R": "", "U_SYS_DEAC_L": "", "U_SYS_DEAC_R": "",
+    "U_NUM_ENTER": "Enter", "U_NUM_SPACE": "Space",
+    "U_FUNC_DEAC_L": "", "U_FUNC_DEAC_R": "", "U_SYS_DEAC_L": "", "U_SYS_DEAC_R": "",
     "SELLINE":  "Select Line",  "SELWBAK": "Select ←Word", "SELWORD": "Select Word→",
 
     # System
@@ -136,6 +136,8 @@ LABEL_MAP: dict[str, str] = {
     "RM_VALD": "RGB -",      "RM_VALU": "RGB +",    "U_RGB_TOG": "RGB Toggle",
     "U_OS_SEARCH":  "OS Search",    "U_SCREENSHOT": "Scrrenshot",
     "U_EMOJIS":     "Emojis",    "U_TOGGLE_OS":  "Switch OS",
+    "U_FIND_PREV":  "Find Prev", "U_FIND_NEXT":  "Find Next",
+    "U_REPLACE":    "Replace",
 }
 
 _OSL_SYM = "○"   # one-shot layer prefix
@@ -402,6 +404,16 @@ def build_ir() -> dict:
             "led_indices":     led_indices,
         })
 
+    _inner_thumbs = {25, 50}
+    _all_thumbs   = {24, 25, 50, 51}
+    for c in annotated_combos:
+        idxs = c.get("led_indices", [])
+        c["thumb_key_combo"] = (
+            len(idxs) == 2
+            and bool(set(idxs) & _inner_thumbs)
+            and not all(i in _all_thumbs for i in idxs)
+        )
+
     return {
         "layers":        layers,
         "combos":        annotated_combos,
@@ -477,9 +489,10 @@ def _make_text(label: str, color: str) -> ET.Element:
     return el
 
 _ACTION_COLORS: dict[str, str] = {
-    "osl":     "#7eb8f7",  # pastel blue    — one-shot layer
-    "osm":     "#7dd4a0",  # pastel green   — one-shot modifier
-    "hold":    "#f4a96d",  # pastel orange  — hold / LT
+    "osl":     "#7dd4a0",  # pastel green   — one-shot layer
+    "osm":     "#f4d06d",  # pastel yellow  — one-shot modifier
+    "hold":    "#f4a96d",  # pastel orange  — momentary (MO)
+    "lt":      "#7eb8f7",  # pastel blue    — layer-tap (LT)
     "toggle":  "#b99af5",  # pastel lavender — toggle
 
     "capsword": "#6ad4d4", # pastel teal    — capsword
@@ -487,6 +500,115 @@ _ACTION_COLORS: dict[str, str] = {
 }
 
 _LEGEND_H = 160  # height reserved above the first layer for the legend
+
+_COMBO_SPACE_LED   = 25
+_COMBO_ENTER_LED   = 50
+_COMBO_SPACE_COLOR = "#559e82"   # muted mint green – Space thumb
+_COMBO_ENTER_COLOR = "#b87090"   # muted pink – Enter thumb
+
+
+def _classify_thumb_combos(combos: list[dict]) -> tuple[list, list, list, list]:
+    """Group thumb+key combos → (space_sym, enter_sym, space_num, enter_num)."""
+    space_sym, enter_sym, space_num, enter_num = [], [], [], []
+    for c in combos:
+        if not c.get("thumb_key_combo"):
+            continue
+        idxs = c["led_indices"]
+        if _COMBO_SPACE_LED in idxs:
+            target = next(i for i in idxs if i != _COMBO_SPACE_LED)
+            (space_sym if target >= 26 else space_num).append(c)
+        else:
+            target = next(i for i in idxs if i != _COMBO_ENTER_LED)
+            (enter_sym if target < 26 else enter_num).append(c)
+    return space_sym, enter_sym, space_num, enter_num
+
+
+def _render_dual_combo_panel(template_root: ET.Element, title: str,
+                             space_combos: list[dict], enter_combos: list[dict],
+                             alpha_keys: list[dict]) -> ET.Element:
+    """Two-thumb combo panel: Space targets in blue, Enter targets in coral."""
+    root = copy.deepcopy(template_root)
+
+    label_el = root.find(f".//{_T('text')}[@id='layer-label']")
+    if label_el is not None:
+        label_el.text = title
+
+    dead_kcs = {"_DEAD_", "_OFF_", "XXXXXXX", None}
+
+    target_color: dict[int, str] = {}
+    for c in space_combos:
+        t_led = next((i for i in c["led_indices"] if i != _COMBO_SPACE_LED), None)
+        if t_led is not None:
+            target_color[t_led] = _COMBO_SPACE_COLOR
+    for c in enter_combos:
+        t_led = next((i for i in c["led_indices"] if i != _COMBO_ENTER_LED), None)
+        if t_led is not None:
+            target_color[t_led] = _COMBO_ENTER_COLOR
+
+    for key in alpha_keys:
+        led_idx = key["led_index"]
+        group   = root.find(f".//{_T('g')}[@id='key-{led_idx}']")
+        if group is None:
+            continue
+        if key.get("keycode") in dead_kcs:
+            continue
+
+        if led_idx == _COMBO_SPACE_LED:
+            rect = group.find(_T("rect"))
+            if rect is not None:
+                rect.set("stroke", _COMBO_SPACE_COLOR); rect.set("stroke-width", "2.5")
+            t = ET.SubElement(group, _T("text"))
+            t.set("x", "0"); t.set("y", "0")
+            t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
+            t.set("fill", _COMBO_SPACE_COLOR); t.set("style", "font-size:12px;font-weight:bold;")
+            t.text = "Space"
+
+        elif led_idx == _COMBO_ENTER_LED:
+            rect = group.find(_T("rect"))
+            if rect is not None:
+                rect.set("stroke", _COMBO_ENTER_COLOR); rect.set("stroke-width", "2.5")
+            t = ET.SubElement(group, _T("text"))
+            t.set("x", "0"); t.set("y", "0")
+            t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
+            t.set("fill", _COMBO_ENTER_COLOR); t.set("style", "font-size:12px;font-weight:bold;")
+            t.text = "Enter"
+
+        elif led_idx not in target_color:
+            raw_lbl = key.get("label", "")
+            if "\n" not in raw_lbl and len(raw_lbl.strip()) <= 2:
+                single = raw_lbl.strip()
+                if single:
+                    t = ET.SubElement(group, _T("text"))
+                    t.set("x", "0"); t.set("y", "0")
+                    t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
+                    t.set("fill", "#36363a"); t.set("style", "font-size:13px;")
+                    t.text = single
+
+    for c, color, thumb_led in (
+        [(c, _COMBO_SPACE_COLOR, _COMBO_SPACE_LED) for c in space_combos] +
+        [(c, _COMBO_ENTER_COLOR, _COMBO_ENTER_LED) for c in enter_combos]
+    ):
+        target = next((i for i in c["led_indices"] if i != thumb_led), None)
+        if target is None:
+            continue
+        group = root.find(f".//{_T('g')}[@id='key-{target}']")
+        if group is None:
+            continue
+        sym = c["action_label"].replace("\n", " ").strip()
+        if not sym:
+            continue
+        sz = "10px" if len(sym) > 3 else "13px"
+        t = ET.SubElement(group, _T("text"))
+        t.set("x", "0"); t.set("y", "0")
+        t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
+        t.set("fill", color)
+        t.set("stroke", color); t.set("stroke-width", "0.5")
+        t.set("paint-order", "stroke fill")
+        t.set("style", f"font-size:{sz};font-weight:400;")
+        t.text = sym
+
+    return root
+
 
 def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     """Return (chip_style, display_name, tap_kc) for action keys, else None.
@@ -502,7 +624,7 @@ def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     m = re.fullmatch(r"OSM\((\w+)\)", kc)
     if m: return ("osm",    _mod_label(m.group(1)),   None)
     m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", kc)
-    if m: return ("hold",   _layer_label(m.group(1)), m.group(2).strip())
+    if m: return ("lt",     _layer_label(m.group(1)), m.group(2).strip())
     if kc == "CW_TOGG":    return ("capsword", "CapsWord", None)
     if kc == "U_NUM_ENTER": return ("numenter", "Enter", None)
     return None
@@ -624,16 +746,34 @@ def _combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], key
     w, h   = x2 - x1, y2 - y1
     cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
 
-    label = combo["action_label"].replace("\n", " ")
+    parsed = _parse_action_chip(combo.get("resolved_action") or combo.get("action"))
+    if parsed:
+        chip_style, display_name, _ = parsed
+        label = display_name
+    else:
+        chip_style = None
+        label = combo["action_label"].replace("\n", " ")
     label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-    return (
+    _ULINE_STYLES = {"osl", "osm", "hold", "lt", "toggle"}
+    color       = "#a0a0a0"
+    uline_color = _ACTION_COLORS.get(chip_style, color) if chip_style in _ULINE_STYLES else None
+    sz = "7px" if len(label) > 6 else "10px"
+    parts = [
         f'<rect x="{x1:.1f}" y="{y1:.1f}" width="{w:.1f}" height="{h:.1f}" '
-        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>\n'
+        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="{color}" stroke-width="0.5"/>',
         f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
-        f'fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" '
-        f'style="font-size:10px;font-weight:400;">{label}</text>'
-    )
+        f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
+        f'style="font-size:{sz};font-weight:400;">{label}</text>',
+    ]
+    if uline_color:
+        uy  = cy + 7
+        uhw = w / 2 - 6
+        parts.append(
+            f'<line x1="{cx - uhw:.1f}" y1="{uy:.1f}" x2="{cx + uhw:.1f}" y2="{uy:.1f}" '
+            f'stroke="{uline_color}" stroke-width="2.0" stroke-linecap="square"/>'
+        )
+    return "\n".join(parts)
 
 
 _THUMB_LEDS      = {24, 25, 50, 51}
@@ -782,12 +922,11 @@ def _crossside_nonthumb_overlay(combo: dict, key_centers: dict[int, tuple[float,
 
 def _render_legend(canvas_w: int, margin: int) -> str:
     items = [
-        ("osl",     "One-shot layer"),
-        ("osm",     "One-shot mod"),
-        ("hold",    "Hold / LT"),
-        ("toggle",  "Toggle"),
-
-        ("capsword", "CapsWord"),
+        ("osl",    "One-shot layer (OSL)"),
+        ("osm",    "One-shot modifier (OSM)"),
+        ("hold",   "Momentary (MO)"),
+        ("lt",     "Layer-tap (LT)"),
+        ("toggle", "Toggle (TG)"),
     ]
     pad_x    = 12
     pad_y    = 10
@@ -821,25 +960,31 @@ def _render_legend(canvas_w: int, margin: int) -> str:
     return "\n".join(parts)
 
 
+_RENDER_ORDER = ["ALPHA", "SHORTCUT", "MOD", "NUM", "FUNC", "NAV", "MOUSE", "SYS"]
+
 def render_svg(ir: dict) -> str:
-    layers  = ir["layers"]
+    layers  = sorted(ir["layers"],
+                     key=lambda l: _RENDER_ORDER.index(l["name"])
+                     if l["name"] in _RENDER_ORDER else len(_RENDER_ORDER))
     combos  = ir["combos"]
     palette = ir["color_palette"]
     template_root = ET.parse(TEMPLATE_PATH).getroot()
     key_centers, keys_y_off = _extract_key_centers(template_root)
 
-    same_side_combos   = [c for c in combos if c.get("side") in ("left", "right")]
+    same_side_combos   = [c for c in combos if c.get("side") in ("left", "right")
+                          and not c.get("thumb_key_combo")]
     crossside_thumb_combos = [c for c in combos if c.get("side") == "both"
                               and all(i in _THUMB_LEDS for i in c.get("led_indices", []))]
     # Non-thumb cross-side combos sorted by highest key (smallest template y) first
     _raw_nonthumb = [c for c in combos if c.get("side") == "both"
-                     and not all(i in _THUMB_LEDS for i in c.get("led_indices", []))]
+                     and not all(i in _THUMB_LEDS for i in c.get("led_indices", []))
+                     and not c.get("thumb_key_combo")]
     crossside_nonthumb_combos = sorted(
         _raw_nonthumb,
         key=lambda c: min(key_centers[i][1] for i in c["led_indices"] if i in key_centers)
     )
 
-    total_h = len(layers) * (_LAYER_H + _LAYER_GAP) + 40 + _LEGEND_H
+    total_h = (len(layers) + 2) * (_LAYER_H + _LAYER_GAP) + 40 + _LEGEND_H
     parts = [
         f'<svg width="{_CANVAS_W}" height="{total_h}" viewBox="0 0 {_CANVAS_W} {total_h}" '
         f'class="keymap" xmlns="http://www.w3.org/2000/svg">',
@@ -847,11 +992,20 @@ def render_svg(ir: dict) -> str:
         _render_legend(_CANVAS_W, _MARGIN),
     ]
 
+    alpha_layer = next((l for l in layers if l["name"] == "ALPHA"), None)
+    space_sym, enter_sym, space_num, enter_num = (
+        _classify_thumb_combos(combos) if alpha_layer else ([], [], [], [])
+    )
+    combo_panels = [
+        ("Alpha · Sym Combos", space_sym, enter_sym),
+        ("Alpha · Num Combos", space_num, enter_num),
+    ]
+
+    panel_offset = 0
     for i, layer in enumerate(layers):
-        y    = _LEGEND_H + i * (_LAYER_H + _LAYER_GAP)
+        y    = _LEGEND_H + (i + panel_offset) * (_LAYER_H + _LAYER_GAP)
         root = _fill_layer(template_root, layer, palette)
         parts.append(f'<g transform="translate({_MARGIN},{y})">')
-        # Routing lines drawn first so key labels render on top
         layer_nonthumb_idx = 0
         for combo in crossside_nonthumb_combos:
             if layer["name"] in combo["layers"]:
@@ -881,6 +1035,18 @@ def render_svg(ir: dict) -> str:
                 if frag:
                     parts.append(frag)
         parts.append("</g>")
+
+        if layer["name"] == "ALPHA" and alpha_layer:
+            for title, space_c, enter_c in combo_panels:
+                panel_offset += 1
+                yp = _LEGEND_H + (i + panel_offset) * (_LAYER_H + _LAYER_GAP)
+                panel_root = _render_dual_combo_panel(
+                    template_root, title, space_c, enter_c, alpha_layer["keys"]
+                )
+                parts.append(f'<g transform="translate({_MARGIN},{yp})">')
+                for child in panel_root:
+                    parts.append(ET.tostring(child, encoding="unicode"))
+                parts.append("</g>")
 
     parts.append("</svg>")
     return "\n".join(parts)
