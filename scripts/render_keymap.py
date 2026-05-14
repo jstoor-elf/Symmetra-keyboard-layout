@@ -127,6 +127,7 @@ LABEL_MAP: dict[str, str] = {
     "U_UNDO":      "Undo",      "U_REDO":     "Redo",
     "U_SEARCH":    "Find",      "U_MARK_ALL": "Select All",
     "U_NUM_ENTER": "Enter", "U_NUM_SPACE": "Space",
+    "U_NUM_TGL": "",
     "U_FUNC_DEAC_L": "", "U_FUNC_DEAC_R": "", "U_SYS_DEAC_L": "", "U_SYS_DEAC_R": "",
     "SELLINE":  "Select Line",  "SELWBAK": "Select ←Word", "SELWORD": "Select Word→",
 
@@ -554,10 +555,16 @@ def _3key_thumb_combo_overlay(combo: dict, key_centers: dict[int, tuple[float, f
     ys = [p[1] + keys_y_off for p in positions]
     cx_c = (min(xs) + max(xs)) / 2
     cy_c = (min(ys) + max(ys)) / 2
-    x1 = min(min(xs) + _COMBO_INDENT, cx_c - _COMBO_HALF_MIN)
-    x2 = max(max(xs) - _COMBO_INDENT, cx_c + _COMBO_HALF_MIN)
-    y1 = min(min(ys) + _COMBO_INDENT, cy_c - _COMBO_HALF_MIN)
-    y2 = max(max(ys) - _COMBO_INDENT, cy_c + _COMBO_HALF_MIN)
+    _indent  = _COMBO_INDENT + 10
+    _half    = _COMBO_HALF_MIN - 4
+    _min_h   = 24
+    x1 = min(min(xs) + _indent, cx_c - _half)
+    x2 = max(max(xs) - _indent, cx_c + _half)
+    y1 = min(min(ys) + _indent, cy_c - _half)
+    y2 = max(max(ys) - _indent, cy_c + _half)
+    if y2 - y1 < _min_h:
+        y1 = cy_c - _min_h / 2
+        y2 = cy_c + _min_h / 2
     w, h = x2 - x1, y2 - y1
     cx, cy = (x1 + x2) / 2, (y1 + y2) / 2
     label = combo["action_label"].replace("\n", " ")
@@ -567,7 +574,7 @@ def _3key_thumb_combo_overlay(combo: dict, key_centers: dict[int, tuple[float, f
         f'<rect x="{x1:.1f}" y="{y1:.1f}" width="{w:.1f}" height="{h:.1f}" '
         f'rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>',
         f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
-        f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
+        f'fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" '
         f'style="font-size:{sz};font-weight:400;">{label}</text>',
     ])
 
@@ -602,40 +609,33 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         if key.get("keycode") in dead_kcs:
             continue
 
-        if led_idx == _COMBO_SPACE_LED:
-            rect = group.find(_T("rect"))
-            if rect is not None:
-                rect.set("stroke", _COMBO_SPACE_COLOR); rect.set("stroke-width", "2.5")
-            t = ET.SubElement(group, _T("text"))
-            t.set("x", "0"); t.set("y", "0")
-            t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
-            t.set("fill", _COMBO_SPACE_COLOR); t.set("style", "font-size:12px;font-weight:bold;")
-            t.text = "Space"
-
-        elif led_idx == _COMBO_ENTER_LED:
-            rect = group.find(_T("rect"))
-            if rect is not None:
-                rect.set("stroke", _COMBO_ENTER_COLOR); rect.set("stroke-width", "2.5")
-            t = ET.SubElement(group, _T("text"))
-            t.set("x", "0"); t.set("y", "0")
-            t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
-            t.set("fill", _COMBO_ENTER_COLOR); t.set("style", "font-size:12px;font-weight:bold;")
-            t.text = "Enter"
+        if led_idx in (_COMBO_SPACE_LED, _COMBO_ENTER_LED):
+            pass
 
         elif led_idx not in target_color:
             raw_lbl = key.get("label", "")
-            if "\n" not in raw_lbl and len(raw_lbl.strip()) <= 2:
-                single = raw_lbl.strip()
-                if single:
-                    t = ET.SubElement(group, _T("text"))
-                    t.set("x", "0"); t.set("y", "0")
-                    t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
-                    t.set("fill", "#36363a"); t.set("style", "font-size:13px;")
-                    t.text = single
+            display = raw_lbl.strip()
+            if display.startswith(_OSL_SYM):
+                display = display[len(_OSL_SYM):].lstrip(" ").strip()
+            if "\n" not in display and 0 < len(display) <= 5:
+                t = ET.SubElement(group, _T("text"))
+                t.set("x", "0"); t.set("y", "0")
+                t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
+                t.set("fill", "#36363a"); t.set("style", "font-size:13px;")
+                t.text = display
 
-    for c, color, thumb_led in (
-        [(c, _COMBO_SPACE_COLOR, _COMBO_SPACE_LED) for c in space_combos] +
-        [(c, _COMBO_ENTER_COLOR, _COMBO_ENTER_LED) for c in enter_combos]
+    def _strip_action_prefix(lbl: str) -> str:
+        lbl = lbl.replace("\n", "").strip()
+        for sym in (_OSL_SYM, _MO_SYM, _TG_SYM):
+            if lbl.startswith(sym):
+                return lbl[len(sym):].strip("  ")
+        return lbl
+    led_to_alpha_label = {k["led_index"]: _strip_action_prefix(k.get("label", ""))
+                          for k in alpha_keys}
+
+    for c, thumb_prefix, thumb_led in (
+        [(c, "Space", _COMBO_SPACE_LED) for c in space_combos] +
+        [(c, "E",     _COMBO_ENTER_LED) for c in enter_combos]
     ):
         target = next((i for i in c["led_indices"] if i != thumb_led), None)
         if target is None:
@@ -646,15 +646,20 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         sym = c["action_label"].replace("\n", " ").strip()
         if not sym:
             continue
-        sz = "10px" if len(sym) > 3 else "13px"
+        key_lbl = led_to_alpha_label.get(target, "?")
+        trigger = f"{thumb_prefix}+{key_lbl}"
+        sym_sz = "10px" if len(sym) > 3 else "12px"
         t = ET.SubElement(group, _T("text"))
         t.set("x", "0"); t.set("y", "0")
         t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
-        t.set("fill", color)
-        t.set("stroke", color); t.set("stroke-width", "0.5")
-        t.set("paint-order", "stroke fill")
-        t.set("style", f"font-size:{sz};font-weight:400;")
-        t.text = sym
+        ts1 = ET.SubElement(t, _T("tspan"))
+        ts1.set("x", "0"); ts1.set("dy", "-0.55em")
+        ts1.set("fill", "#585858"); ts1.set("style", "font-size:9px;")
+        ts1.text = trigger
+        ts2 = ET.SubElement(t, _T("tspan"))
+        ts2.set("x", "0"); ts2.set("dy", "1.1em")
+        ts2.set("fill", "#c8c8c8"); ts2.set("style", f"font-size:{sym_sz};")
+        ts2.text = sym
 
     return root
 
@@ -676,6 +681,7 @@ def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     if m: return ("lt",     _layer_label(m.group(1)), m.group(2).strip())
     if kc == "CW_TOGG":    return ("capsword", "CapsWord", None)
     if kc == "U_NUM_ENTER": return ("numenter", "Enter", None)
+    if kc == "U_NUM_SPACE": return ("toggle",   "Space",    None)
     return None
 
 
@@ -1009,7 +1015,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
     return "\n".join(parts)
 
 
-_RENDER_ORDER = ["ALPHA", "SHORTCUT", "MOD", "NUM", "FUNC", "NAV", "MOUSE", "SYS"]
+_RENDER_ORDER = ["ALPHA", "MOD", "SHORTCUT", "NUM", "FUNC", "NAV", "MOUSE", "SYS"]
 
 def render_svg(ir: dict) -> str:
     layers  = sorted(ir["layers"],
@@ -1093,26 +1099,26 @@ def render_svg(ir: dict) -> str:
                     parts.append(frag)
         parts.append("</g>")
 
-        if layer["name"] == "ALPHA" and alpha_layer:
-            for panel_idx, (title, space_c, enter_c) in enumerate(combo_panels):
-                panel_offset += 1
-                yp = _LEGEND_H + (i + panel_offset) * (_LAYER_H + _LAYER_GAP)
-                panel_root = _render_dual_combo_panel(
-                    template_root, title, space_c, enter_c, alpha_layer["keys"]
-                )
-                parts.append(f'<g transform="translate({_MARGIN},{yp})">')
-                for child in panel_root:
-                    parts.append(ET.tostring(child, encoding="unicode"))
-                space_3k, enter_3k = combo_panels_3k[panel_idx]
-                for c in space_3k:
-                    frag = _3key_thumb_combo_overlay(c, key_centers, keys_y_off, _COMBO_SPACE_COLOR, _COMBO_SPACE_LED)
-                    if frag:
-                        parts.append(frag)
-                for c in enter_3k:
-                    frag = _3key_thumb_combo_overlay(c, key_centers, keys_y_off, _COMBO_ENTER_COLOR, _COMBO_ENTER_LED)
-                    if frag:
-                        parts.append(frag)
-                parts.append("</g>")
+    if alpha_layer:
+        for panel_idx, (title, space_c, enter_c) in enumerate(combo_panels):
+            panel_offset += 1
+            yp = _LEGEND_H + (len(layers) - 1 + panel_offset) * (_LAYER_H + _LAYER_GAP)
+            panel_root = _render_dual_combo_panel(
+                template_root, title, space_c, enter_c, alpha_layer["keys"]
+            )
+            parts.append(f'<g transform="translate({_MARGIN},{yp})">')
+            for child in panel_root:
+                parts.append(ET.tostring(child, encoding="unicode"))
+            space_3k, enter_3k = combo_panels_3k[panel_idx]
+            for c in space_3k:
+                frag = _3key_thumb_combo_overlay(c, key_centers, keys_y_off, _COMBO_SPACE_COLOR, _COMBO_SPACE_LED)
+                if frag:
+                    parts.append(frag)
+            for c in enter_3k:
+                frag = _3key_thumb_combo_overlay(c, key_centers, keys_y_off, _COMBO_ENTER_COLOR, _COMBO_ENTER_LED)
+                if frag:
+                    parts.append(frag)
+            parts.append("</g>")
 
     parts.append("</svg>")
     return "\n".join(parts)
