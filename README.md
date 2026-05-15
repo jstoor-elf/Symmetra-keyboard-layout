@@ -16,7 +16,7 @@ My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swed
 
 ## Layers
 
-The keymap below shows key positions and RGB coloring for each layer. The keycaps in the outer columns and top row are rendered in a different geometry to reflect that those switches have been physically removed.   
+The keymap below shows key positions and RGB coloring for each layer. The keycaps in the outer columns, top row, and outer thumb keys are rendered in a different geometry to reflect that those switches have been physically removed.   
 
 A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer, one-shot modifier, momentary (MO), layer-tap (LT), and toggle. 
 
