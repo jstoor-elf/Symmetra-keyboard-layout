@@ -15,11 +15,8 @@
 #define _DEAD_  XXXXXXX  // physically removed switch
 #define _OFF_   XXXXXXX  // within range, unassigned on this layer
 
-#define T_L_OUT OSL(MOD)
 #define T_L_IN  LT(NAV, KC_SPC)
 #define T_R_IN  KC_E
-#define T_R_OUT OSL(SHORTCUT)
-#define U_SFT   OSM(MOD_LSFT)
 
 /* ######### ENUMS ######### */
 
@@ -30,7 +27,6 @@ enum layers {
   NAV,
   MOUSE,
   SYS,
-  SHORTCUT,
   MOD
 };
 
@@ -103,13 +99,17 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 // Base combos
 const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
-const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
-const uint16_t PROGMEM combo_caps[]      = {SE_OSLH,       KC_COMMA,      COMBO_END};
-const uint16_t PROGMEM combo_osm_sft[]   = {KC_N,          KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_func[]      = {KC_V,          KC_J,          COMBO_END};
+const uint16_t PROGMEM combo_caps[]      = {KC_X,          KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_ts_sft[]    = {KC_T,          KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_ha_sft[]    = {KC_H,          KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_rt_ctl[]    = {KC_R,          KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_ai_ctl[]    = {KC_A,          KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_esc[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
-const uint16_t PROGMEM combo_del[]       = {KC_X,          KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_del[]       = {KC_I,          KC_BSPC,       COMBO_END};
 const uint16_t PROGMEM combo_sys[]       = {KC_B,          KC_DOT,        COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
@@ -123,7 +123,7 @@ const uint16_t PROGMEM combo_sym_dquo[]  = {T_L_IN,        KC_U,          COMBO_
 const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
 const uint16_t PROGMEM combo_sym_k[]     = {T_L_IN,        KC_K,          COMBO_END};
 const uint16_t PROGMEM combo_sym_scln[]  = {T_L_IN,        KC_H,          COMBO_END};
-const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        U_SFT,         COMBO_END};
+const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        KC_BSPC,       COMBO_END};
 const uint16_t PROGMEM combo_sym_lbrc[]  = {T_L_IN,        KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_END};
@@ -159,8 +159,20 @@ const uint16_t PROGMEM combo_num_8[]     = {T_L_IN,        KC_W,          COMBO_
 const uint16_t PROGMEM combo_num_1[]     = {T_R_IN,        KC_H,          COMBO_END};
 const uint16_t PROGMEM combo_num_3[]     = {T_R_IN,        KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_num_5[]     = {T_R_IN,        KC_I,          COMBO_END};
-const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        U_SFT,        COMBO_END};
+const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        KC_BSPC,      COMBO_END};
 const uint16_t PROGMEM combo_num_9[]     = {T_R_IN,        KC_F,          COMBO_END};
+// Shortcut combos: Bspc + left-side key
+const uint16_t PROGMEM combo_bspc_b[]   = {KC_BSPC,       KC_B,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_l[]   = {KC_BSPC,       KC_L,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_d[]   = {KC_BSPC,       KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_c[]   = {KC_BSPC,       KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_n[]   = {KC_BSPC,       KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_r[]   = {KC_BSPC,       KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_t[]   = {KC_BSPC,       KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_s[]   = {KC_BSPC,       KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_x[]   = {KC_BSPC,       KC_X,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_q[]   = {KC_BSPC,       KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_bspc_m[]   = {KC_BSPC,       KC_M,          COMBO_END};
 
 
 combo_t key_combos[] = {
@@ -168,12 +180,16 @@ combo_t key_combos[] = {
   COMBO(combo_aa,        SE_AA),
   COMBO(combo_num,       TG(NUM)),
   COMBO(combo_func,      OSL(FUNC)),
-  COMBO(combo_caps,      CW_TOGG),
-  COMBO(combo_osm_sft,   KC_BSPC),
+  COMBO(combo_caps,      KC_DEL),
+  COMBO(combo_nr_mod,    OSL(MOD)),
+  COMBO(combo_ts_sft,    OSM(MOD_LSFT)),
+  COMBO(combo_ha_sft,    OSM(MOD_LSFT)),
+  COMBO(combo_rt_ctl,    OSM(MOD_LCTL)),
+  COMBO(combo_ai_ctl,    OSM(MOD_LCTL)),
   COMBO(combo_tab,       KC_TAB),
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
-  COMBO(combo_del,       KC_DEL),
+  COMBO(combo_del,       CW_TOGG),
   COMBO(combo_sys,       TG(SYS)),
   // Deactivation combos
   COMBO(combo_num_deac,  TG(NUM)),
@@ -224,6 +240,18 @@ combo_t key_combos[] = {
   COMBO(combo_num_5,     KC_5),
   COMBO(combo_num_7,     KC_7),
   COMBO(combo_num_9,     KC_9),
+  // Shortcut combos via Bspc + left-side key
+  COMBO(combo_bspc_b,    U_FIND_PREV),
+  COMBO(combo_bspc_l,    U_FIND_NEXT),
+  COMBO(combo_bspc_d,    U_SEARCH),
+  COMBO(combo_bspc_c,    U_REPLACE),
+  COMBO(combo_bspc_n,    U_SAVE),
+  COMBO(combo_bspc_r,    U_CUT),
+  COMBO(combo_bspc_t,    U_COPY),
+  COMBO(combo_bspc_s,    U_PASTE),
+  COMBO(combo_bspc_x,    U_UNDO),
+  COMBO(combo_bspc_q,    U_REDO),
+  COMBO(combo_bspc_m,    U_MARK_ALL),
 };
 
 /* ######### KEYMAPS ######### */
@@ -240,9 +268,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
     _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,  _DEAD_,   /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,   _DEAD_,
     _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_O,    KC_U,     KC_DOT,   _DEAD_,
-    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     U_SFT,  _DEAD_,
+    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     KC_BSPC, _DEAD_,
     _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_COMMA, _DEAD_,
-                                    T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
+                                    _OFF_,   T_L_IN,   /*|*/   T_R_IN, _OFF_
   ),
 
   [NUM] = LAYOUT_voyager(
@@ -255,10 +283,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [FUNC] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,        _DEAD_,  /*|*/   _DEAD_,  _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_,        _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-    _DEAD_, KC_F6,   KC_F4,   KC_F2,   _OFF_,         _OFF_,  /*|*/    _OFF_,   KC_F1,        KC_F3,   KC_F5,   KC_F7,   _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,         U_FUNC_DEAC_L, /*|*/  U_FUNC_DEAC_R, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, KC_F6,   KC_F4,   KC_F2,   _OFF_,         _OFF_,   /*|*/   _OFF_,   KC_F1,        KC_F3,   KC_F5,   KC_F7,   _DEAD_,
     _DEAD_, _OFF_,   KC_F12,  KC_F10,  KC_F8,         _OFF_,   /*|*/   _OFF_,   KC_F9,        KC_F11,  _OFF_,   _OFF_,   _DEAD_,
-                                       U_FUNC_DEAC_L, _OFF_,   /*|*/   _OFF_,   U_FUNC_DEAC_R
+                                       _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_
   ),
 
   [NAV] = LAYOUT_voyager(
@@ -266,7 +294,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
     _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SELWORD, /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   SELLINE, SELWBAK, /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
-                                       _OFF_,   _OFF_,   /*|*/   MO(MOUSE), OSL(SHORTCUT)
+                                       _OFF_,   _OFF_,   /*|*/   MO(MOUSE), _OFF_
   ),
 
   [MOUSE] = LAYOUT_voyager(
@@ -283,14 +311,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  _OFF_,    _OFF_,        _DEAD_,
                                             _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
-  ),
-
-  [SHORTCUT] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,      _DEAD_,      _DEAD_,     _DEAD_,    _DEAD_,  /*|*/   _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,
-    _DEAD_, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,   U_REPLACE, _OFF_,   /*|*/   _OFF_,  _OFF_,  _OFF_,  _OFF_,  _OFF_,  _DEAD_,
-    _DEAD_, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   _OFF_,   /*|*/   _OFF_,  _OFF_,  _OFF_,  _OFF_,  _OFF_,  _DEAD_,
-    _DEAD_, U_UNDO,      U_REDO,      U_MARK_ALL, _OFF_,     _OFF_,   /*|*/   _OFF_,  _OFF_,  _OFF_,  _OFF_,  _OFF_,  _DEAD_,
-                                                  _OFF_,     _OFF_,   /*|*/   _OFF_,  _OFF_
   ),
 
   [MOD] = LAYOUT_voyager(
@@ -350,13 +370,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // N(outer) R T S G
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // X(outer) Q M W Z
-    C_RED, C_RED,                                   // T_L_OUT, T_L_IN
+    C_OFF, C_RED,                                   // _OFF_, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
     C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y O U DOT(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // P H A E I(outer)
+    C_WHT, C_WHT, C_WHT, C_WHT, C_WHT, C_OFF,       // P H A I BSPC
     C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH COMMA(outer)
-    C_RED, C_RED                                    // T_R_IN, T_R_OUT
+    C_RED, C_OFF                                    // T_R_IN, _OFF_
   },
 
   [NUM] = {
@@ -376,17 +396,17 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [FUNC] = {
     // Left side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (V = deac, unlit)
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,       // F6 F4 F2 F10 F12
+    C_OFF, C_FN,  C_FN,  C_FN,  C_OFF, C_OFF,       // F6 F4 F2
     C_OFF, C_OFF, C_FN,  C_FN,  C_FN,  C_OFF,       // F8
-    C_OFF, C_OFF,                                   // all XXXXXXX
+    C_OFF, C_OFF,                                   // thumbs
     // Right side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (J = deac, unlit)
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,       // F11 F1 F3 F5 F7
+    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,       // F1 F3 F5 F7
     C_OFF, C_FN,  C_FN,  C_OFF, C_OFF, C_OFF,       // F9
-    C_OFF, C_OFF                                    // all XXXXXXX
+    C_OFF, C_OFF                                    // thumbs
   },
 
   [NAV] = {
@@ -401,7 +421,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_NDOC, C_NDOC, C_NDOC, C_NDOC, C_OFF,   // DOC_LEFT DOWN UP RIGHT
     C_OFF, C_NARW, C_NARW, C_NARW, C_NARW, C_OFF,   // LEFT DOWN UP RIGHT
     C_OFF, C_NWRD, C_NWRD, C_NWRD, C_NWRD, C_OFF,   // WORD_LEFT 5DOWN 5UP WORD_RIGHT
-    C_NTHB, C_THB                                   // MO(MOUSE), OSL(SHORTCUT)
+    C_NTHB, C_OFF                                   // MO(MOUSE), _OFF_
   },
 
   [MOUSE] = {
@@ -434,28 +454,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF                                    // thumbs
   },
 
-  [SHORTCUT] = {
-    // Left side
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_NFND, C_NFND, C_NFND, C_NFND, C_OFF,   // FIND_PREV FIND_NEXT SEARCH REPLACE
-    C_OFF, C_NEDT, C_NEDT, C_NEDT, C_NEDT, C_OFF,   // SAVE CUT COPY PASTE
-    C_OFF, C_NUND, C_NUND, C_NSEL, C_OFF,  C_OFF,   // UNDO REDO MARK_ALL
-    C_OFF, C_OFF,                                   // thumbs
-    // Right side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_OFF                                    // thumbs
-  },
-
   [MOD] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // home row (cleared)
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_THB, C_OFF,                                   // T_L_OUT (active), T_L_IN
+    C_OFF, C_OFF,                                   // _OFF_, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
@@ -684,11 +689,11 @@ bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
     case RGB_SLD:        rgblight_mode(1);                                                      break;
     case U_RGB_TOG:      rgb_matrix_toggle();                                                   return false;
-    case U_TOGGLE_OS:    flip_os();                                                             return false;
-    case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));       break;
-    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));       break;
-    case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      break;
-    case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   break;
+    case U_TOGGLE_OS:    flip_os();                                                             layer_off(SYS); return false;
+    case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));       layer_off(SYS); break;
+    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));       layer_off(SYS); break;
+    case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      layer_off(SYS); break;
+    case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   layer_off(SYS); break;
     case U_NUM_ENTER:    tap_code(KC_ENT);   layer_off(NUM);                                    return false;
     case U_NUM_SPACE:    tap_code(KC_SPC);   layer_off(NUM);                                    return false;
     case U_SE_LESS:      PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));      break;
