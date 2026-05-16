@@ -18,7 +18,7 @@ My alpha layout is [Gallium](https://github.com/GalileoBlues/Gallium), with Swed
 
 The keymap below shows key positions and RGB coloring for each layer. The keycaps in the outer columns and top row are rendered in a different geometry to reflect that those switches have been physically removed.   
 
-A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer, one-shot modifier, momentary (MO), layer-tap (LT), and toggle. 
+A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer (OSL), one-shot modifier (OSM), momentary (MO), layer-tap (LT), and toggle (TG). 
 
 Same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box. Anchor-key combos are collected into dedicated panels below the layer views: symbols and numbers use the thumb keys as anchors, while shortcuts use the right home-row pinky.
 
