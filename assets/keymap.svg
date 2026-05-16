@@ -25,14 +25,6 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <text x="46" y="111.0" style="text-anchor:start;dominant-baseline:middle;font-size:10px;" fill="#c0c0c0">Toggle (TG)</text>
 </g>
 <g transform="translate(30,160)">
-<line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="97.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="149.0" x2="771.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="321.0" y1="155.0" x2="321.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="321.0" y1="42.0" x2="411.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="155.0" x2="547.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="42.0" x2="457.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Alpha</text>
   
 <g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
@@ -70,7 +62,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c8c8c8">Z</text></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#ff2828" style="font-size:13px">Sys</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#f4a96d" stroke-width="2.5" stroke-linecap="square" /></g></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="-7" fill="#c80707">Space</text><g><text x="0" y="14.0" text-anchor="middle" dominant-baseline="middle" fill="#c80707" style="font-size:13px">Nav</text><line x1="-18" x2="18" y1="23.0" y2="23.0" stroke="#7eb8f7" stroke-width="2.5" stroke-linecap="square" /></g></g>
 
     
@@ -107,7 +99,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" fill="#c80707">E</text></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#ff2828" style="font-size:13px">Func</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#f4a96d" stroke-width="2.5" stroke-linecap="square" /></g></g>
 
   </g>
 
@@ -143,20 +135,6 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <rect x="407.0" y="360.0" width="54.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
 <text x="434.0" y="370.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">NumWord</text>
 <line x1="413.0" y1="377.0" x2="455.0" y2="377.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
-<line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="97.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="149.0" x2="771.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<rect x="411.0" y="5.0" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="434.0" y="15.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Sys</text>
-<line x1="417.0" y1="22.0" x2="451.0" y2="22.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
-<line x1="321.0" y1="155.0" x2="321.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="321.0" y1="42.0" x2="411.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="155.0" x2="547.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="42.0" x2="457.0" y2="42.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<rect x="411.0" y="32.0" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="434.0" y="42.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Func</text>
-<line x1="417.0" y1="49.0" x2="451.0" y2="49.0" stroke="#7dd4a0" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,640)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">NumWord</text>
@@ -196,7 +174,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#ff2828" style="font-size:13px">Space</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
 
     
@@ -233,7 +211,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
@@ -244,10 +222,6 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <line x1="413.0" y1="377.0" x2="455.0" y2="377.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,1120)">
-<line x1="321.0" y1="155.0" x2="321.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="321.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="155.0" x2="547.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Func</text>
   
 <g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
@@ -285,7 +259,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
 
     
@@ -322,17 +296,10 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
-<line x1="321.0" y1="155.0" x2="321.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="321.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="155.0" x2="547.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="547.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<rect x="411.0" y="5.0" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="434.0" y="15.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Func</text>
-<line x1="417.0" y1="22.0" x2="451.0" y2="22.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,1600)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Mod</text>
@@ -372,7 +339,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
 
     
@@ -409,7 +376,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
@@ -452,7 +419,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c8b0b0"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">←Word</tspan></text></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
 
     
@@ -489,7 +456,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#ff2828" style="font-size:13px">Mouse</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#f4a96d" stroke-width="2.5" stroke-linecap="square" /></g></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
@@ -532,7 +499,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
 
     
@@ -569,16 +536,12 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
 </g>
 <g transform="translate(30,3040)">
-<line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="97.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="149.0" x2="771.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Sys</text>
   
 <g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
@@ -616,7 +579,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
 
     
@@ -637,33 +600,26 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#71ff25" style="font-size:13px"><tspan x="0" dy="-.6em">OS</tspan><tspan x="0" dy="1.2em">Search</tspan></text><line x1="-18" x2="18" y1="18.0" y2="18.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
-    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#71ff25" style="font-size:13px"><tspan x="0" dy="-.6em">Screen</tspan><tspan x="0" dy="1.2em">shot</tspan></text><line x1="-18" x2="18" y1="18.0" y2="18.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
-    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#71ff25" style="font-size:13px">Emojis</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#71ff25"><tspan x="0" dy="-.6em">OS</tspan><tspan x="0" dy="1.2em">Search</tspan></text></g>
+    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#71ff25" style="font-size:10px">Screenshot</text></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#71ff25">Emojis</text></g>
     <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
     <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#42c8b0" style="font-size:13px"><tspan x="0" dy="-.6em">Lock</tspan><tspan x="0" dy="1.2em">Screen</tspan></text><line x1="-18" x2="18" y1="18.0" y2="18.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
-    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#42c8b0" style="font-size:13px"><tspan x="0" dy="-.6em">Switch</tspan><tspan x="0" dy="1.2em">OS</tspan></text><line x1="-18" x2="18" y1="18.0" y2="18.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
-    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#42c8b0"><tspan x="0" dy="-.6em">Lock</tspan><tspan x="0" dy="1.2em">Screen</tspan></text></g>
+    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#42c8b0"><tspan x="0" dy="-.6em">Switch</tspan><tspan x="0" dy="1.2em">OS</tspan></text></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#42c8b0"><tspan x="0" dy="-.6em">Caps</tspan><tspan x="0" dy="1.2em">Lock</tspan></text></g>
     <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
-<line x1="97.0" y1="149.0" x2="97.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="97.0" y1="15.0" x2="411.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="149.0" x2="771.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<line x1="771.0" y1="15.0" x2="457.0" y2="15.0" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
-<rect x="411.0" y="5.0" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
-<text x="434.0" y="15.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Sys</text>
-<line x1="417.0" y1="22.0" x2="451.0" y2="22.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,3520)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Alpha · Sym Combos</text>
@@ -703,7 +659,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Z</text></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">▲ Sys</text></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Space</text></g>
 
     
@@ -740,7 +696,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">E</text></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
@@ -787,7 +743,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Z</text></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">▲ Sys</text></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Space</text></g>
 
     
@@ -824,7 +780,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">E</text></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 
@@ -867,7 +823,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Z</text></g>
 
     
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">▲ Sys</text></g>
     <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Space</text></g>
 
     
@@ -904,7 +860,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">E</text></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
 

@@ -136,7 +136,7 @@ LABEL_MAP: dict[str, str] = {
     "RM_VALD": "RGB -",      "RM_VALU": "RGB +",    "U_RGB_TOG": "RGB Toggle",
     "U_OS_SEARCH":  "OS Search",    "U_SCREENSHOT": "Screenshot",
     "U_EMOJIS":     "Emojis",       "U_TOGGLE_OS":  "Switch OS",
-    "U_LOCK_SCREEN": "Lock",
+    "U_LOCK_SCREEN": "Lock\nScreen", "KC_CAPS": "Caps\nLock",
     "U_FIND_PREV":  "Find\nPrev", "U_FIND_NEXT":  "Find\nNext",
     "U_REPLACE":    "Replace",
 }
@@ -715,11 +715,11 @@ def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     if kc == "CW_TOGG":      return ("capsword", "CapsWord",   None)
     if kc == "U_NUM_ENTER":  return ("numenter", "Enter",      None)
     if kc == "U_NUM_SPACE":  return ("toggle",   "Space",      None)
-    if kc == "U_OS_SEARCH":  return ("toggle",   "OS\nSearch",   None)
-    if kc == "U_SCREENSHOT": return ("toggle",   "Screen\nshot", None)
-    if kc == "U_EMOJIS":     return ("toggle",   "Emojis",       None)
-    if kc == "U_TOGGLE_OS":  return ("toggle",   "Switch\nOS",   None)
-    if kc == "U_LOCK_SCREEN": return ("toggle",  "Lock\nScreen", None)
+    if kc == "U_OS_SEARCH":  return None
+    if kc == "U_SCREENSHOT": return None
+    if kc == "U_EMOJIS":     return None
+    if kc == "U_TOGGLE_OS":  return None
+    if kc == "U_LOCK_SCREEN": return None
     return None
 
 
@@ -773,10 +773,6 @@ def _fill_layer(template_root: ET.Element, layer: dict, palette: dict) -> ET.Ele
         label   = key.get("label", "")
         color   = key.get("color")
         is_dead = kc == "_DEAD_"
-
-        if led_idx in (24, 51) and not label:
-            label = "⦻"
-            is_dead = True
 
         if not label:
             continue

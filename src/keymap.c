@@ -15,8 +15,10 @@
 #define _DEAD_  XXXXXXX  // physically removed switch
 #define _OFF_   XXXXXXX  // within range, unassigned on this layer
 
+#define T_L_OUT MO(SYS)
 #define T_L_IN  LT(NAV, KC_SPC)
 #define T_R_IN  KC_E
+#define T_R_OUT MO(FUNC)
 
 /* ######### ENUMS ######### */
 
@@ -64,10 +66,6 @@ enum custom_keycodes {
   U_LOCK_SCREEN,
   U_RGB_TOG,
 
-  U_FUNC_DEAC_L,
-  U_FUNC_DEAC_R,
-  U_SYS_DEAC_L,
-  U_SYS_DEAC_R,
   U_FIND_PREV,
   U_FIND_NEXT,
   U_REPLACE
@@ -99,7 +97,6 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 // Base combos
 const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
-const uint16_t PROGMEM combo_func[]      = {KC_V,          KC_J,          COMBO_END};
 const uint16_t PROGMEM combo_caps[]      = {KC_X,          KC_Q,          COMBO_END};
 const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
 const uint16_t PROGMEM combo_ts_sft[]    = {KC_T,          KC_S,          COMBO_END};
@@ -110,11 +107,8 @@ const uint16_t PROGMEM combo_esc[]       = {KC_Q,          KC_M,          COMBO_
 const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_del[]       = {KC_I,          KC_BSPC,       COMBO_END};
-const uint16_t PROGMEM combo_sys[]       = {KC_B,          KC_DOT,        COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
-const uint16_t PROGMEM combo_func_deac[] = {U_FUNC_DEAC_L, U_FUNC_DEAC_R, COMBO_END};
-const uint16_t PROGMEM combo_sys_deac[]  = {U_SYS_DEAC_L,  U_SYS_DEAC_R,  COMBO_END};
 // Symbol combos: Space (T_L_IN) + right-side key
 const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_END};
 const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_Y,          COMBO_END};
@@ -179,7 +173,6 @@ combo_t key_combos[] = {
   // Base combos
   COMBO(combo_aa,        SE_AA),
   COMBO(combo_num,       TG(NUM)),
-  COMBO(combo_func,      OSL(FUNC)),
   COMBO(combo_caps,      KC_DEL),
   COMBO(combo_nr_mod,    OSL(MOD)),
   COMBO(combo_ts_sft,    OSM(MOD_LSFT)),
@@ -190,11 +183,8 @@ combo_t key_combos[] = {
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
   COMBO(combo_del,       CW_TOGG),
-  COMBO(combo_sys,       TG(SYS)),
   // Deactivation combos
   COMBO(combo_num_deac,  TG(NUM)),
-  COMBO(combo_func_deac, TG(FUNC)),
-  COMBO(combo_sys_deac,  TG(SYS)),
   // Symbol combos via Space + right-side key
   COMBO(combo_sym_circ,  SE_CIRC),
   COMBO(combo_sym_hash,  SE_EQL),
@@ -270,7 +260,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_O,    KC_U,     KC_DOT,   _DEAD_,
     _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     KC_BSPC, _DEAD_,
     _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_COMMA, _DEAD_,
-                                    _OFF_,   T_L_IN,   /*|*/   T_R_IN, _OFF_
+                                    T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
   ),
 
   [NUM] = LAYOUT_voyager(
@@ -283,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [FUNC] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,        _DEAD_,  /*|*/   _DEAD_,  _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,         U_FUNC_DEAC_L, /*|*/  U_FUNC_DEAC_R, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
     _DEAD_, KC_F6,   KC_F4,   KC_F2,   _OFF_,         _OFF_,   /*|*/   _OFF_,   KC_F1,        KC_F3,   KC_F5,   KC_F7,   _DEAD_,
     _DEAD_, _OFF_,   KC_F12,  KC_F10,  KC_F8,         _OFF_,   /*|*/   _OFF_,   KC_F9,        KC_F11,  _OFF_,   _OFF_,   _DEAD_,
                                        _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_
@@ -307,9 +297,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SYS] = LAYOUT_voyager(
     _DEAD_, _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,    _DEAD_,/*|*/   _DEAD_,  _DEAD_,        _DEAD_,       _DEAD_,   _DEAD_,       _DEAD_,
-    _DEAD_, U_SYS_DEAC_L, RM_VALD, RM_VALU, U_RGB_TOG, _OFF_, /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    U_SYS_DEAC_R, _DEAD_,
+    _DEAD_, _OFF_,        RM_VALD, RM_VALU, U_RGB_TOG, _OFF_, /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
-    _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  _OFF_,    _OFF_,        _DEAD_,
+    _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  KC_CAPS,  _OFF_,        _DEAD_,
                                             _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
   ),
 
@@ -370,13 +360,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // N(outer) R T S G
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // X(outer) Q M W Z
-    C_OFF, C_RED,                                   // _OFF_, T_L_IN
+    C_ACT, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
     C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y O U DOT(outer)
     C_WHT, C_WHT, C_WHT, C_WHT, C_WHT, C_OFF,       // P H A I BSPC
     C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH COMMA(outer)
-    C_RED, C_OFF                                    // T_R_IN, _OFF_
+    C_RED, C_ACT                                    // T_R_IN, T_R_OUT
   },
 
   [NUM] = {
@@ -450,7 +440,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_SSYS, C_SSYS, C_SSYS, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
-    C_OFF, C_SOGT, C_SOGT, C_OFF,  C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS
+    C_OFF, C_SOGT, C_SOGT, C_SOGT, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
     C_OFF, C_OFF                                    // thumbs
   },
 
@@ -689,11 +679,11 @@ bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
     case RGB_SLD:        rgblight_mode(1);                                                      break;
     case U_RGB_TOG:      rgb_matrix_toggle();                                                   return false;
-    case U_TOGGLE_OS:    flip_os();                                                             layer_off(SYS); return false;
-    case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));       layer_off(SYS); break;
-    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));       layer_off(SYS); break;
-    case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      layer_off(SYS); break;
-    case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   layer_off(SYS); break;
+    case U_TOGGLE_OS:    flip_os();                                                             return false;
+    case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));       break;
+    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));       break;
+    case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      break;
+    case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   break;
     case U_NUM_ENTER:    tap_code(KC_ENT);   layer_off(NUM);                                    return false;
     case U_NUM_SPACE:    tap_code(KC_SPC);   layer_off(NUM);                                    return false;
     case U_SE_LESS:      PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));      break;
@@ -723,10 +713,6 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_REPLACE:      PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));       break;
 
     case U_NUM_TGL:                                                                             return false;
-    case U_FUNC_DEAC_L:                                                                         return false;
-    case U_FUNC_DEAC_R:                                                                         return false;
-    case U_SYS_DEAC_L:                                                                          return false;
-    case U_SYS_DEAC_R:                                                                          return false;
   }
   return true;
 }
