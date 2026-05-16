@@ -126,7 +126,7 @@ LABEL_MAP: dict[str, str] = {
     "U_UNDO":      "Undo",      "U_REDO":     "Redo",
     "U_SEARCH":    "Find",      "U_MARK_ALL": "Select\nAll",
     "U_NUM_ENTER": "Enter", "U_NUM_SPACE": "Space",
-    "U_NUM_TGL": "",
+    "U_NUM_TGL": "", "U_NUM_ENT_ANC": "",
     "U_FUNC_DEAC_L": "", "U_FUNC_DEAC_R": "", "U_SYS_DEAC_L": "", "U_SYS_DEAC_R": "",
     "SELLINE":  "Select Line",  "SELWBAK": "Select ←Word", "SELWORD": "Select Word→",
 
@@ -858,7 +858,7 @@ def _combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], key
         label = combo["action_label"].replace("\n", " ")
     label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-    _ULINE_STYLES = {"osl", "osm", "hold", "lt", "toggle"}
+    _ULINE_STYLES = {"osl", "osm", "hold", "lt", "toggle", "numenter"}
     color       = "#a0a0a0"
     uline_color = _ACTION_COLORS.get(chip_style, color) if chip_style in _ULINE_STYLES else None
     sz = "7px" if len(label) > 6 else "10px"

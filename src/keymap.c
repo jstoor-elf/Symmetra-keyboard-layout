@@ -60,6 +60,7 @@ enum custom_keycodes {
   U_NUM_ENTER,
   U_NUM_SPACE,
   U_NUM_TGL,
+  U_NUM_ENT_ANC,
   U_SCREENSHOT,
   U_OS_SEARCH,
   U_EMOJIS,
@@ -108,6 +109,7 @@ const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_del[]       = {KC_I,          KC_BSPC,       COMBO_END};
 // Deactivation combos
+const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
 // Symbol combos: Space (T_L_IN) + right-side key
 const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_END};
@@ -184,6 +186,7 @@ combo_t key_combos[] = {
   COMBO(combo_ent,       KC_ENT),
   COMBO(combo_del,       CW_TOGG),
   // Deactivation combos
+  COMBO(combo_num_ent,   U_NUM_ENTER),
   COMBO(combo_num_deac,  TG(NUM)),
   // Symbol combos via Space + right-side key
   COMBO(combo_sym_circ,  SE_CIRC),
@@ -267,7 +270,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,      /*|*/   _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,       /*|*/   _OFF_,        _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
     _DEAD_, KC_6,    KC_4,    KC_2,    KC_0,    _OFF_,       /*|*/   _OFF_,        KC_1,    KC_3,    KC_5,    KC_7,    _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_8,    _OFF_,       /*|*/   _OFF_,        KC_9,    _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_8,    _OFF_,       /*|*/   _OFF_,        KC_9,    U_NUM_ENT_ANC, _OFF_,   _OFF_,   _DEAD_,
                                        _OFF_,   U_NUM_SPACE, /*|*/   U_NUM_TGL,    _OFF_
   ),
 
@@ -713,6 +716,7 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_REPLACE:      PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));       break;
 
     case U_NUM_TGL:                                                                             return false;
+    case U_NUM_ENT_ANC:                                                                         return false;
   }
   return true;
 }
