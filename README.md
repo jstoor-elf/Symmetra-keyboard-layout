@@ -20,7 +20,7 @@ The keymap below shows key positions and RGB coloring for each layer. The keycap
 
 A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer (OSL), one-shot modifier (OSM), momentary (MO), layer-tap (LT), and toggle (TG). 
 
-Same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box. Anchor-key combos are collected into dedicated panels below the layer views: symbols and numbers use the thumb keys as anchors, while shortcuts use the right home-row pinky.
+Same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box. Anchor-key combos are collected into dedicated panels below the layer views, using the thumb keys as anchors for symbols and numbers. Shortcuts are no longer combos — they live on a dedicated `Shrtc` layer (see below).
 
 ![Keymap](assets/keymap.svg)
 
@@ -29,7 +29,7 @@ Same-side combos are shown as overlay boxes on the affected keys, while cross-si
 
 The core idea is **chords over sequences** — where a sequence can mean order, duration, or both. A chord expresses intent through combination — two keys pressed together mean one thing, defined by which keys, not by sequential action. A sequence expresses intent through order and duration — the firmware has to infer what you meant from when you pressed, held, and released. One-shot keys follow that model: press, release, press the next key, and trust the firmware to read the sequence as a modified keystroke. Both approaches have a timing window under the hood, but the mental model is different: a chord is "these two things together", a sequence is "this, then that".
 
-The result is a system where every intentional action is a single atomic event — one thing — triggered by a combination of simultaneous keys: symbols and numbers via the two thumb keys, shortcuts via the right home-row pinky, and one-shot modifiers and layer access via home-row combos. Text is still a sequence of individual keypresses, but every non-text action is a chord: one intent, one event, defined by which keys you pressed together.
+The result is a system where most intentional actions are a single atomic event — one thing — triggered by a combination of simultaneous keys: symbols and numbers via the two thumb keys, and one-shot modifiers and layer access via home-row combos. Editing shortcuts (cut/copy/paste, undo/redo, find, save, …) live on a dedicated one-shot `Shrtc` layer reached with the right outer thumb, mirroring the `Sys` layer on the left outer thumb; from either of those layers the opposite outer thumb is a one-shot hop to the `Func` layer. Text is still a sequence of individual keypresses, and the chord model still governs symbols, numbers, modifiers, and layer access: one intent, one event, defined by which keys you pressed together.
 
 A consequence of this philosophy combined with a personal preference for minimizing finger movement is an extensive use of combos concentrated on the home row and the two main thumb keys. Modifiers, layer access, symbols, numbers, and shortcuts are all reachable without leaving the home position.
 

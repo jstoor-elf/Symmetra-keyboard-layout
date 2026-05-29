@@ -7,7 +7,7 @@
 #define PERMISSIVE_HOLD
 
 /* ######### COMBOS ######### */
-#define COMBO_COUNT 66
+#define COMBO_COUNT 55
 #define COMBO_TERM 50
 
 /* ######### LAYER STATE ######### */

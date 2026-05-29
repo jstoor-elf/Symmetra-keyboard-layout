@@ -65,6 +65,7 @@ LAYER_LABELS = {
     "MOUSE":    "Mouse",
     "SYS":      "Sys",
     "MOD":      "Mod",
+    "SHORTCUT": "Shrtc",
 }
 
 MOD_LABELS = {
@@ -1063,7 +1064,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
     return "\n".join(parts)
 
 
-_RENDER_ORDER = ["ALPHA", "NUM", "FUNC", "MOD", "NAV", "MOUSE", "SYS"]
+_RENDER_ORDER = ["ALPHA", "MOD", "NUM", "SHORTCUT", "SYS", "FUNC", "NAV", "MOUSE"]
 
 def render_svg(ir: dict) -> str:
     layers  = sorted(ir["layers"],
@@ -1095,16 +1096,13 @@ def render_svg(ir: dict) -> str:
     space_sym_3k, enter_sym_3k, space_num_3k, enter_num_3k = (
         _classify_thumb_3key_combos(combos) if alpha_layer else ([], [], [], [])
     )
-    bspc_combos = _classify_bspc_combos(combos) if alpha_layer else []
     combo_panels = [
         ("Alpha · Sym Combos",      space_sym,   enter_sym,   None),
         ("Alpha · Num Combos",      space_num,   enter_num,   None),
-        ("Alpha · Shortcut Combos", [],          [],          bspc_combos),
     ]
     combo_panels_3k = [
         (space_sym_3k, enter_sym_3k),
         (space_num_3k, enter_num_3k),
-        ([], []),
     ]
 
     n_combo_panels = len(combo_panels) if alpha_layer else 0
