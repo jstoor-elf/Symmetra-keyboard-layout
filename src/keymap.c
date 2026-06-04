@@ -99,7 +99,7 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 // Base combos
 const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
-const uint16_t PROGMEM combo_del[]       = {SE_OSLH,       KC_COMMA,      COMBO_END};
+const uint16_t PROGMEM combo_del[]       = {SE_OSLH,       KC_BSPC,       COMBO_END};
 const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
 const uint16_t PROGMEM combo_ts_sft[]    = {KC_T,          KC_S,          COMBO_END};
 const uint16_t PROGMEM combo_ha_sft[]    = {KC_H,          KC_A,          COMBO_END};
@@ -108,7 +108,7 @@ const uint16_t PROGMEM combo_ai_ctl[]    = {KC_A,          KC_I,          COMBO_
 const uint16_t PROGMEM combo_esc[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
-const uint16_t PROGMEM combo_caps_word[] = {KC_I,          KC_BSPC,       COMBO_END};
+const uint16_t PROGMEM combo_caps_word[] = {KC_I,          KC_COMMA,      COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
@@ -120,13 +120,13 @@ const uint16_t PROGMEM combo_sym_dquo[]  = {T_L_IN,        KC_U,          COMBO_
 const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
 const uint16_t PROGMEM combo_sym_k[]     = {T_L_IN,        KC_K,          COMBO_END};
 const uint16_t PROGMEM combo_sym_scln[]  = {T_L_IN,        KC_H,          COMBO_END};
-const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        KC_BSPC,       COMBO_END};
+const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        KC_COMMA,      COMBO_END};
 const uint16_t PROGMEM combo_sym_lbrc[]  = {T_L_IN,        KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_END};
 const uint16_t PROGMEM combo_sym_lprn[]  = {T_L_IN,        SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_sym_rprn[]  = {T_L_IN,        SE_OSLH,       COMBO_END};
-const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_COMMA,      COMBO_END};
+const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_BSPC,       COMBO_END};
 const uint16_t PROGMEM combo_sym_eql[]   = {T_L_IN,        KC_DOT,        COMBO_END};
 // Three-key symbol combos: Space + two right-side keys
 const uint16_t PROGMEM combo_3_acut[]   = {T_L_IN,        KC_J,          KC_Y,    COMBO_END};
@@ -156,7 +156,7 @@ const uint16_t PROGMEM combo_num_8[]     = {T_L_IN,        KC_W,          COMBO_
 const uint16_t PROGMEM combo_num_1[]     = {T_R_IN,        KC_H,          COMBO_END};
 const uint16_t PROGMEM combo_num_3[]     = {T_R_IN,        KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_num_5[]     = {T_R_IN,        KC_I,          COMBO_END};
-const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        KC_BSPC,      COMBO_END};
+const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        KC_COMMA,     COMBO_END};
 const uint16_t PROGMEM combo_num_9[]     = {T_R_IN,        KC_F,          COMBO_END};
 
 
@@ -238,8 +238,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
     _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,  _DEAD_,   /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,   _DEAD_,
     _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_O,    KC_U,     KC_DOT,   _DEAD_,
-    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     KC_BSPC, _DEAD_,
-    _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_COMMA, _DEAD_,
+    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     KC_COMMA, _DEAD_,
+    _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_BSPC, _DEAD_,
                                     T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
   ),
 
@@ -352,8 +352,8 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
     C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y O U DOT(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_WHT, C_OFF,       // P H A I BSPC
-    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH COMMA(outer)
+    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // P H A I COMMA
+    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH BSPC(outer)
     C_RED, C_ACT                                    // T_R_IN, T_R_OUT
   },
 

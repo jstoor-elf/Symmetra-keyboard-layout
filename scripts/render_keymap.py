@@ -510,7 +510,7 @@ _LEGEND_H = 160  # height reserved above the first layer for the legend
 
 _COMBO_SPACE_LED   = 25
 _COMBO_ENTER_LED   = 50
-_COMBO_BSPC_LED    = 42
+_COMBO_BSPC_LED    = 48
 _COMBO_SPACE_COLOR = "#559e82"   # muted mint green – Space thumb
 _COMBO_ENTER_COLOR = "#b87090"   # muted pink – Enter thumb
 _COMBO_BSPC_COLOR  = "#7090c8"   # muted blue – Bspc anchor
