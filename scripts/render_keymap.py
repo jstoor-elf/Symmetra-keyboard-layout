@@ -99,7 +99,7 @@ LABEL_MAP: dict[str, str] = {
     # Common keys
     "KC_BSPC": "⌫",  "KC_DEL":  "Del",   "KC_ENT":  "Enter",
     "KC_ESC":  "Esc",   "KC_TAB":  "Tab",   "KC_SPC":  "Space",
-    "CW_TOGG": "CapsWord", "QK_REP": "Repeat",
+    "CW_TOGG": "CapsWord", "QK_REP": "↻",
 
     # Held modifiers (NAV / MOUSE layers)
     "KC_LSFT": "Shift", "KC_RSFT": "Shift",

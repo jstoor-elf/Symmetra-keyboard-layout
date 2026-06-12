@@ -99,18 +99,20 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 // Base combos
 const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
-const uint16_t PROGMEM combo_del[]       = {SE_OSLH,       KC_BSPC,       COMBO_END};
+const uint16_t PROGMEM combo_bspc[]      = {QK_REP,        KC_U,          COMBO_END};
+const uint16_t PROGMEM combo_del[]       = {KC_L,          KC_D,          COMBO_END};
 const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
-const uint16_t PROGMEM combo_esc[]       = {KC_Q,          KC_M,          COMBO_END};
-const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_tab[]       = {KC_Q,          KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_esc[]       = {KC_M,          KC_W,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
+const uint16_t PROGMEM combo_caps_word[] = {KC_I,          KC_O,          COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
 // Symbol combos: Space (T_L_IN) + right-side key
 const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_END};
 const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_Y,          COMBO_END};
-const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        KC_DOT,        COMBO_END};
+const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        QK_REP,        COMBO_END};
 const uint16_t PROGMEM combo_sym_dquo[]  = {T_L_IN,        KC_U,          COMBO_END};
 const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
 const uint16_t PROGMEM combo_sym_k[]     = {T_L_IN,        KC_K,          COMBO_END};
@@ -121,7 +123,7 @@ const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_I,          COMBO_
 const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_END};
 const uint16_t PROGMEM combo_sym_lprn[]  = {T_L_IN,        SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_sym_rprn[]  = {T_L_IN,        SE_OSLH,       COMBO_END};
-const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_BSPC,       COMBO_END};
+const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_DOT,        COMBO_END};
 const uint16_t PROGMEM combo_sym_eql[]   = {T_L_IN,        KC_COMMA,      COMBO_END};
 // Three-key symbol combos: Space + two right-side keys
 const uint16_t PROGMEM combo_3_acut[]   = {T_L_IN,        KC_J,          KC_Y,    COMBO_END};
@@ -159,11 +161,13 @@ combo_t key_combos[] = {
   // Base combos
   COMBO(combo_aa,        SE_AA),
   COMBO(combo_num,       TG(NUM)),
+  COMBO(combo_bspc,      KC_BSPC),
   COMBO(combo_del,       KC_DEL),
   COMBO(combo_nr_mod,    OSL(MOD)),
   COMBO(combo_tab,       KC_TAB),
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
+  COMBO(combo_caps_word, CW_TOGG),
   // Deactivation combos
   COMBO(combo_num_ent,   U_NUM_ENTER),
   COMBO(combo_num_deac,  TG(NUM)),
@@ -227,9 +231,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ALPHA] = LAYOUT_voyager(
     _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,  _DEAD_,   /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,   _DEAD_,
-    _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_DOT,  KC_U,     KC_COMMA, _DEAD_,
+    _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    QK_REP,  KC_U,     KC_COMMA, _DEAD_,
     _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     KC_O,     _DEAD_,
-    _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_BSPC, _DEAD_,
+    _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_DOT, _DEAD_,
                                     T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
   ),
 
@@ -278,7 +282,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RALT), OSM(MOD_RGUI), _DEAD_,
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-                                                          _OFF_,         _OFF_,   /*|*/   CW_TOGG, _OFF_
+                                                          _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
   ),
 
   [SHORTCUT] = LAYOUT_voyager(
@@ -341,9 +345,9 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_ACT, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
-    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y DOT U COMMA(outer)
+    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y REPEAT U COMMA(outer)
     C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // P H A I O(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH BSPC(outer)
+    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH DOT(outer)
     C_RED, C_ACT                                    // T_R_IN, T_R_OUT
   },
 
@@ -434,7 +438,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_MOD, C_MOD, C_MOD, C_MOD, C_OFF,       // OSM: RSFT RCTL RALT RGUI
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_RED, C_OFF                                    // CW_TOGG (inner), T_R_OUT
+    C_OFF, C_OFF                                    // thumbs
   },
 
   [SHORTCUT] = {
