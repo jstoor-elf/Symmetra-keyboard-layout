@@ -101,14 +101,9 @@ const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
 const uint16_t PROGMEM combo_del[]       = {SE_OSLH,       KC_BSPC,       COMBO_END};
 const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
-const uint16_t PROGMEM combo_ts_sft[]    = {KC_T,          KC_S,          COMBO_END};
-const uint16_t PROGMEM combo_ha_sft[]    = {KC_H,          KC_A,          COMBO_END};
-const uint16_t PROGMEM combo_rt_ctl[]    = {KC_R,          KC_T,          COMBO_END};
-const uint16_t PROGMEM combo_ai_ctl[]    = {KC_A,          KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_esc[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
-const uint16_t PROGMEM combo_caps_word[] = {KC_I,          KC_O,          COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
@@ -166,14 +161,9 @@ combo_t key_combos[] = {
   COMBO(combo_num,       TG(NUM)),
   COMBO(combo_del,       KC_DEL),
   COMBO(combo_nr_mod,    OSL(MOD)),
-  COMBO(combo_ts_sft,    OSM(MOD_LSFT)),
-  COMBO(combo_ha_sft,    OSM(MOD_LSFT)),
-  COMBO(combo_rt_ctl,    OSM(MOD_LCTL)),
-  COMBO(combo_ai_ctl,    OSM(MOD_LCTL)),
   COMBO(combo_tab,       KC_TAB),
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
-  COMBO(combo_caps_word, CW_TOGG),
   // Deactivation combos
   COMBO(combo_num_ent,   U_NUM_ENTER),
   COMBO(combo_num_deac,  TG(NUM)),
@@ -288,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RALT), OSM(MOD_RGUI), _DEAD_,
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-                                                          _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
+                                                          _OFF_,         _OFF_,   /*|*/   CW_TOGG, _OFF_
   ),
 
   [SHORTCUT] = LAYOUT_voyager(
@@ -444,7 +434,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_MOD, C_MOD, C_MOD, C_MOD, C_OFF,       // OSM: RSFT RCTL RALT RGUI
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_OFF                                    // thumbs
+    C_RED, C_OFF                                    // CW_TOGG (inner), T_R_OUT
   },
 
   [SHORTCUT] = {

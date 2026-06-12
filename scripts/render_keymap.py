@@ -502,7 +502,6 @@ _ACTION_COLORS: dict[str, str] = {
     "lt":      "#7eb8f7",  # pastel blue    — layer-tap (LT)
     "toggle":  "#b99af5",  # pastel lavender — toggle
 
-    "capsword": "#6ad4d4", # pastel teal    — capsword
     "numenter": "#b99af5", # pastel lavender — num enter (exits layer)
 }
 
@@ -713,7 +712,6 @@ def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     if m: return ("osm",    _mod_label(m.group(1)),   None)
     m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", kc)
     if m: return ("lt",     _layer_label(m.group(1)), m.group(2).strip())
-    if kc == "CW_TOGG":      return ("capsword", "CapsWord",   None)
     if kc == "U_NUM_ENTER":  return ("numenter", "Enter",      None)
     if kc == "U_NUM_SPACE":  return ("toggle",   "Space",      None)
     if kc == "U_OS_SEARCH":  return None
