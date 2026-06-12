@@ -20,6 +20,8 @@ A legend is added explaining the color-coded underlines used on action keys — 
 
 Same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box. Anchor-key combos are collected into dedicated panels below the layer views, using the thumb keys as anchors for symbols and numbers.
 
+A few keys are rendered with special symbols: `↻` for the Repeat key and `⌫` for Backspace.
+
 ![Keymap](assets/keymap.svg)
 
 
