@@ -297,18 +297,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ######### LEDMAPS ######### */
 
 #define C_OFF  {0,   0,   0  }
-#define C_ORG  {20,  255, 200}  // orange       – top row keys
+#define C_GLD  {30,  240, 190}  // dark gold    – top row keys
 #define C_DGR  {0,   0,   60 }  // dark grey    – os indicator
-#define C_PRP  {190, 160, 255}  // purple       – outer column accent
-#define C_WHT  {0,   0,   200}  // white        – home + bottom row keys
-#define C_RED  {0,   245, 200}  // red          – thumb keys
+#define C_PRP  {180, 130, 230}  // purple       – outer column accent
+#define C_WHT  {0,   20,  200}  // white        – home + bottom row keys
+#define C_RED  {0,   245, 225}  // red          – thumb keys
 #define C_CW   {85,  255, 200}  // green        – caps word active
 #define C_THB  {10,  245, 232}  // cyan         – thumb keys (other layers)
 #define C_MOD  {20,  230, 210}  // teal-orange  – one-shot modifiers
 #define C_SYM  {190, 160, 255}  // purple       – symbols
 #define C_NUM  {120, 223, 209}  // teal         – numbers
 #define C_FN   {30,  241, 180}  // yellow       – function keys
-#define C_ACT  {0,   215, 255}  // red          – special actions (enter/cancel/toggle)
+#define C_ACT  {0,   245, 225}  // red          – special actions (enter/cancel/toggle)
 // Edit layer
 #define C_NEDT {220, 238, 216}  // light green  – edit keys (save/cut/copy/paste)
 #define C_NUND {100, 255, 255}  // yellow-green – undo/redo
@@ -318,11 +318,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_NDOC {170, 150, 230}  // teal         – document navigation
 #define C_NARW {83,  234, 140}  // green        – arrow keys
 #define C_NWRD {230, 140, 245}  // pink         – word/fast navigation
-#define C_NTHB {0,   215, 255}  // red          – nav thumb
+#define C_NTHB {0,   245, 225}  // red          – nav thumb
 // MOUSE layer
 #define C_MBTN {137, 241, 207}  // green        – mouse buttons
 #define C_MMOV {71,  232, 162}  // dark green   – mouse movement
-#define C_MWHL {0,   245, 200}  // red          – mouse wheel
+#define C_MWHL {0,   245, 225}  // red          – mouse wheel
 // SYS layer
 #define C_SVOL {150, 150, 220}  // light blue   – volume controls
 #define C_SMDA {40,  150, 200}  // yellow       – media transport
@@ -339,13 +339,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [ALPHA] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
-    C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
+    C_OFF, C_PRP, C_GLD, C_GLD, C_GLD, C_GLD,       // B(outer) L D C V
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // N(outer) R T S G
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // X(outer) Q M W Z
     C_ACT, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
-    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y REPEAT U COMMA(outer)
+    C_GLD, C_GLD, C_GLD, C_GLD, C_PRP, C_OFF,       // J Y REPEAT U COMMA(outer)
     C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // P H A I O(outer)
     C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH DOT(outer)
     C_RED, C_ACT                                    // T_R_IN, T_R_OUT
