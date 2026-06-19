@@ -297,18 +297,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ######### LEDMAPS ######### */
 
 #define C_OFF  {0,   0,   0  }
-#define C_GLD  {30,  240, 190}  // dark gold    – top row keys
+#define C_ORG  {20,  255, 200}  // orange       – top row keys
 #define C_DGR  {0,   0,   60 }  // dark grey    – os indicator
-#define C_PRP  {180, 130, 230}  // purple       – outer column accent
-#define C_WHT  {0,   20,  200}  // white        – home + bottom row keys
+#define C_PRP  {180, 160, 180}  // purple       – outer column accent
+#define C_WHT  {0,   10,  200}  // white        – home + bottom row keys
 #define C_RED  {0,   245, 225}  // red          – thumb keys
-#define C_CW   {85,  255, 200}  // green        – caps word active
-#define C_THB  {10,  245, 232}  // cyan         – thumb keys (other layers)
 #define C_MOD  {20,  230, 210}  // teal-orange  – one-shot modifiers
-#define C_SYM  {190, 160, 255}  // purple       – symbols
 #define C_NUM  {120, 223, 209}  // teal         – numbers
 #define C_FN   {30,  241, 180}  // yellow       – function keys
-#define C_ACT  {0,   245, 225}  // red          – special actions (enter/cancel/toggle)
 // Edit layer
 #define C_NEDT {220, 238, 216}  // light green  – edit keys (save/cut/copy/paste)
 #define C_NUND {100, 255, 255}  // yellow-green – undo/redo
@@ -339,16 +335,16 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [ALPHA] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
-    C_OFF, C_PRP, C_GLD, C_GLD, C_GLD, C_GLD,       // B(outer) L D C V
+    C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // N(outer) R T S G
     C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // X(outer) Q M W Z
-    C_ACT, C_RED,                                   // T_L_OUT, T_L_IN
+    C_RED, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
-    C_GLD, C_GLD, C_GLD, C_GLD, C_PRP, C_OFF,       // J Y REPEAT U COMMA(outer)
+    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y REPEAT U COMMA(outer)
     C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // P H A I O(outer)
     C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH DOT(outer)
-    C_RED, C_ACT                                    // T_R_IN, T_R_OUT
+    C_RED, C_RED                                    // T_R_IN, T_R_OUT
   },
 
   [NUM] = {
@@ -357,13 +353,13 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 6 4 2 0
     C_OFF, C_OFF, C_OFF, C_OFF, C_NUM, C_OFF,       // 8
-    C_OFF, C_ACT,                                   // U_NUM_SPACE
+    C_OFF, C_RED,                                   // U_NUM_SPACE
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 1 3 5 7
     C_OFF, C_NUM, C_OFF, C_OFF, C_OFF, C_OFF,       // 9
-    C_ACT, C_OFF                                    // U_NUM_TGL, T_R_OUT
+    C_RED, C_OFF                                    // U_NUM_TGL, T_R_OUT
   },
 
   [FUNC] = {
@@ -423,7 +419,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_SSYS, C_SSYS, C_SSYS, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
     C_OFF, C_SOGT, C_SOGT, C_SOGT, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
-    C_OFF, C_ACT                                    // thumbs (R-outer = OSL Func)
+    C_OFF, C_RED                                    // thumbs (R-outer = OSL Func)
   },
 
   [MOD] = {
@@ -447,7 +443,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_NFND, C_NFND, C_NFND, C_NFND, C_OFF,   // FindPrev FindNext Find Replace
     C_OFF, C_NEDT, C_NEDT, C_NEDT, C_NEDT, C_OFF,   // Save Cut Copy Paste
     C_OFF, C_NUND, C_NUND, C_NSEL, C_OFF,  C_OFF,   // Undo Redo SelectAll
-    C_ACT, C_OFF,                                   // L-outer = OSL Func
+    C_RED, C_OFF,                                   // L-outer = OSL Func
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
