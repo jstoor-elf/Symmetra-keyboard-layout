@@ -177,7 +177,7 @@ combo_t key_combos[] = {
   COMBO(combo_sym_at,    SE_AT),
   COMBO(combo_sym_dquo,  SE_DQUO),
   COMBO(combo_sym_perc,  KC_HASH),
-  COMBO(combo_sym_k,     SE_PERC),
+  COMBO(combo_sym_k,     KC_PERC),
   COMBO(combo_sym_scln,  SE_COLN),
   COMBO(combo_sym_sft,   SE_SCLN),
   COMBO(combo_sym_lbrc,  SE_LBRC),
@@ -296,54 +296,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* ######### LEDMAPS ######### */
 
+// Base palette — used on the base layer
 #define C_OFF  {0,   0,   0  }
-#define C_ORG  {20,  255, 200}  // orange       – top row keys
-#define C_DGR  {0,   0,   60 }  // dark grey    – os indicator
-#define C_PRP  {180, 160, 180}  // purple       – outer column accent
-#define C_WHT  {0,   10,  200}  // white        – home + bottom row keys
-#define C_RED  {0,   245, 225}  // red          – thumb keys
-#define C_MOD  {20,  230, 210}  // teal-orange  – one-shot modifiers
-#define C_NUM  {120, 223, 209}  // teal         – numbers
-#define C_FN   {30,  241, 180}  // yellow       – function keys
-// Edit layer
-#define C_NEDT {220, 238, 216}  // light green  – edit keys (save/cut/copy/paste)
-#define C_NUND {100, 255, 255}  // yellow-green – undo/redo
-#define C_NFND {46,  248, 241}  // blue         – search
-#define C_NSEL {0,   30,  200}  // silver       – selection/mark
-// NAV layer
-#define C_NDOC {170, 150, 230}  // teal         – document navigation
-#define C_NARW {83,  234, 140}  // green        – arrow keys
-#define C_NWRD {230, 140, 245}  // pink         – word/fast navigation
-#define C_NTHB {0,   245, 225}  // red          – nav thumb
-// MOUSE layer
-#define C_MBTN {137, 241, 207}  // green        – mouse buttons
-#define C_MMOV {71,  232, 162}  // dark green   – mouse movement
-#define C_MWHL {0,   245, 225}  // red          – mouse wheel
-// SYS layer
-#define C_SVOL {150, 150, 220}  // light blue   – volume controls
-#define C_SMDA {40,  150, 200}  // yellow       – media transport
-#define C_SSYS {70,  218, 255}  // blue         – system actions (screenshot/search/emojis)
-#define C_SOGT {120,  170, 200} // mint         – OS toggle
-#define C_SRGB {30,  239, 216}  // teal         – RGB brightness/toggle
+#define C_ORG  {20,  255, 200}  // orange
+#define C_GRN  {83,  245, 131}  // green
+#define C_PRP  {180, 180, 120}  // purple
+#define C_RED  {0,   255, 130}  // deep red
+// Extra palette — used on non-base layers only
+#define C_YLW  {30,  241, 180}  // yellow
+#define C_BLU  {148, 220, 230}  // blue
+#define C_TEA  {120, 223, 209}  // teal
+#define C_PNK  {230, 140, 245}  // pink
+#define C_SLV  {0,   30,  200}  // silver
+#define C_LBL  {150, 150, 220}  // light blue
 
 // LED indices for dynamic overrides
 #define LED_KC_Y 33
-#define LED_KC_D 9
+#define LED_KC_D 34
 
 const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
   [ALPHA] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
-    C_OFF, C_PRP, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
-    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // N(outer) R T S G
-    C_OFF, C_PRP, C_WHT, C_WHT, C_WHT, C_WHT,       // X(outer) Q M W Z
+    C_OFF, C_GRN, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
+    C_OFF, C_GRN, C_PRP, C_PRP, C_PRP, C_PRP,       // N(outer) R T S G
+    C_OFF, C_GRN, C_PRP, C_PRP, C_PRP, C_PRP,       // X(outer) Q M W Z
     C_RED, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
-    C_ORG, C_ORG, C_ORG, C_ORG, C_PRP, C_OFF,       // J Y REPEAT U COMMA(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // P H A I O(outer)
-    C_WHT, C_WHT, C_WHT, C_WHT, C_PRP, C_OFF,       // K F ADIA OSLH DOT(outer)
+    C_ORG, C_ORG, C_ORG, C_ORG, C_GRN, C_OFF,       // J Y REPEAT U COMMA(outer)
+    C_PRP, C_PRP, C_PRP, C_PRP, C_GRN, C_OFF,       // P H A I O(outer)
+    C_PRP, C_PRP, C_PRP, C_PRP, C_GRN, C_OFF,       // K F ADIA OSLH DOT(outer)
     C_RED, C_RED                                    // T_R_IN, T_R_OUT
   },
 
@@ -351,14 +335,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 6 4 2 0
-    C_OFF, C_OFF, C_OFF, C_OFF, C_NUM, C_OFF,       // 8
+    C_OFF, C_TEA, C_TEA, C_TEA, C_TEA, C_OFF,       // 6 4 2 0
+    C_OFF, C_OFF, C_OFF, C_OFF, C_TEA, C_OFF,       // 8
     C_OFF, C_RED,                                   // U_NUM_SPACE
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_NUM, C_NUM, C_NUM, C_NUM, C_OFF,       // 1 3 5 7
-    C_OFF, C_NUM, C_OFF, C_OFF, C_OFF, C_OFF,       // 9
+    C_OFF, C_TEA, C_TEA, C_TEA, C_TEA, C_OFF,       // 1 3 5 7
+    C_OFF, C_TEA, C_OFF, C_OFF, C_OFF, C_OFF,       // 9
     C_RED, C_OFF                                    // U_NUM_TGL, T_R_OUT
   },
 
@@ -366,14 +350,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (V = deac, unlit)
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_FN,  C_FN,  C_FN,  C_OFF, C_OFF,       // F6 F4 F2
-    C_OFF, C_OFF, C_FN,  C_FN,  C_FN,  C_OFF,       // F8
+    C_OFF, C_YLW,  C_YLW,  C_YLW,  C_OFF, C_OFF,       // F6 F4 F2
+    C_OFF, C_OFF, C_YLW,  C_YLW,  C_YLW,  C_OFF,       // F8
     C_OFF, C_OFF,                                   // thumbs
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (J = deac, unlit)
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_FN,  C_FN,  C_FN,  C_FN,  C_OFF,       // F1 F3 F5 F7
-    C_OFF, C_FN,  C_FN,  C_OFF, C_OFF, C_OFF,       // F9
+    C_OFF, C_YLW,  C_YLW,  C_YLW,  C_YLW,  C_OFF,       // F1 F3 F5 F7
+    C_OFF, C_YLW,  C_YLW,  C_OFF, C_OFF, C_OFF,       // F9
     C_OFF, C_OFF                                    // thumbs
   },
 
@@ -381,44 +365,44 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_NSEL,  // GUI ALT CTL SFT SELWORD
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_NSEL, C_NSEL,  // SELLINE SELWBAK
+    C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_SLV,  // GUI ALT CTL SFT SELWORD
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_SLV, C_SLV,  // SELLINE SELWBAK
     C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN (active)
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_NDOC, C_NDOC, C_NDOC, C_NDOC, C_OFF,   // DOC_LEFT DOWN UP RIGHT
-    C_OFF, C_NARW, C_NARW, C_NARW, C_NARW, C_OFF,   // LEFT DOWN UP RIGHT
-    C_OFF, C_NWRD, C_NWRD, C_NWRD, C_NWRD, C_OFF,   // WORD_LEFT 5DOWN 5UP WORD_RIGHT
-    C_NTHB, C_OFF                                   // MO(MOUSE), _OFF_
+    C_OFF, C_TEA, C_TEA, C_TEA, C_TEA, C_OFF,   // DOC_LEFT DOWN UP RIGHT
+    C_OFF, C_GRN, C_GRN, C_GRN, C_GRN, C_OFF,   // LEFT DOWN UP RIGHT
+    C_OFF, C_PNK, C_PNK, C_PNK, C_PNK, C_OFF,   // WORD_LEFT 5DOWN 5UP WORD_RIGHT
+    C_RED, C_OFF                                   // MO(MOUSE), _OFF_
   },
 
   [MOUSE] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_MOD,  C_MOD,  C_MOD,  C_MOD,  C_OFF,   // GUI ALT CTL SFT
+    C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_OFF,   // GUI ALT CTL SFT
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_OFF,                                    // thumbs
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_MBTN, C_MMOV, C_MBTN, C_OFF,  C_OFF,   // BTN1 UP BTN2
-    C_OFF, C_MMOV, C_MMOV, C_MMOV, C_OFF,  C_OFF,   // LEFT DOWN RIGHT
-    C_OFF, C_MWHL, C_MBTN, C_MWHL, C_OFF,  C_OFF,   // WHLD BTN3 WHLU
+    C_OFF, C_BLU, C_GRN, C_BLU, C_OFF,  C_OFF,   // BTN1 UP BTN2
+    C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LEFT DOWN RIGHT
+    C_OFF, C_RED, C_BLU, C_RED, C_OFF,  C_OFF,   // WHLD BTN3 WHLU
     C_OFF, C_OFF                                    // thumbs
   },
 
   [SYS] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_OFF,  C_SRGB, C_SRGB, C_SRGB, C_OFF,   // RM_VALD RM_VALU U_RGB_TOG
-    C_OFF, C_OFF,  C_SVOL, C_SVOL, C_SVOL, C_OFF,   // VOLD VOLU MUTE
-    C_OFF, C_OFF,  C_SMDA, C_SMDA, C_SMDA, C_OFF,   // MPRV MNXT MPLY
+    C_OFF, C_OFF,  C_TEA, C_TEA, C_TEA, C_OFF,   // RM_VALD RM_VALU U_RGB_TOG
+    C_OFF, C_OFF,  C_PRP, C_PRP, C_PRP, C_OFF,   // VOLD VOLU MUTE
+    C_OFF, C_OFF,  C_YLW, C_YLW, C_YLW, C_OFF,   // MPRV MNXT MPLY
     C_OFF, C_OFF,                                    // thumbs
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_SSYS, C_SSYS, C_SSYS, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
-    C_OFF, C_SOGT, C_SOGT, C_SOGT, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
+    C_OFF, C_PNK, C_PNK, C_PNK, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
+    C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
     C_OFF, C_RED                                    // thumbs (R-outer = OSL Func)
   },
 
@@ -432,7 +416,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_MOD, C_MOD, C_MOD, C_MOD, C_OFF,       // OSM: RSFT RCTL RALT RGUI
+    C_OFF, C_ORG, C_ORG, C_ORG, C_ORG, C_OFF,       // OSM: RSFT RCTL RALT RGUI
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_OFF                                    // thumbs
   },
@@ -440,9 +424,9 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
   [SHORTCUT] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_NFND, C_NFND, C_NFND, C_NFND, C_OFF,   // FindPrev FindNext Find Replace
-    C_OFF, C_NEDT, C_NEDT, C_NEDT, C_NEDT, C_OFF,   // Save Cut Copy Paste
-    C_OFF, C_NUND, C_NUND, C_NSEL, C_OFF,  C_OFF,   // Undo Redo SelectAll
+    C_OFF, C_BLU, C_BLU, C_BLU, C_BLU, C_OFF,   // FindPrev FindNext Find Replace
+    C_OFF, C_PNK, C_PNK, C_PNK, C_PNK, C_OFF,   // Save Cut Copy Paste
+    C_OFF, C_YLW, C_YLW, C_GRN, C_OFF,  C_OFF,   // Undo Redo SelectAll
     C_RED, C_OFF,                                   // L-outer = OSL Func
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
@@ -488,14 +472,9 @@ void set_leds_for_layer(uint8_t layer) {
 }
 
 void apply_os_indicators(void) {
-  HSV win = C_DGR;
-  HSV wht = C_WHT;
-  HSV y_color = (current_os == OS_WINDOWS) ? win : wht;
-  HSV d_color = (current_os == OS_MAC)     ? win : wht;
-  RGB y_rgb = hsv_to_rgb_with_value(y_color);
-  RGB d_rgb = hsv_to_rgb_with_value(d_color);
-  rgb_matrix_set_color(LED_KC_Y, y_rgb.r, y_rgb.g, y_rgb.b);
-  rgb_matrix_set_color(LED_KC_D, d_rgb.r, d_rgb.g, d_rgb.b);
+  uint8_t led = (current_os == OS_WINDOWS) ? LED_KC_Y : LED_KC_D;
+  RGB rgb = hsv_to_rgb_with_value((HSV)C_RED);
+  rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
 }
 
 void apply_os_animation(void) {
@@ -505,8 +484,8 @@ void apply_os_animation(void) {
     return;
   }
   uint8_t led = (current_os == OS_WINDOWS) ? LED_KC_Y : LED_KC_D;
-  uint8_t v = hsv_value_for_os_animation(led, 200);
-  RGB rgb = hsv_to_rgb_with_value((HSV){190, 200, v});
+  uint8_t v = hsv_value_for_os_animation(led, 130);
+  RGB rgb = hsv_to_rgb_with_value((HSV){0, 255, v});
   rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
 }
 
@@ -516,7 +495,7 @@ void apply_caps_word_animation(void) {
     if (hsv.v == 0) {
       rgb_matrix_set_color(i, 0, 0, 0);
     } else {
-      hsv.h = 0;
+      hsv.h = 83;
       hsv.s = 245;
       hsv.v = hsv_value_for_os_animation(i, hsv.v);
       RGB rgb = hsv_to_rgb_with_value(hsv);
