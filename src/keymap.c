@@ -70,7 +70,12 @@ enum custom_keycodes {
 
   U_FIND_PREV,
   U_FIND_NEXT,
-  U_REPLACE
+  U_REPLACE,
+
+  U_OS_RSFT,
+  U_OS_RCTL,
+  U_OS_RALT,
+  U_OS_RGUI
 };
 
 typedef enum {
@@ -82,7 +87,6 @@ typedef enum {
 
 os_t current_os = OS_WINDOWS;
 
-uint16_t animation_os_timer = 0;
 bool caps_word_active = false;
 extern rgb_config_t rgb_matrix_config;
 
@@ -280,9 +284,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [MOD] = LAYOUT_voyager(
     _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,  /*|*/   _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  OSM(MOD_RSFT), OSM(MOD_RCTL), OSM(MOD_RALT), OSM(MOD_RGUI), _DEAD_,
+    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  U_OS_RSFT,     U_OS_RCTL,     U_OS_RALT,     U_OS_RGUI,     _DEAD_,
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-                                                          _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
+                                                         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
   ),
 
   [SHORTCUT] = LAYOUT_voyager(
@@ -311,8 +315,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_LBL  {150, 150, 220}  // light blue
 
 // LED indices for dynamic overrides
-#define LED_KC_Y 33
-#define LED_KC_D 34
+#define LED_TOGGLE_OS 46  // U_TOGGLE_OS key on the SYS layer
 
 const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
@@ -439,7 +442,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
-uint16_t hsv_value_for_os_animation(uint8_t index, uint8_t max_v) {
+uint16_t breathing_value(uint8_t index, uint8_t max_v) {
   uint16_t period = 1000;
   uint16_t period_offset = 100;
   uint16_t phase_offset = index * period_offset;
@@ -471,22 +474,13 @@ void set_leds_for_layer(uint8_t layer) {
   }
 }
 
-void apply_os_indicators(void) {
-  uint8_t led = (current_os == OS_WINDOWS) ? LED_KC_Y : LED_KC_D;
-  RGB rgb = hsv_to_rgb_with_value((HSV)C_RED);
-  rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
-}
-
-void apply_os_animation(void) {
-  if (!animation_os_timer) return;
-  if (timer_elapsed(animation_os_timer) > 3000) {
-    animation_os_timer = 0;
-    return;
-  }
-  uint8_t led = (current_os == OS_WINDOWS) ? LED_KC_Y : LED_KC_D;
-  uint8_t v = hsv_value_for_os_animation(led, 130);
-  RGB rgb = hsv_to_rgb_with_value((HSV){0, 255, v});
-  rgb_matrix_set_color(led, rgb.r, rgb.g, rgb.b);
+void apply_os_indicator(void) {
+  // Continuously breathe the Toggle-OS key: teal for Windows, red for Mac.
+  uint8_t h = (current_os == OS_WINDOWS) ? 120 : 0;
+  uint8_t s = (current_os == OS_WINDOWS) ? 223 : 255;
+  uint8_t v = breathing_value(LED_TOGGLE_OS, 200);
+  RGB rgb = hsv_to_rgb_with_value((HSV){h, s, v});
+  rgb_matrix_set_color(LED_TOGGLE_OS, rgb.r, rgb.g, rgb.b);
 }
 
 void apply_caps_word_animation(void) {
@@ -495,9 +489,9 @@ void apply_caps_word_animation(void) {
     if (hsv.v == 0) {
       rgb_matrix_set_color(i, 0, 0, 0);
     } else {
-      hsv.h = 83;
-      hsv.s = 245;
-      hsv.v = hsv_value_for_os_animation(i, hsv.v);
+      hsv.h = 0;
+      hsv.s = 30;
+      hsv.v = breathing_value(i, 200);
       RGB rgb = hsv_to_rgb_with_value(hsv);
       rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
@@ -511,9 +505,8 @@ bool rgb_matrix_indicators_user(void) {
   } else {
     set_leds_for_layer(active_layer);
   }
-  if (active_layer == ALPHA) {
-    apply_os_indicators();
-    apply_os_animation();
+  if (active_layer == SYS) {
+    apply_os_indicator();
   }
   return true;
 }
@@ -578,7 +571,6 @@ bool select_word_host_is_mac(void) {
 }
 
 void flip_os(void) {
-  animation_os_timer = timer_read();
   current_os = current_os == OS_MAC ? OS_WINDOWS : OS_MAC;
   update_eeprom();
 }
@@ -647,8 +639,22 @@ void five_rows_up(bool pressed) {
 
 /* ######### MAIN KEY PROCESSING ######### */
 
+// Custom one-shot mods for the MOD layer. The layer is entered via OSL(MOD), so a
+// native OSM on it would "stack" two one-shots and leave the layer on for an extra
+// key. Instead we drop the MOD layer the instant the modifier is tapped and arm the
+// one-shot mod ourselves, so the next key lands on the base layer already modified.
+static void mod_layer_oneshot(uint8_t mod) {
+  layer_off(MOD);
+  reset_oneshot_layer();
+  add_oneshot_mods(mod);
+}
+
 bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
+    case U_OS_RSFT:      mod_layer_oneshot(MOD_BIT(KC_RSFT));                                   return false;
+    case U_OS_RCTL:      mod_layer_oneshot(MOD_BIT(KC_RCTL));                                   return false;
+    case U_OS_RALT:      mod_layer_oneshot(MOD_BIT(KC_RALT));                                   return false;
+    case U_OS_RGUI:      mod_layer_oneshot(MOD_BIT(KC_RGUI));                                   return false;
     case RGB_SLD:        rgblight_mode(1);                                                      break;
     case U_RGB_TOG:      rgb_matrix_toggle();                                                   return false;
     case U_TOGGLE_OS:    flip_os();                                                             return false;

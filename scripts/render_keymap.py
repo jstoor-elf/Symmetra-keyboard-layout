@@ -710,6 +710,8 @@ def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
     if m: return ("toggle", _layer_label(m.group(1)), None)
     m = re.fullmatch(r"OSM\((\w+)\)", kc)
     if m: return ("osm",    _mod_label(m.group(1)),   None)
+    m = re.fullmatch(r"U_OS_(R(?:SFT|CTL|ALT|GUI))", kc)
+    if m: return ("osm",    _mod_label("MOD_" + m.group(1)), None)
     m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", kc)
     if m: return ("lt",     _layer_label(m.group(1)), m.group(2).strip())
     if kc == "U_NUM_ENTER":  return ("numenter", "Enter",      None)
