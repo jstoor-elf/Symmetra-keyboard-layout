@@ -542,9 +542,15 @@ void keyboard_post_init_user(void) {
 /* ######### TAPPING TERM ######### */
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  return record->event.key.row == 4
-    ? TAPPING_TERM_THUMBS
-    : TAPPING_TERM;
+  switch (keycode) {
+    case T_L_OUT:
+    case T_L_IN:
+    case T_R_IN:
+    case T_R_OUT:
+      return TAPPING_TERM_THUMBS;
+    default:
+      return TAPPING_TERM;
+  }
 }
 
 /* ######### OS FUNCTIONALITY ######### */

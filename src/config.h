@@ -3,7 +3,8 @@
 /* ######### TAPPING ######### */
 #undef TAPPING_TERM
 #define TAPPING_TERM 190
-#define TAPPING_TERM_THUMBS 330
+#define TAPPING_TERM_THUMBS 250
+#define TAPPING_TERM_PER_KEY
 #define PERMISSIVE_HOLD
 
 /* ######### COMBOS ######### */
