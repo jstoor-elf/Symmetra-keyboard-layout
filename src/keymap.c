@@ -106,10 +106,10 @@ const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_
 const uint16_t PROGMEM combo_bspc[]      = {QK_REP,        KC_U,          COMBO_END};
 const uint16_t PROGMEM combo_del[]       = {KC_L,          KC_D,          COMBO_END};
 const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
-const uint16_t PROGMEM combo_tab[]       = {KC_Q,          KC_M,          COMBO_END};
-const uint16_t PROGMEM combo_esc[]       = {KC_M,          KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_esc[]       = {KC_I,          KC_O,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
-const uint16_t PROGMEM combo_caps_word[] = {KC_I,          KC_O,          COMBO_END};
+const uint16_t PROGMEM combo_caps_word[] = {KC_Q,          KC_M,          COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
