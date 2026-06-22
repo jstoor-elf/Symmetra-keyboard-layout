@@ -41,6 +41,10 @@ enum custom_keycodes {
   U_SE_LCBR,
   U_SE_RCBR,
   U_SE_BSLS,
+  U_SE_BRC_PAIR,
+  U_SE_PRN_PAIR,
+  U_SE_CBR_PAIR,
+  U_SE_ABK_PAIR,
   U_SEARCH,
   U_CUT,
   U_UNDO,
@@ -137,6 +141,11 @@ const uint16_t PROGMEM combo_sym_eql[]   = {T_L_IN,        KC_COMMA,      COMBO_
 // Three-key symbol combos: Space + two right-side keys
 const uint16_t PROGMEM combo_3_acut[]   = {T_L_IN,        KC_J,          KC_Y,    COMBO_END};
 const uint16_t PROGMEM combo_3_grv[]    = {T_L_IN,        KC_P,          KC_H,    COMBO_END};
+// Bracket-pair combos: thumb + both bracket keys -> emit open and close
+const uint16_t PROGMEM combo_brc_pair[] = {T_L_IN,        KC_A,          KC_I,     COMBO_END};
+const uint16_t PROGMEM combo_prn_pair[] = {T_L_IN,        SE_ADIA,       SE_OSLH,  COMBO_END};
+const uint16_t PROGMEM combo_cbr_pair[] = {T_R_IN,        KC_R,          KC_T,     COMBO_END};
+const uint16_t PROGMEM combo_abk_pair[] = {T_R_IN,        KC_Q,          KC_M,     COMBO_END};
 // Symbol combos: Enter (T_R_IN) + left-side key
 const uint16_t PROGMEM combo_sym_dlr[]   = {T_R_IN,        KC_B,          COMBO_END};
 const uint16_t PROGMEM combo_sym_plus[]  = {T_R_IN,        KC_L,          COMBO_END};
@@ -190,7 +199,7 @@ combo_t key_combos[] = {
   COMBO(combo_sym_hash,  SE_EQL),
   COMBO(combo_sym_at,    SE_AT),
   COMBO(combo_sym_dquo,  SE_DQUO),
-  COMBO(combo_sym_perc,  KC_HASH),
+  COMBO(combo_sym_perc,  SE_UNDS),
   COMBO(combo_sym_k,     KC_PERC),
   COMBO(combo_sym_scln,  SE_SCLN),
   COMBO(combo_sym_sft,   SE_COLN),
@@ -200,19 +209,23 @@ combo_t key_combos[] = {
   COMBO(combo_sym_lprn,  SE_LPRN),
   COMBO(combo_sym_rprn,  SE_RPRN),
   COMBO(combo_sym_slsh,  KC_EXLM),
-  COMBO(combo_sym_eql,   SE_APOS),
+  COMBO(combo_sym_eql,   KC_HASH),
   COMBO(combo_3_acut,    SE_ACUT),
   COMBO(combo_3_grv,     SE_GRV),
+  COMBO(combo_brc_pair,  U_SE_BRC_PAIR),
+  COMBO(combo_prn_pair,  U_SE_PRN_PAIR),
+  COMBO(combo_cbr_pair,  U_SE_CBR_PAIR),
+  COMBO(combo_abk_pair,  U_SE_ABK_PAIR),
   // Symbol combos via Enter + left-side key
   COMBO(combo_sym_dlr,   SE_DLR),
   COMBO(combo_sym_plus,  SE_PLUS),
   COMBO(combo_sym_astr,  SE_ASTR),
   COMBO(combo_sym_exlm,  SE_MINS),
   COMBO(combo_sym_tild,  SE_TILD),
-  COMBO(combo_sym_ques,  SE_SLSH),
+  COMBO(combo_sym_ques,  SE_APOS),
   COMBO(combo_sym_lcbr,  U_SE_LCBR),
   COMBO(combo_sym_rcbr,  U_SE_RCBR),
-  COMBO(combo_sym_mins,  SE_UNDS),
+  COMBO(combo_sym_mins,  SE_SLSH),
   COMBO(combo_sym_bsls,  U_SE_BSLS),
   COMBO(combo_sym_apos,  SE_QUES),
   COMBO(combo_sym_less,  U_SE_LESS),
@@ -653,17 +666,23 @@ void five_rows_up(bool pressed) {
   }
 }
 
-/* ######### MAIN KEY PROCESSING ######### */
-
-// Custom one-shot mods for the MOD layer. The layer is entered via OSL(MOD), so a
-// native OSM on it would "stack" two one-shots and leave the layer on for an extra
-// key. Instead we drop the MOD layer the instant the modifier is tapped and arm the
-// one-shot mod ourselves, so the next key lands on the base layer already modified.
 static void mod_layer_oneshot(uint8_t mod) {
   layer_off(MOD);
   reset_oneshot_layer();
   add_oneshot_mods(mod);
 }
+
+static void tap_pair(uint16_t open, uint16_t close) {
+  tap_code16(open);
+  tap_code16(close);
+}
+
+static void tap_pair_by_os(uint16_t win_open, uint16_t win_close,
+                           uint16_t mac_open, uint16_t mac_close) {
+  PERFORM_BY_OS(tap_pair(win_open, win_close), tap_pair(mac_open, mac_close));
+}
+
+/* ######### MAIN KEY PROCESSING ######### */
 
 bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
@@ -686,6 +705,10 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_SE_LCBR:      PERFORM_BY_OS(tap_code16(SE_LCBR_WIN),  tap_code16(SE_LCBR_MAC));      break;
     case U_SE_RCBR:      PERFORM_BY_OS(tap_code16(SE_RCBR_WIN),  tap_code16(SE_RCBR_MAC));      break;
     case U_SE_BSLS:      PERFORM_BY_OS(tap_code16(SE_BSLS_WIN),  tap_code16(SE_BSLS_MAC));      break;
+    case U_SE_BRC_PAIR:  tap_pair(SE_LBRC, SE_RBRC);                                            return false;
+    case U_SE_PRN_PAIR:  tap_pair(SE_LPRN, SE_RPRN);                                            return false;
+    case U_SE_CBR_PAIR:  tap_pair_by_os(SE_LCBR_WIN, SE_RCBR_WIN, SE_LCBR_MAC, SE_RCBR_MAC);    return false;
+    case U_SE_ABK_PAIR:  tap_pair_by_os(SE_LESS_WIN, SE_GRTR_WIN, SE_LESS_MAC, SE_GRTR_MAC);    return false;
     case U_SEARCH:       PERFORM_BY_OS(tap_code16(C(KC_F)),      tap_code16(G(KC_F)));          break;
     case U_CUT:          PERFORM_BY_OS(tap_code16(C(KC_X)),      tap_code16(G(KC_X)));          break;
     case U_COPY:         PERFORM_BY_OS(tap_code16(C(KC_C)),      tap_code16(G(KC_C)));          break;

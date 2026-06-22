@@ -93,6 +93,8 @@ LABEL_MAP: dict[str, str] = {
     "SE_PLUS":   "+",  "SE_LBRC":   "[",  "SE_RBRC":   "]",
     "SE_AT":     "@",  "SE_UNDS":   "_",  "SE_COLN":   ":",
     "SE_APOS":   "'",  "SE_PERC":   "%",
+    "U_SE_BRC_PAIR": "[]", "U_SE_PRN_PAIR": "()",
+    "U_SE_CBR_PAIR": "{}", "U_SE_ABK_PAIR": "<>",
     "KC_HASH":   "#",  "KC_EXLM":   "!",  "KC_PERC":   "%",
     "KC_COMMA":  ",",  "KC_DOT":    ".",
 
