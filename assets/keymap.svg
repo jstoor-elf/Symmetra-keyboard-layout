@@ -76,7 +76,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     
     <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f57300">J</text></g>
     <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f57300">Y</text></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f57300">↻</text></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f57300">O</text></g>
     <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#f57300">U</text></g>
     <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007">,</text></g>
     <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
@@ -86,7 +86,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9">H</text></g>
     <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9">A</text></g>
     <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9">I</text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007">O</text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007">↻</text></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
@@ -746,17 +746,17 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     
     <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+J</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">^</tspan></text></g>
     <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+Y</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">=</tspan></text></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+↻</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">@</tspan></text></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+O</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">@</tspan></text></g>
     <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+U</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">"</tspan></text></g>
     <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+,</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">'</tspan></text></g>
     <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
 
     
     <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+P</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">#</tspan></text></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+H</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">:</tspan></text></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+H</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">;</tspan></text></g>
     <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+A</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">[</tspan></text></g>
     <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+I</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">]</tspan></text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+O</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">;</tspan></text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">Space+↻</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">:</tspan></text></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
 
     
@@ -830,7 +830,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     
     <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">J</text></g>
     <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">Y</text></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">↻</text></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">O</text></g>
     <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">U</text></g>
     <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#36363a" style="font-size:13px;">,</text></g>
     <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
@@ -840,7 +840,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">E+H</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">1</tspan></text></g>
     <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">E+A</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">3</tspan></text></g>
     <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">E+I</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">5</tspan></text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">E+O</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">7</tspan></text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="-0.55em" fill="#585858" style="font-size:9px;">E+↻</tspan><tspan x="0" dy="1.0em" fill="#c8c8c8" style="font-size:12px;">7</tspan></text></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /></g>
 
     

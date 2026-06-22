@@ -103,11 +103,11 @@ static uint16_t fast_cursor_down_last_repeat = 0;
 // Base combos
 const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
-const uint16_t PROGMEM combo_bspc[]      = {QK_REP,        KC_U,          COMBO_END};
+const uint16_t PROGMEM combo_bspc[]      = {KC_O,        KC_U,          COMBO_END};
 const uint16_t PROGMEM combo_del[]       = {KC_L,          KC_D,          COMBO_END};
 const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
 const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
-const uint16_t PROGMEM combo_esc[]       = {KC_I,          KC_O,          COMBO_END};
+const uint16_t PROGMEM combo_esc[]       = {KC_I,          QK_REP,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_caps_word[] = {KC_Q,          KC_M,          COMBO_END};
 // Deactivation combos
@@ -116,12 +116,12 @@ const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_
 // Symbol combos: Space (T_L_IN) + right-side key
 const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_END};
 const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_Y,          COMBO_END};
-const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        QK_REP,        COMBO_END};
+const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        KC_O,        COMBO_END};
 const uint16_t PROGMEM combo_sym_dquo[]  = {T_L_IN,        KC_U,          COMBO_END};
 const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
 const uint16_t PROGMEM combo_sym_k[]     = {T_L_IN,        KC_K,          COMBO_END};
 const uint16_t PROGMEM combo_sym_scln[]  = {T_L_IN,        KC_H,          COMBO_END};
-const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        KC_O,          COMBO_END};
+const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        QK_REP,          COMBO_END};
 const uint16_t PROGMEM combo_sym_lbrc[]  = {T_L_IN,        KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_END};
@@ -157,7 +157,7 @@ const uint16_t PROGMEM combo_num_8[]     = {T_L_IN,        KC_W,          COMBO_
 const uint16_t PROGMEM combo_num_1[]     = {T_R_IN,        KC_H,          COMBO_END};
 const uint16_t PROGMEM combo_num_3[]     = {T_R_IN,        KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_num_5[]     = {T_R_IN,        KC_I,          COMBO_END};
-const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        KC_O,         COMBO_END};
+const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        QK_REP,         COMBO_END};
 const uint16_t PROGMEM combo_num_9[]     = {T_R_IN,        KC_F,          COMBO_END};
 
 
@@ -182,8 +182,8 @@ combo_t key_combos[] = {
   COMBO(combo_sym_dquo,  SE_DQUO),
   COMBO(combo_sym_perc,  KC_HASH),
   COMBO(combo_sym_k,     KC_PERC),
-  COMBO(combo_sym_scln,  SE_COLN),
-  COMBO(combo_sym_sft,   SE_SCLN),
+  COMBO(combo_sym_scln,  SE_SCLN),
+  COMBO(combo_sym_sft,   SE_COLN),
   COMBO(combo_sym_lbrc,  SE_LBRC),
   COMBO(combo_sym_rbrc,  SE_RBRC),
   COMBO(combo_sym_ampr,  SE_AMPR),
@@ -235,8 +235,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [ALPHA] = LAYOUT_voyager(
     _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,  _DEAD_,   /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,   _DEAD_,
-    _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    QK_REP,  KC_U,     KC_COMMA, _DEAD_,
-    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     KC_O,     _DEAD_,
+    _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_O,  KC_U,     KC_COMMA, _DEAD_,
+    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     QK_REP,     _DEAD_,
     _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_DOT, _DEAD_,
                                     T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
   ),
