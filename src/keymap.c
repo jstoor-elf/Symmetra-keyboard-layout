@@ -110,6 +110,11 @@ const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_
 const uint16_t PROGMEM combo_esc[]       = {KC_I,          QK_REP,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_caps_word[] = {KC_Q,          KC_M,          COMBO_END};
+// Home-row one-shot mods
+const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_osm_rctl[]  = {KC_A,          KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_osm_lsft[]  = {KC_T,          KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_osm_rsft[]  = {KC_H,          KC_A,          COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
@@ -172,6 +177,11 @@ combo_t key_combos[] = {
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
   COMBO(combo_caps_word, CW_TOGG),
+  // Home-row one-shot mods
+  COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
+  COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
+  COMBO(combo_osm_lsft,  OSM(MOD_LSFT)),
+  COMBO(combo_osm_rsft,  OSM(MOD_RSFT)),
   // Deactivation combos
   COMBO(combo_num_ent,   U_NUM_ENTER),
   COMBO(combo_num_deac,  TG(NUM)),
