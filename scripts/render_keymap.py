@@ -1066,7 +1066,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
     return "\n".join(parts)
 
 
-_RENDER_ORDER = ["ALPHA", "MOD", "NUM", "SHORTCUT", "SYS", "FUNC", "NAV", "MOUSE"]
+_RENDER_ORDER = ["ALPHA", "MOD", "NUM", "FUNC", "SHORTCUT", "SYS", "NAV", "MOUSE"]
 
 def render_svg(ir: dict) -> str:
     layers  = sorted(ir["layers"],

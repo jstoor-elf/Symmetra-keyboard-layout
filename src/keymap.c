@@ -114,6 +114,7 @@ const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_
 const uint16_t PROGMEM combo_esc[]       = {KC_I,          QK_REP,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_caps_word[] = {KC_Q,          KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
 // Home-row one-shot mods
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
 const uint16_t PROGMEM combo_osm_rctl[]  = {KC_A,          KC_I,          COMBO_END};
@@ -186,6 +187,7 @@ combo_t key_combos[] = {
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
   COMBO(combo_caps_word, CW_TOGG),
+  COMBO(combo_func,      OSL(FUNC)),
   // Home-row one-shot mods
   COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
   COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
@@ -284,16 +286,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,    _DEAD_,      _DEAD_,        _DEAD_,      _DEAD_,       _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
     _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SELWORD, /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   SELLINE, SELWBAK, /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
-                                       _OFF_,   _OFF_,   /*|*/   MO(MOUSE), _OFF_
+    _DEAD_, TG(MOUSE), _OFF_, _OFF_,   SELLINE, SELWBAK, /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
+                                       _OFF_,   _OFF_,   /*|*/   _OFF_,     _OFF_
   ),
 
   [MOUSE] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,  _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   MS_BTN1, MS_UP,   MS_BTN2,  _OFF_,   _DEAD_,
-    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,   MS_LEFT, MS_DOWN, MS_RGHT,  _OFF_,   _DEAD_,
-    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   MS_WHLD, MS_BTN3, MS_WHLU,  _OFF_,   _DEAD_,
-                                       _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,    _OFF_,   _DEAD_,
+    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,   MS_LEFT, MS_DOWN, MS_UP,    MS_RGHT,   _DEAD_,
+    _DEAD_, TG(MOUSE), _OFF_, _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,   MS_WHLD, MS_WHLU,  _OFF_,   _DEAD_,
+                                       _OFF_,   _OFF_,   /*|*/   MS_BTN1, MS_BTN2
   ),
 
   [SYS] = LAYOUT_voyager(
@@ -301,7 +303,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,        RM_VALD, RM_VALU, U_RGB_TOG, _OFF_, /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  KC_CAPS,  _OFF_,        _DEAD_,
-                                            _OFF_,     _OFF_, /*|*/   _OFF_,   OSL(FUNC)
+                                            _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
   ),
 
   [MOD] = LAYOUT_voyager(
@@ -317,7 +319,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,  U_REPLACE,  _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
     _DEAD_, U_SAVE,      U_CUT,       U_COPY,    U_PASTE,    _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
     _DEAD_, U_UNDO,      U_REDO,      U_MARK_ALL,_OFF_,      _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-                                      OSL(FUNC), _OFF_,      /*|*/   _OFF_,  _OFF_
+                                      _OFF_,     _OFF_,      /*|*/   _OFF_,  _OFF_
   )
 };
 
@@ -392,14 +394,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_SLV,  // GUI ALT CTL SFT SELWORD
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_SLV, C_SLV,  // SELLINE SELWBAK
+    C_OFF, C_RED,  C_OFF,  C_OFF,  C_SLV, C_SLV,  // TG(MOUSE) SELLINE SELWBAK
     C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN (active)
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_TEA, C_TEA, C_TEA, C_TEA, C_OFF,   // DOC_LEFT DOWN UP RIGHT
     C_OFF, C_GRN, C_GRN, C_GRN, C_GRN, C_OFF,   // LEFT DOWN UP RIGHT
     C_OFF, C_PNK, C_PNK, C_PNK, C_PNK, C_OFF,   // WORD_LEFT 5DOWN 5UP WORD_RIGHT
-    C_RED, C_OFF                                   // MO(MOUSE), _OFF_
+    C_OFF, C_OFF                                   // _OFF_, _OFF_
   },
 
   [MOUSE] = {
@@ -407,14 +409,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_OFF,   // GUI ALT CTL SFT
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_RED,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // TG(MOUSE)->NAV
     C_OFF, C_OFF,                                    // thumbs
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_BLU, C_GRN, C_BLU, C_OFF,  C_OFF,   // BTN1 UP BTN2
-    C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LEFT DOWN RIGHT
-    C_OFF, C_RED, C_BLU, C_RED, C_OFF,  C_OFF,   // WHLD BTN3 WHLU
-    C_OFF, C_OFF                                    // thumbs
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_GRN, C_GRN, C_GRN, C_GRN, C_OFF,   // LEFT DOWN UP RIGHT
+    C_OFF, C_OFF, C_PNK, C_PNK, C_OFF,  C_OFF,   // WHLD WHLU
+    C_BLU, C_BLU                                    // BTN1 BTN2
   },
 
   [SYS] = {
@@ -429,7 +431,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_SLV, C_SLV, C_SLV, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
     C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
-    C_OFF, C_RED                                    // thumbs (R-outer = OSL Func)
+    C_OFF, C_OFF                                    // thumbs
   },
 
   [MOD] = {
@@ -453,7 +455,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_BLU, C_BLU, C_BLU, C_BLU, C_OFF,   // FindPrev FindNext Find Replace
     C_OFF, C_PNK, C_PNK, C_PNK, C_PNK, C_OFF,   // Save Cut Copy Paste
     C_OFF, C_YLW, C_YLW, C_GRN, C_OFF,  C_OFF,   // Undo Redo SelectAll
-    C_RED, C_OFF,                                   // L-outer = OSL Func
+    C_OFF, C_OFF,                                   // thumbs
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
@@ -574,6 +576,18 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     default:
       return TAPPING_TERM;
   }
+}
+
+/* ######### LAYER STATE ######### */
+
+// MOUSE is a child of NAV: toggled on with TG(MOUSE) while NAV is held, but it
+// can never linger past the NAV hold. The moment NAV drops, MOUSE drops too, so
+// releasing the nav thumb always lands you on base regardless of sub-mode.
+layer_state_t layer_state_set_user(layer_state_t state) {
+  if (!(state & (1UL << NAV))) {
+    state &= ~(1UL << MOUSE);
+  }
+  return state;
 }
 
 /* ######### OS FUNCTIONALITY ######### */

@@ -137,6 +137,11 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <rect x="407.0" y="360.0" width="54.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
 <text x="434.0" y="370.0" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">NumWord</text>
 <line x1="413.0" y1="377.0" x2="455.0" y2="377.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
+<line x1="344.5" y1="336.5" x2="411.0" y2="336.5" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<line x1="523.5" y1="336.5" x2="457.0" y2="336.5" stroke="#a0a0a0" stroke-width="0.5" stroke-dasharray="3,2"/>
+<rect x="411.0" y="326.5" width="46.0" height="20" rx="4" fill="#141416" fill-opacity="0.88" stroke="#a0a0a0" stroke-width="0.5"/>
+<text x="434.0" y="336.5" text-anchor="middle" dominant-baseline="middle" fill="#a0a0a0" stroke="#a0a0a0" stroke-width="0.5" paint-order="stroke fill" style="font-size:10px;font-weight:400;">Func</text>
+<line x1="417.0" y1="343.5" x2="451.0" y2="343.5" stroke="#7dd4a0" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,640)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Mod</text>
@@ -307,166 +312,6 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 <line x1="413.0" y1="377.0" x2="455.0" y2="377.0" stroke="#b99af5" stroke-width="2.0" stroke-linecap="square"/>
 </g>
 <g transform="translate(30,1600)">
-<text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Shrtc</text>
-  
-<g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
-
-    
-    <g id="key-0" transform="translate(28,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-1" transform="translate(84,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-2" transform="translate(140,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-3" transform="translate(196,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-4" transform="translate(252,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-5" transform="translate(308,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-6" transform="translate(28,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-7" transform="translate(84,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Find</tspan><tspan x="0" dy="1.2em">Prev</tspan></text></g>
-    <g id="key-8" transform="translate(140,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Find</tspan><tspan x="0" dy="1.2em">Next</tspan></text></g>
-    <g id="key-9" transform="translate(196,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6">Find</text></g>
-    <g id="key-10" transform="translate(252,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6">Replace</text></g>
-    <g id="key-11" transform="translate(308,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-
-    
-    <g id="key-12" transform="translate(28,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Save</text></g>
-    <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Cut</text></g>
-    <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Copy</text></g>
-    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Paste</text></g>
-    <g id="key-17" transform="translate(308,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-
-    
-    <g id="key-18" transform="translate(28,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a">Undo</text></g>
-    <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a">Redo</text></g>
-    <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">All</tspan></text></g>
-    <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-
-    
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#c00000" style="font-size:13px">Func</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#7dd4a0" stroke-width="2.5" stroke-linecap="square" /></g></g>
-    <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-
-    
-    <g id="key-26" transform="translate(560,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-27" transform="translate(616,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-28" transform="translate(672,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-29" transform="translate(728,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-30" transform="translate(784,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-31" transform="translate(840,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-
-  </g>
-
-</g>
-<g transform="translate(30,2080)">
-<text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Sys</text>
-  
-<g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
-
-    
-    <g id="key-0" transform="translate(28,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-1" transform="translate(84,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-2" transform="translate(140,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-3" transform="translate(196,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-4" transform="translate(252,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-5" transform="translate(308,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-6" transform="translate(28,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-7" transform="translate(84,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-8" transform="translate(140,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1ad1b0"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">-</tspan></text></g>
-    <g id="key-9" transform="translate(196,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1ad1b0"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">+</tspan></text></g>
-    <g id="key-10" transform="translate(252,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1ad1b0"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">Toggle</tspan></text></g>
-    <g id="key-11" transform="translate(308,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-
-    
-    <g id="key-12" transform="translate(28,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5838c0"><tspan x="0" dy="-.6em">Vol</tspan><tspan x="0" dy="1.2em">-</tspan></text></g>
-    <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5838c0"><tspan x="0" dy="-.6em">Vol</tspan><tspan x="0" dy="1.2em">+</tspan></text></g>
-    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5838c0">Mute</text></g>
-    <g id="key-17" transform="translate(308,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-
-    
-    <g id="key-18" transform="translate(28,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a"><tspan x="0" dy="-.6em">Prev</tspan><tspan x="0" dy="1.2em">Track</tspan></text></g>
-    <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a"><tspan x="0" dy="-.6em">Next</tspan><tspan x="0" dy="1.2em">Track</tspan></text></g>
-    <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a"><tspan x="0" dy="-.6em">Play/</tspan><tspan x="0" dy="1.2em">Pause</tspan></text></g>
-    <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-
-    
-    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-
-    
-    <g id="key-26" transform="translate(560,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-27" transform="translate(616,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-28" transform="translate(672,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-29" transform="translate(728,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-30" transform="translate(784,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-31" transform="translate(840,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9"><tspan x="0" dy="-.6em">OS</tspan><tspan x="0" dy="1.2em">Search</tspan></text></g>
-    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9" style="font-size:10px">Screenshot</text></g>
-    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9">Emojis</text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Lock</tspan><tspan x="0" dy="1.2em">Screen</tspan></text></g>
-    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Switch</tspan><tspan x="0" dy="1.2em">OS</tspan></text></g>
-    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Caps</tspan><tspan x="0" dy="1.2em">Lock</tspan></text></g>
-    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-
-    
-    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#c00000" style="font-size:13px">Func</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#7dd4a0" stroke-width="2.5" stroke-linecap="square" /></g></g>
-
-  </g>
-
-</g>
-<g transform="translate(30,2560)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Func</text>
   
 <g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
@@ -546,6 +391,166 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
   </g>
 
 </g>
+<g transform="translate(30,2080)">
+<text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Shrtc</text>
+  
+<g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
+
+    
+    <g id="key-0" transform="translate(28,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-1" transform="translate(84,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-2" transform="translate(140,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-3" transform="translate(196,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-4" transform="translate(252,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-5" transform="translate(308,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-6" transform="translate(28,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-7" transform="translate(84,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Find</tspan><tspan x="0" dy="1.2em">Prev</tspan></text></g>
+    <g id="key-8" transform="translate(140,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Find</tspan><tspan x="0" dy="1.2em">Next</tspan></text></g>
+    <g id="key-9" transform="translate(196,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6">Find</text></g>
+    <g id="key-10" transform="translate(252,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6">Replace</text></g>
+    <g id="key-11" transform="translate(308,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+    
+    <g id="key-12" transform="translate(28,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Save</text></g>
+    <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Cut</text></g>
+    <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Copy</text></g>
+    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85">Paste</text></g>
+    <g id="key-17" transform="translate(308,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+    
+    <g id="key-18" transform="translate(28,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a">Undo</text></g>
+    <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a">Redo</text></g>
+    <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">All</tspan></text></g>
+    <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+    
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
+
+    
+    <g id="key-26" transform="translate(560,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-27" transform="translate(616,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-28" transform="translate(672,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-29" transform="translate(728,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-30" transform="translate(784,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-31" transform="translate(840,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+  </g>
+
+</g>
+<g transform="translate(30,2560)">
+<text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Sys</text>
+  
+<g xmlns="http://www.w3.org/2000/svg" id="keys" transform="translate(0,56)">
+
+    
+    <g id="key-0" transform="translate(28,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-1" transform="translate(84,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-2" transform="translate(140,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-3" transform="translate(196,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-4" transform="translate(252,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-5" transform="translate(308,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-6" transform="translate(28,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-7" transform="translate(84,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-8" transform="translate(140,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1ad1b0"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">-</tspan></text></g>
+    <g id="key-9" transform="translate(196,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1ad1b0"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">+</tspan></text></g>
+    <g id="key-10" transform="translate(252,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1ad1b0"><tspan x="0" dy="-.6em">RGB</tspan><tspan x="0" dy="1.2em">Toggle</tspan></text></g>
+    <g id="key-11" transform="translate(308,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+    
+    <g id="key-12" transform="translate(28,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-13" transform="translate(84,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-14" transform="translate(140,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5838c0"><tspan x="0" dy="-.6em">Vol</tspan><tspan x="0" dy="1.2em">-</tspan></text></g>
+    <g id="key-15" transform="translate(196,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5838c0"><tspan x="0" dy="-.6em">Vol</tspan><tspan x="0" dy="1.2em">+</tspan></text></g>
+    <g id="key-16" transform="translate(252,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#5838c0">Mute</text></g>
+    <g id="key-17" transform="translate(308,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+    
+    <g id="key-18" transform="translate(28,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a"><tspan x="0" dy="-.6em">Prev</tspan><tspan x="0" dy="1.2em">Track</tspan></text></g>
+    <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a"><tspan x="0" dy="-.6em">Next</tspan><tspan x="0" dy="1.2em">Track</tspan></text></g>
+    <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c08a0a"><tspan x="0" dy="-.6em">Play/</tspan><tspan x="0" dy="1.2em">Pause</tspan></text></g>
+    <g id="key-23" transform="translate(308,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+    
+    <g id="key-24" transform="translate(309,290) rotate(30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-25" transform="translate(349,333) rotate(30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
+
+    
+    <g id="key-26" transform="translate(560,56)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-27" transform="translate(616,45)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-28" transform="translate(672,28)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-29" transform="translate(728,39)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-30" transform="translate(784,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+    <g id="key-31" transform="translate(840,50)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9"><tspan x="0" dy="-.6em">OS</tspan><tspan x="0" dy="1.2em">Search</tspan></text></g>
+    <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9" style="font-size:10px">Screenshot</text></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9">Emojis</text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Lock</tspan><tspan x="0" dy="1.2em">Screen</tspan></text></g>
+    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Switch</tspan><tspan x="0" dy="1.2em">OS</tspan></text></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Caps</tspan><tspan x="0" dy="1.2em">Lock</tspan></text></g>
+    <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
+
+    
+    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+
+  </g>
+
+</g>
 <g transform="translate(30,3040)">
 <text xmlns="http://www.w3.org/2000/svg" id="layer-label" x="0" y="28" class="label">Nav</text>
   
@@ -577,7 +582,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-18" transform="translate(28,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#c00000" style="font-size:13px">Mouse</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
     <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c0a9a9"><tspan x="0" dy="-.6em">Select</tspan><tspan x="0" dy="1.2em">Line</tspan></text></g>
@@ -620,7 +625,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
-    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#c00000" style="font-size:13px">Mouse</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#f4a96d" stroke-width="2.5" stroke-linecap="square" /></g></g>
+    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
     <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
 
   </g>
@@ -657,7 +662,7 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-18" transform="translate(28,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
-    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-19" transform="translate(84,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><g><text x="0" y="2.0" text-anchor="middle" dominant-baseline="middle" fill="#c00000" style="font-size:13px">Mouse</text><line x1="-18" x2="18" y1="11.0" y2="11.0" stroke="#b99af5" stroke-width="2.5" stroke-linecap="square" /></g></g>
     <g id="key-20" transform="translate(140,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-21" transform="translate(196,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-22" transform="translate(252,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
@@ -677,9 +682,9 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
 
     
     <g id="key-32" transform="translate(560,112)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">L</tspan></text></g>
-    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
-    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">R</tspan></text></g>
+    <g id="key-33" transform="translate(616,101)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-34" transform="translate(672,84)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-35" transform="translate(728,95)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-36" transform="translate(784,106)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-37" transform="translate(840,106)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
@@ -687,21 +692,21 @@ text.label { font-size: 15px; font-weight: bold; fill: #ffffff;
     <g id="key-38" transform="translate(560,168)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-39" transform="translate(616,157)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">←</tspan></text></g>
     <g id="key-40" transform="translate(672,140)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">↓</tspan></text></g>
-    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">→</tspan></text></g>
-    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-41" transform="translate(728,151)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
+    <g id="key-42" transform="translate(784,162)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#10c007"><tspan x="0" dy="-.6em">Mouse</tspan><tspan x="0" dy="1.2em">→</tspan></text></g>
     <g id="key-43" transform="translate(840,162)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
     <g id="key-44" transform="translate(560,224)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
-    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c00000"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">↓</tspan></text></g>
-    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">M</tspan></text></g>
-    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#c00000"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
+    <g id="key-45" transform="translate(616,213)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-46" transform="translate(672,196)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">↓</tspan></text></g>
+    <g id="key-47" transform="translate(728,207)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#ff0f85"><tspan x="0" dy="-.6em">Wheel</tspan><tspan x="0" dy="1.2em">↑</tspan></text></g>
     <g id="key-48" transform="translate(784,218)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
     <g id="key-49" transform="translate(840,218)"><rect rx="0" ry="0" x="-21" y="-21" width="42" height="42" class="key dead" /><text x="0" y="0" fill="#6e7681">⦻</text></g>
 
     
-    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /></g>
-    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /></g>
+    <g id="key-50" transform="translate(519,333) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-37" width="52" height="74" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">L</tspan></text></g>
+    <g id="key-51" transform="translate(559,290) rotate(-30)"><rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key" /><text x="0" y="0" fill="#1f86e6"><tspan x="0" dy="-.6em">Click</tspan><tspan x="0" dy="1.2em">R</tspan></text></g>
 
   </g>
 
