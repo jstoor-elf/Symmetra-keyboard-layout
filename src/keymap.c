@@ -114,6 +114,10 @@ const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_
 const uint16_t PROGMEM combo_esc[]       = {KC_I,          QK_REP,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_caps_word[] = {KC_Q,          KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_apos[]      = {KC_D,          KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_dquo[]      = {KC_Y,          KC_O,          COMBO_END};
+const uint16_t PROGMEM combo_dlr[]       = {SE_OSLH,       KC_DOT,        COMBO_END};
+const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
 const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
 // Home-row one-shot mods
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
@@ -125,11 +129,8 @@ const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
 // Symbol combos: Space (T_L_IN) + right-side key
 const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_END};
-const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_Y,          COMBO_END};
 const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        KC_O,        COMBO_END};
-const uint16_t PROGMEM combo_sym_dquo[]  = {T_L_IN,        KC_U,          COMBO_END};
 const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
-const uint16_t PROGMEM combo_sym_k[]     = {T_L_IN,        KC_K,          COMBO_END};
 const uint16_t PROGMEM combo_sym_scln[]  = {T_L_IN,        KC_H,          COMBO_END};
 const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        QK_REP,          COMBO_END};
 const uint16_t PROGMEM combo_sym_lbrc[]  = {T_L_IN,        KC_A,          COMBO_END};
@@ -138,7 +139,7 @@ const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_
 const uint16_t PROGMEM combo_sym_lprn[]  = {T_L_IN,        SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_sym_rprn[]  = {T_L_IN,        SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_DOT,        COMBO_END};
-const uint16_t PROGMEM combo_sym_eql[]   = {T_L_IN,        KC_COMMA,      COMBO_END};
+const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_U,          COMBO_END};
 // Three-key symbol combos: Space + two right-side keys
 const uint16_t PROGMEM combo_3_acut[]   = {T_L_IN,        KC_J,          KC_Y,    COMBO_END};
 const uint16_t PROGMEM combo_3_grv[]    = {T_L_IN,        KC_P,          KC_H,    COMBO_END};
@@ -148,12 +149,11 @@ const uint16_t PROGMEM combo_prn_pair[] = {T_L_IN,        SE_ADIA,       SE_OSLH
 const uint16_t PROGMEM combo_cbr_pair[] = {T_R_IN,        KC_R,          KC_T,     COMBO_END};
 const uint16_t PROGMEM combo_abk_pair[] = {T_R_IN,        KC_Q,          KC_M,     COMBO_END};
 // Symbol combos: Enter (T_R_IN) + left-side key
-const uint16_t PROGMEM combo_sym_dlr[]   = {T_R_IN,        KC_B,          COMBO_END};
+const uint16_t PROGMEM combo_unds[]      = {T_R_IN,        KC_N,          COMBO_END};
 const uint16_t PROGMEM combo_sym_plus[]  = {T_R_IN,        KC_L,          COMBO_END};
 const uint16_t PROGMEM combo_sym_astr[]  = {T_R_IN,        KC_D,          COMBO_END};
 const uint16_t PROGMEM combo_sym_exlm[]  = {T_R_IN,        KC_C,          COMBO_END};
 const uint16_t PROGMEM combo_sym_tild[]  = {T_R_IN,        KC_V,          COMBO_END};
-const uint16_t PROGMEM combo_sym_ques[]  = {T_R_IN,        KC_N,          COMBO_END};
 const uint16_t PROGMEM combo_sym_lcbr[]  = {T_R_IN,        KC_R,          COMBO_END};
 const uint16_t PROGMEM combo_sym_rcbr[]  = {T_R_IN,        KC_T,          COMBO_END};
 const uint16_t PROGMEM combo_sym_mins[]  = {T_R_IN,        KC_S,          COMBO_END};
@@ -187,6 +187,10 @@ combo_t key_combos[] = {
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
   COMBO(combo_caps_word, CW_TOGG),
+  COMBO(combo_apos,      SE_APOS),
+  COMBO(combo_dquo,      SE_DQUO),
+  COMBO(combo_dlr,       SE_DLR),
+  COMBO(combo_eql,       SE_EQL),
   COMBO(combo_func,      OSL(FUNC)),
   // Home-row one-shot mods
   COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
@@ -198,11 +202,8 @@ combo_t key_combos[] = {
   COMBO(combo_num_deac,  TG(NUM)),
   // Symbol combos via Space + right-side key
   COMBO(combo_sym_circ,  SE_CIRC),
-  COMBO(combo_sym_hash,  SE_EQL),
   COMBO(combo_sym_at,    SE_AT),
-  COMBO(combo_sym_dquo,  SE_DQUO),
-  COMBO(combo_sym_perc,  SE_UNDS),
-  COMBO(combo_sym_k,     KC_PERC),
+  COMBO(combo_sym_perc,  KC_PERC),
   COMBO(combo_sym_scln,  SE_SCLN),
   COMBO(combo_sym_sft,   SE_COLN),
   COMBO(combo_sym_lbrc,  SE_LBRC),
@@ -211,7 +212,7 @@ combo_t key_combos[] = {
   COMBO(combo_sym_lprn,  SE_LPRN),
   COMBO(combo_sym_rprn,  SE_RPRN),
   COMBO(combo_sym_slsh,  KC_EXLM),
-  COMBO(combo_sym_eql,   KC_HASH),
+  COMBO(combo_sym_hash,  KC_HASH),
   COMBO(combo_3_acut,    SE_ACUT),
   COMBO(combo_3_grv,     SE_GRV),
   COMBO(combo_brc_pair,  U_SE_BRC_PAIR),
@@ -219,15 +220,14 @@ combo_t key_combos[] = {
   COMBO(combo_cbr_pair,  U_SE_CBR_PAIR),
   COMBO(combo_abk_pair,  U_SE_ABK_PAIR),
   // Symbol combos via Enter + left-side key
-  COMBO(combo_sym_dlr,   SE_DLR),
+  COMBO(combo_unds,      SE_SLSH),
   COMBO(combo_sym_plus,  SE_PLUS),
   COMBO(combo_sym_astr,  SE_ASTR),
   COMBO(combo_sym_exlm,  SE_MINS),
   COMBO(combo_sym_tild,  SE_TILD),
-  COMBO(combo_sym_ques,  SE_APOS),
   COMBO(combo_sym_lcbr,  U_SE_LCBR),
   COMBO(combo_sym_rcbr,  U_SE_RCBR),
-  COMBO(combo_sym_mins,  SE_SLSH),
+  COMBO(combo_sym_mins,  SE_UNDS),
   COMBO(combo_sym_bsls,  U_SE_BSLS),
   COMBO(combo_sym_apos,  SE_QUES),
   COMBO(combo_sym_less,  U_SE_LESS),

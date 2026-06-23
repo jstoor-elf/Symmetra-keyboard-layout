@@ -144,8 +144,6 @@ LABEL_MAP: dict[str, str] = {
     "U_REPLACE":    "Replace",
 }
 
-_OSL_SYM = "○"   # one-shot layer prefix
-_MO_SYM  = "▲"   # hold/momentary layer prefix
 _TG_SYM  = "⇔"   # toggle layer prefix
 
 def _layer_label(name: str) -> str:
@@ -162,18 +160,18 @@ def map_key(keycode: str) -> str:
     # OSM(MOD_xxx) — one-shot modifier
     m = re.fullmatch(r"OSM\((\w+)\)", keycode)
     if m:
-        return f"{_OSL_SYM}\u00a0{_mod_label(m.group(1))}"
+        return _mod_label(m.group(1))
 
     # OSL(LAYER) — one-shot layer
     m = re.fullmatch(r"OSL\((\w+)\)", keycode)
     if m:
-        return f"{_OSL_SYM}\u00a0{_layer_label(m.group(1))}"
+        return _layer_label(m.group(1))
 
     # LT(LAYER, key) — layer-tap
     m = re.fullmatch(r"LT\((\w+),\s*([^)]+)\)", keycode)
     if m:
         layer, tap = m.group(1), m.group(2).strip()
-        return f"{map_key(tap)}\n{_MO_SYM}\u00a0{_layer_label(layer)}"
+        return f"{map_key(tap)}\n{_layer_label(layer)}"
 
     # MT(MOD, key) — mod-tap
     m = re.fullmatch(r"MT\((\w+),\s*([^)]+)\)", keycode)
@@ -184,7 +182,7 @@ def map_key(keycode: str) -> str:
     # MO(LAYER) — momentary layer
     m = re.fullmatch(r"MO\((\w+)\)", keycode)
     if m:
-        return f"{_MO_SYM}\u00a0{_layer_label(m.group(1))}"
+        return _layer_label(m.group(1))
 
     # TG(LAYER) — toggle layer
     m = re.fullmatch(r"TG\((\w+)\)", keycode)
@@ -632,21 +630,18 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         if key.get("keycode") in dead_kcs:
             continue
 
-        _anchor_leds = {_COMBO_SPACE_LED: "Space", _COMBO_ENTER_LED: "E"}
+        # None => use the key's own label (so the Space anchor reads "Space / Nav",
+        # matching the keypair panel); a string => render that literal symbol.
+        _anchor_leds = {_COMBO_SPACE_LED: None, _COMBO_ENTER_LED: None}
         if bspc_combos:
             _anchor_leds[_COMBO_BSPC_LED] = "⌫"
         if led_idx in _anchor_leds:
-            t = ET.SubElement(group, _T("text"))
-            t.set("x", "0"); t.set("y", "0")
-            t.set("text-anchor", "middle"); t.set("dominant-baseline", "middle")
-            t.set("fill", "#36363a"); t.set("style", "font-size:13px;")
-            t.text = _anchor_leds[led_idx]
+            anchor_lbl = _anchor_leds[led_idx] or key.get("label", "")
+            group.append(_make_text(anchor_lbl, "#36363a"))
 
         elif led_idx not in target_color:
             raw_lbl = key.get("label", "")
             display = raw_lbl.strip()
-            if display.startswith(_OSL_SYM):
-                display = display[len(_OSL_SYM):].lstrip(" ").strip()
             if "\n" not in display and 0 < len(display) <= 5:
                 t = ET.SubElement(group, _T("text"))
                 t.set("x", "0"); t.set("y", "0")
@@ -656,7 +651,7 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
 
     def _strip_action_prefix(lbl: str) -> str:
         lbl = lbl.replace("\n", "").strip()
-        for sym in (_OSL_SYM, _MO_SYM, _TG_SYM):
+        for sym in (_TG_SYM,):
             if lbl.startswith(sym):
                 return lbl[len(sym):].strip("  ")
         return lbl
@@ -695,6 +690,30 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
             ts.set("x", "0"); ts.set("dy", "1.0em")
             ts.set("fill", "#c8c8c8"); ts.set("style", f"font-size:{sym_sz};")
             ts.text = line
+
+    return root
+
+
+def _render_keypair_panel(template_root: ET.Element, alpha_keys: list[dict]) -> ET.Element:
+    """Background for same-side neighboring-key combos: alpha letters greyed out
+    (same dim grey as the unused letters in the Sym/Num combo panels) so the combo
+    boxes read clearly on top. Boxes are overlaid separately by the caller."""
+    root = copy.deepcopy(template_root)
+
+    label_el = root.find(f".//{_T('text')}[@id='layer-label']")
+    if label_el is not None:
+        label_el.text = "Alpha · Keypair Combos"
+
+    dead_kcs = {"_DEAD_", "_OFF_", "XXXXXXX", None}
+    for key in alpha_keys:
+        led_idx = key["led_index"]
+        group   = root.find(f".//{_T('g')}[@id='key-{led_idx}']")
+        if group is None or key.get("keycode") in dead_kcs:
+            continue
+        label = key.get("label", "")
+        if not label:
+            continue
+        group.append(_make_text(label, "#36363a"))
 
     return root
 
@@ -1107,7 +1126,7 @@ def render_svg(ir: dict) -> str:
         (space_num_3k, enter_num_3k),
     ]
 
-    n_combo_panels = len(combo_panels) if alpha_layer else 0
+    n_combo_panels = (len(combo_panels) + 1) if alpha_layer else 0
     total_h = (len(layers) + n_combo_panels) * (_LAYER_H + _LAYER_GAP) + 40 + _LEGEND_H
     parts = [
         f'<svg width="{_CANVAS_W}" height="{total_h}" viewBox="0 0 {_CANVAS_W} {total_h}" '
@@ -1135,12 +1154,12 @@ def render_svg(ir: dict) -> str:
         for child in root:
             parts.append(ET.tostring(child, encoding="unicode"))
         for combo in same_side_combos:
-            if layer["name"] in combo["layers"]:
+            if layer["name"] in combo["layers"] and not is_alpha:
                 frag = _combo_overlay(combo, key_centers, keys_y_off)
                 if frag:
                     parts.append(frag)
         for combo in crossside_thumb_combos:
-            if layer["name"] in combo["layers"]:
+            if layer["name"] in combo["layers"] and not is_alpha:
                 frag = _crossside_thumb_overlay(combo, key_centers, keys_y_off)
                 if frag:
                     parts.append(frag)
@@ -1157,6 +1176,26 @@ def render_svg(ir: dict) -> str:
         parts.append("</g>")
 
     if alpha_layer:
+        # Alpha Keypair Combos — same-side neighboring-key combos on white alpha letters,
+        # shown above the Sym/Num combo panels.
+        panel_offset += 1
+        yp = _LEGEND_H + (len(layers) - 1 + panel_offset) * (_LAYER_H + _LAYER_GAP)
+        kp_root = _render_keypair_panel(template_root, alpha_layer["keys"])
+        parts.append(f'<g transform="translate({_MARGIN},{yp})">')
+        for child in kp_root:
+            parts.append(ET.tostring(child, encoding="unicode"))
+        for combo in same_side_combos:
+            if alpha_layer["name"] in combo["layers"]:
+                frag = _combo_overlay(combo, key_centers, keys_y_off)
+                if frag:
+                    parts.append(frag)
+        for combo in crossside_thumb_combos:
+            if alpha_layer["name"] in combo["layers"]:
+                frag = _crossside_thumb_overlay(combo, key_centers, keys_y_off)
+                if frag:
+                    parts.append(frag)
+        parts.append("</g>")
+
         for panel_idx, (title, space_c, enter_c, bspc_c) in enumerate(combo_panels):
             panel_offset += 1
             yp = _LEGEND_H + (len(layers) - 1 + panel_offset) * (_LAYER_H + _LAYER_GAP)
