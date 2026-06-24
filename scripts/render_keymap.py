@@ -694,15 +694,16 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
     return root
 
 
-def _render_keypair_panel(template_root: ET.Element, alpha_keys: list[dict]) -> ET.Element:
-    """Background for same-side neighboring-key combos: alpha letters greyed out
-    (same dim grey as the unused letters in the Sym/Num combo panels) so the combo
-    boxes read clearly on top. Boxes are overlaid separately by the caller."""
+def _render_combo_bg_panel(template_root: ET.Element, alpha_keys: list[dict],
+                           title: str) -> ET.Element:
+    """Greyed-out alpha letters as a background for a combo panel (same dim grey as
+    the unused letters in the Sym/Num panels) so the combo overlays read clearly on
+    top. Overlays are added separately by the caller."""
     root = copy.deepcopy(template_root)
 
     label_el = root.find(f".//{_T('text')}[@id='layer-label']")
     if label_el is not None:
-        label_el.text = "Alpha · Keypair Combos"
+        label_el.text = title
 
     dead_kcs = {"_DEAD_", "_OFF_", "XXXXXXX", None}
     for key in alpha_keys:
@@ -1118,15 +1119,15 @@ def render_svg(ir: dict) -> str:
         _classify_thumb_3key_combos(combos) if alpha_layer else ([], [], [], [])
     )
     combo_panels = [
-        ("Alpha · Sym Combos",      space_sym,   enter_sym,   None),
-        ("Alpha · Num Combos",      space_num,   enter_num,   None),
+        ("Alpha · Sym Thumb Combos", space_sym,   enter_sym,   None),
+        ("Alpha · Num Thumb Combos", space_num,   enter_num,   None),
     ]
     combo_panels_3k = [
         (space_sym_3k, enter_sym_3k),
         (space_num_3k, enter_num_3k),
     ]
 
-    n_combo_panels = (len(combo_panels) + 1) if alpha_layer else 0
+    n_combo_panels = (len(combo_panels) + 2) if alpha_layer else 0
     total_h = (len(layers) + n_combo_panels) * (_LAYER_H + _LAYER_GAP) + 40 + _LEGEND_H
     parts = [
         f'<svg width="{_CANVAS_W}" height="{total_h}" viewBox="0 0 {_CANVAS_W} {total_h}" '
@@ -1143,9 +1144,7 @@ def render_svg(ir: dict) -> str:
         is_alpha = layer["name"] == "ALPHA"
         layer_nonthumb_idx = 0
         for combo in crossside_nonthumb_combos:
-            if layer["name"] in combo["layers"]:
-                if is_alpha and _COMBO_BSPC_LED in combo.get("led_indices", []):
-                    continue
+            if layer["name"] in combo["layers"] and not is_alpha:
                 y_route = _NONTHUMB_ROUTE_YS[layer_nonthumb_idx % len(_NONTHUMB_ROUTE_YS)]
                 layer_nonthumb_idx += 1
                 frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route, lines_only=True)
@@ -1165,9 +1164,7 @@ def render_svg(ir: dict) -> str:
                     parts.append(frag)
         layer_nonthumb_idx = 0
         for combo in crossside_nonthumb_combos:
-            if layer["name"] in combo["layers"]:
-                if is_alpha and _COMBO_BSPC_LED in combo.get("led_indices", []):
-                    continue
+            if layer["name"] in combo["layers"] and not is_alpha:
                 y_route = _NONTHUMB_ROUTE_YS[layer_nonthumb_idx % len(_NONTHUMB_ROUTE_YS)]
                 layer_nonthumb_idx += 1
                 frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route)
@@ -1176,22 +1173,47 @@ def render_svg(ir: dict) -> str:
         parts.append("</g>")
 
     if alpha_layer:
-        # Alpha Keypair Combos — same-side neighboring-key combos on white alpha letters,
-        # shown above the Sym/Num combo panels.
+        # Same-Side Combos — neighboring-key rolls (one hand), over greyed alpha letters.
         panel_offset += 1
         yp = _LEGEND_H + (len(layers) - 1 + panel_offset) * (_LAYER_H + _LAYER_GAP)
-        kp_root = _render_keypair_panel(template_root, alpha_layer["keys"])
+        ss_root = _render_combo_bg_panel(template_root, alpha_layer["keys"], "Alpha · Same-Side Combos")
         parts.append(f'<g transform="translate({_MARGIN},{yp})">')
-        for child in kp_root:
+        for child in ss_root:
             parts.append(ET.tostring(child, encoding="unicode"))
         for combo in same_side_combos:
             if alpha_layer["name"] in combo["layers"]:
                 frag = _combo_overlay(combo, key_centers, keys_y_off)
                 if frag:
                     parts.append(frag)
+        parts.append("</g>")
+
+        # Crossover Combos — two-thumb (NumWord/Func) and cross-hand combos, whose
+        # routing lines would otherwise add noise over the same-side boxes.
+        panel_offset += 1
+        yp = _LEGEND_H + (len(layers) - 1 + panel_offset) * (_LAYER_H + _LAYER_GAP)
+        xo_root = _render_combo_bg_panel(template_root, alpha_layer["keys"], "Alpha · Crossover Combos")
+        parts.append(f'<g transform="translate({_MARGIN},{yp})">')
+        xo_nonthumb_idx = 0
+        for combo in crossside_nonthumb_combos:
+            if alpha_layer["name"] in combo["layers"]:
+                y_route = _NONTHUMB_ROUTE_YS[xo_nonthumb_idx % len(_NONTHUMB_ROUTE_YS)]
+                xo_nonthumb_idx += 1
+                frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route, lines_only=True)
+                if frag:
+                    parts.append(frag)
+        for child in xo_root:
+            parts.append(ET.tostring(child, encoding="unicode"))
         for combo in crossside_thumb_combos:
             if alpha_layer["name"] in combo["layers"]:
                 frag = _crossside_thumb_overlay(combo, key_centers, keys_y_off)
+                if frag:
+                    parts.append(frag)
+        xo_nonthumb_idx = 0
+        for combo in crossside_nonthumb_combos:
+            if alpha_layer["name"] in combo["layers"]:
+                y_route = _NONTHUMB_ROUTE_YS[xo_nonthumb_idx % len(_NONTHUMB_ROUTE_YS)]
+                xo_nonthumb_idx += 1
+                frag = _crossside_nonthumb_overlay(combo, key_centers, keys_y_off, y_route)
                 if frag:
                     parts.append(frag)
         parts.append("</g>")
