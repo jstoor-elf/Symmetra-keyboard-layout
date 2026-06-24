@@ -116,7 +116,7 @@ const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_
 const uint16_t PROGMEM combo_caps_word[] = {KC_T,          KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_apos[]      = {KC_D,          KC_C,          COMBO_END};
 const uint16_t PROGMEM combo_dquo[]      = {KC_Y,          KC_O,          COMBO_END};
-const uint16_t PROGMEM combo_dlr[]       = {SE_OSLH,       KC_DOT,        COMBO_END};
+const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
 const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
 // Home-row one-shot mods
