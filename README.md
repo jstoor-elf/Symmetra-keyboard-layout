@@ -18,7 +18,7 @@ The keymap below shows key positions and RGB coloring for each layer. The keycap
 
 A legend is added explaining the color-coded underlines used on action keys — each color represents a different action type: one-shot layer (OSL), one-shot modifier (OSM), momentary (MO), layer-tap (LT), and toggle (TG). 
 
-Combos are not overlaid on the base layer itself; they are collected into dedicated panels below the layer views, drawn over the dimmed alpha letters for context. The **Alpha · Keypair Combos** panel holds the same-side rolls — two neighboring keys pressed together on one hand — alongside the two-thumb combos that reach the `NumWord` and `Func` layers. The **Alpha · Sym Combos** and **Alpha · Num Combos** panels hold the thumb-anchored combos, using the `Space` and `E` thumb keys as anchors. Within the panels, same-side combos are shown as overlay boxes on the affected keys, while cross-side combos use dashed routing lines converging on a central indicator box.
+Combos are not overlaid on the base layer; they are collected into dedicated panels below the layer views, drawn over the dimmed alpha letters for context and grouped by how they are triggered. Same-side combos are shown as overlay boxes on the affected keys, cross-side combos use dashed routing lines converging on a central indicator box, and thumb-anchored combos are labelled on their target key together with the thumb that triggers them.
 
 A few keys are rendered with special symbols: `↻` for the Repeat key and `⌫` for Backspace.
 
