@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # ---- CONFIG ----
-SRC_ROOT="${1:?Usage: $0 <SRC_DIR>}"
+SRC_ROOT="${1:-"$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.."}"
 KEYMAP_NAME="my_keymap"
 LINK_DIR=~/qmk_firmware/keyboards/zsa/voyager/keymaps/"$KEYMAP_NAME"
 

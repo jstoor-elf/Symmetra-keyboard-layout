@@ -1,41 +1,51 @@
-/* ######### INCLUDES ######### */ 
+/* ######### INCLUDES ######### */
 
 #include QMK_KEYBOARD_H
 #include "swedish_keys.h"
 #include "version.h"
-#include <math.h>
 
 /* ######### DEFINES ######### */
 
 #ifndef ZSA_SAFE_RANGE
 #define ZSA_SAFE_RANGE SAFE_RANGE
-#endif 
+#endif
+
+/* ######### KEY ALIASES ######### */
+
+#define _DEAD_  XXXXXXX  // physically removed switch
+#define _OFF_   XXXXXXX  // within range, unassigned on this layer
+
+#define T_L_OUT OSL(SYS)
+#define T_L_IN  LT(NAV, KC_SPC)
+#define T_R_IN  KC_E
+#define T_R_OUT OSL(SHORTCUT)
 
 /* ######### ENUMS ######### */
 
 enum layers {
-  ALPHA0,
-  ALPHA1,
-  SYM,
+  ALPHA,
   NUM,
+  FUNC,
   NAV,
-  SYS  
+  MOUSE,
+  SYS,
+  MOD,
+  SHORTCUT
 };
 
-// For mac/win compatability
 enum custom_keycodes {
   RGB_SLD = ZSA_SAFE_RANGE,
-  U_BACK_TAB,
-  U_SE_LESS, 
+  U_SE_LESS,
   U_SE_GRTR,
   U_SE_PIPE,
   U_SE_LCBR,
   U_SE_RCBR,
   U_SE_BSLS,
-  U_FIND_PREV,
-  U_FIND_NEXT,
+  U_SE_BRC_PAIR,
+  U_SE_PRN_PAIR,
+  U_SE_CBR_PAIR,
+  U_SE_ABK_PAIR,
   U_SEARCH,
-  U_REPLACE,
   U_CUT,
   U_UNDO,
   U_REDO,
@@ -46,17 +56,30 @@ enum custom_keycodes {
   U_DOC_LEFT,
   U_DOC_DOWN,
   U_DOC_UP,
-  U_DOC_RIGHT,   
+  U_DOC_RIGHT,
   U_WORD_LEFT,
   U_5_ROWS_DOWN,
   U_5_ROWS_UP,
   U_WORD_RIGHT,
-  U_RGB_TOG,
+  U_TOGGLE_OS,
+  U_NUM_ENTER,
+  U_NUM_SPACE,
+  U_NUM_TGL,
+  U_NUM_ENT_ANC,
   U_SCREENSHOT,
   U_OS_SEARCH,
-  U_TOGGLE_OS,
-  U_TOGGLE_ALPHA,
-  U_LOCK_SCREEN
+  U_EMOJIS,
+  U_LOCK_SCREEN,
+  U_RGB_TOG,
+
+  U_FIND_PREV,
+  U_FIND_NEXT,
+  U_REPLACE,
+
+  U_OS_RSFT,
+  U_OS_RCTL,
+  U_OS_RALT,
+  U_OS_RGUI
 };
 
 typedef enum {
@@ -64,234 +87,403 @@ typedef enum {
   OS_MAC
 } os_t;
 
-typedef enum {
-  ALPHA_QWERTY,
-  ALPHA_KVIKK,
-} alpha_t;
-
 /* ######### GLOBAL VARIABLES ######### */
 
-os_t current_os = OS_WINDOWS; // Used for storing info about the os
-alpha_t current_alpha = ALPHA_QWERTY; // Used for storing info about the alpha layer
+os_t current_os = OS_WINDOWS;
 
-uint16_t animation_os_timer = 0; // Used for visualizing os and layer switch
-uint16_t animation_alpha_timer = 0; // Used for visualizing os and layer switch
-bool capslock_active = false; // Used for setting color for caps key leda
-extern rgb_config_t rgb_matrix_config; // Global variable provided by QMK that stores the current RGB matrix settings
+bool caps_word_active = false;
+extern rgb_config_t rgb_matrix_config;
 
-static bool fast_cursor_up_active = false; // Used to know if fast cursor is held
-static uint16_t fast_cursor_up_timer = 0; // Used to know the time between the last cursor movement
-static uint16_t fast_cursor_up_last_repeat = 0; // Used for repeating scroll
+static bool fast_cursor_up_active = false;
+static uint16_t fast_cursor_up_timer = 0;
+static uint16_t fast_cursor_up_last_repeat = 0;
 
-static bool fast_cursor_down_active = false; // Used to know if fast cursor is held
-static uint16_t fast_cursor_down_timer = 0; // Used to know the time between the last cursor movement
-static uint16_t fast_cursor_down_last_repeat = 0; // Used for repeating scroll
+static bool fast_cursor_down_active = false;
+static uint16_t fast_cursor_down_timer = 0;
+static uint16_t fast_cursor_down_last_repeat = 0;
+
+/* ######### COMBOS ######### */
+
+// Base combos
+const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_END};
+const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
+const uint16_t PROGMEM combo_bspc[]      = {KC_O,        KC_U,          COMBO_END};
+const uint16_t PROGMEM combo_del[]       = {KC_L,          KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_esc[]       = {KC_I,          QK_REP,          COMBO_END};
+const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
+const uint16_t PROGMEM combo_caps_word[] = {KC_T,          KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_apos[]      = {KC_R,          KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
+const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
+// Home-row one-shot mods
+const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_osm_rctl[]  = {KC_A,          KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_osm_lsft[]  = {KC_T,          KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_osm_rsft[]  = {KC_H,          KC_A,          COMBO_END};
+// Deactivation combos
+const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
+const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
+// Symbol combos: Space (T_L_IN) + right-side key
+const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_END};
+const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        KC_O,        COMBO_END};
+const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
+const uint16_t PROGMEM combo_sym_scln[]  = {T_L_IN,        KC_H,          COMBO_END};
+const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        QK_REP,          COMBO_END};
+const uint16_t PROGMEM combo_sym_lbrc[]  = {T_L_IN,        KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_END};
+const uint16_t PROGMEM combo_sym_lprn[]  = {T_L_IN,        SE_ADIA,       COMBO_END};
+const uint16_t PROGMEM combo_sym_rprn[]  = {T_L_IN,        SE_OSLH,       COMBO_END};
+const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_DOT,        COMBO_END};
+const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_U,          COMBO_END};
+// Three-key symbol combos: Space + two right-side keys
+const uint16_t PROGMEM combo_3_acut[]   = {T_L_IN,        KC_J,          KC_Y,    COMBO_END};
+const uint16_t PROGMEM combo_3_grv[]    = {T_L_IN,        KC_P,          KC_H,    COMBO_END};
+// Bracket-pair combos: thumb + both bracket keys -> emit open and close
+const uint16_t PROGMEM combo_brc_pair[] = {T_L_IN,        KC_A,          KC_I,     COMBO_END};
+const uint16_t PROGMEM combo_prn_pair[] = {T_L_IN,        SE_ADIA,       SE_OSLH,  COMBO_END};
+const uint16_t PROGMEM combo_cbr_pair[] = {T_R_IN,        KC_R,          KC_T,     COMBO_END};
+const uint16_t PROGMEM combo_abk_pair[] = {T_R_IN,        KC_Q,          KC_M,     COMBO_END};
+// Symbol combos: Enter (T_R_IN) + left-side key
+const uint16_t PROGMEM combo_unds[]      = {T_R_IN,        KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_sym_plus[]  = {T_R_IN,        KC_L,          COMBO_END};
+const uint16_t PROGMEM combo_sym_astr[]  = {T_R_IN,        KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_sym_exlm[]  = {T_R_IN,        KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_sym_tild[]  = {T_R_IN,        KC_V,          COMBO_END};
+const uint16_t PROGMEM combo_sym_lcbr[]  = {T_R_IN,        KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_sym_rcbr[]  = {T_R_IN,        KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_sym_mins[]  = {T_R_IN,        KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_sym_bsls[]  = {T_R_IN,        KC_G,          COMBO_END};
+const uint16_t PROGMEM combo_sym_apos[]  = {T_R_IN,        KC_X,          COMBO_END};
+const uint16_t PROGMEM combo_sym_less[]  = {T_R_IN,        KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_sym_grtr[]  = {T_R_IN,        KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_sym_pipe[]  = {T_R_IN,        KC_W,          COMBO_END};
+// Number combos: Space (T_L_IN) + left-side key
+const uint16_t PROGMEM combo_num_6[]     = {T_L_IN,        KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_num_4[]     = {T_L_IN,        KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_num_2[]     = {T_L_IN,        KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_num_0[]     = {T_L_IN,        KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_num_8[]     = {T_L_IN,        KC_W,          COMBO_END};
+// Number combos: Enter (T_R_IN) + right-side key
+const uint16_t PROGMEM combo_num_1[]     = {T_R_IN,        KC_H,          COMBO_END};
+const uint16_t PROGMEM combo_num_3[]     = {T_R_IN,        KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_num_5[]     = {T_R_IN,        KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        QK_REP,         COMBO_END};
+const uint16_t PROGMEM combo_num_9[]     = {T_R_IN,        KC_F,          COMBO_END};
+
+
+combo_t key_combos[] = {
+  // Base combos
+  COMBO(combo_aa,        SE_AA),
+  COMBO(combo_num,       TG(NUM)),
+  COMBO(combo_bspc,      KC_BSPC),
+  COMBO(combo_del,       KC_DEL),
+  COMBO(combo_nr_mod,    OSL(MOD)),
+  COMBO(combo_tab,       KC_TAB),
+  COMBO(combo_esc,       KC_ESC),
+  COMBO(combo_ent,       KC_ENT),
+  COMBO(combo_caps_word, CW_TOGG),
+  COMBO(combo_apos,      SE_APOS),
+  COMBO(combo_dquo,      SE_DQUO),
+  COMBO(combo_dlr,       SE_DLR),
+  COMBO(combo_eql,       SE_EQL),
+  COMBO(combo_func,      OSL(FUNC)),
+  // Home-row one-shot mods
+  COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
+  COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
+  COMBO(combo_osm_lsft,  OSM(MOD_LSFT)),
+  COMBO(combo_osm_rsft,  OSM(MOD_RSFT)),
+  // Deactivation combos
+  COMBO(combo_num_ent,   U_NUM_ENTER),
+  COMBO(combo_num_deac,  TG(NUM)),
+  // Symbol combos via Space + right-side key
+  COMBO(combo_sym_circ,  SE_CIRC),
+  COMBO(combo_sym_at,    SE_AT),
+  COMBO(combo_sym_perc,  KC_PERC),
+  COMBO(combo_sym_scln,  SE_SCLN),
+  COMBO(combo_sym_sft,   SE_COLN),
+  COMBO(combo_sym_lbrc,  SE_LBRC),
+  COMBO(combo_sym_rbrc,  SE_RBRC),
+  COMBO(combo_sym_ampr,  SE_AMPR),
+  COMBO(combo_sym_lprn,  SE_LPRN),
+  COMBO(combo_sym_rprn,  SE_RPRN),
+  COMBO(combo_sym_slsh,  KC_EXLM),
+  COMBO(combo_sym_hash,  KC_HASH),
+  COMBO(combo_3_acut,    SE_ACUT),
+  COMBO(combo_3_grv,     SE_GRV),
+  COMBO(combo_brc_pair,  U_SE_BRC_PAIR),
+  COMBO(combo_prn_pair,  U_SE_PRN_PAIR),
+  COMBO(combo_cbr_pair,  U_SE_CBR_PAIR),
+  COMBO(combo_abk_pair,  U_SE_ABK_PAIR),
+  // Symbol combos via Enter + left-side key
+  COMBO(combo_unds,      SE_SLSH),
+  COMBO(combo_sym_plus,  SE_PLUS),
+  COMBO(combo_sym_astr,  SE_ASTR),
+  COMBO(combo_sym_exlm,  SE_MINS),
+  COMBO(combo_sym_tild,  SE_TILD),
+  COMBO(combo_sym_lcbr,  U_SE_LCBR),
+  COMBO(combo_sym_rcbr,  U_SE_RCBR),
+  COMBO(combo_sym_mins,  SE_UNDS),
+  COMBO(combo_sym_bsls,  U_SE_BSLS),
+  COMBO(combo_sym_apos,  SE_QUES),
+  COMBO(combo_sym_less,  U_SE_LESS),
+  COMBO(combo_sym_grtr,  U_SE_GRTR),
+  COMBO(combo_sym_pipe,  U_SE_PIPE),
+  // Number combos via Space + left-side key
+  COMBO(combo_num_6,     KC_6),
+  COMBO(combo_num_4,     KC_4),
+  COMBO(combo_num_2,     KC_2),
+  COMBO(combo_num_0,     KC_0),
+  COMBO(combo_num_8,     KC_8),
+  // Number combos via Enter + right-side key
+  COMBO(combo_num_1,     KC_1),
+  COMBO(combo_num_3,     KC_3),
+  COMBO(combo_num_5,     KC_5),
+  COMBO(combo_num_7,     KC_7),
+  COMBO(combo_num_9,     KC_9),
+};
 
 /* ######### KEYMAPS ######### */
 
+// LED index layout per side (26 LEDs each):
+//   0- 5: top row (disabled, outer switches removed)
+//   6-11: row 2   (outer=6, keys=7-11)
+//  12-17: home row (outer=12, keys=13-17)
+//  18-23: bottom row (outer=18, keys=19-23)
+//  24-25: thumbs (L: outer=24, inner=25 | R: inner=50, outer=51)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [ALPHA0] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,               XXXXXXX,          
-    KC_CAPS, KC_Q,               KC_W,               KC_E,               KC_R,               KC_T,           /*|*/KC_Y,             KC_U,               KC_I,               KC_O,               KC_P,                  KC_ESCAPE,      
-    CW_TOGG, MT(MOD_LALT, KC_A), MT(MOD_LGUI, KC_S), MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), KC_G,           /*|*/KC_H,             MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), MT(MOD_RGUI, KC_L), MT(MOD_RALT, SE_OSLH), SE_ADIA,        
-    QK_REP,  KC_Z,               KC_X,               KC_C,               KC_V,               KC_B,           /*|*/KC_N,             KC_M,               KC_COMMA,           KC_DOT,             SE_AA,                 KC_DELETE,      
-                                                                         LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
+
+  [ALPHA] = LAYOUT_voyager(
+    _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,  _DEAD_,   /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,   _DEAD_,
+    _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_O,  KC_U,     KC_COMMA, _DEAD_,
+    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     QK_REP,     _DEAD_,
+    _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_DOT, _DEAD_,
+                                    T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
   ),
-  [ALPHA1] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,             XXXXXXX,          
-    KC_CAPS, KC_X,               KC_C,               KC_O,               SE_ADIA,            KC_U,           /*|*/KC_H,             KC_K,               KC_M,               KC_B,               KC_J,                KC_ESCAPE,      
-    CW_TOGG, MT(MOD_LALT, KC_L), MT(MOD_LGUI, KC_R), MT(MOD_LCTL, KC_A), MT(MOD_LSFT, KC_E), KC_I,           /*|*/KC_D,             MT(MOD_RSFT, KC_T), MT(MOD_RCTL, KC_N), MT(MOD_RGUI, KC_S), MT(MOD_RALT, KC_G),  KC_V,        
-    QK_REP,  KC_Q,               KC_Z,               SE_AA,              SE_OSLH,            KC_Y,           /*|*/KC_F,             KC_P,               KC_COMMA,           KC_DOT,             KC_W,                KC_DELETE,      
-                                                                         LT(SYM, KC_ENTER),  LT(NAV, KC_TAB),/*|*/LT(NAV, KC_BSPC), LT(NUM, KC_SPACE)
-  ),                                   
-  [SYM] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  /*|*/XXXXXXX, XXXXXXX,   XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, SE_QUES, U_SE_LESS, U_SE_GRTR, SE_MINS,  U_SE_PIPE,/*|*/SE_CIRC, U_SE_LCBR, U_SE_RCBR,  SE_DLR,  SE_ACUT, SE_GRV,         
-    KC_PERC, KC_EXLM, SE_ASTR,   SE_SLSH,   SE_EQL,   SE_AMPR,  /*|*/KC_HASH, SE_LPRN,   SE_RPRN,    SE_SCLN, SE_DQUO, U_SE_BSLS,        
-    XXXXXXX, SE_TILD, SE_PLUS,   SE_LBRC,   SE_RBRC,  SE_AT,    /*|*/SE_UNDS, SE_COLN,   KC_COMMA,   KC_DOT,  SE_APOS, XXXXXXX,          
-                                            KC_ENTER, XXXXXXX,  /*|*/XXXXXXX, XXXXXXX
-  ),
+
   [NUM] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,/*|*/XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    XXXXXXX, KC_F10,  KC_F3,   KC_F2,   KC_F1,   XXXXXXX,/*|*/XXXXXXX, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX,          
-    XXXXXXX, KC_F11,  KC_F6,   KC_F5,   KC_F4,   XXXXXXX,/*|*/XXXXXXX, KC_4,    KC_5,    KC_6,    KC_0,    XXXXXXX,           
-    XXXXXXX, KC_F12,  KC_F9,   KC_F8,   KC_F7,   XXXXXXX,/*|*/XXXXXXX, KC_7,    KC_8,    KC_9,    XXXXXXX, XXXXXXX,          
-                                        XXXXXXX, XXXXXXX,/*|*/XXXXXXX, KC_SPACE
-  ),  
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,      /*|*/   _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,       /*|*/   _OFF_,        _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, KC_6,    KC_4,    KC_2,    KC_0,    _OFF_,       /*|*/   _OFF_,        KC_1,    KC_3,    KC_5,    KC_7,    _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   KC_8,    _OFF_,       /*|*/   _OFF_,        KC_9,    U_NUM_ENT_ANC, _OFF_,   _OFF_,   _DEAD_,
+                                       _OFF_,   U_NUM_SPACE, /*|*/   U_NUM_TGL,    _OFF_
+  ),
+
+  [FUNC] = LAYOUT_voyager(
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,        _DEAD_,  /*|*/   _DEAD_,  _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, KC_F6,   KC_F4,   KC_F2,   _OFF_,         _OFF_,   /*|*/   _OFF_,   KC_F1,        KC_F3,   KC_F5,   KC_F7,   _DEAD_,
+    _DEAD_, _OFF_,   KC_F12,  KC_F10,  KC_F8,         _OFF_,   /*|*/   _OFF_,   KC_F9,        KC_F11,  _OFF_,   _OFF_,   _DEAD_,
+                                       _OFF_,         _OFF_,   /*|*/   _OFF_,   _OFF_
+  ),
+
   [NAV] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX,     XXXXXXX,     XXXXXXX,    XXXXXXX,   XXXXXXX,        /*|*/XXXXXXX,          XXXXXXX,     XXXXXXX,       XXXXXXX,     XXXXXXX,      XXXXXXX,
-    XXXXXXX, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,   U_REPLACE, XXXXXXX,        /*|*/XXXXXXX,          U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  XXXXXXX,          
-    XXXXXXX, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   SELWORD,        /*|*/XXXXXXX,          KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     XXXXXXX,          
-    XXXXXXX, U_UNDO,      U_REDO,      U_MARK_ALL, SELLINE,   SELWBAK,        /*|*/XXXXXXX,          U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, XXXXXXX,          
-                                                   XXXXXXX,   LT(SYS, KC_TAB),/*|*/LT(SYS, KC_BSPC), XXXXXXX     
-  ), 
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,    _DEAD_,      _DEAD_,        _DEAD_,      _DEAD_,       _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
+    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SELWORD, /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
+    _DEAD_, TG(MOUSE), _OFF_, _OFF_,   SELLINE, SELWBAK, /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
+                                       _OFF_,   _OFF_,   /*|*/   _OFF_,     _OFF_
+  ),
+
+  [MOUSE] = LAYOUT_voyager(
+    _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,  _DEAD_,
+    _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,   _OFF_,   _OFF_,    _OFF_,   _DEAD_,
+    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,   MS_LEFT, MS_DOWN, MS_UP,    MS_RGHT,   _DEAD_,
+    _DEAD_, TG(MOUSE), _OFF_, _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,   _OFF_,   MS_WHLD, MS_WHLU,  _OFF_,   _DEAD_,
+                                       _OFF_,   _OFF_,   /*|*/   MS_BTN1, MS_BTN2
+  ),
+
   [SYS] = LAYOUT_voyager(
-    XXXXXXX, XXXXXXX, XXXXXXX,           XXXXXXX,         XXXXXXX,       XXXXXXX,       /*|*/XXXXXXX,       XXXXXXX,             XXXXXXX,       XXXXXXX,       XXXXXXX,                   XXXXXXX,
-    XXXXXXX, XXXXXXX, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_AUDIO_MUTE, U_SCREENSHOT,  /*|*/U_OS_SEARCH,   MS_WHLL,             MS_WHLD,       MS_WHLU,       MS_WHLR,                   XXXXXXX,          
-    XXXXXXX, XXXXXXX, MS_BTN2,           MS_BTN3,         MS_BTN1,       U_TOGGLE_ALPHA,/*|*/XXXXXXX,       MS_LEFT,             MS_DOWN,       MS_UP,         MS_RGHT,                   XXXXXXX,         
-    XXXXXXX, XXXXXXX, RM_VALD,           RM_VALU,         U_RGB_TOG,     U_TOGGLE_OS,   /*|*/U_LOCK_SCREEN, KC_MEDIA_PREV_TRACK, KC_MEDIA_STOP, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, XXXXXXX,          
-                                                          XXXXXXX,       XXXXXXX,       /*|*/XXXXXXX,       XXXXXXX
+    _DEAD_, _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,    _DEAD_,/*|*/   _DEAD_,  _DEAD_,        _DEAD_,       _DEAD_,   _DEAD_,       _DEAD_,
+    _DEAD_, _OFF_,        RM_VALD, RM_VALU, U_RGB_TOG, _OFF_, /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    _OFF_,        _DEAD_,
+    _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
+    _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  KC_CAPS,  _OFF_,        _DEAD_,
+                                            _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
+  ),
+
+  [MOD] = LAYOUT_voyager(
+    _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,  /*|*/   _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,
+    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
+    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  U_OS_RSFT,     U_OS_RCTL,     U_OS_RALT,     U_OS_RGUI,     _DEAD_,
+    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
+                                                         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
+  ),
+
+  [SHORTCUT] = LAYOUT_voyager(
+    _DEAD_, _DEAD_,      _DEAD_,      _DEAD_,    _DEAD_,     _DEAD_, /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
+    _DEAD_, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,  U_REPLACE,  _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, U_SAVE,      U_CUT,       U_COPY,    U_PASTE,    _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, U_UNDO,      U_REDO,      U_MARK_ALL,_OFF_,      _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+                                      _OFF_,     _OFF_,      /*|*/   _OFF_,  _OFF_
   )
 };
 
 /* ######### LEDMAPS ######### */
+
+// Base palette — used on the base layer
+#define C_OFF  {0,   0,   0  }
+#define C_ORG  {20,  255, 245}  // orange
+#define C_GRN  {83,  245, 180}  // green
+#define C_RED  {0,   255, 170}  // red
+#define C_SLV  {0,   30,  120}  // silver
+// Extra palette — used on non-base layers only
+#define C_YLW  {30,  241, 180}  // yellow
+#define C_BLU  {148, 220, 230}  // blue
+#define C_PRP  {180, 180, 170}  // purple
+#define C_TEA  {120, 223, 209}  // teal
+#define C_PNK  {234, 240, 255}  // hot pink
+#define C_LBL  {150, 150, 220}  // light blue
+
+// LED indices for dynamic overrides
+#define LED_TOGGLE_OS 46  // U_TOGGLE_OS key on the SYS layer
+
 const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
-  [ALPHA0] = {
+  [ALPHA] = {
     // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {10,245,232}, {10,245,232},
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
+    C_OFF, C_GRN, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
+    C_OFF, C_GRN, C_SLV, C_SLV, C_SLV, C_SLV,       // N(outer) R T S G
+    C_OFF, C_GRN, C_SLV, C_SLV, C_SLV, C_SLV,       // X(outer) Q M W Z
+    C_RED, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {83,245,131}, {10,245,232}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {10,245,232}, {10,245,232}
-  },
-
-  [ALPHA1] = {
-    // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {10,245,232}, {10,245,232},
-    // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {83,245,131}, {83,245,131}, {10,245,232}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131}, {83,245,131},
-    {10,245,232}, {10,245,232}
-  },
-
-  [SYM] = {
-    // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {0,0,0}, {135,114,167}, {206,255,153}, {206,255,153}, {91,255,160}, {135,114,167},
-    {135,114,167}, {206,255,153}, {91,255,160}, {91,255,160}, {206,255,153}, {135,114,167},
-    {0,0,0}, {135,114,167}, {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167},
-    {0,0,0}, {0,0,0},
-    // Right side,
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {91,255,160}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
-    {135,114,167}, {30,241,223}, {30,241,223}, {135,114,167}, {135,114,167}, {135,114,167},
-    {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {135,114,167}, {0,0,0},
-    {0,0,0}, {0,0,0}
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
+    C_ORG, C_ORG, C_ORG, C_ORG, C_GRN, C_OFF,       // J Y REPEAT U COMMA(outer)
+    C_SLV, C_SLV, C_SLV, C_SLV, C_GRN, C_OFF,       // P H A I O(outer)
+    C_SLV, C_SLV, C_SLV, C_SLV, C_GRN, C_OFF,       // K F ADIA OSLH DOT(outer)
+    C_RED, C_RED                                    // T_R_IN, T_R_OUT
   },
 
   [NUM] = {
     // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
-    {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
-    {0,0,0}, {183,238,205}, {183,238,205}, {183,238,205}, {183,238,205}, {0,0,0},
-    {0,0,0}, {0,0,0},
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_TEA, C_TEA, C_TEA, C_TEA, C_OFF,       // 6 4 2 0
+    C_OFF, C_OFF, C_OFF, C_OFF, C_TEA, C_OFF,       // 8
+    C_OFF, C_RED,                                   // U_NUM_SPACE
     // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {120,223,209}, {120,223,209}, {120,223,209}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {120,223,209}, {120,223,209}, {120,223,209}, {120,223,209}, {0,0,0}, 
-    {0,0,0}, {120,223,209}, {120,223,209}, {120,223,209}, {0,0,0}, {0,0,0},
-    {0,0,0}, {0,0,0}
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_TEA, C_TEA, C_TEA, C_TEA, C_OFF,       // 1 3 5 7
+    C_OFF, C_TEA, C_OFF, C_OFF, C_OFF, C_OFF,       // 9
+    C_RED, C_OFF                                    // U_NUM_TGL, T_R_OUT
   },
-  
+
+  [FUNC] = {
+    // Left side
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (V = deac, unlit)
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_YLW,  C_YLW,  C_YLW,  C_OFF, C_OFF,       // F6 F4 F2
+    C_OFF, C_OFF, C_YLW,  C_YLW,  C_YLW,  C_OFF,       // F8
+    C_OFF, C_OFF,                                   // thumbs
+    // Right side
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (J = deac, unlit)
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_YLW,  C_YLW,  C_YLW,  C_YLW,  C_OFF,       // F1 F3 F5 F7
+    C_OFF, C_YLW,  C_YLW,  C_OFF, C_OFF, C_OFF,       // F9
+    C_OFF, C_OFF                                    // thumbs
+  },
+
   [NAV] = {
     // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {46,248,241}, {46,248,241}, {46,248,241}, {46,248,241}, {0,0,0}, 
-    {0,0,0}, {220,238,216}, {220,238,216}, {220,238,216}, {220,238,216}, {5,201,240}, 
-    {0,0,0}, {100,255,255}, {100,255,255}, {5,201,240}, {5,201,240}, {5,201,240}, 
-    {0,0,0}, {0,0,180},
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_SLV,  // GUI ALT CTL SFT SELWORD
+    C_OFF, C_RED,  C_OFF,  C_OFF,  C_SLV, C_SLV,  // TG(MOUSE) SELLINE SELWBAK
+    C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN (active)
     // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {169,243,216}, {169,243,216}, {169,243,216}, {169,243,216}, {0,0,0},
-    {0,0,0}, {83,234,140}, {83,234,140}, {83,234,140}, {83,234,140}, {0,0,0}, 
-    {0,0,0}, {18,250,229}, {18,250,229}, {18,250,229}, {18,250,229}, {0,0,0}, 
-    {0,0,180}, {0,0,0}
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_TEA, C_TEA, C_TEA, C_TEA, C_OFF,   // DOC_LEFT DOWN UP RIGHT
+    C_OFF, C_GRN, C_GRN, C_GRN, C_GRN, C_OFF,   // LEFT DOWN UP RIGHT
+    C_OFF, C_PNK, C_PNK, C_PNK, C_PNK, C_OFF,   // WORD_LEFT 5DOWN 5UP WORD_RIGHT
+    C_OFF, C_OFF                                   // _OFF_, _OFF_
+  },
+
+  [MOUSE] = {
+    // Left side
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_OFF,   // GUI ALT CTL SFT
+    C_OFF, C_RED,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // TG(MOUSE)->NAV
+    C_OFF, C_OFF,                                    // thumbs
+    // Right side
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_GRN, C_GRN, C_GRN, C_GRN, C_OFF,   // LEFT DOWN UP RIGHT
+    C_OFF, C_OFF, C_PNK, C_PNK, C_OFF,  C_OFF,   // WHLD WHLU
+    C_BLU, C_BLU                                    // BTN1 BTN2
   },
 
   [SYS] = {
     // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {0,0,0}, {0,0,0}, {101,238,158}, {101,238,158}, {101,238,158}, {70,218,255}, 
-    {0,0,0}, {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {149,245,100}, 
-    {0,0,0}, {0,0,0}, {30,239,216}, {30,239,216}, {30,239,216}, {85,255,200}, 
-    {0,0,0}, {0,0,0}, 
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_OFF,  C_TEA, C_TEA, C_TEA, C_OFF,   // RM_VALD RM_VALU U_RGB_TOG
+    C_OFF, C_OFF,  C_PRP, C_PRP, C_PRP, C_OFF,   // VOLD VOLU MUTE
+    C_OFF, C_OFF,  C_YLW, C_YLW, C_YLW, C_OFF,   // MPRV MNXT MPLY
+    C_OFF, C_OFF,                                    // thumbs
     // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, 
-    {70,218,255}, {71,232,162}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
-    {0,0,0}, {71,232,162}, {71,232,162}, {71,232,162}, {71,232,162}, {0,0,0}, 
-    {0,255,200}, {180,255,255}, {180,255,255}, {180,255,255}, {180,255,255}, {0,0,0}, 
-    {0,0,0}, {0,0,0},
-  }
-};
-
-const HSV PROGMEM ledmap_alt[][RGB_MATRIX_LED_COUNT] = {
-
-  [ALPHA0] = {
-    // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {83,245,131}, {83,245,131},
-    // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {10,245,232}, {83,245,131}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {83,245,131}, {83,245,131}
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_SLV, C_SLV, C_SLV, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
+    C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
+    C_OFF, C_OFF                                    // thumbs
   },
 
-  [ALPHA1] = {
+  [MOD] = {
     // Left side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {83,245,131}, {83,245,131},
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // home row (cleared)
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF,                                   // _OFF_, T_L_IN
     // Right side
-    {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0},
-    {10,245,232}, {10,245,232}, {83,245,131}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232}, {10,245,232},
-    {83,245,131}, {83,245,131}
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_ORG, C_ORG, C_ORG, C_ORG, C_OFF,       // OSM: RSFT RCTL RALT RGUI
+    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
+    C_OFF, C_OFF                                    // thumbs
+  },
+
+  [SHORTCUT] = {
+    // Left side
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_BLU, C_BLU, C_BLU, C_BLU, C_OFF,   // FindPrev FindNext Find Replace
+    C_OFF, C_PNK, C_PNK, C_PNK, C_PNK, C_OFF,   // Save Cut Copy Paste
+    C_OFF, C_YLW, C_YLW, C_GRN, C_OFF,  C_OFF,   // Undo Redo SelectAll
+    C_OFF, C_OFF,                                   // thumbs
+    // Right side
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_OFF                                    // thumbs
   }
 };
 
 /* ######### LED CONTROL FUNCTIONS ######### */
 
-uint16_t hsv_value_for_os_animation(uint8_t index, uint8_t max_v) {
+uint16_t breathing_value(uint8_t index, uint8_t max_v) {
   uint16_t period = 1000;
   uint16_t period_offset = 100;
   uint16_t phase_offset = index * period_offset;
   uint16_t t = (timer_read() + phase_offset) % period;
-  uint16_t value = (t < period/2) 
-    ? (t * max_v) / (period/2) 
-    : max_v - ((t - period/2) * max_v) / (period/2);
-  return value;
-}
-
-// Pulses a single key back and forth
-uint16_t hsv_value_for_alpha_animation(uint8_t max_v) {
-    uint16_t period = 1000;
-    uint16_t t = timer_read() % period;
-    uint16_t value = (t < period / 2)
-      ? (t * max_v) / (period / 2)
-      : max_v - ((t - period / 2) * max_v) / (period / 2);
-    return value;
+  return (t < period / 2)
+    ? (t * max_v) / (period / 2)
+    : max_v - ((t - period / 2) * max_v) / (period / 2);
 }
 
 RGB hsv_to_rgb_with_value(HSV hsv) {
-  RGB rgb = hsv_to_rgb( hsv );
+  RGB rgb = hsv_to_rgb(hsv);
   float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
   return (RGB){ f * rgb.r, f * rgb.g, f * rgb.b };
 }
 
 static HSV pgm_read_hsv(const HSV *addr) {
-  // Reads RGB struct from PROGMEM safely
   HSV hsv;
   hsv.h = pgm_read_byte(&addr->h);
   hsv.s = pgm_read_byte(&addr->s);
@@ -299,125 +491,103 @@ static HSV pgm_read_hsv(const HSV *addr) {
   return hsv;
 }
 
-HSV pgm_read_hsv_for_layer(uint8_t layer, uint8_t index) {
-  HSV hsv;
-  if ((layer == ALPHA0 || layer == ALPHA1) && capslock_active && index == 6) {
-    hsv = (HSV) { 0, 0, 180 };
-  } else if ((layer == ALPHA0 || layer == ALPHA1) && current_os == OS_MAC) {
-    hsv = pgm_read_hsv(&ledmap_alt[layer][index]);
-  } else {
-    hsv = pgm_read_hsv(&ledmap[layer][index]);
-  } 
-  return hsv;
-}
-
-bool try_set_leds_for_layer_with_os_animation(uint8_t layer) {
-  if (!animation_os_timer) {
-    return false;
-  } 
-
-  if (timer_elapsed(animation_os_timer) > 5000) {
-    animation_os_timer = 0; 
-  }
-
-  // Set the runtime buffer from PROGMEM for a given layer, and sets pulsating value
-  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {    
-    HSV hsv = pgm_read_hsv_for_layer(layer, i);
-    hsv.v = hsv.v != 0 ? hsv_value_for_os_animation(i, hsv.v) : 0;
-    RGB rgb = hsv_to_rgb_with_value(hsv);
-    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-  }
-
-  return true;
-}
-
-bool try_set_leds_for_layer_with_alpha_animation(uint8_t layer) {
-  if (!animation_alpha_timer) {
-    return false;
-  } 
-
-  if (timer_elapsed(animation_alpha_timer) > 5000) {
-    animation_alpha_timer = 0; 
-  }
-
-  uint8_t alpha_key = current_alpha == ALPHA_QWERTY ? 33 : 34;
-
-  // Set the runtime buffer from PROGMEM for a given layer, and sets pulsating value
-  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {    
-    HSV hsv = pgm_read_hsv_for_layer(layer, i);
-    if (i == alpha_key) {
-      hsv.v = hsv_value_for_alpha_animation(hsv.v);
-    }
-    RGB rgb = hsv_to_rgb_with_value(hsv);
-    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
-  }
-
-  return true;
-}
-
 void set_leds_for_layer(uint8_t layer) {
-  // Set the runtime buffer from PROGMEM for a given layer
   for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = pgm_read_hsv_for_layer(layer, i);
+    HSV hsv = pgm_read_hsv(&ledmap[layer][i]);
     RGB rgb = hsv_to_rgb_with_value(hsv);
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+  }
+}
+
+void apply_os_indicator(void) {
+  // Continuously breathe the Toggle-OS key: teal for Windows, red for Mac.
+  uint8_t h = (current_os == OS_WINDOWS) ? 120 : 0;
+  uint8_t s = (current_os == OS_WINDOWS) ? 223 : 255;
+  uint8_t v = breathing_value(LED_TOGGLE_OS, 200);
+  RGB rgb = hsv_to_rgb_with_value((HSV){h, s, v});
+  rgb_matrix_set_color(LED_TOGGLE_OS, rgb.r, rgb.g, rgb.b);
+}
+
+void apply_caps_word_animation(void) {
+  for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    HSV hsv = pgm_read_hsv(&ledmap[ALPHA][i]);
+    if (hsv.v == 0) {
+      rgb_matrix_set_color(i, 0, 0, 0);
+    } else {
+      hsv.h = 0;
+      hsv.s = 30;
+      hsv.v = breathing_value(i, 200);
+      RGB rgb = hsv_to_rgb_with_value(hsv);
+      rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    }
   }
 }
 
 bool rgb_matrix_indicators_user(void) {
   uint8_t active_layer = biton32(layer_state);
-  if (try_set_leds_for_layer_with_os_animation(active_layer) ||
-      try_set_leds_for_layer_with_alpha_animation(active_layer)) {
-    return false;
+  if (active_layer == ALPHA && caps_word_active) {
+    apply_caps_word_animation();
   } else {
     set_leds_for_layer(active_layer);
+  }
+  if (active_layer == SYS) {
+    apply_os_indicator();
   }
   return true;
 }
 
-bool led_update_user(led_t led_state) {
-  // Called when the caps/num/scroll lock state changes
-  capslock_active = led_state.caps_lock; 
-  return true;
+void caps_word_set_user(bool active) {
+  caps_word_active = active;
 }
 
 /* ######### EEPROM STATE ######### */
 
 void update_eeprom(void) {
-  eeconfig_update_user(
-    ((current_os & 0x0F) << 4) |
-    (current_alpha & 0x0F));
+  eeconfig_update_user(current_os & 0x0F);
 }
 
 void load_eeprom(void) {
-  // Load OS and ALPHA from EEPROM
   if (!eeconfig_is_enabled()) {
     eeconfig_init();
     current_os = OS_WINDOWS;
-    current_alpha = ALPHA_QWERTY;
     update_eeprom();
   } else {
     uint8_t ee = eeconfig_read_user();
-    current_os = (ee >> 4) & 0x0F;
-    current_alpha = ee & 0x0F;
-    layer_move(current_alpha);
+    current_os = ee & 0x0F;
   }
 }
 
 /* ######### INITIALIZATION HOOK ######### */
 
 void keyboard_post_init_user(void) {
-  // Called after keyboard finishes intitialization
-  rgb_matrix_enable(); // enable rgb matrix in qmk
-  load_eeprom(); // Read OS and alpha layer
+  rgb_matrix_enable();
+  load_eeprom();
 }
 
 /* ######### TAPPING TERM ######### */
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-  return record->event.key.row == 4
-    ? TAPPING_TERM_THUMBS
-    : TAPPING_TERM;
+  switch (keycode) {
+    case T_L_OUT:
+    case T_L_IN:
+    case T_R_IN:
+    case T_R_OUT:
+      return TAPPING_TERM_THUMBS;
+    default:
+      return TAPPING_TERM;
+  }
+}
+
+/* ######### LAYER STATE ######### */
+
+// MOUSE is a child of NAV: toggled on with TG(MOUSE) while NAV is held, but it
+// can never linger past the NAV hold. The moment NAV drops, MOUSE drops too, so
+// releasing the nav thumb always lands you on base regardless of sub-mode.
+layer_state_t layer_state_set_user(layer_state_t state) {
+  if (!(state & (1UL << NAV))) {
+    state &= ~(1UL << MOUSE);
+  }
+  return state;
 }
 
 /* ######### OS FUNCTIONALITY ######### */
@@ -432,198 +602,167 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   } while (0)
 
 void fast_cursor_move_up(uint16_t lines) {
-  for (int i = 0; i < lines; i++) {
-    tap_code(KC_UP);
-  }
+  for (int i = 0; i < lines; i++) tap_code(KC_UP);
 }
 
 void fast_cursor_move_down(uint16_t lines) {
-  for (int i = 0; i < lines; i++) {
-    tap_code(KC_DOWN);
-  }
+  for (int i = 0; i < lines; i++) tap_code(KC_DOWN);
 }
 
 bool select_word_host_is_mac(void) {
-  // Getreur function for word selection
   return current_os == OS_MAC;
 }
 
 void flip_os(void) {
-  animation_os_timer = timer_read();
-  animation_alpha_timer = 0;
   current_os = current_os == OS_MAC ? OS_WINDOWS : OS_MAC;
   update_eeprom();
 }
 
-void flip_alpha(void) {
-  animation_alpha_timer = timer_read();
-  animation_os_timer = 0;
-  current_alpha = current_alpha == ALPHA_QWERTY ? ALPHA_KVIKK : ALPHA_QWERTY;
-  layer_move(current_alpha);
-  update_eeprom();
-}
-
 void undo_win(bool pressed) {
-  if (pressed){
-    register_code(KC_LCTL); 
-    register_code(KC_Z);
-  } else {
-    unregister_code(KC_Z);
-    unregister_code(KC_LCTL);
-  } 
+  if (pressed) { register_code(KC_LCTL); register_code(KC_Z); }
+  else         { unregister_code(KC_Z);  unregister_code(KC_LCTL); }
 }
 
 void undo_mac(bool pressed) {
-  if (pressed){
-    register_code(KC_LGUI); 
-    register_code(KC_Z);
-  } else {
-    unregister_code(KC_Z); 
-    unregister_code(KC_LGUI);
-  } 
+  if (pressed) { register_code(KC_LGUI); register_code(KC_Z); }
+  else         { unregister_code(KC_Z);  unregister_code(KC_LGUI); }
 }
 
 void redo_win(bool pressed) {
-  if (pressed){
-    register_code(KC_LCTL);
-    register_code(KC_LSFT); 
-    register_code(KC_Z);
-  } else {
-    unregister_code(KC_Z); 
-    unregister_code(KC_LSFT); 
-    unregister_code(KC_LCTL);
-  }
+  if (pressed) { register_code(KC_LCTL); register_code(KC_LSFT); register_code(KC_Z); }
+  else         { unregister_code(KC_Z);  unregister_code(KC_LSFT); unregister_code(KC_LCTL); }
 }
 
 void redo_mac(bool pressed) {
-  if (pressed){
-    register_code(KC_LGUI); 
-    register_code(KC_LSFT); 
-    register_code(KC_Z);
-  } else {
-    unregister_code(KC_Z); 
-    unregister_code(KC_LSFT); 
-    unregister_code(KC_LGUI);
-  }
+  if (pressed) { register_code(KC_LGUI); register_code(KC_LSFT); register_code(KC_Z); }
+  else         { unregister_code(KC_Z);  unregister_code(KC_LSFT); unregister_code(KC_LGUI); }
 }
 
 void word_left_win(bool pressed) {
-  if (pressed){
-    register_code(KC_LCTL); 
-    register_code(KC_LEFT);
-  } else {
-    unregister_code(KC_LEFT); 
-    unregister_code(KC_LCTL);
-  }
+  if (pressed) { register_code(KC_LCTL); register_code(KC_LEFT); }
+  else         { unregister_code(KC_LEFT); unregister_code(KC_LCTL); }
 }
 
 void word_left_mac(bool pressed) {
-  if (pressed){
-    register_code(KC_LALT);   
-    register_code(KC_LEFT);
-  } else {
-    unregister_code(KC_LEFT); 
-    unregister_code(KC_LALT);
-  }
+  if (pressed) { register_code(KC_LALT); register_code(KC_LEFT); }
+  else         { unregister_code(KC_LEFT); unregister_code(KC_LALT); }
 }
 
 void word_right_win(bool pressed) {
-  if (pressed){
-    register_code(KC_LCTL);
-    register_code(KC_RIGHT);
-  } else {
-    unregister_code(KC_RIGHT); 
-    unregister_code(KC_LCTL);
-  }
+  if (pressed) { register_code(KC_LCTL); register_code(KC_RIGHT); }
+  else         { unregister_code(KC_RIGHT); unregister_code(KC_LCTL); }
 }
 
 void word_right_mac(bool pressed) {
-  if (pressed){
-    register_code(KC_LALT);
-    register_code(KC_RIGHT);
-  } else {
-    unregister_code(KC_RIGHT); 
-    unregister_code(KC_LALT);
-  }
+  if (pressed) { register_code(KC_LALT); register_code(KC_RIGHT); }
+  else         { unregister_code(KC_RIGHT); unregister_code(KC_LALT); }
 }
 
 void five_rows_down(bool pressed) {
-  if (pressed){
+  if (pressed) {
     fast_cursor_down_active = true;
-    fast_cursor_down_timer = timer_read(); 
+    fast_cursor_down_timer = timer_read();
     fast_cursor_down_last_repeat = 0;
     fast_cursor_move_down(5);
   } else {
-    fast_cursor_down_active = false;  
+    fast_cursor_down_active = false;
   }
 }
 
 void five_rows_up(bool pressed) {
-  if (pressed){
+  if (pressed) {
     fast_cursor_up_active = true;
-    fast_cursor_up_timer = timer_read(); 
+    fast_cursor_up_timer = timer_read();
     fast_cursor_up_last_repeat = 0;
     fast_cursor_move_up(5);
   } else {
-    fast_cursor_up_active = false;  
+    fast_cursor_up_active = false;
   }
 }
 
+static void mod_layer_oneshot(uint8_t mod) {
+  layer_off(MOD);
+  reset_oneshot_layer();
+  add_oneshot_mods(mod);
+}
+
+static void tap_pair(uint16_t open, uint16_t close) {
+  tap_code16(open);
+  tap_code16(close);
+}
+
+static void tap_pair_by_os(uint16_t win_open, uint16_t win_close,
+                           uint16_t mac_open, uint16_t mac_close) {
+  PERFORM_BY_OS(tap_pair(win_open, win_close), tap_pair(mac_open, mac_close));
+}
+
+/* ######### MAIN KEY PROCESSING ######### */
+
 bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
-    case RGB_SLD:            rgblight_mode(1);                                                    break;
-    case U_RGB_TOG:          rgb_matrix_toggle();                                                 return false;
-    case U_TOGGLE_OS:        flip_os();                                                           return false;
-    case U_TOGGLE_ALPHA:     flip_alpha();                                                        return false;
-    case U_SE_LESS:          PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));    break;
-    case U_SE_GRTR:          PERFORM_BY_OS(tap_code16(SE_GRTR_WIN),  tap_code16(SE_GRTR_MAC));    break;
-    case U_SE_PIPE:          PERFORM_BY_OS(tap_code16(SE_PIPE_WIN),  tap_code16(SE_PIPE_MAC));    break;
-    case U_SE_LCBR:          PERFORM_BY_OS(tap_code16(SE_LCBR_WIN),  tap_code16(SE_LCBR_MAC));    break;
-    case U_SE_RCBR:          PERFORM_BY_OS(tap_code16(SE_RCBR_WIN),  tap_code16(SE_RCBR_MAC));    break;
-    case U_SE_BSLS:          PERFORM_BY_OS(tap_code16(SE_BSLS_WIN),  tap_code16(SE_BSLS_MAC));    break;   
-    case U_FIND_PREV:        PERFORM_BY_OS(tap_code16(S(KC_F3)),     tap_code16(G(S(KC_G))));     break;
-    case U_FIND_NEXT:        PERFORM_BY_OS(tap_code16(C(KC_G)),      tap_code16(G(KC_G)));        break;
-    case U_SEARCH:           PERFORM_BY_OS(tap_code16(C(KC_F)),      tap_code16(G(KC_F)));        break;
-    case U_REPLACE:          PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));     break;
-    case U_CUT:              PERFORM_BY_OS(tap_code16(C(KC_X)),      tap_code16(G(KC_X)));        break;
-    case U_COPY:             PERFORM_BY_OS(tap_code16(C(KC_C)),      tap_code16(G(KC_C)));        break;
-    case U_PASTE:            PERFORM_BY_OS(tap_code16(C(KC_V)),      tap_code16(G(KC_V)));        break;
-    case U_UNDO:             PERFORM_BY_OS(undo_win(true),           undo_mac(true));             break;
-    case U_REDO:             PERFORM_BY_OS(redo_win(true),           redo_mac(true));             break;
-    case U_SAVE:             PERFORM_BY_OS(tap_code16(C(KC_S)),      tap_code16(G(KC_S)));        break;
-    case U_MARK_ALL:         PERFORM_BY_OS(tap_code16(C(KC_A)),      tap_code16(G(KC_A)));        break;
-    case U_DOC_LEFT:         PERFORM_BY_OS(tap_code(KC_HOME),        tap_code16(G(KC_LEFT)));     break;
-    case U_DOC_DOWN:         PERFORM_BY_OS(tap_code16(C(KC_END)),    tap_code16(G(KC_DOWN)));     break;
-    case U_DOC_UP:           PERFORM_BY_OS(tap_code16(C(KC_HOME)),   tap_code16(G(KC_UP)));       break;
-    case U_DOC_RIGHT:        PERFORM_BY_OS(tap_code(KC_END),         tap_code16(G(KC_RIGHT)));    break;
-    case U_WORD_LEFT:        PERFORM_BY_OS(word_left_win(true),      word_left_mac(true));        break;
-    case U_WORD_RIGHT:       PERFORM_BY_OS(word_right_win(true),     word_right_mac(true));       break;
-    case U_5_ROWS_DOWN:      five_rows_down(true);                                                return false;
-    case U_5_ROWS_UP:        five_rows_up(true);                                                  return false;
-    case U_SCREENSHOT:       PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));     break;
-    case U_OS_SEARCH:        PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));    break;
-    case U_LOCK_SCREEN:      PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));     break;
+    case U_OS_RSFT:      mod_layer_oneshot(MOD_BIT(KC_RSFT));                                   return false;
+    case U_OS_RCTL:      mod_layer_oneshot(MOD_BIT(KC_RCTL));                                   return false;
+    case U_OS_RALT:      mod_layer_oneshot(MOD_BIT(KC_RALT));                                   return false;
+    case U_OS_RGUI:      mod_layer_oneshot(MOD_BIT(KC_RGUI));                                   return false;
+    case RGB_SLD:        rgblight_mode(1);                                                      break;
+    case U_RGB_TOG:      rgb_matrix_toggle();                                                   return false;
+    case U_TOGGLE_OS:    flip_os();                                                             return false;
+    case U_SCREENSHOT:   PERFORM_BY_OS(tap_code16(G(S(KC_S))),   tap_code16(G(S(KC_4))));       break;
+    case U_LOCK_SCREEN:  PERFORM_BY_OS(tap_code16(G(KC_L)),      tap_code16(C(G(KC_Q))));       break;
+    case U_OS_SEARCH:    PERFORM_BY_OS(tap_code16(G(KC_S)),      tap_code16(G(KC_SPACE)));      break;
+    case U_EMOJIS:       PERFORM_BY_OS(tap_code16(G(KC_DOT)),    tap_code16(C(G(KC_SPACE))));   break;
+    case U_NUM_ENTER:    tap_code(KC_ENT);   layer_off(NUM);                                    return false;
+    case U_NUM_SPACE:    tap_code(KC_SPC);   layer_off(NUM);                                    return false;
+    case U_SE_LESS:      PERFORM_BY_OS(tap_code16(SE_LESS_WIN),  tap_code16(SE_LESS_MAC));      break;
+    case U_SE_GRTR:      PERFORM_BY_OS(tap_code16(SE_GRTR_WIN),  tap_code16(SE_GRTR_MAC));      break;
+    case U_SE_PIPE:      PERFORM_BY_OS(tap_code16(SE_PIPE_WIN),  tap_code16(SE_PIPE_MAC));      break;
+    case U_SE_LCBR:      PERFORM_BY_OS(tap_code16(SE_LCBR_WIN),  tap_code16(SE_LCBR_MAC));      break;
+    case U_SE_RCBR:      PERFORM_BY_OS(tap_code16(SE_RCBR_WIN),  tap_code16(SE_RCBR_MAC));      break;
+    case U_SE_BSLS:      PERFORM_BY_OS(tap_code16(SE_BSLS_WIN),  tap_code16(SE_BSLS_MAC));      break;
+    case U_SE_BRC_PAIR:  tap_pair(SE_LBRC, SE_RBRC);                                            return false;
+    case U_SE_PRN_PAIR:  tap_pair(SE_LPRN, SE_RPRN);                                            return false;
+    case U_SE_CBR_PAIR:  tap_pair_by_os(SE_LCBR_WIN, SE_RCBR_WIN, SE_LCBR_MAC, SE_RCBR_MAC);    return false;
+    case U_SE_ABK_PAIR:  tap_pair_by_os(SE_LESS_WIN, SE_GRTR_WIN, SE_LESS_MAC, SE_GRTR_MAC);    return false;
+    case U_SEARCH:       PERFORM_BY_OS(tap_code16(C(KC_F)),      tap_code16(G(KC_F)));          break;
+    case U_CUT:          PERFORM_BY_OS(tap_code16(C(KC_X)),      tap_code16(G(KC_X)));          break;
+    case U_COPY:         PERFORM_BY_OS(tap_code16(C(KC_C)),      tap_code16(G(KC_C)));          break;
+    case U_PASTE:        PERFORM_BY_OS(tap_code16(C(KC_V)),      tap_code16(G(KC_V)));          break;
+    case U_UNDO:         PERFORM_BY_OS(undo_win(true),           undo_mac(true));               break;
+    case U_REDO:         PERFORM_BY_OS(redo_win(true),           redo_mac(true));               break;
+    case U_SAVE:         PERFORM_BY_OS(tap_code16(C(KC_S)),      tap_code16(G(KC_S)));          break;
+    case U_MARK_ALL:     PERFORM_BY_OS(tap_code16(C(KC_A)),      tap_code16(G(KC_A)));          break;
+    case U_DOC_LEFT:     PERFORM_BY_OS(tap_code(KC_HOME),        tap_code16(G(KC_LEFT)));       break;
+    case U_DOC_DOWN:     PERFORM_BY_OS(tap_code16(C(KC_END)),    tap_code16(G(KC_DOWN)));       break;
+    case U_DOC_UP:       PERFORM_BY_OS(tap_code16(C(KC_HOME)),   tap_code16(G(KC_UP)));         break;
+    case U_DOC_RIGHT:    PERFORM_BY_OS(tap_code(KC_END),         tap_code16(G(KC_RIGHT)));      break;
+    case U_WORD_LEFT:    PERFORM_BY_OS(word_left_win(true),      word_left_mac(true));          break;
+    case U_WORD_RIGHT:   PERFORM_BY_OS(word_right_win(true),     word_right_mac(true));         break;
+    case U_5_ROWS_DOWN:  five_rows_down(true);                                                  return false;
+    case U_5_ROWS_UP:    five_rows_up(true);                                                    return false;
+    case U_FIND_PREV:    PERFORM_BY_OS(tap_code16(S(KC_F3)),     tap_code16(G(S(KC_G))));       break;
+    case U_FIND_NEXT:    PERFORM_BY_OS(tap_code16(C(KC_G)),      tap_code16(G(KC_G)));          break;
+    case U_REPLACE:      PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));       break;
+
+    case U_NUM_TGL:                                                                             return false;
+    case U_NUM_ENT_ANC:                                                                         return false;
   }
   return true;
 }
 
 bool process_non_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
-    case U_5_ROWS_DOWN:      five_rows_down(false);                                               break;
-    case U_5_ROWS_UP:        five_rows_up(false);                                                 break;
-    case U_UNDO:             PERFORM_BY_OS(undo_win(false),          undo_mac(false));            break;
-    case U_REDO:             PERFORM_BY_OS(redo_win(false),          redo_mac(false));            break;
-    case U_WORD_LEFT:        PERFORM_BY_OS(word_left_win(false),     word_left_mac(false));       break;
-    case U_WORD_RIGHT:       PERFORM_BY_OS(word_right_win(false),    word_right_mac(false));      break;
+    case U_5_ROWS_DOWN:  five_rows_down(false);                                                 break;
+    case U_5_ROWS_UP:    five_rows_up(false);                                                   break;
+    case U_UNDO:         PERFORM_BY_OS(undo_win(false),       undo_mac(false));                 break;
+    case U_REDO:         PERFORM_BY_OS(redo_win(false),       redo_mac(false));                 break;
+    case U_WORD_LEFT:    PERFORM_BY_OS(word_left_win(false),  word_left_mac(false));            break;
+    case U_WORD_RIGHT:   PERFORM_BY_OS(word_right_win(false), word_right_mac(false));           break;
   }
   return true;
 }
 
-/* ######### MAIN KEY PROCESSING ######### */
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // As simplified as possible now
-  return record->event.pressed 
+  return record->event.pressed
     ? process_pressed_keycode(keycode)
     : process_non_pressed_keycode(keycode);
 }
@@ -632,7 +771,7 @@ void matrix_scan_user(void) {
   if (fast_cursor_up_active) {
     uint16_t elapsed = timer_elapsed(fast_cursor_up_timer);
     if (elapsed > FAST_CURSOR_INITIAL_DELAY &&
-      elapsed - fast_cursor_up_last_repeat > FAST_CURSOR_INTERVAL) {
+        elapsed - fast_cursor_up_last_repeat > FAST_CURSOR_INTERVAL) {
       fast_cursor_move_up(5);
       fast_cursor_up_last_repeat = elapsed;
     }
@@ -641,7 +780,7 @@ void matrix_scan_user(void) {
   if (fast_cursor_down_active) {
     uint16_t elapsed = timer_elapsed(fast_cursor_down_timer);
     if (elapsed > FAST_CURSOR_INITIAL_DELAY &&
-      elapsed - fast_cursor_down_last_repeat > FAST_CURSOR_INTERVAL) {
+        elapsed - fast_cursor_down_last_repeat > FAST_CURSOR_INTERVAL) {
       fast_cursor_move_down(5);
       fast_cursor_down_last_repeat = elapsed;
     }
