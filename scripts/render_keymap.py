@@ -695,16 +695,19 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
 
 
 def _render_combo_bg_panel(template_root: ET.Element, alpha_keys: list[dict],
-                           title: str) -> ET.Element:
+                           title: str, highlight_leds: set[int] | None = None,
+                           highlight_color: str = "#cc5f5f") -> ET.Element:
     """Greyed-out alpha letters as a background for a combo panel (same dim grey as
     the unused letters in the Sym/Num panels) so the combo overlays read clearly on
-    top. Overlays are added separately by the caller."""
+    top. Keys in ``highlight_leds`` are drawn in ``highlight_color`` instead, to flag
+    which keys participate in the combos. Overlays are added separately by the caller."""
     root = copy.deepcopy(template_root)
 
     label_el = root.find(f".//{_T('text')}[@id='layer-label']")
     if label_el is not None:
         label_el.text = title
 
+    highlight_leds = highlight_leds or set()
     dead_kcs = {"_DEAD_", "_OFF_", "XXXXXXX", None}
     for key in alpha_keys:
         led_idx = key["led_index"]
@@ -714,9 +717,58 @@ def _render_combo_bg_panel(template_root: ET.Element, alpha_keys: list[dict],
         label = key.get("label", "")
         if not label:
             continue
-        group.append(_make_text(label, "#36363a"))
+        color = highlight_color if led_idx in highlight_leds else "#36363a"
+        group.append(_make_text(label, color))
 
     return root
+
+
+def _is_gapped_same_side(combo: dict) -> bool:
+    """True for a 2-key same-side, same-row combo whose keys are non-adjacent
+    (a key is skipped between them, e.g. R·T·S). These overlap the intervening
+    key's own combos, so they get their own panel instead of the Same-Side one."""
+    idxs = combo.get("led_indices", [])
+    if len(idxs) != 2:
+        return False
+    p0, p1 = POSITIONS[idxs[0]], POSITIONS[idxs[1]]
+    if p0["thumb"] or p1["thumb"]:
+        return False
+    if p0["side"] != p1["side"] or p0["row"] != p1["row"]:
+        return False
+    return abs(p0["col"] - p1["col"]) >= 2
+
+
+def _gapped_combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]],
+                          keys_y_off: float) -> str:
+    """Box centered between the two gapped keys, labelled `KEY1+KEY2=OUT`."""
+    indices = combo.get("led_indices", [])
+    positions = [key_centers[i] for i in indices if i in key_centers]
+    if len(positions) < 2:
+        return ""
+    xs = [p[0] for p in positions]
+    ys = [p[1] + keys_y_off for p in positions]
+    cx = (min(xs) + max(xs)) / 2
+    cy = (min(ys) + max(ys)) / 2
+
+    label = combo["action_label"].replace("\n", " ")
+    label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+    # Span the box across the skipped key between the two triggers, grazing just
+    # the inner edge of each trigger key (inset from their centers toward the gap).
+    _INSET = 10
+    x1 = min(xs) + _INSET
+    x2 = max(xs) - _INSET
+    W  = x2 - x1
+    H  = _CROSSSIDE_BOX_H
+    y1 = cy - H / 2
+    color  = "#a0a0a0"
+    return "\n".join([
+        f'<rect x="{x1:.1f}" y="{y1:.1f}" width="{W:.1f}" height="{H}" '
+        f'rx="4" fill="#141416" fill-opacity="0.88" stroke="{color}" stroke-width="0.5"/>',
+        f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
+        f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
+        f'style="font-size:10px;font-weight:400;">{label}</text>',
+    ])
 
 
 def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
@@ -1098,7 +1150,11 @@ def render_svg(ir: dict) -> str:
     key_centers, keys_y_off = _extract_key_centers(template_root)
 
     same_side_combos   = [c for c in combos if c.get("side") in ("left", "right")
-                          and not c.get("thumb_key_combo")]
+                          and not c.get("thumb_key_combo")
+                          and not _is_gapped_same_side(c)]
+    gapped_combos      = [c for c in combos if c.get("side") in ("left", "right")
+                          and not c.get("thumb_key_combo")
+                          and _is_gapped_same_side(c)]
     crossside_thumb_combos = [c for c in combos if c.get("side") == "both"
                               and all(i in _THUMB_LEDS for i in c.get("led_indices", []))]
     # Non-thumb cross-side combos sorted by highest key (smallest template y) first
@@ -1127,7 +1183,7 @@ def render_svg(ir: dict) -> str:
         (space_num_3k, enter_num_3k),
     ]
 
-    n_combo_panels = (len(combo_panels) + 2) if alpha_layer else 0
+    n_combo_panels = (len(combo_panels) + 3) if alpha_layer else 0
     total_h = (len(layers) + n_combo_panels) * (_LAYER_H + _LAYER_GAP) + 40 + _LEGEND_H
     parts = [
         f'<svg width="{_CANVAS_W}" height="{total_h}" viewBox="0 0 {_CANVAS_W} {total_h}" '
@@ -1183,6 +1239,26 @@ def render_svg(ir: dict) -> str:
         for combo in same_side_combos:
             if alpha_layer["name"] in combo["layers"]:
                 frag = _combo_overlay(combo, key_centers, keys_y_off)
+                if frag:
+                    parts.append(frag)
+        parts.append("</g>")
+
+        # Gapped Same-Side Combos — same row, non-adjacent keys (a key skipped
+        # between them). Box labels the trigger + output; the two trigger keys are
+        # reddened so it's clear which keys form the combo across the gap.
+        panel_offset += 1
+        yp = _LEGEND_H + (len(layers) - 1 + panel_offset) * (_LAYER_H + _LAYER_GAP)
+        gap_leds = {i for c in gapped_combos for i in c["led_indices"]}
+        gp_root = _render_combo_bg_panel(template_root, alpha_layer["keys"],
+                                         "Alpha · Gapped Same-Side Combos",
+                                         highlight_leds=gap_leds,
+                                         highlight_color="#c8c8c8")
+        parts.append(f'<g transform="translate({_MARGIN},{yp})">')
+        for child in gp_root:
+            parts.append(ET.tostring(child, encoding="unicode"))
+        for combo in gapped_combos:
+            if alpha_layer["name"] in combo["layers"]:
+                frag = _gapped_combo_overlay(combo, key_centers, keys_y_off)
                 if frag:
                     parts.append(frag)
         parts.append("</g>")
