@@ -658,10 +658,17 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
     led_to_alpha_label = {k["led_index"]: _strip_action_prefix(k.get("label", ""))
                           for k in alpha_keys}
 
+    def _anchor_prefix(led: int) -> str:
+        """First line of the anchor key's own label, so the trigger text follows
+        whatever is actually bound to that thumb (Space/Nav -> 'Space')."""
+        lbl = next((k.get("label", "") for k in alpha_keys
+                    if k["led_index"] == led), "")
+        return lbl.split("\n")[0].strip() or "?"
+
     for c, thumb_prefix, thumb_led in (
-        [(c, "Space", _COMBO_SPACE_LED) for c in space_combos] +
-        [(c, "E",     _COMBO_ENTER_LED) for c in enter_combos] +
-        [(c, "Func",  _COMBO_FUNC_LED)  for c in (shortcut_combos or [])]
+        [(c, _anchor_prefix(_COMBO_SPACE_LED), _COMBO_SPACE_LED) for c in space_combos] +
+        [(c, _anchor_prefix(_COMBO_ENTER_LED), _COMBO_ENTER_LED) for c in enter_combos] +
+        [(c, _anchor_prefix(_COMBO_FUNC_LED),  _COMBO_FUNC_LED)  for c in (shortcut_combos or [])]
     ):
         target = next((i for i in c["led_indices"] if i != thumb_led), None)
         if target is None:
@@ -684,7 +691,15 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         ts1.set("x", "0")
         ts1.set("dy", "-0.9em" if len(sym_lines) > 1 else "-0.55em")
         ts1.set("fill", "#585858"); ts1.set("style", "font-size:9px;")
-        ts1.text = trigger
+        # A glyph anchor (the Repeat symbol) renders optically smaller than letters
+        # at 9px, so bump just the prefix when it isn't alphanumeric.
+        if not thumb_prefix.isalnum():
+            big = ET.SubElement(ts1, _T("tspan"))
+            big.set("style", "font-size:12px;")
+            big.text = thumb_prefix
+            big.tail = f"+{key_lbl}"
+        else:
+            ts1.text = trigger
         for line in sym_lines:
             ts = ET.SubElement(t, _T("tspan"))
             ts.set("x", "0"); ts.set("dy", "1.0em")
@@ -1138,7 +1153,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
     return "\n".join(parts)
 
 
-_RENDER_ORDER = ["ALPHA", "NAV", "MOUSE", "FUNC", "SYS", "NUM", "MOD"]
+_RENDER_ORDER = ["ALPHA", "NAV", "MOUSE", "SYS", "FUNC", "NUM"]
 
 def render_svg(ir: dict) -> str:
     layers  = sorted(ir["layers"],

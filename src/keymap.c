@@ -17,7 +17,7 @@
 
 #define T_L_OUT OSL(FUNC)
 #define T_L_IN  LT(NAV, KC_SPC)
-#define T_R_IN  KC_E
+#define T_R_IN  QK_REP
 #define T_R_OUT OSL(SYS)
 
 /* ######### ENUMS ######### */
@@ -28,8 +28,7 @@ enum layers {
   FUNC,
   NAV,
   MOUSE,
-  SYS,
-  MOD
+  SYS
 };
 
 enum custom_keycodes {
@@ -73,12 +72,7 @@ enum custom_keycodes {
 
   U_FIND_PREV,
   U_FIND_NEXT,
-  U_REPLACE,
-
-  U_OS_RSFT,
-  U_OS_RCTL,
-  U_OS_RALT,
-  U_OS_RGUI
+  U_REPLACE
 };
 
 typedef enum {
@@ -108,13 +102,12 @@ const uint16_t PROGMEM combo_aa[]        = {SE_ADIA,       SE_OSLH,       COMBO_
 const uint16_t PROGMEM combo_num[]       = {T_L_IN,        T_R_IN,        COMBO_END};
 const uint16_t PROGMEM combo_bspc[]      = {KC_O,        KC_U,          COMBO_END};
 const uint16_t PROGMEM combo_del[]       = {KC_L,          KC_D,          COMBO_END};
-const uint16_t PROGMEM combo_nr_mod[]    = {KC_N,          KC_R,          COMBO_END};
 const uint16_t PROGMEM combo_tab[]       = {KC_M,          KC_W,          COMBO_END};
-const uint16_t PROGMEM combo_esc[]       = {KC_I,          QK_REP,          COMBO_END};
+const uint16_t PROGMEM combo_esc[]       = {KC_E,          KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_ent[]       = {KC_F,          SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_caps_word[] = {KC_T,          KC_A,          COMBO_END};
 const uint16_t PROGMEM combo_apos[]      = {KC_R,          KC_S,          COMBO_END};
-const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
 // Shortcut combos: FUNC thumb (T_L_OUT) + left-side key
@@ -129,11 +122,19 @@ const uint16_t PROGMEM combo_sc_paste[]     = {T_L_OUT,     KC_S,          COMBO
 const uint16_t PROGMEM combo_sc_undo[]      = {T_L_OUT,     KC_X,          COMBO_END};
 const uint16_t PROGMEM combo_sc_redo[]      = {T_L_OUT,     KC_Q,          COMBO_END};
 const uint16_t PROGMEM combo_sc_mark_all[]  = {T_L_OUT,     KC_M,          COMBO_END};
-// Home-row one-shot mods
+const uint16_t PROGMEM combo_sc_sel_word[]  = {T_L_OUT,     KC_G,          COMBO_END};
+const uint16_t PROGMEM combo_sc_sel_line[]  = {T_L_OUT,     KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_sc_sel_wbak[]  = {T_L_OUT,     KC_Z,          COMBO_END};
+// One-shot mods — left-hand pairs give left mods, right-hand pairs give right mods.
+// Ctrl/Shift sit on the home row; Alt on row 2 and Gui on the bottom row.
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
-const uint16_t PROGMEM combo_osm_rctl[]  = {KC_A,          KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_osm_rctl[]  = {KC_A,          KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_osm_lsft[]  = {KC_T,          KC_S,          COMBO_END};
 const uint16_t PROGMEM combo_osm_rsft[]  = {KC_H,          KC_A,          COMBO_END};
+const uint16_t PROGMEM combo_osm_lalt[]  = {KC_B,          KC_L,          COMBO_END};
+const uint16_t PROGMEM combo_osm_ralt[]  = {KC_U,          KC_COMMA,      COMBO_END};
+const uint16_t PROGMEM combo_osm_lgui[]  = {KC_X,          KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_osm_rgui[]  = {SE_OSLH,       KC_DOT,        COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
@@ -142,9 +143,9 @@ const uint16_t PROGMEM combo_sym_circ[]  = {T_L_IN,        KC_J,          COMBO_
 const uint16_t PROGMEM combo_sym_at[]    = {T_L_IN,        KC_O,        COMBO_END};
 const uint16_t PROGMEM combo_sym_perc[]  = {T_L_IN,        KC_P,          COMBO_END};
 const uint16_t PROGMEM combo_sym_scln[]  = {T_L_IN,        KC_H,          COMBO_END};
-const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        QK_REP,          COMBO_END};
+const uint16_t PROGMEM combo_sym_sft[]   = {T_L_IN,        KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_sym_lbrc[]  = {T_L_IN,        KC_A,          COMBO_END};
-const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_I,          COMBO_END};
+const uint16_t PROGMEM combo_sym_rbrc[]  = {T_L_IN,        KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_sym_ampr[]  = {T_L_IN,        KC_F,          COMBO_END};
 const uint16_t PROGMEM combo_sym_lprn[]  = {T_L_IN,        SE_ADIA,       COMBO_END};
 const uint16_t PROGMEM combo_sym_rprn[]  = {T_L_IN,        SE_OSLH,       COMBO_END};
@@ -154,7 +155,7 @@ const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_U,          COMBO_
 const uint16_t PROGMEM combo_3_acut[]   = {T_L_IN,        KC_J,          KC_Y,    COMBO_END};
 const uint16_t PROGMEM combo_3_grv[]    = {T_L_IN,        KC_P,          KC_H,    COMBO_END};
 // Bracket-pair combos: thumb + both bracket keys -> emit open and close
-const uint16_t PROGMEM combo_brc_pair[] = {T_L_IN,        KC_A,          KC_I,     COMBO_END};
+const uint16_t PROGMEM combo_brc_pair[] = {T_L_IN,        KC_A,          KC_E,     COMBO_END};
 const uint16_t PROGMEM combo_prn_pair[] = {T_L_IN,        SE_ADIA,       SE_OSLH,  COMBO_END};
 const uint16_t PROGMEM combo_cbr_pair[] = {T_R_IN,        KC_R,          KC_T,     COMBO_END};
 const uint16_t PROGMEM combo_abk_pair[] = {T_R_IN,        KC_Q,          KC_M,     COMBO_END};
@@ -181,8 +182,8 @@ const uint16_t PROGMEM combo_num_8[]     = {T_L_IN,        KC_W,          COMBO_
 // Number combos: Enter (T_R_IN) + right-side key
 const uint16_t PROGMEM combo_num_1[]     = {T_R_IN,        KC_H,          COMBO_END};
 const uint16_t PROGMEM combo_num_3[]     = {T_R_IN,        KC_A,          COMBO_END};
-const uint16_t PROGMEM combo_num_5[]     = {T_R_IN,        KC_I,          COMBO_END};
-const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        QK_REP,         COMBO_END};
+const uint16_t PROGMEM combo_num_5[]     = {T_R_IN,        KC_E,          COMBO_END};
+const uint16_t PROGMEM combo_num_7[]     = {T_R_IN,        KC_I,           COMBO_END};
 const uint16_t PROGMEM combo_num_9[]     = {T_R_IN,        KC_F,          COMBO_END};
 
 
@@ -192,7 +193,6 @@ combo_t key_combos[] = {
   COMBO(combo_num,       TG(NUM)),
   COMBO(combo_bspc,      KC_BSPC),
   COMBO(combo_del,       KC_DEL),
-  COMBO(combo_nr_mod,    OSL(MOD)),
   COMBO(combo_tab,       KC_TAB),
   COMBO(combo_esc,       KC_ESC),
   COMBO(combo_ent,       KC_ENT),
@@ -213,11 +213,18 @@ combo_t key_combos[] = {
   COMBO(combo_sc_undo,      U_UNDO),
   COMBO(combo_sc_redo,      U_REDO),
   COMBO(combo_sc_mark_all,  U_MARK_ALL),
+  COMBO(combo_sc_sel_word,  SELWORD),
+  COMBO(combo_sc_sel_line,  SELLINE),
+  COMBO(combo_sc_sel_wbak,  SELWBAK),
   // Home-row one-shot mods
   COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
   COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
   COMBO(combo_osm_lsft,  OSM(MOD_LSFT)),
   COMBO(combo_osm_rsft,  OSM(MOD_RSFT)),
+  COMBO(combo_osm_lalt,  OSM(MOD_LALT)),
+  COMBO(combo_osm_ralt,  OSM(MOD_RALT)),
+  COMBO(combo_osm_lgui,  OSM(MOD_LGUI)),
+  COMBO(combo_osm_rgui,  OSM(MOD_RGUI)),
   // Deactivation combos
   COMBO(combo_num_ent,   U_NUM_ENTER),
   COMBO(combo_num_deac,  TG(NUM)),
@@ -276,7 +283,9 @@ combo_t key_combos[] = {
 uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
   if (combo->keys == combo_num       || combo->keys == combo_caps_word ||
       combo->keys == combo_osm_lctl  || combo->keys == combo_osm_rctl  ||
-      combo->keys == combo_osm_lsft  || combo->keys == combo_osm_rsft) {
+      combo->keys == combo_osm_lsft  || combo->keys == combo_osm_rsft  ||
+      combo->keys == combo_osm_lalt  || combo->keys == combo_osm_ralt  ||
+      combo->keys == combo_osm_lgui  || combo->keys == combo_osm_rgui) {
     return COMBO_TERM_STICKY;
   }
   return COMBO_TERM;
@@ -296,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ALPHA] = LAYOUT_voyager(
     _DEAD_, _DEAD_, _DEAD_, _DEAD_, _DEAD_,  _DEAD_,   /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,   _DEAD_,   _DEAD_,
     _DEAD_, KC_B,   KC_L,   KC_D,   KC_C,    KC_V,     /*|*/   KC_J,   KC_Y,    KC_O,  KC_U,     KC_COMMA, _DEAD_,
-    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_I,     QK_REP,     _DEAD_,
+    _DEAD_, KC_N,   KC_R,   KC_T,   KC_S,    KC_G,     /*|*/   KC_P,   KC_H,    KC_A,    KC_E,     KC_I,       _DEAD_,
     _DEAD_, KC_X,   KC_Q,   KC_M,   KC_W,    KC_Z,     /*|*/   KC_K,   KC_F,    SE_ADIA, SE_OSLH,  KC_DOT, _DEAD_,
                                     T_L_OUT, T_L_IN,   /*|*/   T_R_IN, T_R_OUT
   ),
@@ -320,8 +329,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [NAV] = LAYOUT_voyager(
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,    _DEAD_,      _DEAD_,        _DEAD_,      _DEAD_,       _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
-    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, SELWORD, /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
-    _DEAD_, TG(MOUSE), _OFF_, _OFF_,   SELLINE, SELWBAK, /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
+    _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
+    _DEAD_, TG(MOUSE), _OFF_, _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
                                        _OFF_,   _OFF_,   /*|*/   _OFF_,     _OFF_
   ),
 
@@ -339,14 +348,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  KC_CAPS,  _OFF_,        _DEAD_,
                                             _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
-  ),
-
-  [MOD] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,  /*|*/   _DEAD_, _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,        _DEAD_,
-    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  U_OS_RSFT,     U_OS_RCTL,     U_OS_RALT,     U_OS_RGUI,     _DEAD_,
-    _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
-                                                         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
   )
 };
 
@@ -357,7 +358,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_ORG  {20,  255, 245}  // orange
 #define C_GRN  {83,  245, 180}  // green
 #define C_RED  {0,   255, 170}  // red
-#define C_SLV  {0,   30,  120}  // silver
+#define C_SLV  {0,   15,  120}  // silver
 // Extra palette — used on non-base layers only
 #define C_YLW  {30,  241, 180}  // yellow
 #define C_BLU  {148, 220, 230}  // blue
@@ -420,8 +421,8 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_SLV,  // GUI ALT CTL SFT SELWORD
-    C_OFF, C_RED,  C_OFF,  C_OFF,  C_SLV, C_SLV,  // TG(MOUSE) SELLINE SELWBAK
+    C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_OFF,  // GUI ALT CTL SFT
+    C_OFF, C_RED,  C_OFF,  C_OFF,  C_OFF,  C_OFF,  // TG(MOUSE)
     C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN (active)
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
@@ -458,21 +459,6 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_SLV, C_SLV, C_SLV, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
     C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
-    C_OFF, C_OFF                                    // thumbs
-  },
-
-  [MOD] = {
-    // Left side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // home row (cleared)
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_OFF,                                   // _OFF_, T_L_IN
-    // Right side
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_ORG, C_ORG, C_ORG, C_ORG, C_OFF,       // OSM: RSFT RCTL RALT RGUI
-    C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_OFF                                    // thumbs
   }
 };
@@ -692,12 +678,6 @@ void five_rows_up(bool pressed) {
   }
 }
 
-static void mod_layer_oneshot(uint8_t mod) {
-  layer_off(MOD);
-  reset_oneshot_layer();
-  add_oneshot_mods(mod);
-}
-
 static void tap_pair(uint16_t open, uint16_t close) {
   tap_code16(open);
   tap_code16(close);
@@ -712,10 +692,6 @@ static void tap_pair_by_os(uint16_t win_open, uint16_t win_close,
 
 bool process_pressed_keycode(uint16_t keycode) {
   switch (keycode) {
-    case U_OS_RSFT:      mod_layer_oneshot(MOD_BIT(KC_RSFT));                                   return false;
-    case U_OS_RCTL:      mod_layer_oneshot(MOD_BIT(KC_RCTL));                                   return false;
-    case U_OS_RALT:      mod_layer_oneshot(MOD_BIT(KC_RALT));                                   return false;
-    case U_OS_RGUI:      mod_layer_oneshot(MOD_BIT(KC_RGUI));                                   return false;
     case RGB_SLD:        rgblight_mode(1);                                                      break;
     case U_RGB_TOG:      rgb_matrix_toggle();                                                   return false;
     case U_TOGGLE_OS:    flip_os();                                                             return false;
