@@ -15,10 +15,10 @@
 #define _DEAD_  XXXXXXX  // physically removed switch
 #define _OFF_   XXXXXXX  // within range, unassigned on this layer
 
-#define T_L_OUT OSL(SYS)
+#define T_L_OUT OSL(FUNC)
 #define T_L_IN  LT(NAV, KC_SPC)
 #define T_R_IN  KC_E
-#define T_R_OUT OSL(SHORTCUT)
+#define T_R_OUT OSL(SYS)
 
 /* ######### ENUMS ######### */
 
@@ -29,8 +29,7 @@ enum layers {
   NAV,
   MOUSE,
   SYS,
-  MOD,
-  SHORTCUT
+  MOD
 };
 
 enum custom_keycodes {
@@ -118,7 +117,18 @@ const uint16_t PROGMEM combo_apos[]      = {KC_R,          KC_S,          COMBO_
 const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_I,          COMBO_END};
 const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
-const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
+// Shortcut combos: FUNC thumb (T_L_OUT) + left-side key
+const uint16_t PROGMEM combo_sc_find_prev[] = {T_L_OUT,     KC_B,          COMBO_END};
+const uint16_t PROGMEM combo_sc_find_next[] = {T_L_OUT,     KC_L,          COMBO_END};
+const uint16_t PROGMEM combo_sc_search[]    = {T_L_OUT,     KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_sc_replace[]   = {T_L_OUT,     KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_sc_save[]      = {T_L_OUT,     KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_sc_cut[]       = {T_L_OUT,     KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_sc_copy[]      = {T_L_OUT,     KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_sc_paste[]     = {T_L_OUT,     KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_sc_undo[]      = {T_L_OUT,     KC_X,          COMBO_END};
+const uint16_t PROGMEM combo_sc_redo[]      = {T_L_OUT,     KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_sc_mark_all[]  = {T_L_OUT,     KC_M,          COMBO_END};
 // Home-row one-shot mods
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
 const uint16_t PROGMEM combo_osm_rctl[]  = {KC_A,          KC_I,          COMBO_END};
@@ -191,7 +201,18 @@ combo_t key_combos[] = {
   COMBO(combo_dquo,      SE_DQUO),
   COMBO(combo_dlr,       SE_DLR),
   COMBO(combo_eql,       SE_EQL),
-  COMBO(combo_func,      OSL(FUNC)),
+  // Shortcut combos via FUNC thumb + left-side key
+  COMBO(combo_sc_find_prev, U_FIND_PREV),
+  COMBO(combo_sc_find_next, U_FIND_NEXT),
+  COMBO(combo_sc_search,    U_SEARCH),
+  COMBO(combo_sc_replace,   U_REPLACE),
+  COMBO(combo_sc_save,      U_SAVE),
+  COMBO(combo_sc_cut,       U_CUT),
+  COMBO(combo_sc_copy,      U_COPY),
+  COMBO(combo_sc_paste,     U_PASTE),
+  COMBO(combo_sc_undo,      U_UNDO),
+  COMBO(combo_sc_redo,      U_REDO),
+  COMBO(combo_sc_mark_all,  U_MARK_ALL),
   // Home-row one-shot mods
   COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
   COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
@@ -246,6 +267,20 @@ combo_t key_combos[] = {
   COMBO(combo_num_7,     KC_7),
   COMBO(combo_num_9,     KC_9),
 };
+
+// NumWord, CapsWord and the main-board one-shot mods change state rather than emit a
+// character, so an accidental fire is disruptive. They get a tighter window than the
+// global COMBO_TERM, demanding a more deliberate simultaneous press. Matched on the
+// key array rather than combo_index to avoid keeping a parallel enum in sync with
+// key_combos[].
+uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
+  if (combo->keys == combo_num       || combo->keys == combo_caps_word ||
+      combo->keys == combo_osm_lctl  || combo->keys == combo_osm_rctl  ||
+      combo->keys == combo_osm_lsft  || combo->keys == combo_osm_rsft) {
+    return COMBO_TERM_STICKY;
+  }
+  return COMBO_TERM;
+}
 
 /* ######### KEYMAPS ######### */
 
@@ -312,14 +347,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  U_OS_RSFT,     U_OS_RCTL,     U_OS_RALT,     U_OS_RGUI,     _DEAD_,
     _DEAD_, _OFF_,         _OFF_,         _OFF_,         _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_,         _OFF_,         _OFF_,         _OFF_,         _DEAD_,
                                                          _OFF_,         _OFF_,   /*|*/   _OFF_,  _OFF_
-  ),
-
-  [SHORTCUT] = LAYOUT_voyager(
-    _DEAD_, _DEAD_,      _DEAD_,      _DEAD_,    _DEAD_,     _DEAD_, /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
-    _DEAD_, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,  U_REPLACE,  _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-    _DEAD_, U_SAVE,      U_CUT,       U_COPY,    U_PASTE,    _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-    _DEAD_, U_UNDO,      U_REDO,      U_MARK_ALL,_OFF_,      _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
-                                      _OFF_,     _OFF_,      /*|*/   _OFF_,  _OFF_
   )
 };
 
@@ -446,21 +473,6 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
     C_OFF, C_ORG, C_ORG, C_ORG, C_ORG, C_OFF,       // OSM: RSFT RCTL RALT RGUI
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // all XXXXXXX
-    C_OFF, C_OFF                                    // thumbs
-  },
-
-  [SHORTCUT] = {
-    // Left side
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_BLU, C_BLU, C_BLU, C_BLU, C_OFF,   // FindPrev FindNext Find Replace
-    C_OFF, C_PNK, C_PNK, C_PNK, C_PNK, C_OFF,   // Save Cut Copy Paste
-    C_OFF, C_YLW, C_YLW, C_GRN, C_OFF,  C_OFF,   // Undo Redo SelectAll
-    C_OFF, C_OFF,                                   // thumbs
-    // Right side
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_OFF                                    // thumbs
   }
 };

@@ -8,8 +8,10 @@
 #define PERMISSIVE_HOLD
 
 /* ######### COMBOS ######### */
-#define COMBO_COUNT 64
-#define COMBO_TERM 50
+#define COMBO_COUNT 71
+#define COMBO_TERM 40
+#define COMBO_TERM_PER_COMBO
+#define COMBO_TERM_STICKY 30
 
 /* ######### LAYER STATE ######### */
 #define LAYER_STATE_16BIT

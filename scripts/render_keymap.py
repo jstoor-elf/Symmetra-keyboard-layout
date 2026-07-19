@@ -509,10 +509,10 @@ _LEGEND_H = 160  # height reserved above the first layer for the legend
 
 _COMBO_SPACE_LED   = 25
 _COMBO_ENTER_LED   = 50
-_COMBO_BSPC_LED    = 48
+_COMBO_FUNC_LED    = 24          # left outer thumb – Fn / shortcut anchor
 _COMBO_SPACE_COLOR = "#559e82"   # muted mint green – Space thumb
 _COMBO_ENTER_COLOR = "#b87090"   # muted pink – Enter thumb
-_COMBO_BSPC_COLOR  = "#7090c8"   # muted blue – Bspc anchor
+_COMBO_FUNC_COLOR  = "#7090c8"   # muted blue – Fn shortcut anchor
 
 
 def _classify_thumb_combos(combos: list[dict]) -> tuple[list, list, list, list]:
@@ -531,16 +531,16 @@ def _classify_thumb_combos(combos: list[dict]) -> tuple[list, list, list, list]:
     return space_sym, enter_sym, space_num, enter_num
 
 
-def _classify_bspc_combos(combos: list[dict]) -> list:
-    """Group Bspc + left-side key combos for the Shortcut Combos panel."""
+def _classify_shortcut_combos(combos: list[dict]) -> list:
+    """Group Fn (left outer thumb) + left-side key combos for the Shortcut panel."""
     result = []
     for c in combos:
         if c.get("thumb_key_combo") or c.get("thumb_3key_combo"):
             continue
         idxs = c.get("led_indices", [])
-        if len(idxs) == 2 and _COMBO_BSPC_LED in idxs:
-            target = next(i for i in idxs if i != _COMBO_BSPC_LED)
-            if target < 26:
+        if len(idxs) == 2 and _COMBO_FUNC_LED in idxs:
+            target = next(i for i in idxs if i != _COMBO_FUNC_LED)
+            if target < 26 and not POSITIONS[target]["thumb"]:
                 result.append(c)
     return result
 
@@ -598,7 +598,7 @@ def _3key_thumb_combo_overlay(combo: dict, key_centers: dict[int, tuple[float, f
 def _render_dual_combo_panel(template_root: ET.Element, title: str,
                              space_combos: list[dict], enter_combos: list[dict],
                              alpha_keys: list[dict],
-                             bspc_combos: list[dict] | None = None) -> ET.Element:
+                             shortcut_combos: list[dict] | None = None) -> ET.Element:
     """Two-thumb combo panel: Space targets in blue, Enter targets in coral."""
     root = copy.deepcopy(template_root)
 
@@ -617,10 +617,10 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         t_led = next((i for i in c["led_indices"] if i != _COMBO_ENTER_LED), None)
         if t_led is not None:
             target_color[t_led] = _COMBO_ENTER_COLOR
-    for c in (bspc_combos or []):
-        t_led = next((i for i in c["led_indices"] if i != _COMBO_BSPC_LED), None)
+    for c in (shortcut_combos or []):
+        t_led = next((i for i in c["led_indices"] if i != _COMBO_FUNC_LED), None)
         if t_led is not None:
-            target_color[t_led] = _COMBO_BSPC_COLOR
+            target_color[t_led] = _COMBO_FUNC_COLOR
 
     for key in alpha_keys:
         led_idx = key["led_index"]
@@ -633,8 +633,8 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         # None => use the key's own label (so the Space anchor reads "Space / Nav",
         # matching the keypair panel); a string => render that literal symbol.
         _anchor_leds = {_COMBO_SPACE_LED: None, _COMBO_ENTER_LED: None}
-        if bspc_combos:
-            _anchor_leds[_COMBO_BSPC_LED] = "⌫"
+        if shortcut_combos:
+            _anchor_leds[_COMBO_FUNC_LED] = None
         if led_idx in _anchor_leds:
             anchor_lbl = _anchor_leds[led_idx] or key.get("label", "")
             group.append(_make_text(anchor_lbl, "#36363a"))
@@ -661,7 +661,7 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
     for c, thumb_prefix, thumb_led in (
         [(c, "Space", _COMBO_SPACE_LED) for c in space_combos] +
         [(c, "E",     _COMBO_ENTER_LED) for c in enter_combos] +
-        [(c, "⌫",     _COMBO_BSPC_LED)  for c in (bspc_combos or [])]
+        [(c, "Func",  _COMBO_FUNC_LED)  for c in (shortcut_combos or [])]
     ):
         target = next((i for i in c["led_indices"] if i != thumb_led), None)
         if target is None:
@@ -1138,7 +1138,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
     return "\n".join(parts)
 
 
-_RENDER_ORDER = ["ALPHA", "MOD", "NUM", "FUNC", "SHORTCUT", "SYS", "NAV", "MOUSE"]
+_RENDER_ORDER = ["ALPHA", "NAV", "MOUSE", "FUNC", "SYS", "NUM", "MOD"]
 
 def render_svg(ir: dict) -> str:
     layers  = sorted(ir["layers"],
@@ -1149,11 +1149,15 @@ def render_svg(ir: dict) -> str:
     template_root = ET.parse(TEMPLATE_PATH).getroot()
     key_centers, keys_y_off = _extract_key_centers(template_root)
 
+    shortcut_combos    = _classify_shortcut_combos(combos)
+    _shortcut_ids      = {id(c) for c in shortcut_combos}
     same_side_combos   = [c for c in combos if c.get("side") in ("left", "right")
                           and not c.get("thumb_key_combo")
+                          and id(c) not in _shortcut_ids
                           and not _is_gapped_same_side(c)]
     gapped_combos      = [c for c in combos if c.get("side") in ("left", "right")
                           and not c.get("thumb_key_combo")
+                          and id(c) not in _shortcut_ids
                           and _is_gapped_same_side(c)]
     crossside_thumb_combos = [c for c in combos if c.get("side") == "both"
                               and all(i in _THUMB_LEDS for i in c.get("led_indices", []))]
@@ -1177,10 +1181,12 @@ def render_svg(ir: dict) -> str:
     combo_panels = [
         ("Alpha · Sym Thumb Combos", space_sym,   enter_sym,   None),
         ("Alpha · Num Thumb Combos", space_num,   enter_num,   None),
+        ("Alpha · Shortcut Combos",  [],          [],          shortcut_combos),
     ]
     combo_panels_3k = [
         (space_sym_3k, enter_sym_3k),
         (space_num_3k, enter_num_3k),
+        ([], []),
     ]
 
     n_combo_panels = (len(combo_panels) + 3) if alpha_layer else 0
@@ -1294,12 +1300,12 @@ def render_svg(ir: dict) -> str:
                     parts.append(frag)
         parts.append("</g>")
 
-        for panel_idx, (title, space_c, enter_c, bspc_c) in enumerate(combo_panels):
+        for panel_idx, (title, space_c, enter_c, shortcut_c) in enumerate(combo_panels):
             panel_offset += 1
             yp = _LEGEND_H + (len(layers) - 1 + panel_offset) * (_LAYER_H + _LAYER_GAP)
             panel_root = _render_dual_combo_panel(
                 template_root, title, space_c, enter_c, alpha_layer["keys"],
-                bspc_combos=bspc_c
+                shortcut_combos=shortcut_c
             )
             parts.append(f'<g transform="translate({_MARGIN},{yp})">')
             for child in panel_root:
