@@ -509,10 +509,10 @@ _LEGEND_H = 160  # height reserved above the first layer for the legend
 
 _COMBO_SPACE_LED   = 25
 _COMBO_ENTER_LED   = 50
-_COMBO_FUNC_LED    = 24          # left outer thumb – Fn / shortcut anchor
+_COMBO_SC_LED    = 51          # right outer thumb – Sys / shortcut anchor
 _COMBO_SPACE_COLOR = "#559e82"   # muted mint green – Space thumb
 _COMBO_ENTER_COLOR = "#b87090"   # muted pink – Enter thumb
-_COMBO_FUNC_COLOR  = "#7090c8"   # muted blue – Fn shortcut anchor
+_COMBO_SC_COLOR  = "#7090c8"   # muted blue – Sys shortcut anchor
 
 
 def _classify_thumb_combos(combos: list[dict]) -> tuple[list, list, list, list]:
@@ -538,8 +538,8 @@ def _classify_shortcut_combos(combos: list[dict]) -> list:
         if c.get("thumb_key_combo") or c.get("thumb_3key_combo"):
             continue
         idxs = c.get("led_indices", [])
-        if len(idxs) == 2 and _COMBO_FUNC_LED in idxs:
-            target = next(i for i in idxs if i != _COMBO_FUNC_LED)
+        if len(idxs) == 2 and _COMBO_SC_LED in idxs:
+            target = next(i for i in idxs if i != _COMBO_SC_LED)
             if target < 26 and not POSITIONS[target]["thumb"]:
                 result.append(c)
     return result
@@ -618,9 +618,9 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         if t_led is not None:
             target_color[t_led] = _COMBO_ENTER_COLOR
     for c in (shortcut_combos or []):
-        t_led = next((i for i in c["led_indices"] if i != _COMBO_FUNC_LED), None)
+        t_led = next((i for i in c["led_indices"] if i != _COMBO_SC_LED), None)
         if t_led is not None:
-            target_color[t_led] = _COMBO_FUNC_COLOR
+            target_color[t_led] = _COMBO_SC_COLOR
 
     for key in alpha_keys:
         led_idx = key["led_index"]
@@ -634,7 +634,7 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
         # matching the keypair panel); a string => render that literal symbol.
         _anchor_leds = {_COMBO_SPACE_LED: None, _COMBO_ENTER_LED: None}
         if shortcut_combos:
-            _anchor_leds[_COMBO_FUNC_LED] = None
+            _anchor_leds[_COMBO_SC_LED] = None
         if led_idx in _anchor_leds:
             anchor_lbl = _anchor_leds[led_idx] or key.get("label", "")
             group.append(_make_text(anchor_lbl, "#36363a"))
@@ -668,7 +668,7 @@ def _render_dual_combo_panel(template_root: ET.Element, title: str,
     for c, thumb_prefix, thumb_led in (
         [(c, _anchor_prefix(_COMBO_SPACE_LED), _COMBO_SPACE_LED) for c in space_combos] +
         [(c, _anchor_prefix(_COMBO_ENTER_LED), _COMBO_ENTER_LED) for c in enter_combos] +
-        [(c, _anchor_prefix(_COMBO_FUNC_LED),  _COMBO_FUNC_LED)  for c in (shortcut_combos or [])]
+        [(c, _anchor_prefix(_COMBO_SC_LED),  _COMBO_SC_LED)  for c in (shortcut_combos or [])]
     ):
         target = next((i for i in c["led_indices"] if i != thumb_led), None)
         if target is None:
@@ -1180,6 +1180,7 @@ def render_svg(ir: dict) -> str:
     _raw_nonthumb = [c for c in combos if c.get("side") == "both"
                      and not all(i in _THUMB_LEDS for i in c.get("led_indices", []))
                      and not c.get("thumb_key_combo")
+                     and id(c) not in _shortcut_ids
                      and not c.get("thumb_3key_combo")]
     crossside_nonthumb_combos = sorted(
         _raw_nonthumb,

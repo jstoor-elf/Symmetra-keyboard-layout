@@ -69,7 +69,6 @@ enum custom_keycodes {
   U_EMOJIS,
   U_LOCK_SCREEN,
   U_RGB_TOG,
-
   U_FIND_PREV,
   U_FIND_NEXT,
   U_REPLACE
@@ -110,21 +109,22 @@ const uint16_t PROGMEM combo_apos[]      = {KC_R,          KC_S,          COMBO_
 const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
-// Shortcut combos: FUNC thumb (T_L_OUT) + left-side key
-const uint16_t PROGMEM combo_sc_find_prev[] = {T_L_OUT,     KC_B,          COMBO_END};
-const uint16_t PROGMEM combo_sc_find_next[] = {T_L_OUT,     KC_L,          COMBO_END};
-const uint16_t PROGMEM combo_sc_search[]    = {T_L_OUT,     KC_D,          COMBO_END};
-const uint16_t PROGMEM combo_sc_replace[]   = {T_L_OUT,     KC_C,          COMBO_END};
-const uint16_t PROGMEM combo_sc_save[]      = {T_L_OUT,     KC_N,          COMBO_END};
-const uint16_t PROGMEM combo_sc_cut[]       = {T_L_OUT,     KC_R,          COMBO_END};
-const uint16_t PROGMEM combo_sc_copy[]      = {T_L_OUT,     KC_T,          COMBO_END};
-const uint16_t PROGMEM combo_sc_paste[]     = {T_L_OUT,     KC_S,          COMBO_END};
-const uint16_t PROGMEM combo_sc_undo[]      = {T_L_OUT,     KC_X,          COMBO_END};
-const uint16_t PROGMEM combo_sc_redo[]      = {T_L_OUT,     KC_Q,          COMBO_END};
-const uint16_t PROGMEM combo_sc_mark_all[]  = {T_L_OUT,     KC_M,          COMBO_END};
-const uint16_t PROGMEM combo_sc_sel_word[]  = {T_L_OUT,     KC_G,          COMBO_END};
-const uint16_t PROGMEM combo_sc_sel_line[]  = {T_L_OUT,     KC_W,          COMBO_END};
-const uint16_t PROGMEM combo_sc_sel_wbak[]  = {T_L_OUT,     KC_Z,          COMBO_END};
+// Shortcut combos: SYS thumb (T_R_OUT) + left-side key — cross-hand, so the
+// reaching thumb and the pressing fingers are on different hands.
+const uint16_t PROGMEM combo_sc_find_prev[] = {T_R_OUT,     KC_B,          COMBO_END};
+const uint16_t PROGMEM combo_sc_find_next[] = {T_R_OUT,     KC_L,          COMBO_END};
+const uint16_t PROGMEM combo_sc_search[]    = {T_R_OUT,     KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_sc_replace[]   = {T_R_OUT,     KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_sc_save[]      = {T_R_OUT,     KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_sc_cut[]       = {T_R_OUT,     KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_sc_copy[]      = {T_R_OUT,     KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_sc_paste[]     = {T_R_OUT,     KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_sc_undo[]      = {T_R_OUT,     KC_X,          COMBO_END};
+const uint16_t PROGMEM combo_sc_redo[]      = {T_R_OUT,     KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_sc_mark_all[]  = {T_R_OUT,     KC_M,          COMBO_END};
+const uint16_t PROGMEM combo_sc_sel_word[]  = {T_R_OUT,     KC_G,          COMBO_END};
+const uint16_t PROGMEM combo_sc_sel_line[]  = {T_R_OUT,     KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_sc_sel_wbak[]  = {T_R_OUT,     KC_Z,          COMBO_END};
 // One-shot mods — left-hand pairs give left mods, right-hand pairs give right mods.
 // Ctrl/Shift sit on the home row; Alt on row 2 and Gui on the bottom row.
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
