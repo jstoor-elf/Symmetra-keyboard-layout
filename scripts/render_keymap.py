@@ -509,10 +509,10 @@ _LEGEND_H = 160  # height reserved above the first layer for the legend
 
 _COMBO_SPACE_LED   = 25
 _COMBO_ENTER_LED   = 50
-_COMBO_SC_LED    = 51          # right outer thumb – Sys / shortcut anchor
+_COMBO_SC_LED    = 24          # left outer thumb – Func / shortcut anchor
 _COMBO_SPACE_COLOR = "#559e82"   # muted mint green – Space thumb
 _COMBO_ENTER_COLOR = "#b87090"   # muted pink – Enter thumb
-_COMBO_SC_COLOR  = "#7090c8"   # muted blue – Sys shortcut anchor
+_COMBO_SC_COLOR  = "#7090c8"   # muted blue – Func shortcut anchor
 
 
 def _classify_thumb_combos(combos: list[dict]) -> tuple[list, list, list, list]:

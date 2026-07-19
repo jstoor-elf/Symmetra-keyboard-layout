@@ -109,22 +109,19 @@ const uint16_t PROGMEM combo_apos[]      = {KC_R,          KC_S,          COMBO_
 const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
-// Shortcut combos: SYS thumb (T_R_OUT) + left-side key — cross-hand, so the
-// reaching thumb and the pressing fingers are on different hands.
-const uint16_t PROGMEM combo_sc_find_prev[] = {T_R_OUT,     KC_B,          COMBO_END};
-const uint16_t PROGMEM combo_sc_find_next[] = {T_R_OUT,     KC_L,          COMBO_END};
-const uint16_t PROGMEM combo_sc_search[]    = {T_R_OUT,     KC_D,          COMBO_END};
-const uint16_t PROGMEM combo_sc_replace[]   = {T_R_OUT,     KC_C,          COMBO_END};
-const uint16_t PROGMEM combo_sc_save[]      = {T_R_OUT,     KC_N,          COMBO_END};
-const uint16_t PROGMEM combo_sc_cut[]       = {T_R_OUT,     KC_R,          COMBO_END};
-const uint16_t PROGMEM combo_sc_copy[]      = {T_R_OUT,     KC_T,          COMBO_END};
-const uint16_t PROGMEM combo_sc_paste[]     = {T_R_OUT,     KC_S,          COMBO_END};
-const uint16_t PROGMEM combo_sc_undo[]      = {T_R_OUT,     KC_X,          COMBO_END};
-const uint16_t PROGMEM combo_sc_redo[]      = {T_R_OUT,     KC_Q,          COMBO_END};
-const uint16_t PROGMEM combo_sc_mark_all[]  = {T_R_OUT,     KC_M,          COMBO_END};
-const uint16_t PROGMEM combo_sc_sel_word[]  = {T_R_OUT,     KC_G,          COMBO_END};
-const uint16_t PROGMEM combo_sc_sel_line[]  = {T_R_OUT,     KC_W,          COMBO_END};
-const uint16_t PROGMEM combo_sc_sel_wbak[]  = {T_R_OUT,     KC_Z,          COMBO_END};
+// Shortcut combos: FUNC thumb (T_L_OUT) + left-side key — one-handed, so they stay
+// available with the right hand on the mouse.
+const uint16_t PROGMEM combo_sc_find_prev[] = {T_L_OUT,     KC_B,          COMBO_END};
+const uint16_t PROGMEM combo_sc_find_next[] = {T_L_OUT,     KC_L,          COMBO_END};
+const uint16_t PROGMEM combo_sc_search[]    = {T_L_OUT,     KC_D,          COMBO_END};
+const uint16_t PROGMEM combo_sc_replace[]   = {T_L_OUT,     KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_sc_save[]      = {T_L_OUT,     KC_N,          COMBO_END};
+const uint16_t PROGMEM combo_sc_cut[]       = {T_L_OUT,     KC_R,          COMBO_END};
+const uint16_t PROGMEM combo_sc_copy[]      = {T_L_OUT,     KC_T,          COMBO_END};
+const uint16_t PROGMEM combo_sc_paste[]     = {T_L_OUT,     KC_S,          COMBO_END};
+const uint16_t PROGMEM combo_sc_undo[]      = {T_L_OUT,     KC_X,          COMBO_END};
+const uint16_t PROGMEM combo_sc_redo[]      = {T_L_OUT,     KC_Q,          COMBO_END};
+const uint16_t PROGMEM combo_sc_mark_all[]  = {T_L_OUT,     KC_M,          COMBO_END};
 // One-shot mods — left-hand pairs give left mods, right-hand pairs give right mods.
 // Ctrl/Shift sit on the home row; Alt on row 2 and Gui on the bottom row.
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
@@ -213,9 +210,6 @@ combo_t key_combos[] = {
   COMBO(combo_sc_undo,      U_UNDO),
   COMBO(combo_sc_redo,      U_REDO),
   COMBO(combo_sc_mark_all,  U_MARK_ALL),
-  COMBO(combo_sc_sel_word,  SELWORD),
-  COMBO(combo_sc_sel_line,  SELLINE),
-  COMBO(combo_sc_sel_wbak,  SELWBAK),
   // Home-row one-shot mods
   COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
   COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
@@ -330,7 +324,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  /*|*/   _DEAD_,    _DEAD_,      _DEAD_,        _DEAD_,      _DEAD_,       _DEAD_,
     _DEAD_, _OFF_,   _OFF_,   _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_DOC_LEFT,  U_DOC_DOWN,    U_DOC_UP,    U_DOC_RIGHT,  _DEAD_,
     _DEAD_, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, _OFF_,   /*|*/   _OFF_,     KC_LEFT,     KC_DOWN,       KC_UP,       KC_RIGHT,     _DEAD_,
-    _DEAD_, TG(MOUSE), _OFF_, _OFF_,   _OFF_,   _OFF_,   /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
+    _DEAD_, TG(MOUSE), SELWBAK, SELWORD, SELLINE, _OFF_, /*|*/   _OFF_,     U_WORD_LEFT, U_5_ROWS_DOWN, U_5_ROWS_UP, U_WORD_RIGHT, _DEAD_,
                                        _OFF_,   _OFF_,   /*|*/   _OFF_,     _OFF_
   ),
 
@@ -422,7 +416,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_ORG,  C_ORG,  C_ORG,  C_ORG,  C_OFF,  // GUI ALT CTL SFT
-    C_OFF, C_RED,  C_OFF,  C_OFF,  C_OFF,  C_OFF,  // TG(MOUSE)
+    C_OFF, C_RED,  C_SLV,  C_SLV,  C_SLV,  C_OFF,  // TG(MOUSE) SELWBAK SELWORD SELLINE
     C_OFF, C_OFF,                                   // T_L_OUT, T_L_IN (active)
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
@@ -730,7 +724,6 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_FIND_PREV:    PERFORM_BY_OS(tap_code16(S(KC_F3)),     tap_code16(G(S(KC_G))));       break;
     case U_FIND_NEXT:    PERFORM_BY_OS(tap_code16(C(KC_G)),      tap_code16(G(KC_G)));          break;
     case U_REPLACE:      PERFORM_BY_OS(tap_code16(C(KC_H)),      tap_code16(A(G(KC_F))));       break;
-
     case U_NUM_TGL:                                                                             return false;
     case U_NUM_ENT_ANC:                                                                         return false;
   }
