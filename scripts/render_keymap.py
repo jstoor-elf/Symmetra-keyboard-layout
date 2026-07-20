@@ -1153,7 +1153,7 @@ def _render_legend(canvas_w: int, margin: int) -> str:
     return "\n".join(parts)
 
 
-_RENDER_ORDER = ["ALPHA", "NAV", "MOUSE", "SYS", "FUNC", "NUM"]
+_RENDER_ORDER = ["ALPHA", "NUM", "FUNC", "SHORTCUT", "SYS", "NAV", "MOUSE"]
 
 def render_svg(ir: dict) -> str:
     layers  = sorted(ir["layers"],
@@ -1197,13 +1197,16 @@ def render_svg(ir: dict) -> str:
     combo_panels = [
         ("Alpha · Sym Thumb Combos", space_sym,   enter_sym,   None),
         ("Alpha · Num Thumb Combos", space_num,   enter_num,   None),
-        ("Alpha · Shortcut Combos",  [],          [],          shortcut_combos),
     ]
     combo_panels_3k = [
         (space_sym_3k, enter_sym_3k),
         (space_num_3k, enter_num_3k),
-        ([], []),
     ]
+    # Only worth a panel when the shortcuts are combos; if they live on a layer
+    # instead, there is nothing to draw and the empty board would just be noise.
+    if shortcut_combos:
+        combo_panels.append(("Alpha · Shortcut Combos", [], [], shortcut_combos))
+        combo_panels_3k.append(([], []))
 
     n_combo_panels = (len(combo_panels) + 3) if alpha_layer else 0
     total_h = (len(layers) + n_combo_panels) * (_LAYER_H + _LAYER_GAP) + 40 + _LEGEND_H

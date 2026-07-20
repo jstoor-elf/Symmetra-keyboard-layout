@@ -15,7 +15,7 @@
 #define _DEAD_  XXXXXXX  // physically removed switch
 #define _OFF_   XXXXXXX  // within range, unassigned on this layer
 
-#define T_L_OUT OSL(FUNC)
+#define T_L_OUT OSL(SHORTCUT)
 #define T_L_IN  LT(NAV, KC_SPC)
 #define T_R_IN  QK_REP
 #define T_R_OUT OSL(SYS)
@@ -28,7 +28,8 @@ enum layers {
   FUNC,
   NAV,
   MOUSE,
-  SYS
+  SYS,
+  SHORTCUT
 };
 
 enum custom_keycodes {
@@ -109,19 +110,8 @@ const uint16_t PROGMEM combo_apos[]      = {KC_R,          KC_S,          COMBO_
 const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
-// Shortcut combos: FUNC thumb (T_L_OUT) + left-side key — one-handed, so they stay
-// available with the right hand on the mouse.
-const uint16_t PROGMEM combo_sc_find_prev[] = {T_L_OUT,     KC_B,          COMBO_END};
-const uint16_t PROGMEM combo_sc_find_next[] = {T_L_OUT,     KC_L,          COMBO_END};
-const uint16_t PROGMEM combo_sc_search[]    = {T_L_OUT,     KC_D,          COMBO_END};
-const uint16_t PROGMEM combo_sc_replace[]   = {T_L_OUT,     KC_C,          COMBO_END};
-const uint16_t PROGMEM combo_sc_save[]      = {T_L_OUT,     KC_N,          COMBO_END};
-const uint16_t PROGMEM combo_sc_cut[]       = {T_L_OUT,     KC_R,          COMBO_END};
-const uint16_t PROGMEM combo_sc_copy[]      = {T_L_OUT,     KC_T,          COMBO_END};
-const uint16_t PROGMEM combo_sc_paste[]     = {T_L_OUT,     KC_S,          COMBO_END};
-const uint16_t PROGMEM combo_sc_undo[]      = {T_L_OUT,     KC_X,          COMBO_END};
-const uint16_t PROGMEM combo_sc_redo[]      = {T_L_OUT,     KC_Q,          COMBO_END};
-const uint16_t PROGMEM combo_sc_mark_all[]  = {T_L_OUT,     KC_M,          COMBO_END};
+// FUNC is reached by pressing both outer thumbs together.
+const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
 // One-shot mods — left-hand pairs give left mods, right-hand pairs give right mods.
 // Ctrl/Shift sit on the home row; Alt on row 2 and Gui on the bottom row.
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
@@ -199,17 +189,7 @@ combo_t key_combos[] = {
   COMBO(combo_dlr,       SE_DLR),
   COMBO(combo_eql,       SE_EQL),
   // Shortcut combos via FUNC thumb + left-side key
-  COMBO(combo_sc_find_prev, U_FIND_PREV),
-  COMBO(combo_sc_find_next, U_FIND_NEXT),
-  COMBO(combo_sc_search,    U_SEARCH),
-  COMBO(combo_sc_replace,   U_REPLACE),
-  COMBO(combo_sc_save,      U_SAVE),
-  COMBO(combo_sc_cut,       U_CUT),
-  COMBO(combo_sc_copy,      U_COPY),
-  COMBO(combo_sc_paste,     U_PASTE),
-  COMBO(combo_sc_undo,      U_UNDO),
-  COMBO(combo_sc_redo,      U_REDO),
-  COMBO(combo_sc_mark_all,  U_MARK_ALL),
+  COMBO(combo_func,      OSL(FUNC)),
   // Home-row one-shot mods
   COMBO(combo_osm_lctl,  OSM(MOD_LCTL)),
   COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
@@ -342,6 +322,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  KC_CAPS,  _OFF_,        _DEAD_,
                                             _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
+  ),
+
+  [SHORTCUT] = LAYOUT_voyager(
+    _DEAD_, _DEAD_,      _DEAD_,      _DEAD_,     _DEAD_,    _DEAD_, /*|*/   _DEAD_, _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,  _DEAD_,
+    _DEAD_, U_FIND_PREV, U_FIND_NEXT, U_SEARCH,   U_REPLACE, _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, U_SAVE,      U_CUT,       U_COPY,     U_PASTE,   _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+    _DEAD_, U_UNDO,      U_REDO,      U_MARK_ALL, _OFF_,     _OFF_,  /*|*/   _OFF_,  _OFF_,   _OFF_,   _OFF_,   _OFF_,   _DEAD_,
+                                                  _OFF_,     _OFF_,  /*|*/   _OFF_,  _OFF_
   )
 };
 
@@ -453,6 +441,21 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_SLV, C_SLV, C_SLV, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
     C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
+    C_OFF, C_OFF                                    // thumbs
+  },
+
+  [SHORTCUT] = {
+    // Left side
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_BLU,  C_BLU,  C_BLU,  C_BLU,  C_OFF,   // FindPrev FindNext Search Replace
+    C_OFF, C_PNK,  C_PNK,  C_PNK,  C_PNK,  C_OFF,   // Save Cut Copy Paste
+    C_OFF, C_YLW,  C_YLW,  C_GRN,  C_OFF,  C_OFF,   // Undo Redo MarkAll
+    C_OFF, C_OFF,                                   // thumbs
+    // Right side
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
     C_OFF, C_OFF                                    // thumbs
   }
 };

@@ -8,7 +8,7 @@
 #define PERMISSIVE_HOLD
 
 /* ######### COMBOS ######### */
-#define COMBO_COUNT 74
+#define COMBO_COUNT 64
 #define COMBO_TERM 40
 #define COMBO_TERM_PER_COMBO
 #define COMBO_TERM_STICKY 30
