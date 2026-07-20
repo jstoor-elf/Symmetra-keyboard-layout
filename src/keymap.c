@@ -110,6 +110,9 @@ const uint16_t PROGMEM combo_apos[]      = {KC_R,          KC_S,          COMBO_
 const uint16_t PROGMEM combo_dquo[]      = {KC_H,          KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_dlr[]       = {KC_Q,          KC_M,          COMBO_END};
 const uint16_t PROGMEM combo_eql[]       = {T_L_IN,        KC_Y,          COMBO_END};
+// Dead-key accents — one per hand, both gapped pairs on the bottom row.
+const uint16_t PROGMEM combo_grv[]       = {KC_Q,          KC_W,          COMBO_END};
+const uint16_t PROGMEM combo_acut[]      = {KC_F,          SE_OSLH,       COMBO_END};
 // FUNC is reached by pressing both outer thumbs together.
 const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
 // One-shot mods — left-hand pairs give left mods, right-hand pairs give right mods.
@@ -138,9 +141,6 @@ const uint16_t PROGMEM combo_sym_lprn[]  = {T_L_IN,        SE_ADIA,       COMBO_
 const uint16_t PROGMEM combo_sym_rprn[]  = {T_L_IN,        SE_OSLH,       COMBO_END};
 const uint16_t PROGMEM combo_sym_slsh[]  = {T_L_IN,        KC_DOT,        COMBO_END};
 const uint16_t PROGMEM combo_sym_hash[]  = {T_L_IN,        KC_U,          COMBO_END};
-// Three-key symbol combos: Space + two right-side keys
-const uint16_t PROGMEM combo_3_acut[]   = {T_L_IN,        KC_J,          KC_Y,    COMBO_END};
-const uint16_t PROGMEM combo_3_grv[]    = {T_L_IN,        KC_P,          KC_H,    COMBO_END};
 // Bracket-pair combos: thumb + both bracket keys -> emit open and close
 const uint16_t PROGMEM combo_brc_pair[] = {T_L_IN,        KC_A,          KC_E,     COMBO_END};
 const uint16_t PROGMEM combo_prn_pair[] = {T_L_IN,        SE_ADIA,       SE_OSLH,  COMBO_END};
@@ -188,6 +188,8 @@ combo_t key_combos[] = {
   COMBO(combo_dquo,      SE_DQUO),
   COMBO(combo_dlr,       SE_DLR),
   COMBO(combo_eql,       SE_EQL),
+  COMBO(combo_grv,       SE_GRV),
+  COMBO(combo_acut,      SE_ACUT),
   // Shortcut combos via FUNC thumb + left-side key
   COMBO(combo_func,      OSL(FUNC)),
   // Home-row one-shot mods
@@ -215,8 +217,6 @@ combo_t key_combos[] = {
   COMBO(combo_sym_rprn,  SE_RPRN),
   COMBO(combo_sym_slsh,  KC_EXLM),
   COMBO(combo_sym_hash,  KC_HASH),
-  COMBO(combo_3_acut,    SE_ACUT),
-  COMBO(combo_3_grv,     SE_GRV),
   COMBO(combo_brc_pair,  U_SE_BRC_PAIR),
   COMBO(combo_prn_pair,  U_SE_PRN_PAIR),
   COMBO(combo_cbr_pair,  U_SE_CBR_PAIR),
