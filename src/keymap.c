@@ -115,16 +115,15 @@ const uint16_t PROGMEM combo_grv[]       = {KC_Q,          KC_W,          COMBO_
 const uint16_t PROGMEM combo_acut[]      = {KC_F,          SE_OSLH,       COMBO_END};
 // FUNC is reached by pressing both outer thumbs together.
 const uint16_t PROGMEM combo_func[]      = {T_L_OUT,       T_R_OUT,       COMBO_END};
-// One-shot mods — left-hand pairs give left mods, right-hand pairs give right mods.
-// Ctrl/Shift sit on the home row; Alt on row 2 and Gui on the bottom row.
+// One-shot mods. Ctrl/Shift keep a per-hand pair each (home row); Alt and Gui are a
+// single gapped combo apiece.
 const uint16_t PROGMEM combo_osm_lctl[]  = {KC_R,          KC_T,          COMBO_END};
 const uint16_t PROGMEM combo_osm_rctl[]  = {KC_A,          KC_E,          COMBO_END};
 const uint16_t PROGMEM combo_osm_lsft[]  = {KC_T,          KC_S,          COMBO_END};
 const uint16_t PROGMEM combo_osm_rsft[]  = {KC_H,          KC_A,          COMBO_END};
-const uint16_t PROGMEM combo_osm_lalt[]  = {KC_B,          KC_L,          COMBO_END};
-const uint16_t PROGMEM combo_osm_ralt[]  = {KC_U,          KC_COMMA,      COMBO_END};
-const uint16_t PROGMEM combo_osm_lgui[]  = {KC_X,          KC_Q,          COMBO_END};
-const uint16_t PROGMEM combo_osm_rgui[]  = {SE_OSLH,       KC_DOT,        COMBO_END};
+// Alt and Gui are single gapped combos — Alt on the left hand, Gui on the right.
+const uint16_t PROGMEM combo_osm_alt[]   = {KC_L,          KC_C,          COMBO_END};
+const uint16_t PROGMEM combo_osm_gui[]   = {KC_Y,          KC_U,          COMBO_END};
 // Deactivation combos
 const uint16_t PROGMEM combo_num_ent[]   = {KC_9,          U_NUM_ENT_ANC, COMBO_END};
 const uint16_t PROGMEM combo_num_deac[]  = {U_NUM_SPACE,   U_NUM_TGL,     COMBO_END};
@@ -197,10 +196,8 @@ combo_t key_combos[] = {
   COMBO(combo_osm_rctl,  OSM(MOD_RCTL)),
   COMBO(combo_osm_lsft,  OSM(MOD_LSFT)),
   COMBO(combo_osm_rsft,  OSM(MOD_RSFT)),
-  COMBO(combo_osm_lalt,  OSM(MOD_LALT)),
-  COMBO(combo_osm_ralt,  OSM(MOD_RALT)),
-  COMBO(combo_osm_lgui,  OSM(MOD_LGUI)),
-  COMBO(combo_osm_rgui,  OSM(MOD_RGUI)),
+  COMBO(combo_osm_alt,   OSM(MOD_LALT)),
+  COMBO(combo_osm_gui,   OSM(MOD_RGUI)),
   // Deactivation combos
   COMBO(combo_num_ent,   U_NUM_ENTER),
   COMBO(combo_num_deac,  TG(NUM)),
@@ -258,8 +255,7 @@ uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
   if (combo->keys == combo_num       || combo->keys == combo_caps_word ||
       combo->keys == combo_osm_lctl  || combo->keys == combo_osm_rctl  ||
       combo->keys == combo_osm_lsft  || combo->keys == combo_osm_rsft  ||
-      combo->keys == combo_osm_lalt  || combo->keys == combo_osm_ralt  ||
-      combo->keys == combo_osm_lgui  || combo->keys == combo_osm_rgui) {
+      combo->keys == combo_osm_alt   || combo->keys == combo_osm_gui) {
     return COMBO_TERM_STICKY;
   }
   return COMBO_TERM;

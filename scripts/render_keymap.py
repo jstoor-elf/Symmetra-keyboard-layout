@@ -765,7 +765,9 @@ def _gapped_combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float
     cx = (min(xs) + max(xs)) / 2
     cy = (min(ys) + max(ys)) / 2
 
-    label = combo["action_label"].replace("\n", " ")
+    parsed = _parse_action_chip(combo.get("resolved_action") or combo.get("action"))
+    chip_style = parsed[0] if parsed else None
+    label = (parsed[1] if parsed else combo["action_label"]).replace("\n", " ")
     label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
     # Span the box across the skipped key between the two triggers, grazing just
@@ -777,13 +779,30 @@ def _gapped_combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float
     H  = _CROSSSIDE_BOX_H
     y1 = cy - H / 2
     color  = "#a0a0a0"
-    return "\n".join([
+    parts = [
         f'<rect x="{x1:.1f}" y="{y1:.1f}" width="{W:.1f}" height="{H}" '
         f'rx="4" fill="#141416" fill-opacity="0.88" stroke="{color}" stroke-width="0.5"/>',
         f'<text x="{cx:.1f}" y="{cy:.1f}" text-anchor="middle" dominant-baseline="middle" '
         f'fill="{color}" stroke="{color}" stroke-width="0.5" paint-order="stroke fill" '
         f'style="font-size:10px;font-weight:400;">{label}</text>',
-    ])
+    ]
+    # One-shot mods (and other stateful actions) carry the same underline as the
+    # adjacent-combo chips, so Alt/Gui read identically whether they are gapped or not.
+    uline_color = _ACTION_COLORS.get(chip_style, color) if chip_style in _ULINE_STYLES else None
+    if uline_color:
+        uy  = cy + 7
+        # Track the text, not the box — the box spans the skipped key and is far
+        # wider than a short label like "Alt".
+        uhw = min(W / 2 - 6, len(label) * _CHAR_W_10PX / 2)
+        parts.append(
+            f'<line x1="{cx - uhw:.1f}" y1="{uy:.1f}" x2="{cx + uhw:.1f}" y2="{uy:.1f}" '
+            f'stroke="{uline_color}" stroke-width="2.0" stroke-linecap="square"/>'
+        )
+    return "\n".join(parts)
+
+
+# Action styles that get an underline under their combo label (stateful actions).
+_ULINE_STYLES = {"osl", "osm", "hold", "lt", "toggle", "numenter"}
 
 
 def _parse_action_chip(kc: str | None) -> tuple[str, str, str | None] | None:
@@ -948,7 +967,6 @@ def _combo_overlay(combo: dict, key_centers: dict[int, tuple[float, float]], key
         label = combo["action_label"].replace("\n", " ")
     label = label.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
-    _ULINE_STYLES = {"osl", "osm", "hold", "lt", "toggle", "numenter"}
     color       = "#a0a0a0"
     uline_color = _ACTION_COLORS.get(chip_style, color) if chip_style in _ULINE_STYLES else None
     sz = "7px" if len(label) > 6 else "10px"
