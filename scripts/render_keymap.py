@@ -138,8 +138,9 @@ LABEL_MAP: dict[str, str] = {
     "KC_MPRV": "Prev Track", "KC_MNXT": "Next Track",  "KC_MPLY": "Play/ Pause",
     "RM_VALD": "RGB -",      "RM_VALU": "RGB +",    "U_RGB_TOG": "RGB Toggle",
     "U_OS_SEARCH":  "OS Search",    "U_SCREENSHOT": "Screenshot",
+    "U_SRCH_SEL":   "Web Search-Sel",
     "U_EMOJIS":     "Emojis",       "U_TOGGLE_OS":  "Switch OS",
-    "U_LOCK_SCREEN": "Lock\nScreen", "KC_CAPS": "Caps\nLock",
+    "U_LOCK_SCREEN": "Lock\nScreen", "U_CAPS_LOCK": "Caps\nLock",
     "U_FIND_PREV":  "Find\nPrev", "U_FIND_NEXT":  "Find\nNext",
     "U_REPLACE":    "Replace",
 }

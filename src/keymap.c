@@ -72,7 +72,9 @@ enum custom_keycodes {
   U_RGB_TOG,
   U_FIND_PREV,
   U_FIND_NEXT,
-  U_REPLACE
+  U_REPLACE,
+  U_SRCH_SEL,
+  U_CAPS_LOCK
 };
 
 typedef enum {
@@ -314,9 +316,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SYS] = LAYOUT_voyager(
     _DEAD_, _DEAD_,       _DEAD_,  _DEAD_,  _DEAD_,    _DEAD_,/*|*/   _DEAD_,  _DEAD_,        _DEAD_,       _DEAD_,   _DEAD_,       _DEAD_,
-    _DEAD_, _OFF_,        RM_VALD, RM_VALU, U_RGB_TOG, _OFF_, /*|*/   _OFF_,   _OFF_,         _OFF_,        _OFF_,    _OFF_,        _DEAD_,
+    _DEAD_, _OFF_,        RM_VALD, RM_VALU, U_RGB_TOG, _OFF_, /*|*/   _OFF_,   U_SRCH_SEL,    _OFF_,        _OFF_,    _OFF_,        _DEAD_,
     _DEAD_, _OFF_,        KC_VOLD, KC_VOLU, KC_MUTE,   _OFF_, /*|*/   _OFF_,   U_OS_SEARCH,   U_SCREENSHOT, U_EMOJIS, _OFF_,        _DEAD_,
-    _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  KC_CAPS,  _OFF_,        _DEAD_,
+    _DEAD_, _OFF_,        KC_MPRV, KC_MNXT, KC_MPLY,   _OFF_, /*|*/   _OFF_,   U_LOCK_SCREEN, U_TOGGLE_OS,  U_CAPS_LOCK, _OFF_,        _DEAD_,
                                             _OFF_,     _OFF_, /*|*/   _OFF_,   _OFF_
   ),
 
@@ -347,6 +349,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // LED indices for dynamic overrides
 #define LED_TOGGLE_OS 46  // U_TOGGLE_OS key on the SYS layer
+#define LED_CAPS_LOCK 47  // U_CAPS_LOCK key on the SYS layer
 
 const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
 
@@ -434,7 +437,7 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     C_OFF, C_OFF,                                    // thumbs
     // Right side
     C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // top row
-    C_OFF, C_OFF,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // all XXXXXXX
+    C_OFF, C_PNK,  C_OFF,  C_OFF,  C_OFF,  C_OFF,   // SRCH_SEL (Y-slot)
     C_OFF, C_SLV, C_SLV, C_SLV, C_OFF,  C_OFF,   // OS_SEARCH SCREENSHOT EMOJIS
     C_OFF, C_GRN, C_GRN, C_GRN, C_OFF,  C_OFF,   // LOCK_SCREEN TOGGLE_OS CAPS
     C_OFF, C_OFF                                    // thumbs
@@ -491,12 +494,19 @@ void set_leds_for_layer(uint8_t layer) {
 }
 
 void apply_os_indicator(void) {
-  // Continuously breathe the Toggle-OS key: teal for Windows, red for Mac.
   uint8_t h = (current_os == OS_WINDOWS) ? 120 : 0;
   uint8_t s = (current_os == OS_WINDOWS) ? 223 : 255;
   uint8_t v = breathing_value(LED_TOGGLE_OS, 200);
   RGB rgb = hsv_to_rgb_with_value((HSV){h, s, v});
   rgb_matrix_set_color(LED_TOGGLE_OS, rgb.r, rgb.g, rgb.b);
+}
+
+void apply_caps_lock_indicator(void) {
+  // Breathe the Caps Lock key while caps lock is engaged — same breathe as the
+  // OS key, told apart only by color (green here vs the OS key's teal/red).
+  uint8_t v = breathing_value(LED_CAPS_LOCK, 200);
+  RGB rgb = hsv_to_rgb_with_value((HSV){83, 245, v});
+  rgb_matrix_set_color(LED_CAPS_LOCK, rgb.r, rgb.g, rgb.b);
 }
 
 void apply_caps_word_animation(void) {
@@ -523,6 +533,9 @@ bool rgb_matrix_indicators_user(void) {
   }
   if (active_layer == SYS) {
     apply_os_indicator();
+    if (host_keyboard_led_state().caps_lock) {
+      apply_caps_lock_indicator();
+    }
   }
   return true;
 }
@@ -553,6 +566,16 @@ void load_eeprom(void) {
 void keyboard_post_init_user(void) {
   rgb_matrix_enable();
   load_eeprom();
+}
+
+/* ######### SUSPEND / WAKE ######### */
+
+void suspend_power_down_user(void) {
+  rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_user(void) {
+  rgb_matrix_set_suspend_state(false);
 }
 
 /* ######### TAPPING TERM ######### */
@@ -681,6 +704,12 @@ static void tap_pair_by_os(uint16_t win_open, uint16_t win_close,
   PERFORM_BY_OS(tap_pair(win_open, win_close), tap_pair(mac_open, mac_close));
 }
 
+// Copy the current selection, open a new tab, paste into the omnibox, search.
+static void web_search_selection(void) {
+  PERFORM_BY_OS(SEND_STRING(SS_LCTL("ct") SS_DELAY(200) SS_LCTL("v") SS_TAP(X_ENTER)),
+                SEND_STRING(SS_LGUI("ct") SS_DELAY(200) SS_LGUI("v") SS_TAP(X_ENTER)));
+}
+
 /* ######### MAIN KEY PROCESSING ######### */
 
 bool process_pressed_keycode(uint16_t keycode) {
@@ -705,6 +734,8 @@ bool process_pressed_keycode(uint16_t keycode) {
     case U_SE_CBR_PAIR:  tap_pair_by_os(SE_LCBR_WIN, SE_RCBR_WIN, SE_LCBR_MAC, SE_RCBR_MAC);    return false;
     case U_SE_ABK_PAIR:  tap_pair_by_os(SE_LESS_WIN, SE_GRTR_WIN, SE_LESS_MAC, SE_GRTR_MAC);    return false;
     case U_SEARCH:       PERFORM_BY_OS(tap_code16(C(KC_F)),      tap_code16(G(KC_F)));          break;
+    case U_SRCH_SEL:     web_search_selection();                                                return false;
+    case U_CAPS_LOCK:    tap_code_delay(KC_CAPS, 100);                                          return false;
     case U_CUT:          PERFORM_BY_OS(tap_code16(C(KC_X)),      tap_code16(G(KC_X)));          break;
     case U_COPY:         PERFORM_BY_OS(tap_code16(C(KC_C)),      tap_code16(G(KC_C)));          break;
     case U_PASTE:        PERFORM_BY_OS(tap_code16(C(KC_V)),      tap_code16(G(KC_V)));          break;
