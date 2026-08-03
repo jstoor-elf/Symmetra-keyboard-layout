@@ -1,4 +1,4 @@
-# Rhizome
+# The Rhizome Keyboard Layout
 
 > Named after the **rhizome** — a network with no center, where any node connects to any other. Few keys, richly connected by combos.
 
