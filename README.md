@@ -33,7 +33,7 @@ The core idea is a **preference for chords over sequences** — where a sequence
 
 Chords are mostly reserved for input that injects a character into the text — symbols and numbers, which enter the stream the same way the letters do, each as one atomic event with nothing to hold or sequence. Editing shortcuts are commands on text rather than character input, so they are set apart from the typing stream rather than chorded into it. Modifiers are a partial exception: they are chorded too, though only Shift genuinely shapes a character, while Ctrl, Alt and Gui serve commands.
 
-## Compilation and flashing
+## Compilation and Flashing
 
 `scripts/deploy.sh` builds and flashes the keymap via [QMK](https://github.com/qmk/qmk_firmware), which it expects cloned at `~/qmk_firmware`. It symlinks `src/` into the Voyager keymaps directory, compiles, and — after a confirmation — flashes the board.
 
