@@ -338,11 +338,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define C_ORG  {20,  255, 245}  // orange
 #define C_GRN  {83,  245, 180}  // green
 #define C_RED  {0,   255, 170}  // red
-#define C_SLV  {0,   15,  120}  // silver
+#define C_PRP  {180, 180, 170}  // purple
 // Extra palette — used on non-base layers only
+#define C_SLV  {0,   20,  120}  // silver
 #define C_YLW  {30,  241, 180}  // yellow
 #define C_BLU  {148, 220, 230}  // blue
-#define C_PRP  {180, 180, 170}  // purple
 #define C_TEA  {120, 223, 209}  // teal
 #define C_PNK  {234, 240, 255}  // hot pink
 #define C_LBL  {150, 150, 220}  // light blue
@@ -357,14 +357,14 @@ const HSV PROGMEM ledmap[][RGB_MATRIX_LED_COUNT] = {
     // Left side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
     C_OFF, C_GRN, C_ORG, C_ORG, C_ORG, C_ORG,       // B(outer) L D C V
-    C_OFF, C_GRN, C_SLV, C_SLV, C_SLV, C_SLV,       // N(outer) R T S G
-    C_OFF, C_GRN, C_SLV, C_SLV, C_SLV, C_SLV,       // X(outer) Q M W Z
+    C_OFF, C_GRN, C_PRP, C_PRP, C_PRP, C_PRP,       // N(outer) R T S G
+    C_OFF, C_GRN, C_PRP, C_PRP, C_PRP, C_PRP,       // X(outer) Q M W Z
     C_RED, C_RED,                                   // T_L_OUT, T_L_IN
     // Right side
     C_OFF, C_OFF, C_OFF, C_OFF, C_OFF, C_OFF,       // top row (dead)
     C_ORG, C_ORG, C_ORG, C_ORG, C_GRN, C_OFF,       // J Y REPEAT U COMMA(outer)
-    C_SLV, C_SLV, C_SLV, C_SLV, C_GRN, C_OFF,       // P H A I O(outer)
-    C_SLV, C_SLV, C_SLV, C_SLV, C_GRN, C_OFF,       // K F ADIA OSLH DOT(outer)
+    C_PRP, C_PRP, C_SLV, C_PRP, C_GRN, C_OFF,       // P H A I O(outer)
+    C_PRP, C_PRP, C_PRP, C_PRP, C_GRN, C_OFF,       // K F ADIA OSLH DOT(outer)
     C_RED, C_RED                                    // T_R_IN, T_R_OUT
   },
 
